@@ -12,3 +12,24 @@ body {
     margin: 0px;
     font-size: 50px;
 }
+
+#world-Wrapper {
+    -moz-column-count:2;
+    -webkit-column-count:2;
+    column-count:2;
+    width: 35%;
+    text-align: center;
+    margin: auto;
+}
+
+.world-button {
+padding: 0px;
+margin: 20px;
+}
+
+#back-button {
+ margin: 5px;
+ position: absolute;
+ left: 20px;
+ top: 1000px;
+}
