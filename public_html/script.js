@@ -4,15 +4,25 @@
  * and open the template in the editor.
  */
 
+//Creating the global
 
-function loadDoc() {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState === 4 && this.status === 200) {
-            document.getElementById("gameScreen").innerHTML =
-            this.responseText;
-       }
-    };
-    xhttp.open("GET", "mainMenu/mainMenu.html", true);
-    xhttp.send(); 
-}
+var gameScreen = document.createElement('div');
+gameScreen.id = "gameScreen";
+
+//Start the game
+
+var startxhttp = new XMLHttpRequest();
+startxhttp.onreadystatechange = function () {
+    if (this.readyState === 4 && this.status === 200) {
+
+        gameScreen.innerHTML = this.responseText;
+        document.body.appendChild(gameScreen);
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = "startScreen/startScreen.js";
+        gameScreen.append(script);
+    }
+};
+
+startxhttp.open("GET", "startScreen/startScreen.html", true);
+startxhttp.send();
