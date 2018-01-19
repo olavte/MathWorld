@@ -66,3 +66,31 @@ body {
     box-shadow: 0 5px #666;
     transform: translateY(4px);
 }
+
+#world-Wrapper {
+    -moz-column-count:3;
+    -webkit-column-count:3;
+    column-count:3;
+    -moz-column-gap: 25px;
+    -webkit-column-gap: 25px;
+    column-gap: 25px;
+    text-align: center;
+    margin: auto;
+    width: 50%;
+    
+}
+
+.world-button {
+padding: 0px;
+margin: 20px;
+}
+
+#back-button {
+ margin: 5px;
+ position: absolute;
+ left: 20px;
+ top: 690px;
+}
+#Title-World-Select{
+    text-align: center;
+}
