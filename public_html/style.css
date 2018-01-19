@@ -14,12 +14,16 @@ body {
 }
 
 #world-Wrapper {
-    -moz-column-count:2;
-    -webkit-column-count:2;
-    column-count:2;
-    width: 35%;
+    -moz-column-count:3;
+    -webkit-column-count:3;
+    column-count:3;
+    -moz-column-gap: 25px;
+    -webkit-column-gap: 25px;
+    column-gap: 25px;
     text-align: center;
     margin: auto;
+    width: 50%;
+    
 }
 
 .world-button {
@@ -31,5 +35,5 @@ margin: 20px;
  margin: 5px;
  position: absolute;
  left: 20px;
- top: 1000px;
+ top: 690px;
 }
