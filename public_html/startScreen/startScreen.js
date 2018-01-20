@@ -5,6 +5,7 @@
  */
 
 window.addEventListener("click", myFunction);
+window.addEventListener("click", clearStartScreenInterval);
 
 // If the user clicks in the window, set the background color of <body> to yellow
 function myFunction() {
@@ -22,3 +23,21 @@ function myFunction() {
     xhttp.open("GET", "mainMenu/mainMenu.html", true);
     xhttp.send();
 }
+
+blinkText = function(){
+    var el = document.getElementById("clickToStart");
+    if (el.style.display === 'block') {
+        el.style.display = 'none';
+    } else {
+        el.style.display = 'block';
+    }
+};
+
+var startScreenInterval = setInterval(blinkText, 1000);
+
+function clearStartScreenInterval() {
+    window.removeEventListener("click", clearStartScreenInterval);
+    clearInterval(startScreenInterval);
+    startScreenInterval = null;
+}
+
