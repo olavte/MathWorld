@@ -1,9 +1,20 @@
-// MathWorld //
+                                                                     Math World 
 
-*   Spillet skal ha 24 nivåer der hvert nivå har sitt eget særpreg.
-*   Der skal være 4 utfordringer på hver bane.
-*   Spørsmålene skal være matterelatert.
-*   Spørsmålene må være algoritme baserte slik de forandrerer seg og ikke er 
-    konstante.
-*   Artstyle skal være sterkt inspirert av det de selv tegnet
-*   Musikk?
+•	Engelsk språk, men også Norsk og kanskje Spansk
+•	Matte tegn som karakterar (pluss, minus, dele, gonge, runde av), for kvar verden med samme tema
+•	Figuren trenge ikkje visast på kartet over verden, men når du trykker på bane kan den kanskje visast atmed spørsmålet
+•	4 baner per verden, med 4 spørsmål i stigende vanskelighets grad. Siste bane har tidsbegrensing
+•	Alle baner må bli fullført før du kan skifte verden
+•	Stjerner når du svarer rett (huska ikkje antall og om kun siste bane gav stjerne?) til å kjøpe tivoli bilettar
+•	Tivoli bilettar kan bli brukt til å kjøpe ting, som mini-spel(?)
+•	Matte oppgåver har «multiple choise» svar, 3 for dei lettare, økande antall for vanskeligare(?)
+•	Verdenar i rekkefølge, første til siste: Pluss, Minus, Runde av, Gange, Dele
+•	Lyd skal spele når du klarer en verden, ala fanfare
+•	24 totalt bane
+•	Gange kun opp til 12 gangen
+•	Siste verden «grubliser», som f.eks matte oppgåve i tekst form.
+•	Får 30 stjerner og Nøkkel til neste verden når du har fullført en verden
+•	Valgfri bane i en verden, men må slå alle for å gå vidare (usikkerheit her, dei va ikkje enige).
+•	Kan gjenta tidligare baner etter du har slått dei, om du vill
+•	Menyer: Første blir «Play(videre til «continue» eller «new game», Settings(Videre til lydnivå og språk valg), og en form for credits. Og dalende tall som animasjon i menyen
+•	Confirmation vindu når du kjøper ting, for eksempel biletter eller annet
