@@ -3,27 +3,3 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
-function loadDoc() {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("gameScreen").innerHTML =
-            this.responseText;
-       }
-    };
-    xhttp.open("GET", "stages/stage01/stage01.html", true);
-    xhttp.send(); 
-}
-
-function goToWorldSelect() {
-    var getSelectHTML = new XMLHttpRequest();
-    getSelectHTML.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            gameScreen.innerHTML = this.responseText;
-       }
-    };
-    getSelectHTML.open("GET", "WorldSelection.html", true);
-    getSelectHTML.send();
-}

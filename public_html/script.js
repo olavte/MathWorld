@@ -8,21 +8,22 @@
 
 var gameScreen = document.createElement('div');
 gameScreen.id = "gameScreen";
+document.body.appendChild(gameScreen);
+
+function goToNewScreen(html, js) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            gameScreen.innerHTML = this.responseText;
+            var script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.src = js;
+            gameScreen.append(script);
+        }
+    };
+    xhttp.open("GET", html, true);
+    xhttp.send();
+}
 
 //Start the game
-
-var startxhttp = new XMLHttpRequest();
-startxhttp.onreadystatechange = function () {
-    if (this.readyState === 4 && this.status === 200) {
-
-        gameScreen.innerHTML = this.responseText;
-        document.body.appendChild(gameScreen);
-        var script = document.createElement('script');
-        script.type = 'text/javascript';
-        script.src = "startScreen/startScreen.js";
-        gameScreen.append(script);
-    }
-};
-
-startxhttp.open("GET", "startScreen/startScreen.html", true);
-startxhttp.send();
+goToNewScreen("startScreen/startScreen.html", "startScreen/startScreen.js");
