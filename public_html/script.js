@@ -10,11 +10,24 @@ var gameScreen = document.createElement('div');
 gameScreen.id = "gameScreen";
 document.body.appendChild(gameScreen);
 
+function fadeIn(element) {
+    element.style.opacity = 0;
+    var op = 0.01;  // initial opacity
+    var timer = setInterval(function () {
+        if (op >= 1){
+            clearInterval(timer);
+        }
+        element.style.opacity = op;
+        op += 0.02;
+    }, 10);
+}
+
 function goToNewScreen(html, js) {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
             gameScreen.innerHTML = this.responseText;
+            fadeIn(gameScreen);
             var script = document.createElement('script');
             script.type = 'text/javascript';
             script.src = js;
