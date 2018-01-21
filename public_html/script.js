@@ -12,6 +12,14 @@ document.body.appendChild(gameScreen);
 
 var animationLoop = null;
 
+myAudio = new Audio('assets/startScreen.mp3');
+myAudio.volume = 0.2;
+myAudio.addEventListener('ended', function() {
+    this.currentTime = 0;
+    this.play();
+}, false);
+myAudio.play();
+
 function fadeIn(element) {
     element.style.opacity = 0;
     var op = 0.2;  // initial opacity
