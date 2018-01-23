@@ -111,3 +111,64 @@ margin: 20px;
 #Title-World-Select{
     text-align: center;
 }
+
+#world1{
+    background: url("assets/world1/world1photo.png") no-repeat center center fixed;
+    -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: 100% 100%;
+  margin:auto;
+ background-repeat: no-repeat;  
+    height: 1080px;
+    position: relative;
+}
+
+
+.world1title {
+    margin: 0px;
+    text-align: center;
+    font-size:50px;
+    color:white;
+}   
+
+#buttons{
+    
+   float:right;
+   margin-top:400px;
+   margin-right:1300px;
+
+}
+
+.mathbutton{
+    
+ padding: 0px;
+ margin:150px;
+ 
+}
+
+#mathwrapper{
+    
+   margin-left:500px;
+   margin-bottom:200px;
+  
+   
+}
+
+
+.icecream{
+    
+    
+   
+    position:relative;
+    margin-left:205px;
+   
+    
+}
+
+.cloud{
+    
+   
+    margin-left:200px;
+    
+}
