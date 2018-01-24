@@ -4,11 +4,13 @@
  * and open the template in the editor.
  */
 
-var modal = document.getElementById('myModal');
-var settingsContent = document.getElementById("settingsModalContent");
-var exitSettingsBtn = document.getElementById("closeSettings");
 var volumeBarInterval = 0;
-document.getElementById("myVolumeRange").value = myAudio.volume * 100;
+
+document.getElementById("myVolumeRange").defaultValue = myAudio.volume * 100;
+
+function getCurrentVolume() {
+    return myAudio.volume * 100;
+}
 
 function volumeBarClickedDown() {
     volumeBarInterval = setInterval(changeVolume, 100);
