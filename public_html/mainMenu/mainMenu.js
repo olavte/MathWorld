@@ -4,6 +4,22 @@
  * and open the template in the editor.
  */
 
+var modal = document.getElementById('myModal');
+var settingsContent = document.getElementById("settingsModalContent");
+var exitSettingsBtn = document.getElementById("closeSettings");
+
+// When the user clicks the button, open the modal 
+function mainMenuSettings() {
+    modal.style.display = "block";
+    settingsContent.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+function exitSettings () {
+    modal.style.display = "none";
+    settingsContent.style.display = "none";
+};
+
 //canvas init
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");

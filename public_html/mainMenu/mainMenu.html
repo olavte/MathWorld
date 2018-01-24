@@ -4,27 +4,34 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-    
+
+<div id="myModal" class="modal">
+    <div id="settingsModalContent">
+        <span id="closeSettings" onclick="exitSettings()">&times;</span>
+        <p>Settings!</p>
+    </div>
+</div>
+
 <div id=mainMenuContainer>
     <canvas id="canvas"></canvas>
-        <div class=mainMenuCenter>
+    <div class=mainMenuCenter>
         <img src="assets/mainMenu/titleimage.png" alt="Title image">
     </div>
     <div class=mainMenuCenter>
         <button onclick="loadDoc()">Start Game</button>
     </div>
-    
+
     <div class=mainMenuCenter>
         <button onclick="goToNewScreen('WorldSelection/WorldSelection.html', 'WorldSelection/WorldSelection.js')">Select World</button>
     </div>
-    
+
     <div class=mainMenuCenter>
-        <button onclick="loadDoc()">Options</button>
+        <button onclick="mainMenuSettings()">Options</button>
     </div>
-    
+
     <div class=mainMenuCenter>
         <button onclick="loadDoc()">Credits</button>
     </div>
-    
-   <script src="script.js"></script>
+
+    <script src="script.js"></script>
 </div>
