@@ -9,6 +9,13 @@ and open the template in the editor.
     <div id="settingsModalContent">
         <span id="closeSettings" onclick="exitSettings()">&times;</span>
         <p>Settings!</p>
+        <div class="volumeSlidecontainer">
+            <p>Volume:</p>
+            <input type="range" min="0" max="100" value="50" 
+                   class="volumeSlider" id="myVolumeRange" 
+                   onmousedown="volumeBarClickedDown()" 
+                   onmouseup="volumeBarClickedUp()">
+        </div>
     </div>
 </div>
 

@@ -10,9 +10,11 @@ var gameScreen = document.createElement('div');
 gameScreen.id = "gameScreen";
 document.body.appendChild(gameScreen);
 
+var globalVolume = 1;
+
 var animationLoop = null;
 
-myAudio = new Audio('assets/startScreen.mp3');
+var myAudio = new Audio('assets/startScreen.mp3');
 myAudio.volume = 0.2;
 myAudio.addEventListener('ended', function() {
     this.currentTime = 0;

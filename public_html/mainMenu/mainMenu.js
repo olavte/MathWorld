@@ -7,6 +7,20 @@
 var modal = document.getElementById('myModal');
 var settingsContent = document.getElementById("settingsModalContent");
 var exitSettingsBtn = document.getElementById("closeSettings");
+var volumeBarInterval = 0;
+document.getElementById("myVolumeRange").value = myAudio.volume * 100;
+
+function volumeBarClickedDown() {
+    volumeBarInterval = setInterval(changeVolume ,100);
+}
+
+function changeVolume() {
+    myAudio.volume = document.getElementById("myVolumeRange").value/100;
+}
+
+function volumeBarClickedUp() {
+    removeInterval(volumeBarInterval);
+}
 
 // When the user clicks the button, open the modal 
 function mainMenuSettings() {
@@ -15,10 +29,10 @@ function mainMenuSettings() {
 }
 
 // When the user clicks on <span> (x), close the modal
-function exitSettings () {
+function exitSettings() {
     modal.style.display = "none";
     settingsContent.style.display = "none";
-};
+}
 
 //canvas init
 var canvas = document.getElementById("canvas");
