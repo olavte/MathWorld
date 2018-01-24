@@ -122,6 +122,32 @@ body {
     cursor: pointer;
 }
 
+/* Modal Content/Box */
+#creditsModalContent {
+    background-color: rgb(25, 25, 25);
+    color: white;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 2px solid #888;
+    border-radius: 5px;
+    width: 25%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.closeModal {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.closeModal:hover,
+.closeModal:focus {
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
+
 .mainMenuCenter img{
     max-width: 100%;
     max-height: 100%;

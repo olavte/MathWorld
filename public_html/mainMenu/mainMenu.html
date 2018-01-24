@@ -7,15 +7,26 @@ and open the template in the editor.
 
 <div id="myModal" class="modal">
     <div id="settingsModalContent">
-        <span id="closeSettings" onclick="exitSettings()">&times;</span>
+        <span class="closeModal" onclick="exitModal()">&times;</span>
         <p>Settings!</p>
         <div class="volumeSlidecontainer">
             <p>Volume:</p>
-            <input type="range" min="0" max="100" value="50" 
+            <input type="range" min="0" max="100"
                    class="volumeSlider" id="myVolumeRange" 
                    onmousedown="volumeBarClickedDown()" 
                    onmouseup="volumeBarClickedUp()">
         </div>
+    </div>
+    <div id="creditsModalContent">
+        <span class="closeModal" onclick="exitModal()">&times;</span>
+        <h1>Credits!</h1>
+        <h2>Made by:</h2>
+        <p> 
+            Olav<br>
+            Einar<br>
+            Knut<br>
+            Eivind<br>
+        </p>
     </div>
 </div>
 
@@ -25,7 +36,7 @@ and open the template in the editor.
         <img src="assets/mainMenu/titleimage.png" alt="Title image">
     </div>
     <div class=mainMenuCenter>
-        <button onclick="loadDoc()">Start Game</button>
+        <button onclick="goToNewScreen('worlds/world01/stage01.html', 'worlds/world01/stage1js.js')">Start Game</button>
     </div>
 
     <div class=mainMenuCenter>
@@ -37,7 +48,7 @@ and open the template in the editor.
     </div>
 
     <div class=mainMenuCenter>
-        <button onclick="loadDoc()">Credits</button>
+        <button onclick="mainMenuCredits()">Credits</button>
     </div>
 
     <script src="script.js"></script>

@@ -11,7 +11,7 @@ var volumeBarInterval = 0;
 document.getElementById("myVolumeRange").value = myAudio.volume * 100;
 
 function volumeBarClickedDown() {
-    volumeBarInterval = setInterval(changeVolume ,100);
+    volumeBarInterval = setInterval(changeVolume, 100);
 }
 
 function changeVolume() {
@@ -22,16 +22,25 @@ function volumeBarClickedUp() {
     removeInterval(volumeBarInterval);
 }
 
-// When the user clicks the button, open the modal 
+// When the user clicks the settings button, open the settings modal 
 function mainMenuSettings() {
-    modal.style.display = "block";
-    settingsContent.style.display = "block";
+    document.getElementById('myModal').style.display = "block";
+    document.getElementById("settingsModalContent").style.display = "block";
+    document.getElementById("creditsModalContent").style.display = "none";
+}
+
+// When the user clicks the credits button, open the credits modal 
+function mainMenuCredits() {
+    document.getElementById('myModal').style.display = "block";
+    document.getElementById("settingsModalContent").style.display = "none";
+    document.getElementById("creditsModalContent").style.display = "block";
 }
 
 // When the user clicks on <span> (x), close the modal
-function exitSettings() {
-    modal.style.display = "none";
-    settingsContent.style.display = "none";
+function exitModal() {
+    document.getElementById('myModal').style.display = "none";
+    document.getElementById("settingsModalContent").style.display = "none";
+    document.getElementById("creditsModalContent").style.display = "none";
 }
 
 //canvas init
