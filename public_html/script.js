@@ -11,16 +11,18 @@ gameScreen.id = "gameScreen";
 document.body.appendChild(gameScreen);
 
 var globalVolume = 1;
+var musicVolume = 1;
+var soundVolume = 1;
 
 var animationLoop = null;
 
-var myAudio = new Audio('assets/startScreen.mp3');
-myAudio.volume = 0.2;
-myAudio.addEventListener('ended', function() {
+var mainMusic = new Audio('assets/startScreen.mp3');
+mainMusic.volume = globalVolume * musicVolume;
+mainMusic.addEventListener('ended', function() {
     this.currentTime = 0;
     this.play();
 }, false);
-myAudio.play();
+mainMusic.play();
 
 function fadeIn(element) {
     element.style.opacity = 0;

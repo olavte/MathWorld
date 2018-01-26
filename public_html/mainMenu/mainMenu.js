@@ -6,18 +6,26 @@
 
 var volumeBarInterval = 0;
 
-document.getElementById("myVolumeRange").defaultValue = myAudio.volume * 100;
+document.getElementById("mainVolumeRange").defaultValue = globalVolume*100;
+document.getElementById("musicVolumeRange").defaultValue = musicVolume*100;
+document.getElementById("soundVolumeRange").defaultValue = soundVolume*100;
 
-function getCurrentVolume() {
-    return myAudio.volume * 100;
-}
-
-function volumeBarClickedDown() {
+function volumeBarClickedDown(changeVolume) {
     volumeBarInterval = setInterval(changeVolume, 100);
 }
 
-function changeVolume() {
-    myAudio.volume = document.getElementById("myVolumeRange").value/100;
+function changeVolumeOnMain() {
+    globalVolume = document.getElementById("mainVolumeRange").value/100;
+    mainMusic.volume = globalVolume * musicVolume;
+}
+
+function changeVolumeOnMusic() {
+    musicVolume = document.getElementById("musicVolumeRange").value/100;
+    mainMusic.volume = globalVolume * musicVolume;
+}
+
+function changeVolumeOnSound() {
+    soundVolume = document.getElementById("soundVolumeRange").value/100;
 }
 
 function volumeBarClickedUp() {

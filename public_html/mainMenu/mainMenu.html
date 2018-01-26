@@ -10,10 +10,21 @@ and open the template in the editor.
         <span class="closeModal" onclick="exitModal()">&times;</span>
         <p>Settings!</p>
         <div class="volumeSlidecontainer">
-            <p>Volume:</p>
+            <p>Volume:</p><br>
+            Main<br><br>
             <input type="range" min="0" max="100"
-                   class="volumeSlider" id="myVolumeRange" 
-                   onmousedown="volumeBarClickedDown()" 
+                   class="volumeSlider" id="mainVolumeRange" 
+                   onmousedown="volumeBarClickedDown(changeVolumeOnMain)" 
+                   onmouseup="volumeBarClickedUp()">
+            Music<br><br>
+            <input type="range" min="0" max="100"
+                   class="volumeSlider" id="musicVolumeRange" 
+                   onmousedown="volumeBarClickedDown(changeVolumeOnMusic)" 
+                   onmouseup="volumeBarClickedUp()">
+            Sound<br><br>
+            <input type="range" min="0" max="100"
+                   class="volumeSlider" id="soundVolumeRange" 
+                   onmousedown="volumeBarClickedDown(changeVolumeOnSound)" 
                    onmouseup="volumeBarClickedUp()">
         </div>
     </div>
