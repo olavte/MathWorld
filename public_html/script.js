@@ -14,6 +14,10 @@ var globalVolume = 1;
 var musicVolume = 1;
 var soundVolume = 1;
 
+var latestWorld = 0;
+var currentWorld = 0;
+var currentStage = 0;
+
 var animationLoop = null;
 
 var mainMusic = new Audio('assets/startScreen.mp3');
