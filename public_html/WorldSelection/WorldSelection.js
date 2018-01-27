@@ -4,6 +4,26 @@
  * and open the template in the editor.
  */
 
+// User clicks the candyland button, open the candyland modal 
+function worldSelectCandyLand() {
+    document.getElementById('myModal').style.display = "block";
+    document.getElementById("selectCandyLandModalContent").style.display = "block";
+    document.getElementById("selectParisModalContent").style.display = "none";
+}
+
+// User clicks the paris button, open the paris modal 
+function worldSelectParis() {
+    document.getElementById('myModal').style.display = "block";
+    document.getElementById("selectCandyLandModalContent").style.display = "none";
+    document.getElementById("selectParisModalContent").style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+function exitModal() {
+    document.getElementById('myModal').style.display = "none";
+    document.getElementById("selectCandyLandModalContent").style.display = "none";
+    document.getElementById("selectParisModalContent").style.display = "none";
+}
 
 //canvas init
 var canvas = document.getElementById("canvas");
@@ -59,24 +79,9 @@ function update()
         p.y += Math.cos(angle + p.d) + 1 + p.r / 2;
         p.x += Math.sin(angle) * 2;
 
-        if (p.x > W + 15 || p.x < -15 || p.y > H + 200)
+        if (p.x > W + 15 || p.x < -200 || p.y > H + 200)
         {
-            if (i % 3 > 0) //66.67% of the letters
-            {
-                particles[i] = {x: Math.random() * W, y: -10, r: p.r, d: p.d, n: p.n, s: p.s, cr: p.cr, cg: p.cg, cb: p.cb};
-            } else
-            {
-                //If the letter is exitting from the right
-                if (Math.sin(angle) > 0)
-                {
-                    //Enter from the left
-                    particles[i] = {x: -5, y: Math.random() * H, r: p.r, d: p.d, n: p.n, s: p.s, cr: p.cr, cg: p.cg, cb: p.cb};
-                } else
-                {
-                    //Enter from the right
-                    particles[i] = {x: W + 5, y: Math.random() * H, r: p.r, d: p.d, n: p.n, s: p.s, cr: p.cr, cg: p.cg, cb: p.cb};
-                }
-            }
+            particles[i] = {x: Math.random() * W, y: -10, r: p.r, d: p.d, n: p.n, s: p.s, cr: p.cr, cg: p.cg, cb: p.cb};
         }
     }
 }

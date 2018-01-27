@@ -4,56 +4,65 @@
  * and open the template in the editor.
  */
 
+// setting a global variable for the volume sliders
 var volumeBarInterval = 0;
 
-document.getElementById("mainVolumeRange").defaultValue = globalVolume*100;
-document.getElementById("musicVolumeRange").defaultValue = musicVolume*100;
-document.getElementById("soundVolumeRange").defaultValue = soundVolume*100;
+// setting default value on input range tags
+document.getElementById("mainVolumeRange").defaultValue = globalVolume * 100;
+document.getElementById("musicVolumeRange").defaultValue = musicVolume * 100;
+document.getElementById("soundVolumeRange").defaultValue = soundVolume * 100;
 
+// User clicks on one of the sliders, starts volumeBarInterval timer
 function volumeBarClickedDown(changeVolume) {
     volumeBarInterval = setInterval(changeVolume, 100);
 }
 
+// Changes the main volume
 function changeVolumeOnMain() {
-    globalVolume = document.getElementById("mainVolumeRange").value/100;
+    globalVolume = document.getElementById("mainVolumeRange").value / 100;
     mainMusic.volume = globalVolume * musicVolume;
 }
 
+// Changes the music volume
 function changeVolumeOnMusic() {
-    musicVolume = document.getElementById("musicVolumeRange").value/100;
+    musicVolume = document.getElementById("musicVolumeRange").value / 100;
     mainMusic.volume = globalVolume * musicVolume;
 }
 
+// Changes the sound volume
 function changeVolumeOnSound() {
-    soundVolume = document.getElementById("soundVolumeRange").value/100;
+    soundVolume = document.getElementById("soundVolumeRange").value / 100;
 }
 
+// User releases the button, removes volumeBarInterval
 function volumeBarClickedUp() {
     removeInterval(volumeBarInterval);
 }
 
-// When the user clicks the settings button, open the settings modal 
+// User clicks the settings button, open the settings modal 
 function mainMenuSettings() {
     document.getElementById('myModal').style.display = "block";
     document.getElementById("settingsModalContent").style.display = "block";
     document.getElementById("creditsModalContent").style.display = "none";
 }
 
-// When the user clicks the credits button, open the credits modal 
+// User clicks the credits button, open the credits modal 
 function mainMenuCredits() {
     document.getElementById('myModal').style.display = "block";
     document.getElementById("settingsModalContent").style.display = "none";
     document.getElementById("creditsModalContent").style.display = "block";
 }
 
-// When the user clicks on <span> (x), close the modal
+// User clicks on <span> (x), close the modal
 function exitModal() {
     document.getElementById('myModal').style.display = "none";
     document.getElementById("settingsModalContent").style.display = "none";
     document.getElementById("creditsModalContent").style.display = "none";
 }
 
+//Letters falling animation
 //canvas init
+
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 
@@ -107,24 +116,9 @@ function update()
         p.y += Math.cos(angle + p.d) + 1 + p.r / 2;
         p.x += Math.sin(angle) * 2;
 
-        if (p.x > W + 15 || p.x < -15 || p.y > H + 200)
+        if (p.x > W + 15 || p.x < -200 || p.y > H + 200)
         {
-            if (i % 3 > 0) //66.67% of the letters
-            {
-                particles[i] = {x: Math.random() * W, y: -10, r: p.r, d: p.d, n: p.n, s: p.s, cr: p.cr, cg: p.cg, cb: p.cb};
-            } else
-            {
-                //If the letter is exitting from the right
-                if (Math.sin(angle) > 0)
-                {
-                    //Enter from the left
-                    particles[i] = {x: -5, y: Math.random() * H, r: p.r, d: p.d, n: p.n, s: p.s, cr: p.cr, cg: p.cg, cb: p.cb};
-                } else
-                {
-                    //Enter from the right
-                    particles[i] = {x: W + 5, y: Math.random() * H, r: p.r, d: p.d, n: p.n, s: p.s, cr: p.cr, cg: p.cg, cb: p.cb};
-                }
-            }
+            particles[i] = {x: Math.random() * W, y: -10, r: p.r, d: p.d, n: p.n, s: p.s, cr: p.cr, cg: p.cg, cb: p.cb};
         }
     }
 }

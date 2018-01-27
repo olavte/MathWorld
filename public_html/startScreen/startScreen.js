@@ -85,24 +85,9 @@ function update()
         p.y += Math.cos(angle + p.d) + 1 + p.r / 2;
         p.x += Math.sin(angle) * 2;
 
-        if (p.x > W + 15 || p.x < -15 || p.y > H + 200)
+        if (p.x > W + 15 || p.x < -200 || p.y > H + 200)
         {
-            if (i % 3 > 0) //66.67% of the letters
-            {
-                particles[i] = {x: Math.random() * W, y: -10, r: p.r, d: p.d, n: p.n, s: p.s, cr: p.cr, cg: p.cg, cb: p.cb};
-            } else
-            {
-                //If the letter is exitting from the right
-                if (Math.sin(angle) > 0)
-                {
-                    //Enter from the left
-                    particles[i] = {x: -5, y: Math.random() * H, r: p.r, d: p.d, n: p.n, s: p.s, cr: p.cr, cg: p.cg, cb: p.cb};
-                } else
-                {
-                    //Enter from the right
-                    particles[i] = {x: W + 5, y: Math.random() * H, r: p.r, d: p.d, n: p.n, s: p.s, cr: p.cr, cg: p.cg, cb: p.cb};
-                }
-            }
+            particles[i] = {x: Math.random() * W, y: -10, r: p.r, d: p.d, n: p.n, s: p.s, cr: p.cr, cg: p.cg, cb: p.cb};
         }
     }
 }

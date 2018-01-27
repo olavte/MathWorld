@@ -1,25 +1,39 @@
+<div id="myModal" class="modal">
+    
+    <!-- Modal for Candyland! -->
+    
+    <div id="selectCandyLandModalContent">
+        <span class="closeModal" onclick="exitModal()">&times;</span>
+        <h1>Candyland!</h1>
+        <img src="assets/world1/world1photo.png" height="200">
+    </div>
+    
+    <!-- Modal for Paris  -->
+    
+    <div id="selectParisModalContent">
+        <span class="closeModal" onclick="exitModal()">&times;</span>
+        <h1>Credits!</h1>
+    </div>
+</div>
+
+<!-- The World Select main window -->
+
 <div id="World-Select">
         <canvas id="canvas"></canvas>
         <h6 id="Title-World-Select">Select World:</h6>
-        <div id="world-Wrapper">
-            <button id="selectWorld1Button" onclick="goToNewScreen('worlds/world01/stage01.html', 'null')">
-                Candyland! :D
-            </button>
-            <button id="selectWorld2Button" onclick="goToNewScreen('worlds/world01/stage01.html', 'null')">
-                <img src="http://via.placeholder.com/300" alt="Placeholder Image" height="140"/>
-            </button>
-            <button id="selectWorld3Button" onclick="goToNewScreen('worlds/world01/stage01.html', 'null')">
-                <img src="http://via.placeholder.com/300" alt="Placeholder Image" height="140"/>
-            </button>
-            <button id="selectWorld4Button" onclick="goToNewScreen('worlds/world01/stage01.html', 'null')">
-                <img src="http://via.placeholder.com/300" alt="Placeholder Image" height="140"/>
-            </button>
-            <button id="selectWorld5Button" onclick="goToNewScreen('worlds/world01/stage01.html', 'null')">
-                <img src="http://via.placeholder.com/300" alt="Placeholder Image" height="140"/>
-            </button>
-            <button id="selectWorld6Button" onclick="goToNewScreen('worlds/world01/stage01.html', 'null')">
-                <img src="http://via.placeholder.com/300" alt="Placeholder Image" height="140"/>
-            </button>
+        <div id="worldSelectionWrapper">
+            <button id="selectWorld1Button" class="selectWorldButton" 
+                    onclick="worldSelectCandyLand()"></button>
+            <button id="selectWorld3Button" class="selectWorldButton" 
+                    onclick="worldSelectParis()"></button>
+            <button id="selectWorld2Button" class="selectWorldButton" 
+                    onclick="goToNewScreen('worlds/world01/stage01.html', 'null')"></button>
+            <button id="selectWorld3Button" class="selectWorldButton" 
+                    onclick="goToNewScreen('worlds/world01/stage01.html', 'null')"></button>
+            <button id="selectWorld3Button" class="selectWorldButton" 
+                    onclick="goToNewScreen('worlds/world01/stage01.html', 'null')"></button>
+            <button id="selectWorld6sButton" class="selectWorldButton" 
+                    onclick="goToNewScreen('worlds/world01/stage01.html', 'null')"></button>
         </div>
         <button id="back-button" onclick="goToNewScreen('mainMenu/mainMenu.html', 'mainMenu/mainMenu.js')">Back</button>
         <script src="script.js"></script>
