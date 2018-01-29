@@ -6,46 +6,69 @@
 
 
 //math JS testing atm
-//@param world wich world, to know operation
-function GetMath(world) {
+//legger sammen to tall, legger til i en array, shuffler arrayen
+//skriver dynamisk matte spørsmål og liste med 1 rett 2 feil svar
+//i tilfelding rekkefølge
+function GetMath() {
+    var firstNumber = randomNumber(100);
+    var secondNumber = randomNumber(100);
+    var answer = firstNumber + secondNumber;
+    var options = [answer, randomNumber(200), randomNumber(150)];
+    var oLen = options.length;
     
-    var number1 = randomNumber(100);
-    var number2 = randomNumber(100);
-    var question = "";
-    var answer = "";
-    var answerMix = randomNumber(2);
+    shuffle(options);
     
-    //Dummy id's atm, setter spørsmål og svar i div's
-    if(world===01) {
-        question = "What is " + number1 + " + " + number2 + "?";
-        answer = number1 + number2;
-        document.getElementById("World1Question").innerHTML = question;
-        
-        //midlertidig, skal bli sin egen funksjon når ej veit ID på spørsmål og svar bedre
-        if(answerMix === 0) {
-        document.getElementById("World1answer1").innerHTML = answer;
-        document.getElementById("World1Answer2").innerHTML = randomNumber(200);
-        document.getElementById("World1Answer3").innerHTML = randomNumber(200);
-        
-        }else if(answerMix === 1) {
-        document.getElementById("World1answer1").innerHTML = randomNumber(200);
-        document.getElementById("World1Answer2").innerHTML = answer;
-        document.getElementById("World1Answer3").innerHTML = randomNumber(200);
-        
-        } else {
-        document.getElementById("World1answer1").innerHTML = randomNumber(200);
-        document.getElementById("World1Answer2").innerHTML = randomNumber(200);
-        document.getElementById("World1Answer3").innerHTML = answer;
+    document.getElementById('World1Question').innerHTML = "What is " + firstNumber + " + " + secondNumber + "?";
+    var text = "<ul>";
+    for (i = 0; i < oLen; i++) {
+        if(options[i] === answer) {
+            text += "<button onclick='victoryScreen()' style='height:50px;width:100px'>" + options[i] + "</button>";
         }
-        
-    } else if(world===02) {
-        //ect
+        else{
+            text += "<button onclick='sadnessScreen()' style='height:50px;width:100px'>" + options[i] + "</button>";
+        }
     }
+    document.getElementById('answers').innerHTML = text;
 }
+
+function victoryScreen(){
+    document.getElementById('answers').innerHTML = "CORRECT!";
+}
+
+function sadnessScreen(){
+    
+    document.getElementById('answers').innerHTML = "WRONG!";
+    
+}
+
 //få random nummer 
 //@param opp til nummer upToo
 //@return random nummer
 function randomNumber(upToo) {
     var randNumb = Math.floor(Math.random()*upToo);
     return randNumb;
+}
+
+// When the user clicks the math button, open the math modal
+function mathOne() {
+    GetMath();
+    document.getElementById('MathModal').style.display = "block";
+    document.getElementById('MathQuestion').style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+function exitModal() {
+    document.getElementById('MathModal').style.display = "none";
+    document.getElementById('MathQuestion').style.display = "none";
+}
+
+//shuffle array (liek answer array)
+function shuffle(a) {
+    var j, x, i;
+    for (i = a.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1));
+        x = a[i];
+        a[i] = a[j];
+        a[j] = x;
+    }
 }
