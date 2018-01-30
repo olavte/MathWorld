@@ -16,7 +16,7 @@ and open the template in the editor.
 }
 
 #canvas {
-    background-color: rgb(0, 0, 0);
+    background-image: url("../assets/mainMenu/mainMenuBackground.png");
     display: block;
     position:absolute;
     top:0;
@@ -27,17 +27,42 @@ and open the template in the editor.
 }
 
 /*Main Menu*/
-#mainMenuContainer {
-    margin: 5%;
+#mainMenuSheet {
+    margin-left: 25%;
+    margin-right: 25%;
+    width: 50%;
+    
 }
 
+#mainMenuTitleImage {
+    margin-top: 10%;
+    margin-left: 10%;
+    margin-right: 10%;
+    width: 80%;
+}
 
-.mainMenuCenter {
-    font-size: 25px;
-    margin: auto;
+#mainMenuContent {
+    margin-top: 10%;
+    padding-bottom: 5%;
+    box-sizing: border-box;
+    background-image: url("../assets/mainMenu/mainMenuBorder.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    display: inline-block;
+}
+
+#mainMenuContent img {
+    margin-top: 5%;
+    margin-left: 25%;
+    margin-right: 25%;
     width: 50%;
-    padding: 10px;
-    text-align: center;
+    height: 5%;
+    transition: all 1s;
+}
+
+#mainMenuContent img:hover {
+    cursor: pointer;
+    transform: scale(1.1);
 }
 
 /* Modal Content/Box */
@@ -99,46 +124,6 @@ and open the template in the editor.
     border-radius: 5px;
     width: 25%; /* Could be more or less, depending on screen size */
     animation: blowUpModal 1s;
-}
-
-.mainMenuCenter img{
-    max-width: 100%;
-    max-height: 100%;
-}
-
-.mainMenuCenter button {
-    max-width: 100%;
-    max-height: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    margin: 0.25em;
-    background-color: #ff884d;
-    outline: none;
-    border : none;
-    border-radius: 15px;
-    font-size: 100%;
-    color: white;
-    text-shadow: 
-        -2px -2px 0 #000,
-        2px -2px 0 #000,
-        -2px 2px 0 #000,
-        2px 2px 0 #000;
-
-    padding: 15px 25px;
-    cursor: pointer;
-    box-shadow: 0 4px #999;
-    border: 3px solid black;
-}
-
-
-.mainMenuCenter button:hover {
-    background-color: #ff7733;
-}
-
-.mainMenuCenter button:active {
-    background-color: #ff7733;
-    box-shadow: 0 5px #666;
-    transform: translateY(4px);
 }
 
 /* Modal Content/Box */

@@ -49,26 +49,13 @@ and open the template in the editor.
 
 <!-- The Main Menu main window -->
 
-<div id=mainMenuContainer>
+<div id=mainMenuSheet>
     <canvas id="canvas"></canvas>
-    <div class=mainMenuCenter>
-        <img src="assets/mainMenu/titleimage.png" alt="Title image">
+    <img id="mainMenuTitleImage" src="assets/mainMenu/titleimage.png" alt="Title image">
+    <div id=mainMenuContent>
+        <img src="assets/mainMenu/startButton.png" onclick="goToNewScreen('worlds/world01/stage01.html', 'worlds/world01/stage1js.js')">
+        <img src="assets/mainMenu/worldSelectButton.png" onclick="goToNewScreen('WorldSelection/WorldSelection.html', 'WorldSelection/WorldSelection.js')">
+        <img src="assets/mainMenu/optionsButton.png" onclick="mainMenuSettings()">
+        <img src="assets/mainMenu/creditsButton.png" onclick="mainMenuCredits()">
     </div>
-    <div class=mainMenuCenter>
-        <button onclick="goToNewScreen('worlds/world01/stage01.html', 'worlds/world01/stage1js.js')">Start Game</button>
-    </div>
-
-    <div class=mainMenuCenter>
-        <button onclick="goToNewScreen('WorldSelection/WorldSelection.html', 'WorldSelection/WorldSelection.js')">Select World</button>
-    </div>
-
-    <div class=mainMenuCenter>
-        <button onclick="mainMenuSettings()">Options</button>
-    </div>
-
-    <div class=mainMenuCenter>
-        <button onclick="mainMenuCredits()">Credits</button>
-    </div>
-
-    <script src="script.js"></script>
 </div>
