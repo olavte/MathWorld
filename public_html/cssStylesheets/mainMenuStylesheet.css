@@ -169,6 +169,9 @@ and open the template in the editor.
 
 
 .selectWorldButton {
+    -webkit-transform: rotate(0);
+    -moz-transform: rotate(0);
+    transform: rotate(0);
     width: 80%;
     height: 16vh;
     transition: all 1.5s;
@@ -181,6 +184,7 @@ and open the template in the editor.
 
 .selectWorldButton:hover {
     transform: scale(1.1);
+
 }
 
 #selectWorld1Button {
