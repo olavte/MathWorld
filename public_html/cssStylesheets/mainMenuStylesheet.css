@@ -31,7 +31,7 @@ and open the template in the editor.
     margin-left: 25%;
     margin-right: 25%;
     width: 50%;
-    
+
 }
 
 #mainMenuTitleImage {
@@ -65,8 +65,8 @@ and open the template in the editor.
     transform: scale(1.1);
 }
 
-/* Modal Content/Box */
-#settingsModalContent {
+/* Modal Content/Box, and MathQuestion */
+#settingsModalContent, #MathQuestion {
     background-color: rgb(25, 25, 25);
     color: white;
     margin: 15% auto; /* 15% from the top and centered */
@@ -195,6 +195,14 @@ and open the template in the editor.
     left: 20px;
     top: 690px;
 }
+
 #Title-World-Select{
     text-align: center;
+}
+.cloud {
+    margin-left:200px;
+}
+
+#World1Question, #answers {
+    text-align:center;
 }
