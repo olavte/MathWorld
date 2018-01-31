@@ -9,7 +9,13 @@
 //legger sammen to random tall (opp til 100)
 //skriver dynamisk matte spørsmål og knapper med 1 rett 2 feil svar
 //i tilfelding rekkefølge
-function GetMath() {
+
+//saves the current level the user is on
+var currentLevel = "level1";
+
+
+
+function GetMath(level) {
     var firstNumber = randomNumber(100);
     var secondNumber = randomNumber(100);
     var answer = firstNumber + secondNumber;
@@ -31,15 +37,31 @@ function GetMath() {
     document.getElementById('answers').innerHTML = text;
 }
 
-function victoryScreen(){
+//Lets user know they were correct, and unlocks next button. 
+//if button 1 is completed twice, it does not unlock button 3
+function victoryScreen() {
+    if(document.getElementById('level2').disabled) {
+        document.getElementById('level2').disabled = false;
+        
+    } else if(document.getElementById('level3').disabled && currentLevel === "level2") {
+        
+        document.getElementById('level3').disabled = false;
+        
+    }
+
     document.getElementById('answers').innerHTML = "CORRECT!";
+    
 }
 
+//lets user know they pressed wrong
 function sadnessScreen(){
     
     document.getElementById('answers').innerHTML = "WRONG!";
     
 }
+
+  
+
 
 //få random nummer 
 //@param opp til nummer upToo
@@ -50,8 +72,11 @@ function randomNumber(upToo) {
 }
 
 // When the user clicks the math button, open the math modal
-function mathOne() {
+//@param levelClicked saves the level/button number, so completing level 1 twice dont unlock level 3
+function mathOne(levelClicked) {
+    currentLevel = levelClicked;
     GetMath();
+
     document.getElementById('MathModal').style.display = "block";
     document.getElementById('MathQuestion').style.display = "block";
 }
