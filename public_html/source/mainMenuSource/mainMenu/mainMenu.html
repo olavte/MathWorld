@@ -50,11 +50,11 @@ and open the template in the editor.
 <!-- The Main Menu main window -->
 
 <div id=mainMenuSheet>
-    <canvas id="canvas"></canvas>
+    <canvas id="mainMenuCanvas"></canvas>
     <img id="mainMenuTitleImage" src="assets/mainMenu/titleimage.png" alt="Title image">
     <div id=mainMenuContent>
-        <img src="assets/mainMenu/startButton.png" onclick="goToNewScreen('worlds/world01/stage01.html', 'worlds/world01/stage1js.js')">
-        <img src="assets/mainMenu/worldSelectButton.png" onclick="goToNewScreen('WorldSelection/WorldSelection.html', 'WorldSelection/WorldSelection.js')">
+        <img src="assets/mainMenu/startButton.png" onclick="goToNewScreen('source/worldSource/world01/world01.html', 'source/worldSource/worldSource/world01/world01.js')">
+        <img src="assets/mainMenu/worldSelectButton.png" onclick="goToNewScreen('source/mainMenuSource/worldSelection/worldSelection.html', 'source/mainMenuSource/worldSelection/worldSelection.js')">
         <img src="assets/mainMenu/optionsButton.png" onclick="mainMenuSettings()">
         <img src="assets/mainMenu/creditsButton.png" onclick="mainMenuCredits()">
     </div>

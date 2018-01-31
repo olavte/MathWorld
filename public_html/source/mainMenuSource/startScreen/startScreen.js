@@ -9,7 +9,7 @@ window.addEventListener("click", clearStartScreenInterval);
 
 function goToMainMenuFromStartScreen() {
     window.removeEventListener("click", goToMainMenuFromStartScreen);
-    goToNewScreen("mainMenu/mainMenu.html", "mainMenu/mainMenu.js");
+    goToNewScreen("source/mainMenuSource/mainMenu/mainMenu.html", "source/mainMenuSource/mainMenu/mainMenu.js");
 }
 
 //Blinking Text Script

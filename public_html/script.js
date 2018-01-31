@@ -64,4 +64,5 @@ function clearAnimation() {
 }
 
 //Start the game
-goToNewScreen("startScreen/startScreen.html", "startScreen/startScreen.js");
+goToNewScreen("source/mainMenuSource/startScreen/startScreen.html", 
+"source/mainMenuSource/startScreen/startScreen.js");
