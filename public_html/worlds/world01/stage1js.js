@@ -16,6 +16,12 @@ var completedLevel = [];
 var currentLevel;
 
 
+//final level in world 1, for special assignement and timer function
+function mathOneFinal() {
+    
+    //TODO
+    alert("TODO");
+}
 
 function GetMath(clickedLevel) {
     var firstNumber = randomNumber(100);
@@ -63,9 +69,21 @@ function victoryScreen() {
         document.getElementById('level3').disabled = false;
         completedLevel.push("currentLevel");
         
+    } else if(completedLevel.indexOf(currentLevel) === -1 && currentLevel === "level3") {
+        
+        completedLevel.push("currentLevel");
+        
+    }
+
+    //unlock final button if 3 stages are complete, seperated so we can add more effects to it later
+    if(completedLevel.length === 3) {
+        
+        document.getElementById('levelFinal').disabled = false;
+        
     }
 
     document.getElementById('answers').innerHTML = "CORRECT!";
+    
     
 }
 
