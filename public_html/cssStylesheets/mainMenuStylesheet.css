@@ -15,7 +15,7 @@ and open the template in the editor.
     margin: 20%;
 }
 
-#canvas {
+#mainMenuCanvas {
     background-image: url("../assets/mainMenu/mainMenuBackground.png");
     display: block;
     position:absolute;

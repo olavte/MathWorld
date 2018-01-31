@@ -4,35 +4,29 @@
  * and open the template in the editor.
  */
 
-window.addEventListener("click", goToMainMenuFromStartScreen);
-window.addEventListener("click", clearStartScreenInterval);
-
-function goToMainMenuFromStartScreen() {
-    window.removeEventListener("click", goToMainMenuFromStartScreen);
-    goToNewScreen("mainMenu/mainMenu.html", "mainMenu/mainMenu.js");
+// User clicks the candyland button, open the candyland modal 
+function worldSelectCandyLand() {
+    document.getElementById('myModal').style.display = "block";
+    document.getElementById("selectCandyLandModalContent").style.display = "block";
+    document.getElementById("selectParisModalContent").style.display = "none";
 }
 
-//Blinking Text Script
+// User clicks the paris button, open the paris modal 
+function worldSelectParis() {
+    document.getElementById('myModal').style.display = "block";
+    document.getElementById("selectCandyLandModalContent").style.display = "none";
+    document.getElementById("selectParisModalContent").style.display = "block";
+}
 
-blinkText = function () {
-    var el = document.getElementById("clickToStart");
-    if (el.style.display === 'block') {
-        el.style.display = 'none';
-    } else {
-        el.style.display = 'block';
-    }
-};
-
-var startScreenInterval = setInterval(blinkText, 1000);
-
-function clearStartScreenInterval() {
-    window.removeEventListener("click", clearStartScreenInterval);
-    clearInterval(startScreenInterval);
-    startScreenInterval = null;
+// When the user clicks on <span> (x), close the modal
+function exitModal() {
+    document.getElementById('myModal').style.display = "none";
+    document.getElementById("selectCandyLandModalContent").style.display = "none";
+    document.getElementById("selectParisModalContent").style.display = "none";
 }
 
 //canvas init
-var canvas = document.getElementById("canvas");
+var canvas = document.getElementById("mainMenuCanvas");
 var ctx = canvas.getContext("2d");
 
 //canvas dimensions

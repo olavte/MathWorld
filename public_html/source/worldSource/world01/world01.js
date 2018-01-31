@@ -57,7 +57,6 @@ function GetMath(clickedLevel) {
 
 //Lets user know they were correct, and unlocks next button. 
 //if button 1 is completed twice, it does not unlock button 3
-//saves levels completed in an array
 function victoryScreen() {
     if(document.getElementById('level2').disabled && completedLevel.indexOf(currentLevel) === -1) {
 
