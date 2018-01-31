@@ -17,23 +17,33 @@ var currentLevel;
 
 
 
-function GetMath() {
+function GetMath(clickedLevel) {
     var firstNumber = randomNumber(100);
     var secondNumber = randomNumber(100);
     var answer = firstNumber + secondNumber;
-    var options = [answer, randomNumber(200), randomNumber(150)];
-    var oLen = options.length;
+    var options1 = [answer, randomNumber(200), randomNumber(150)];
+    var options2 = [answer, randomNumber(200), randomNumber(150), randomNumber(100)];
+    var options3 = [answer, randomNumber(200), randomNumber(150), randomNumber(100), randomNumber(250), randomNumber(75)];
     
-    shuffle(options);
+    var map = {
+        'level1': options1,
+        'level2': options2,
+        'level3': options3
+    };
+    
+    var picked = [];
+    picked = map[clickedLevel].slice();
+    
+    shuffle(picked);
     
     document.getElementById('World1Question').innerHTML = "What is " + firstNumber + " + " + secondNumber + "?";
     var text = "<ul>";
-    for (i = 0; i < oLen; i++) {
-        if(options[i] === answer) {
-            text += "<button onclick='victoryScreen()' style='height:50px;width:100px'>" + options[i] + "</button>"; // rett svar knapp
+    for (i = 0; i < picked.length; i++) {
+        if(picked[i] === answer) {
+            text += "<button onclick='victoryScreen()' style='height:50px;width:100px'>" + picked[i] + "</button>"; // rett svar knapp
         }
         else{
-            text += "<button onclick='sadnessScreen()' style='height:50px;width:100px'>" + options[i] + "</button>"; // feil svar knapp
+            text += "<button onclick='sadnessScreen()' style='height:50px;width:100px'>" + picked[i] + "</button>"; // feil svar knapp
         }
     }
     document.getElementById('answers').innerHTML = text;
@@ -81,7 +91,8 @@ function randomNumber(upToo) {
 //@param levelClicked saves the level/button number, so completing level 1 twice dont unlock level 3
 function mathOne(clickedLevel) {
     currentLevel = clickedLevel;
-    GetMath();
+    
+    GetMath(clickedLevel);
     document.getElementById('MathModal').style.display = "block";
     document.getElementById('MathQuestion').style.display = "block";
 }
