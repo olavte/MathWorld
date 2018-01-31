@@ -10,12 +10,14 @@
 //skriver dynamisk matte spørsmål og knapper med 1 rett 2 feil svar
 //i tilfelding rekkefølge
 
-//saves the current level the user is on
-var currentLevel = "level1";
+//saves the completed leves, no use atm
+var completedLevel = [];
+//saves the current level the user has clicked
+var currentLevel;
 
 
 
-function GetMath(level) {
+function GetMath() {
     var firstNumber = randomNumber(100);
     var secondNumber = randomNumber(100);
     var answer = firstNumber + secondNumber;
@@ -40,12 +42,16 @@ function GetMath(level) {
 //Lets user know they were correct, and unlocks next button. 
 //if button 1 is completed twice, it does not unlock button 3
 function victoryScreen() {
-    if(document.getElementById('level2').disabled) {
+    if(document.getElementById('level2').disabled && completedLevel.indexOf(currentLevel) === -1) {
+
         document.getElementById('level2').disabled = false;
+        completedLevel.push("currentLevel");
+
         
-    } else if(document.getElementById('level3').disabled && currentLevel === "level2") {
+    } else if(document.getElementById('level3').disabled && completedLevel.indexOf(currentLevel) === -1 && currentLevel === "level2") {
         
         document.getElementById('level3').disabled = false;
+        completedLevel.push("currentLevel");
         
     }
 
@@ -73,10 +79,9 @@ function randomNumber(upToo) {
 
 // When the user clicks the math button, open the math modal
 //@param levelClicked saves the level/button number, so completing level 1 twice dont unlock level 3
-function mathOne(levelClicked) {
-    currentLevel = levelClicked;
+function mathOne(clickedLevel) {
+    currentLevel = clickedLevel;
     GetMath();
-
     document.getElementById('MathModal').style.display = "block";
     document.getElementById('MathQuestion').style.display = "block";
 }
