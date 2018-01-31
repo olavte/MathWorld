@@ -6,8 +6,8 @@
 
 
 //math JS testing atm
-//legger sammen to tall, legger til i en array, shuffler arrayen
-//skriver dynamisk matte spørsmål og liste med 1 rett 2 feil svar
+//legger sammen to random tall (opp til 100)
+//skriver dynamisk matte spørsmål og knapper med 1 rett 2 feil svar
 //i tilfelding rekkefølge
 function GetMath() {
     var firstNumber = randomNumber(100);
@@ -22,10 +22,10 @@ function GetMath() {
     var text = "<ul>";
     for (i = 0; i < oLen; i++) {
         if(options[i] === answer) {
-            text += "<button onclick='victoryScreen()' style='height:50px;width:100px'>" + options[i] + "</button>";
+            text += "<button onclick='victoryScreen()' style='height:50px;width:100px'>" + options[i] + "</button>"; // rett svar knapp
         }
         else{
-            text += "<button onclick='sadnessScreen()' style='height:50px;width:100px'>" + options[i] + "</button>";
+            text += "<button onclick='sadnessScreen()' style='height:50px;width:100px'>" + options[i] + "</button>"; // feil svar knapp
         }
     }
     document.getElementById('answers').innerHTML = text;
@@ -62,7 +62,7 @@ function exitModal() {
     document.getElementById('MathQuestion').style.display = "none";
 }
 
-//shuffle array (liek answer array)
+//shuffle array (like answer array) (Modern Fisher–Yates shuffle algorithm via 
 function shuffle(a) {
     var j, x, i;
     for (i = a.length - 1; i > 0; i--) {
