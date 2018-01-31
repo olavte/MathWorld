@@ -26,7 +26,7 @@ function exitModal() {
 }
 
 //canvas init
-var canvas = document.getElementById("canvas");
+var canvas = document.getElementById("mainMenuCanvas");
 var ctx = canvas.getContext("2d");
 
 //canvas dimensions
