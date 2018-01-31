@@ -1,0 +1,285 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 16.jan.2018, 21:30:38
+    Author     : olavt
+*/
+
+body {
+    margin: 0px;
+    overflow: hidden;
+}
+
+#clickToStart {
+    font-size: 80px;
+    color: white;
+    font-weight: bold;
+    margin: 20%;
+}
+
+#canvas {
+    background-color: rgb(0, 0, 0);
+    display: block;
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:-1;
+}
+
+/*Main Menu*/
+#mainMenuContainer {
+   margin: 5%;
+}
+
+
+.mainMenuCenter {
+    font-size: 25px;
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+    text-align: center;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box, and MathQuestion */
+#settingsModalContent, #MathQuestion {
+    background-color: rgb(25, 25, 25);
+    color: white;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 2px solid #888;
+    border-radius: 5px;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+#closeSettings {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+#closeSettings:hover,
+#closeSettings:focus {
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.volumeSlidecontainer {
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.volumeSlider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 40px;
+    background: black;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.volumeSlider:hover {
+    opacity: 1;
+}
+
+.volumeSlider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 80px;
+    height: 40px;
+    background: white;
+    cursor: pointer;
+}
+
+.volumeSlider::-moz-range-thumb {
+    width: 80px;
+    height: 40px;
+    background: white;
+    cursor: pointer;
+}
+
+/* Modal Content/Box */
+#creditsModalContent {
+    background-color: rgb(25, 25, 25);
+    color: white;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 2px solid #888;
+    border-radius: 5px;
+    width: 25%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.closeModal {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.closeModal:hover,
+.closeModal:focus {
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.mainMenuCenter img{
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.mainMenuCenter button {
+    max-width: 100%;
+    max-height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin: 0.25em;
+    background-color: #ff884d;
+    outline: none;
+    border : none;
+    border-radius: 15px;
+    font-size: 100%;
+    color: white;
+    text-shadow: 
+        -2px -2px 0 #000,
+        2px -2px 0 #000,
+        -2px 2px 0 #000,
+        2px 2px 0 #000;
+    
+   padding: 15px 25px;
+   cursor: pointer;
+   box-shadow: 0 4px #999;
+   border: 3px solid black;
+}
+
+
+.mainMenuCenter button:hover {
+    background-color: #ff7733;
+}
+
+.mainMenuCenter button:active {
+    background-color: #ff7733;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
+#world-Wrapper {
+    -moz-column-count:3;
+    -webkit-column-count:3;
+    column-count:3;
+    -moz-column-gap: 25px;
+    -webkit-column-gap: 25px;
+    column-gap: 25px;
+    text-align: center;
+    margin: auto;
+    width: 50%;
+    
+}
+
+.world-button {
+padding: 0px;
+margin: 20px;
+}
+
+#back-button {
+ margin: 5px;
+ position: absolute;
+ left: 20px;
+ top: 690px;
+}
+#Title-World-Select{
+    text-align: center;
+}
+
+#world1{
+    background: url("assets/world1/world1photo.png") no-repeat center center fixed;
+    -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: 100% 100%;
+  margin:auto;
+ background-repeat: no-repeat;  
+    height: 1080px;
+    position: relative;
+}
+
+
+.world1title {
+    margin: 0px;
+    text-align: center;
+    font-size:50px;
+    color:white;
+}   
+
+#buttons{
+    
+   float:right;
+   margin-top:400px;
+   margin-right:1300px;
+
+}
+
+.mathbutton{
+    
+ padding: 0px;
+ margin:150px;
+ 
+}
+
+#mathwrapper{
+    
+   margin-left:500px;
+   margin-bottom:200px;
+  
+   
+}
+
+
+.icecream{
+    
+    
+   
+    position:relative;
+    margin-left:205px;
+   
+    
+}
+
+.cloud{
+    
+   
+    margin-left:200px;
+    
+}
+
+#World1Question, #answers {
+    
+    text-align:center;
+    
+    
+}
