@@ -20,7 +20,7 @@ var currentStage = 0;
 
 var animationLoop = null;
 
-var mainMusic = new Audio('assets/startScreen.mp3');
+var mainMusic = new Audio('assets/music/startScreen.mp3');
 mainMusic.volume = globalVolume * musicVolume;
 mainMusic.addEventListener('ended', function() {
     this.currentTime = 0;
