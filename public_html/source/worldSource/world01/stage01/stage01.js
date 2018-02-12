@@ -4,7 +4,6 @@
 
 //TODO, move sprite
 
-
 //canvas init
 var canvas = document.getElementById("stage01Canvas");
 var ctx = canvas.getContext("2d");
@@ -121,4 +120,3 @@ function update()
 
 //animation loop
 setInterval(draw, 33);
-
