@@ -119,7 +119,7 @@ function update()
 }
 
 //animation loop
-setInterval(draw, 33);
+animationLoop = setInterval(draw, 33);
 
 
 
