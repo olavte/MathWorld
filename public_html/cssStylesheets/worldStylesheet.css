@@ -8,18 +8,19 @@ and open the template in the editor.
     Author     : olavt
 */
 
-#world1{
-    background: url("../assets/world1/world1photo.png") no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
+#world1Canvas, #stage01Canvas {
+    box-sizing: border-box;
+    background-image: url("../assets/world1/world1photo.png");
+    background-repeat: no-repeat;
     background-size: 100% 100%;
-    margin:auto;
-    background-repeat: no-repeat;  
-    height: 1080px;
-    position: relative;
+    display: block;
+    position: absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:-1;
 }
-
 
 .world1title {
     margin: 0px;
@@ -29,15 +30,30 @@ and open the template in the editor.
 }
 
 .mathbutton {
-
-    padding: 0px;
-    margin: 150px;
+    color: black;
+    font-weight: bold;
+    padding: 24px;
+    margin-left: 20%;
+    border: 5px solid black;
+    border-radius: 100px;
+    background-color: pink;
 
 }
 
+.mathbutton:hover {
+    cursor: pointer;
+}
+
+button:disabled,
+button[disabled]{
+    background-color: rgb(230,230,230);
+  color: #666666;
+}
+
 #mathwrapper {
-    margin-left: 500px;
-    margin-bottom: 200px;
+    position: absolute;
+    bottom: 20%;
+    width: 100%;
 }
 
 
@@ -48,4 +64,50 @@ and open the template in the editor.
 
 .cloud {
     margin-left: 200px;
+}
+
+/* stage1 testing */
+#stage01Center {
+    position: absolute;
+    margin-left: 20%;
+    width: 60%;
+    height: 100%;
+}
+
+#stage01Title {
+    margin: 0px;
+    text-align: center;
+    font-size:50px;
+}
+
+#question1 {
+background-color: white;
+width: 100%;
+height: 30%;
+margin-bottom: 20px;
+position: relative;
+background: #ffffff;
+border-radius: .4em;
+}
+#answerOptions {
+background: #ffffff;
+border-radius: .4em;
+width: 100%;
+height: 65%;
+}
+
+/* speach bubble css */
+#question1:after {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 50%;
+	width: 0;
+	height: 0;
+	border: 34px solid transparent;
+	border-right-color: #ffffff;
+	border-left: 0;
+	border-bottom: 0;
+	margin-top: -17px;
+	margin-left: -34px;
 }
