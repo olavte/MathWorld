@@ -74,7 +74,7 @@ and open the template in the editor.
     border: 2px solid #888;
     border-radius: 5px;
     width: 80%; /* Could be more or less, depending on screen size */
-    animation: blowUpModal 1s;
+    animation: blowUpElement 1s;
 }
 
 .volumeSlidecontainer {
@@ -123,7 +123,7 @@ and open the template in the editor.
     border: 2px solid #888;
     border-radius: 5px;
     width: 25%; /* Could be more or less, depending on screen size */
-    animation: blowUpModal 1s;
+    animation: blowUpElement 1s;
 }
 
 /* Modal Content/Box */
@@ -135,7 +135,7 @@ and open the template in the editor.
     border: 2px solid #888;
     border-radius: 5px;
     width: 50%; /* Could be more or less, depending on screen size */
-    animation: blowUpModal 1s;
+    animation: blowUpElement 1s;
 }
 
 /* Modal Content/Box */
@@ -147,7 +147,7 @@ and open the template in the editor.
     border: 2px solid #888;
     border-radius: 5px;
     width: 25%; /* Could be more or less, depending on screen size */
-    animation: blowUpModal 1s;
+    animation: blowUpElement 1s;
 }
 
 #worldSelectionWrapper {
