@@ -40,7 +40,10 @@ and open the template in the editor.
     border-radius: 100px;
     background-color: pink;
     animation: blowUpElement 1s;
+}
 
+.mathbutton:hover {
+    transform: scale(1.1);
 }
 
 .mathbutton:hover {
