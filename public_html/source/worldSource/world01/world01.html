@@ -1,23 +1,30 @@
-<div>
-    <div id="world1">
-        <h1 class="world1title">
-            CanDyLanD (Her må det nesten være et bilde eller font av candytext)
-        </h1>
-        <canvas id="world1Canvas"></canvas>
+<div id="world1">
+    <div class="worldTopBar">
+        <div class="worldScorePanel">
 
-        <div id="mathwrapper">
-            <button class="mathbutton" id="level1"
-                    onclick="goToNewScreen('source/worldSource/world01/stage01/stage01.html', 'source/worldSource/world01/stage01/stage01.js')">1</button>
-            <button class="mathbutton" id="level2"
-                    onclick="mathOne('level2')" disabled>2</button>
-            <button class="mathbutton" id="level3"
-                    onclick="mathOne('level3')" disabled>3</button>
-            <button class="mathbutton" id="levelFinal" 
-                    onclick="mathOneFinal()" disabled>4</button>
         </div>
-        <img src="assets/world1/world1ice.png">
+        <div class="worldTitle">CandyLand</div>
+        <div class="menuButton" onclick="goToMenu(this)">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+        </div>
     </div>
-</div> 
+
+    <canvas id="world1Canvas"></canvas>
+
+    <div id="mathwrapper">
+        <button class="mathbutton" id="level1"
+                onclick="goToNewScreen('source/worldSource/world01/stage01/stage01.html', 'source/worldSource/world01/stage01/stage01.js')">1</button>
+        <button class="mathbutton" id="level2"
+                onclick="mathOne('level2')" disabled>2</button>
+        <button class="mathbutton" id="level3"
+                onclick="mathOne('level3')" disabled>3</button>
+        <button class="mathbutton" id="levelFinal" 
+                onclick="mathOneFinal()" disabled>4</button>
+    </div>
+
+</div>
 
 <div id="MathModal" class="modal">
     <div id="MathQuestion">

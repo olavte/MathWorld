@@ -4,6 +4,11 @@
  * and open the template in the editor.
  */
 
+function goToMenu(x) {
+    x.classList.toggle("change");
+}
+
+
 //canvas init
 var canvas = document.getElementById("world1Canvas");
 var ctx = canvas.getContext("2d");
@@ -61,7 +66,7 @@ for (var i = 0; i < mp; i++)
 function draw()
 {
     ctx.clearRect(0, 0, W, H);
-    ctx.drawImage(plussCharacter, srcX, srcY, spriteWidth, spriteHeight, 0, 350, spriteWidth, spriteHeight);
+    ctx.drawImage(plussCharacter, srcX, srcY, spriteWidth, spriteHeight, 10, H/3, W/5, W/4);
     updateFrame();
 
 
