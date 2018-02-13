@@ -61,7 +61,7 @@ for (var i = 0; i < mp; i++)
 function draw()
 {
     ctx.clearRect(0, 0, W, H);
-
+    ctx.drawImage(plussCharacter, srcX, srcY, spriteWidth, spriteHeight, 0, 350, spriteWidth, spriteHeight);
     updateFrame();
 
 
@@ -75,7 +75,6 @@ function draw()
     }
     ctx.fill();
     update();
-    ctx.drawImage(plussCharacter, srcX, srcY, spriteWidth, spriteHeight, 200, 600, spriteWidth, spriteHeight);
 }
 
 //Function to move the snowflakes
@@ -119,8 +118,7 @@ function update()
 }
 
 //animation loop
-setInterval(draw, 33);
-
+animationLoop = setInterval(draw, 33);
 
 
 //math JS testing atm
