@@ -9,7 +9,7 @@ var totalSum = 0;
 
 //canvas init
 
-var canvas = document.getElementById("stage01Canvas");
+var canvas = document.getElementById("stageCanvas");
 var ctx = canvas.getContext("2d");
 
 var srcX;
@@ -174,7 +174,7 @@ function question1() {
     var thirdNumber = randomNumber(100);
     answer = firstNumber + secondNumber + thirdNumber;
     
-    document.getElementById('stage01Title').innerHTML = "Total:" + totalSum;
+    document.getElementById('stageTitle').innerHTML = "Total:" + totalSum;
     document.getElementById('questionText').innerHTML ="This icecream is " + answer + " grams, wich of these icecream balls must you pick to get the same weight?";
    
    
@@ -207,7 +207,7 @@ function clikedPic(clickedId) {
     
    var value = document.getElementById(clickedId).value;
    totalSum = totalSum + value;
-   document.getElementById('stage01Title').innerHTML = "Total:" + totalSum;
+   document.getElementById('stageTitle').innerHTML = "Total:" + totalSum;
    
     if(totalSum === answer){
         victoryScreen();
@@ -217,7 +217,7 @@ function clikedPic(clickedId) {
 }
 
 function question2() {
-    document.getElementById('stage01Title').innerHTML = "TODO";
+    document.getElementById('stageTitle').innerHTML = "TODO";
     document.getElementById('questionText').innerHTML ="TODO";
     document.getElementById('answerOptions').innerHTML ="TODO";
 }
