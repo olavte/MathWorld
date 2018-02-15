@@ -119,30 +119,42 @@ height: 65%;
 }
 
 .worldTopBar {
-    width: 100vw;
-    height: 20vh;
-    display: inline-block;
+    font-size: 5vh;
+    width: 100%;
+}
+
+.worldTopBar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.worldTopBar li {
+    float: left;
+    display: block;
 }
 
 .worldScorePanel {
-    width: 40%;
+    width: 10%;
 }
 
 .world1title {
-    width: 40%;
+    text-align: center;
+    width: 70%;
 }
 
 .menuButton {
+    width: 10%;
     display: inline-block;
     cursor: pointer;
-    width: 20%;
 }
 
 .bar1, .bar2, .bar3 {
     width: 35px;
     height: 5px;
     background-color: #333;
-    margin: 6px 0;
+    margin: 6px 6px 6px 6px;
     transition: 0.4s;
 }
 
