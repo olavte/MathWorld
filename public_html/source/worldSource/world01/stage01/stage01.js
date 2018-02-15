@@ -1,11 +1,15 @@
 /* 
- * basicly world 1 js atm
  */
 
-//TODO, move sprite
+
+
+// variables for questions
+var answer;
+var totalSum = 0;
 
 //canvas init
-var canvas = document.getElementById("stage01Canvas");
+
+var canvas = document.getElementById("stageCanvas");
 var ctx = canvas.getContext("2d");
 
 var srcX;
@@ -75,7 +79,7 @@ function draw()
     }
     ctx.fill();
     update();
-    ctx.drawImage(plussCharacter, srcX, srcY, spriteWidth, spriteHeight, 200, 600, spriteWidth, spriteHeight);
+    ctx.drawImage(plussCharacter, srcX, srcY, spriteWidth, spriteHeight, 160, 150, spriteWidth, spriteHeight);
 }
 
 //Function to move the snowflakes
@@ -119,4 +123,101 @@ function update()
 }
 
 //animation loop
-setInterval(draw, 33);
+animationLoop = setInterval(draw, 33);
+question1();
+
+
+
+
+//functions for math and questions below
+
+
+function victoryScreen() {
+
+    document.getElementById('answerOptions').innerHTML = "<button onclick='question2()'>Next question!</button>";
+
+}
+
+//lets user know they pressed wrong
+function sadnessScreen() {
+
+    document.getElementById('answerOptions').innerHTML = "WRONG!";
+
+}
+
+
+
+//få random nummer 
+//@param opp til nummer upToo
+//@return random nummer
+function randomNumber(upToo) {
+    var randNumb = Math.floor(Math.random() * upToo);
+    return randNumb;
+}
+
+
+//shuffle array (like answer array) (Modern Fisher–Yates shuffle algorithm via 
+function shuffle(a) {
+    var j, x, i;
+    for (i = a.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1));
+        x = a[i];
+        a[i] = a[j];
+        a[j] = x;
+    }
+}
+
+//builds and executes first question
+function question1() {
+    var firstNumber = randomNumber(100);
+    var secondNumber = randomNumber(100);
+    var thirdNumber = randomNumber(100);
+    answer = firstNumber + secondNumber + thirdNumber;
+    
+    document.getElementById('stageTitle').innerHTML = "Total:" + totalSum;
+    document.getElementById('questionText').innerHTML ="This icecream is " + answer + " grams, wich of these icecream balls must you pick to get the same weight?";
+   
+   
+    document.getElementById('questionPicture').innerHTML = "<img src='assets/world1/world1ice.png' class = '.centered' style = 'height: 200px;'>";
+    
+    
+    
+    var options = [firstNumber, secondNumber, thirdNumber, randomNumber(50), randomNumber(75)];
+    shuffle(options);
+    
+    //add option text over pictures
+    for(i = 0; i < options.length; i++) {
+
+        document.getElementById('option' + i).appendChild(document.createTextNode(options[i]));
+        document.getElementById('option' + i).value = options[i];
+    }
+    
+    if(totalSum === answer){
+        victoryScreen();
+    } else if(totalSum > answer) {
+        sadnessScreen();
+    }
+    
+}
+
+//what happends when imagine is clicked
+//@param ID of clicked element
+
+function clikedPic(clickedId) {
+    
+   var value = document.getElementById(clickedId).value;
+   totalSum = totalSum + value;
+   document.getElementById('stageTitle').innerHTML = "Total:" + totalSum;
+   
+    if(totalSum === answer){
+        victoryScreen();
+    } else if(totalSum > answer) {
+        sadnessScreen();
+    }
+}
+
+function question2() {
+    document.getElementById('stageTitle').innerHTML = "TODO";
+    document.getElementById('questionText').innerHTML ="TODO";
+    document.getElementById('answerOptions').innerHTML ="TODO";
+}

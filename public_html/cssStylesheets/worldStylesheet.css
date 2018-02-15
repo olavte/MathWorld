@@ -8,7 +8,7 @@ and open the template in the editor.
     Author     : olavt
 */
 
-#world1Canvas, #stage01Canvas {
+#world1Canvas, #stageCanvas {
     box-sizing: border-box;
     background-image: url("../assets/world1/world1photo.png");
     background-repeat: no-repeat;
@@ -73,14 +73,14 @@ button[disabled]{
 }
 
 /* stage1 testing */
-#stage01Center {
+#stageCenter {
     position: absolute;
     margin-left: 20%;
     width: 60%;
     height: 100%;
 }
 
-#stage01Title {
+#stageTitle {
     margin: 0px;
     text-align: center;
     font-size:50px;
@@ -94,13 +94,17 @@ margin-bottom: 20px;
 position: relative;
 background: #ffffff;
 border-radius: .4em;
+text-align: center;
 }
 #answerOptions {
 background: #ffffff;
 border-radius: .4em;
 width: 100%;
 height: 65%;
+text-align: center;
+position: relative;
 }
+
 
 /* speach bubble css */
 #question1:after {
@@ -167,4 +171,45 @@ height: 65%;
 
 .change .bar3 {
     -webkit-transform: rotate(45deg) translate(-8px, -8px); 
+}
+
+/* Bottom left*/
+.bottom-left {
+    position: absolute;
+    bottom: 25px;
+    left: 16px;
+}
+
+/* Top left*/
+.top-left {
+    position: absolute;
+    top: 8px;
+    left: 16px;
+}
+
+/* Top right*/
+.top-right {
+    position: absolute;
+    top: 8px;
+    right: 16px;
+}
+
+/* Bottom right*/
+.bottom-right {
+    position: absolute;
+    bottom: 25px;
+    right: 16px;
+}
+
+/* Centered*/
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+#questionPicture {
+    
+    position: relative;
+    
 }
