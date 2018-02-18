@@ -10,9 +10,9 @@ var gameScreen = document.createElement('div');
 gameScreen.id = "gameScreen";
 document.body.appendChild(gameScreen);
 
-var globalVolume = 1;
-var musicVolume = 1;
-var soundVolume = 1;
+var globalVolume = 0;
+var musicVolume = 0;
+var soundVolume = 0;
 
 var latestWorld = 0;
 var currentWorld = 0;
