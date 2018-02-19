@@ -219,3 +219,55 @@ button[disabled]{
     margin-left: 10%;
     margin-right: 10%;
 }
+
+
+#stagebackground { 
+    
+    background: radial-gradient(DarkTurquoise  , whitesmoke);
+    border:solid 3px;
+    width: 50%;
+    height: 100%;
+    
+    position: absolute;
+    
+    text-align: center;
+    left:500px;
+     
+}
+
+#question04{
+    
+    font-size:30px;
+    font-family:"Comic Sans MS", cursive, sans-serif;
+    color:pink;
+    text-align: center;
+    
+        
+}
+
+#qanswers{
+    font-size:30px;
+    font-family:"Comic Sans MS", cursive, sans-serif;
+    color:white;
+    text-align: center;
+    
+}
+
+#exitbutton{
+    
+    text-align: center;
+    
+    
+}
+
+#minigamebutton04{
+    
+    
+    text-align: center;
+}
+
+#icecream04{
+
+        width:300px;
+ 
+}
