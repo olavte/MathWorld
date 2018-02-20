@@ -5,6 +5,7 @@
 
 // variables for questions
 var answer = selectWord();
+var letterArray = answer.split("");
 var mathAnswers = [];
 
 //canvas init
@@ -133,8 +134,8 @@ question1();
 
 
 function victoryScreen() {
-    document.getElementById('questionText').innerHTML = "<p>Correct!</p>";
-    document.getElementById('questionPicture').innerHTML = "<button onclick='question2()'>Next question!</button>";
+    document.getElementById('questionText').innerHTML = '<p>Correct!</p>';
+    document.getElementById('questionPicture').innerHTML = '<button id="back" onclick="goToNewScreen("source/worldSource/world01/world1.html", "source/worldSource/world01/world1.js")>Continue</button>';
 
 }
 
@@ -174,22 +175,26 @@ function guessWord() {
     } 
 }
 
-function checkAnswer(index) {
-    var guess = document.getElementById('questionField' + index).value;
-    if (guess === mathAnswers[index]){
-        victoryScreen();
+function checkAnswer(i) {
+    var guess = document.getElementById('questionField' + i).value;
+    
+    if (guess.toString() === mathAnswers[i].toString()){
+        document.getElementById('question' + i).innerHTML = '#' + (i+1) + ': ' + letterArray[i].toUpperCase();
+    } else {
+        document.getElementById('answerOptionsTitle').innerHTML = '<p>WRONG, try again!</p>';
+        setTimeout(function(){
+            document.getElementById('answerOptionsTitle').innerHTML = '<p>Solve the math questions to reveal letters:</p>';
+        }, 1500);
     }
 } 
 
 //builds and executes first question
 function question1() {
     var generated = false;
-    var letterArray = answer.split;
     
-    document.getElementById('stageTitle').innerHTML = "Guess The Word!";
-    document.getElementById('questionText').innerHTML = "<p>The word is " + answer + ".</p><p>Enter your guess below!</p>";
-    document.getElementById('answerOptions').innerHTML = "Solve the math questions to reveal letters:";
-    document.getElementById('answer').innerHTML = "Word: ";
+    document.getElementById('stageTitle').innerHTML = 'Guess The Word!';
+    document.getElementById('questionText').innerHTML = '</p><p>Enter your guess below!</p>';
+    document.getElementById('answerOptionsTitle').innerHTML = '<p>Solve the math questions to reveal letters:</p>';
 
     
     while (generated === false) {
@@ -200,8 +205,8 @@ function question1() {
             mathAnswers.push(ans);
             
             var div = document.createElement('div');
-            var newClass = 'question' + i;
-            div.className = newClass;
+            var newId = 'question' + i;
+            div.id = newId;
             div.innerHTML = '<p>#' + (i+1) + ': ' + firstNumber + ' + ' + secondNumber + ' = <input type="text" name="guess" id="questionField' + i + '"><button id="button' + i + '" onclick="checkAnswer(' + i + ')">Check Answer</button></p>';
             document.getElementById('answerOptions').appendChild(div);
         }
