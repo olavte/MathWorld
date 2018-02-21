@@ -135,14 +135,20 @@ question1();
 
 function victoryScreen() {
     document.getElementById('questionText').innerHTML = '<p>Correct!</p>';
-    document.getElementById('questionPicture').innerHTML = '<button id="back" onclick="goToNewScreen("source/worldSource/world01/world1.html", "source/worldSource/world01/world1.js")>Continue</button>';
-
+    document.getElementById('questionPicture').innerHTML = "";
+    document.getElementById('answerOptions').innerHTML = "";
+    setTimeout(function(){
+        goToNewScreen('source/worldSource/world01/world01.html', 'source/worldSource/world01/world01.js');
+    }, 1500);
 }
 
 //lets user know they pressed wrong
 function loseScreen() {
 
-    document.getElementById('questionText').innerHTML = "<p>WRONG!</p><p>Try again:</p>";
+    document.getElementById('questionText').innerHTML = "<p>WRONG! Try again:</p>";
+    setTimeout(function(){
+        document.getElementById('questionText').innerHTML = '</p>Enter your guess below!</p>';
+    }, 1500);
 
 }
 
@@ -179,7 +185,7 @@ function checkAnswer(i) {
     var guess = document.getElementById('questionField' + i).value;
     
     if (guess.toString() === mathAnswers[i].toString()){
-        document.getElementById('question' + i).innerHTML = '#' + (i+1) + ': ' + letterArray[i].toUpperCase();
+        document.getElementById('question' + i).innerHTML = '<p>Letter number ' + (i+1) + ' = ' + letterArray[i].toUpperCase() + '</p>';
     } else {
         document.getElementById('answerOptionsTitle').innerHTML = '<p>WRONG, try again!</p>';
         setTimeout(function(){
@@ -193,22 +199,33 @@ function question1() {
     var generated = false;
     
     document.getElementById('stageTitle').innerHTML = 'Guess The Word!';
-    document.getElementById('questionText').innerHTML = '</p><p>Enter your guess below!</p>';
+    document.getElementById('questionText').innerHTML = '</p>Enter your guess below!</p>';
     document.getElementById('answerOptionsTitle').innerHTML = '<p>Solve the math questions to reveal letters:</p>';
 
     
     while (generated === false) {
         for (i = 0; i < answer.length; i++) {
-            var firstNumber = randomNumber(50);
-            var secondNumber = randomNumber(50);
+            var buttonId = "button" + i;
+            var questionFieldId = "questionField" + i;
+            var firstNumber = randomNumber(15);
+            var secondNumber = randomNumber(15);
             var ans = firstNumber + secondNumber;
             mathAnswers.push(ans);
             
             var div = document.createElement('div');
             var newId = 'question' + i;
             div.id = newId;
-            div.innerHTML = '<p>#' + (i+1) + ': ' + firstNumber + ' + ' + secondNumber + ' = <input type="text" name="guess" id="questionField' + i + '"><button id="button' + i + '" onclick="checkAnswer(' + i + ')">Check Answer</button></p>';
+            div.innerHTML = '<p>#' + (i+1) + ': ' + firstNumber + ' + ' + secondNumber + ' = <input type="text" name="guess" id=' + questionFieldId + '><button id=' + buttonId + ' onclick="checkAnswer(' + i + ')">Check Answer</button></p>';
             document.getElementById('answerOptions').appendChild(div);
+            
+
+            var input = document.getElementById(questionFieldId);
+            input.addEventListener('keyup', function(event) {
+                event.preventDefault();
+                if (event.keyCode === 13) {
+                    document.getElementById(buttonId).click();
+                } 
+            });
         }
         generated = true;
     }   
