@@ -1,13 +1,18 @@
 /* 
  */
+//document.getElementById('myModal').style.display = "block";
+//document.getElementById('stage2StartModalContent').style.display = "block";
 
 //canvas init
 
-var canvas = document.getElementById("stageCanvas");
-var ctx = canvas.getContext("2d");
+var backCanvas = document.getElementById("stageCanvas");
+var backCtx = backCanvas.getContext("2d");
 
-var gameCanvas = document.getElementById("gameCanvas");
-var gameCtx = gameCanvas.getContext("2d");
+var middleCanvas = document.getElementById("middleCanvas");
+var middleCtx = middleCanvas.getContext("2d");
+
+var frontCanvas = document.getElementById("frontCanvas");
+var frontCtx = frontCanvas.getContext("2d");
 
 var srcX;
 var srcY;
@@ -39,13 +44,16 @@ function updateFrame() {
     }
 }
 
+var playerPlacement = middleCanvas.height / 2;
+
 //canvas dimensions
 var W = window.innerWidth;
 var H = window.innerHeight;
-var GW = gameCanvas.width;
-var GH = gameCanvas.height;
-canvas.width = W;
-canvas.height = H;
+
+backCanvas.width = W;
+backCanvas.height = H;
+frontCanvas.width = W;
+frontCanvas.height = H;
 
 
 //snowflake particles
@@ -64,27 +72,80 @@ for (var i = 0; i < mp; i++)
 //Lets draw the flakes
 function draw()
 {
-    ctx.clearRect(0, 0, W, H);
-    gameCtx.clearRect(0, 0, GW, GH);
-    
-    updateFrame();
-    
-    gameCtx.fillStyle = "rgba(255, 255, 255, 0.8)";
-    gameCtx.beginPath();
-    gameCtx.rect(0,0,GW, GH);
-    gameCtx.fill();
+    backCtx.clearRect(0, 0, W, H);
+    middleCtx.clearRect(0, 0, W, H);
+    frontCtx.clearRect(0, 0, W, H);
 
-    ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
-    ctx.beginPath();
-    for (var i = 0; i < mp; i++)
-    {
-        var p = particles[i];
-        ctx.moveTo(p.x, p.y);
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2, true);
+    updateFrame();
+
+    drawBack();
+    drawMiddle();
+    drawFront();
+
+    function drawBack() {
+        backCtx.fillStyle = "rgba(255, 255, 255, 0.8)";
+        backCtx.beginPath();
+        for (var i = 0; i < mp; i++)
+        {
+            var p = particles[i];
+            backCtx.moveTo(p.x, p.y);
+            backCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2, true);
+        }
+        backCtx.fill();
+        update();
     }
-    ctx.fill();
-    update();
-    ctx.drawImage(plussCharacter, srcX, srcY, spriteWidth, spriteHeight, 160, 150, spriteWidth, spriteHeight);
+
+    function drawMiddle() {
+        middleCtx.fillStyle = "rgba(131, 92, 59, 1)";
+        middleCtx.beginPath();
+        middleCtx.rect(0, 0, middleCanvas.width, middleCanvas.height);
+        middleCtx.fill();
+
+        middleCtx.fillStyle = "rgba(255, 255, 255, 1)";
+        middleCtx.beginPath();
+        middleCtx.rect(middleCanvas.width / 12, playerPlacement,
+                middleCanvas.width / 10, middleCanvas.height / 8);
+        middleCtx.fill();
+        middleCtx.stroke();
+    }
+
+    function drawFront() {
+        frontCtx.drawImage(plussCharacter, srcX, srcY, spriteWidth,
+                spriteHeight, 0, 100, W / 4, H / 2);
+    }
+}
+
+var x = 0;
+var y = 0;
+
+var timer = 0;
+
+window.addEventListener("mousemove", function() {
+    x = event.x;
+    y = event.y;
+
+    x -= middleCanvas.offsetLeft;
+    y -= middleCanvas.offsetTop;
+});
+
+window.addEventListener("mousedown", function () {
+    timer = setInterval(movePlayer, 20);
+}, false);
+
+window.addEventListener("mouseup", function () {
+    clearInterval(timer);
+}, false);
+
+function movePlayer() {
+    if ((y/4) < (playerPlacement+(middleCanvas.height / 8))) {
+        playerPlacement--;
+    } else if ((y/4) > (playerPlacement+(middleCanvas.height / 8))) {
+        playerPlacement++;
+    }
+}
+
+function changePos() {
+    playerPlacement = 0;
 }
 
 //Function to move the snowflakes
@@ -102,7 +163,6 @@ function update()
         //Lets make it more random by adding in the radius
         p.y += Math.cos(angle + p.d) + 1 + p.r / 2;
         p.x += Math.sin(angle) * 2;
-
         //Sending flakes back from the top when it exits
         //Lets make it a bit more organic and let flakes enter from the left and right also.
         if (p.x > W + 5 || p.x < -5 || p.y > H)

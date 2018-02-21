@@ -4,7 +4,14 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<div id="stage02">      
+<div id="stage02">
+    <div id="myModal" class="modal">
+        <div id="stage2StartModalContent">
+            <button id="stage2StartButton">Start!</button>
+        </div>
+    </div>
+
     <canvas id="stageCanvas"></canvas>
-    <canvas id="gameCanvas"></canvas>
+    <canvas id="middleCanvas" onmousedown="userClickDown()" onmouseup="userClickUp()"></canvas>
+    <canvas id="frontCanvas"></canvas>
 </div>
