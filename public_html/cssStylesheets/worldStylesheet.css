@@ -26,8 +26,8 @@ and open the template in the editor.
     display: block;
     position: relative;
     width: 70%;
-    margin-top: 5%;
     height: 90vh;
+    margin-top: 24px;
     margin-left: 15%;
     margin-right: 15%;
 }
@@ -39,7 +39,37 @@ and open the template in the editor.
     left:0;
 } 
 
-#stage2StartModalContent {
+#startModalContent {
+    background-color: rgb(25, 25, 25);
+    font-size: 1vw;
+    color: white;
+    margin-left: 20%;
+    margin-right: 20%;
+    width: 60%;
+    padding: 20px;
+    border: 2px solid #888;
+    border-radius: 5px;
+    animation: blowUpElement 1s;
+    z-index: 2;
+}
+
+#gameOverModalContent {
+    background-color: rgb(25, 25, 25);
+    color: white;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 2px solid #888;
+    border-radius: 5px;
+    width: 25%; /* Could be more or less, depending on screen size */
+    animation: blowUpElement 1s;
+    z-index: 2;
+}
+
+#gameOverModalContent button {
+    float: right;
+}
+
+#winModalContent {
     background-color: rgb(25, 25, 25);
     color: white;
     margin: 15% auto; /* 15% from the top and centered */
@@ -50,10 +80,15 @@ and open the template in the editor.
     animation: blowUpElement 1s;
 }
 
-#stage2StartButton {
-    width: 100%;
+#questionBox {
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 16px;
+    font-size: 1vh;;
+    background-color: black;
+    color: white;
     height: 10vh;
-    background-color: white;
 }
 
 .world1title {

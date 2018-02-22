@@ -30,6 +30,9 @@ var spriteHeight = 300;
 
 var currentFrame = 0;
 
+var gameState = 0;
+setBeforeGame();
+
 var plussCharacter = new Image();
 plussCharacter.src = "assets/characters/plussCharSpr.png";
 
@@ -44,14 +47,14 @@ function updateFrame() {
     }
 }
 
-var playerPlacement = middleCanvas.height / 2;
-
 //canvas dimensions
 var W = window.innerWidth;
 var H = window.innerHeight;
 
 backCanvas.width = W;
 backCanvas.height = H;
+middleCanvas.width = W;
+middleCanvas.height = H;
 frontCanvas.width = W;
 frontCanvas.height = H;
 
@@ -68,6 +71,75 @@ for (var i = 0; i < mp; i++)
         d: Math.random() * mp //density
     });
 }
+
+// Game variables
+
+var gameScore = 0;
+var firstNumber = 0;
+var secondNumber = 0;
+var questionAnswer = 0;
+var gameSpeed = 5;
+
+//Hinder Object
+var hinderX = W + ((Math.random() * (W / 2)));
+var hinderY = 0;
+var hinderWidth = W / 10;
+var hinderHeight = H / 8;
+
+//Math Object
+var Math1ObjectX = W + ((Math.random() * (W / 2)));
+var Math1ObjectY = Math.random() * (H - 1) + 1;
+var Math1ObjectWidth = W / 40;
+var Math1Number = 0;
+
+//Math Object2
+var Math2ObjectX = W + ((Math.random() * (W / 2)));
+var Math2ObjectY = (Math.random() * (H - 1)) + 1;
+var Math2ObjectWidth = W / 40;
+var Math2Number = 0;
+
+//Math Object3
+var Math3ObjectX = W + ((Math.random() * (W / 2)));
+var Math3ObjectY = Math.random() * (H - 1) + 1;
+var Math3ObjectWidth = W / 40;
+var Math3Number = 0;
+
+//PlayerVariables
+var playerX = W / 12;
+var playerY = H / 2;
+var playerHeight = H / 8;
+var playerWidth = W / 10;
+
+var x = 0;
+var y = 0;
+
+// Player Controll
+var timer = 0;
+
+var mouseMove = window.addEventListener("mousemove", function () {
+    x = event.x - 24;
+    y = event.y - 24;
+});
+
+var mouseDown = window.addEventListener("mousedown", function () {
+    if (timer === 0) {
+        timer = setInterval(movePlayer, 20);
+    }
+}, false);
+
+var mouseUp = window.addEventListener("mouseup", function () {
+    clearInterval(timer);
+    timer = 0;
+}, false);
+
+function movePlayer() {
+    if (y < (playerY + ((H / 8) / 2)) && (playerY > 0)) {
+        playerY -= 10;
+    } else if (y > (playerY + ((H / 8) / 2)) && (playerY < H - (H / 8))) {
+        playerY += 10;
+    }
+}
+
 
 //Lets draw the flakes
 function draw()
@@ -92,21 +164,44 @@ function draw()
             backCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2, true);
         }
         backCtx.fill();
-        update();
+        updateBackground();
     }
 
     function drawMiddle() {
+
         middleCtx.fillStyle = "rgba(131, 92, 59, 1)";
         middleCtx.beginPath();
-        middleCtx.rect(0, 0, middleCanvas.width, middleCanvas.height);
+        middleCtx.rect(0, 0, W, H);
         middleCtx.fill();
 
         middleCtx.fillStyle = "rgba(255, 255, 255, 1)";
         middleCtx.beginPath();
-        middleCtx.rect(middleCanvas.width / 12, playerPlacement,
-                middleCanvas.width / 10, middleCanvas.height / 8);
+        middleCtx.rect(playerX, playerY, playerWidth, playerHeight);
         middleCtx.fill();
         middleCtx.stroke();
+
+        if (gameState === 1) {
+
+            updateGame();
+
+            middleCtx.fillStyle = "rgba(0, 0, 0, 1)";
+            middleCtx.beginPath();
+            middleCtx.rect(hinderX, hinderY, hinderWidth, hinderHeight);
+            middleCtx.fill();
+
+            middleCtx.fillStyle = "rgba(255, 200, 200, 0.6)";
+            middleCtx.beginPath();
+            middleCtx.arc(Math1ObjectX, Math1ObjectY, Math1ObjectWidth, 0, 2 * Math.PI);
+            middleCtx.fill();
+
+            middleCtx.beginPath();
+            middleCtx.arc(Math2ObjectX, Math2ObjectY, Math2ObjectWidth, 0, 2 * Math.PI);
+            middleCtx.fill();
+
+            middleCtx.beginPath();
+            middleCtx.arc(Math3ObjectX, Math3ObjectY, Math3ObjectWidth, 0, 2 * Math.PI);
+            middleCtx.fill();
+        }
     }
 
     function drawFront() {
@@ -115,44 +210,85 @@ function draw()
     }
 }
 
-var x = 0;
-var y = 0;
+function changePos() {
+    playerY = 0;
+}
 
-var timer = 0;
+function updateGame() {
+    
+    if(gameSpeed === 10) {
+        setWinGame();
+    }
+    
+    if (playerY > (hinderY - hinderHeight) && playerY < (hinderY + hinderHeight)
+            && playerX > (hinderX - hinderWidth)
+            && playerX < (hinderX + hinderWidth)) {
+        setGameOver();
+    }
 
-window.addEventListener("mousemove", function() {
-    x = event.x;
-    y = event.y;
+    if (Math1ObjectY > (playerY - playerHeight) && Math1ObjectY < (playerY + playerHeight)
+            && Math1ObjectX > (playerX - playerWidth)
+            && Math1ObjectX < (playerX + playerWidth)) {
+        Math1ObjectX = W + ((Math.random() * (W / 2)));
 
-    x -= middleCanvas.offsetLeft;
-    y -= middleCanvas.offsetTop;
-});
+        if (Math1Number === questionAnswer) {
+            gameSpeed++;
+            restartGame();
+        }
+    }
 
-window.addEventListener("mousedown", function () {
-    timer = setInterval(movePlayer, 20);
-}, false);
+    if (Math2ObjectY > (playerY - playerHeight) && Math2ObjectY < (playerY + playerHeight)
+            && Math2ObjectX > (playerX - playerWidth)
+            && Math2ObjectX < (playerX + playerWidth)) {
+        Math2ObjectX = W + ((Math.random() * (W / 2)));
 
-window.addEventListener("mouseup", function () {
-    clearInterval(timer);
-}, false);
+        if (Math2Number === questionAnswer) {
+            gameSpeed++;
+            restartGame();
+        }
+    }
 
-function movePlayer() {
-    if ((y/4) < (playerPlacement+(middleCanvas.height / 8))) {
-        playerPlacement--;
-    } else if ((y/4) > (playerPlacement+(middleCanvas.height / 8))) {
-        playerPlacement++;
+    if (Math3ObjectY > (playerY - playerHeight) && Math3ObjectY < (playerY + playerHeight)
+            && Math3ObjectX > (playerX - playerWidth)
+            && Math3ObjectX < (playerX + playerWidth)) {
+        Math3ObjectX = W + ((Math.random() * (W / 2)));
+
+        if (Math3Number === questionAnswer) {
+            gameSpeed++;
+            restartGame();
+        }
+    }
+
+    hinderX -= gameSpeed+1;
+    if (hinderX < -hinderWidth) {
+        hinderX = W + ((Math.random() * (W / 2)));
+        hinderY = (Math.random() * (H - 1)) + 1;
+    }
+
+    Math1ObjectX -= gameSpeed;
+    if (Math1ObjectX < -Math1ObjectWidth) {
+        Math1ObjectX = W + ((Math.random() * (W / 2)));
+        Math1ObjectY = (Math.random() * (H - 1)) + 1;
+    }
+
+    Math2ObjectX -= gameSpeed;
+    if (Math2ObjectX < -Math2ObjectWidth) {
+        Math2ObjectX = W + ((Math.random() * (W / 2)));
+        Math2ObjectY = (Math.random() * (H - 1)) + 1;
+    }
+
+    Math3ObjectX -= gameSpeed;
+    if (Math3ObjectX < -Math3ObjectWidth) {
+        Math3ObjectX = W + ((Math.random() * (W / 2)));
+        Math3ObjectY = (Math.random() * (H - 1)) + 1;
     }
 }
 
-function changePos() {
-    playerPlacement = 0;
-}
-
-//Function to move the snowflakes
-//angle will be an ongoing incremental flag. Sin and Cos functions will be applied to it to create vertical and horizontal movements of the flakes
 var angle = 0;
-function update()
+function updateBackground()
 {
+    //Function to move the snowflakes
+    //angle will be an ongoing incremental flag. Sin and Cos functions will be applied to it to create vertical and horizontal movements of the flakes
     angle += 0.01;
     for (var i = 0; i < mp; i++)
     {
@@ -187,5 +323,74 @@ function update()
     }
 }
 
-//animation loop
-animationLoop = setInterval(draw, 33);
+function setGameOver() {
+    gameState = 0;
+    document.getElementById('myModal').style.display = "block";
+    document.getElementById("gameOverModalContent").style.display = "block";
+    document.getElementById("startModalContent").style.display = "none";
+    document.getElementById("winModalContent").style.display = "none";
+    restartGame();
+}
+
+function setStartGame() {
+    gameState = 1;
+    document.getElementById('myModal').style.display = "none";
+    document.getElementById("gameOverModalContent").style.display = "none";
+    document.getElementById("startModalContent").style.display = "none";
+    document.getElementById("winModalContent").style.display = "none";
+
+    restartGame();
+}
+
+function setBeforeGame() {
+    gameState = 0;
+    document.getElementById('myModal').style.display = "block";
+    document.getElementById("gameOverModalContent").style.display = "none";
+    document.getElementById("startModalContent").style.display = "block";
+    document.getElementById("winModalContent").style.display = "none";
+}
+
+function setWinGame() {
+    gameState = 0;
+    document.getElementById('myModal').style.display = "block";
+    document.getElementById("gameOverModalContent").style.display = "none";
+    document.getElementById("startModalContent").style.display = "none";
+    document.getElementById("winModalContent").style.display = "block";
+}
+
+function restartGame() {
+    // Game variables
+    //Hinder Object
+    
+    firstNumber = Math.round(Math.random() * 10);
+    secondNumber = Math.round(Math.random() * 10);
+    questionAnswer = firstNumber + secondNumber;
+    
+    document.getElementById("questionBox").innerHTML = firstNumber + " + " + secondNumber;
+    
+    hinderX = W + ((Math.random() * (W / 2)));
+    hinderY = 0;
+    hinderWidth = W / 10;
+    hinderHeight = H / 8;
+
+    //Math Object
+    Math1ObjectX = W + ((Math.random() * (W / 2)));
+    Math1ObjectY = Math.random() * (H - 1) + 1;
+    Math1ObjectWidth = W / 40;
+    Math1Number = firstNumber + secondNumber;
+
+    //Math Object2
+    Math2ObjectX = W + ((Math.random() * (W / 2)));
+    Math2ObjectY = (Math.random() * (H - 1)) + 1;
+    Math2ObjectWidth = W / 40;
+    Math2Number = firstNumber + secondNumber + 5;
+
+    //Math Object3
+    Math3ObjectX = W + ((Math.random() * (W / 2)));
+    Math3ObjectY = Math.random() * (H - 1) + 1;
+    Math3ObjectWidth = W / 40;
+    Math3Number = firstNumber + secondNumber - 5;
+}
+
+//animation loop, 60 fps
+animationLoop = setInterval(draw, 16);

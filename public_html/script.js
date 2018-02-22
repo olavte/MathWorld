@@ -22,17 +22,22 @@ var animationLoop = null;
 
 var mainMusic = new Audio('assets/music/startScreen.mp3');
 mainMusic.volume = globalVolume * musicVolume;
-mainMusic.addEventListener('ended', function() {
+mainMusic.addEventListener('ended', function () {
     this.currentTime = 0;
     this.play();
 }, false);
 mainMusic.play();
 
+//Controllers
+mouseDown = 0;
+mouseUp = 0;
+mouseMove = 0;
+
 function fadeIn(element) {
     element.style.opacity = 0;
     var op = 0.2;  // initial opacity
     var timer = setInterval(function () {
-        if (op >= 1){
+        if (op >= 1) {
             clearInterval(timer);
         }
         element.style.opacity = op;
@@ -44,7 +49,7 @@ function goToNewScreen(html, js) {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
-            if(animationLoop != null) {
+            if (animationLoop != null) {
                 clearAnimation();
             }
             gameScreen.innerHTML = this.responseText;
@@ -61,8 +66,17 @@ function goToNewScreen(html, js) {
 
 function clearAnimation() {
     clearInterval(animationLoop);
+    if (mouseDown !== 0) {
+        window.removeEventListener("mousedown", mouseDown);
+    }
+    if (mouseUp !== 0) {
+        window.removeEventListener("mouseup", mouseUp);
+    }
+    if (mouseMove !== 0) {
+        window.removeEventListener("mousemove", mouseMove)
+    }
 }
 
 //Start the game
-goToNewScreen("source/mainMenuSource/startScreen/startScreen.html", 
-"source/mainMenuSource/startScreen/startScreen.js");
+goToNewScreen("source/mainMenuSource/startScreen/startScreen.html",
+        "source/mainMenuSource/startScreen/startScreen.js");

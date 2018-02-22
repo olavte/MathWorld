@@ -6,12 +6,44 @@ and open the template in the editor.
 -->
 <div id="stage02">
     <div id="myModal" class="modal">
-        <div id="stage2StartModalContent">
-            <button id="stage2StartButton">Start!</button>
+        <div id="startModalContent">
+            Hey!! The badie is here and is trying to polute the chocolate pool!!
+            <br>
+            We have to gather enough cotton candy to capture him! <br> 
+            You have to take the correct cotton candy, if you take the 
+            wrong one you will lose one point, I will help you taking the correct one. 
+            <p>
+                OH NO!! The badie is coming! He 
+                is trying to target you, evade him as you collect cotton candy.
+            </p>
+            <button onclick="setStartGame()">Start!</button>
+            <button onclick="goToNewScreen(
+                        'source/worldSource/world01/world01.html', 
+                        'source/worldSource/world01/world01.js')">
+                Exit!
+            </button>
+        </div>
+        <div id="gameOverModalContent">
+            <button onclick="setBeforeGame()">Start!</button>
+            <button onclick="goToNewScreen(
+                        'source/worldSource/world01/world01.html', 
+                        'source/worldSource/world01/world01.js')">
+                Exit!
+            </button>
+        </div>
+        <div id="winModalContent">
+            WIN!!!
+            <button onclick="goToNewScreen(
+                        'source/worldSource/world01/world01.html', 
+                        'source/worldSource/world01/world01.js')">
+                Exit!
+            </button>
         </div>
     </div>
+    
+    <div id="questionBox"></div>
 
     <canvas id="stageCanvas"></canvas>
-    <canvas id="middleCanvas" onmousedown="userClickDown()" onmouseup="userClickUp()"></canvas>
+    <canvas id="middleCanvas"></canvas>
     <canvas id="frontCanvas"></canvas>
 </div>
