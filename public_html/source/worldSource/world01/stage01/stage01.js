@@ -140,10 +140,13 @@ function victoryScreen() {
 
 //lets user know they pressed wrong
 function sadnessScreen() {
-
-    document.getElementById('answerOptions').innerHTML = "WRONG!";
+    var text = "<p>Wrong</p>";
+   document.getElementById('questionText').innerHTML = text;
+   
 
 }
+
+
 
 
 
