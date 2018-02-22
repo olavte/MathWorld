@@ -6,7 +6,8 @@
 
 /* 
  */
-
+ var candyPrice = randomNumber(10) + 1;
+ var moneyOnHand = Math.floor(Math.random() * 90) + 30;
 
 
 // variables for questions
@@ -144,10 +145,9 @@ mathFourFinal();
 
 //final level in world 1, for special assignement and timer function
 function mathFourFinal() {
-    var candyPrice = randomNumber(10);
-    var moneyOnHand = Math.floor(Math.random() * 100) + 30;
+   
     var answer = Math.floor(moneyOnHand/candyPrice);
-    var options = [answer, randomNumber(30), randomNumber(60), randomNumber(100)];
+    var options = [answer, randomNumber(30), randomNumber(60), randomNumber(80)];
     shuffle(options);
 
     document.getElementById('question04').innerHTML = "If this candy is " + candyPrice + " cents and you have " + moneyOnHand + " cents, how many candies can you buy with the money you have?";
@@ -161,6 +161,16 @@ function mathFourFinal() {
     }
     document.getElementById('qanswers').innerHTML = text;
 }
+
+
+
+    
+
+
+
+
+
+
 
 
 
@@ -200,3 +210,10 @@ function shuffle(a) {
         a[j] = x;
     }
 }
+
+    function clikedPic(clickedId) {
+    
+   var value = document.getElementById(clickedId);
+   totalSum = candyPrice + totalSum;
+   document.getElementById('total04').innerHTML = "Money spent: " + totalSum + " cents";
+   }

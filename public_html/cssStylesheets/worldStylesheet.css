@@ -243,59 +243,58 @@ button[disabled]{
     transform: translate(-50%, -50%);
 }
 #questionPicture {
-
     position: relative;
-
 }
 
 
-#stagebackground { 
-    
+#stagebackground {    
     background: radial-gradient(DarkTurquoise  , whitesmoke);
     border:solid 3px;
     width: 50%;
-    height: 100%;
-    
-    position: absolute;
-    
+    height: 100%;  
+    position: absolute;   
     text-align: center;
-    left:500px;
-     
+    left:500px;   
 }
 
 #question04{
     
     font-size:30px;
     font-family:"Comic Sans MS", cursive, sans-serif;
-    color:pink;
-    text-align: center;
-    
-        
+    color:black;
+    text-align: center;        
 }
 
 #qanswers{
     font-size:30px;
     font-family:"Comic Sans MS", cursive, sans-serif;
-    color:white;
+    color:black;
     text-align: center;
-    
 }
 
-#exitbutton{
-    
+#exitbutton{  
     text-align: center;
-    
-    
 }
 
 #minigamebutton04{
-    
-    
     text-align: center;
 }
 
 #icecream04{
-
-        width:300px;
- 
+        width:400px;
 }
+
+#total04{
+     font-size:30px;
+    font-family:"Comic Sans MS", cursive, sans-serif;
+    color:black;
+    text-align: center;
+  }
+  
+  #icediv{
+    font-size:30px;
+    font-family:"Comic Sans MS", cursive, sans-serif;
+    color:black;
+    text-align: center;
+      
+  }
