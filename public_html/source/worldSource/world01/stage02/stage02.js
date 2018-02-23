@@ -1,18 +1,23 @@
 /* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
-//document.getElementById('myModal').style.display = "block";
-//document.getElementById('stage2StartModalContent').style.display = "block";
+
+/* 
+ */
+ var candyPrice = randomNumber(10) + 1;
+ var moneyOnHand = Math.floor(Math.random() * 90) + 30;
+
+
+// variables for questions
+var answer;
+var totalSum = 0;
 
 //canvas init
 
-var backCanvas = document.getElementById("stageCanvas");
-var backCtx = backCanvas.getContext("2d");
-
-var middleCanvas = document.getElementById("middleCanvas");
-var middleCtx = middleCanvas.getContext("2d");
-
-var frontCanvas = document.getElementById("frontCanvas");
-var frontCtx = frontCanvas.getContext("2d");
+var canvas = document.getElementById("stageCanvas");
+var ctx = canvas.getContext("2d");
 
 var srcX;
 var srcY;
@@ -29,9 +34,6 @@ var spriteWidth = 300;
 var spriteHeight = 300;
 
 var currentFrame = 0;
-
-var gameState = 0;
-setBeforeGame();
 
 var plussCharacter = new Image();
 plussCharacter.src = "assets/characters/plussCharSpr.png";
@@ -50,14 +52,8 @@ function updateFrame() {
 //canvas dimensions
 var W = window.innerWidth;
 var H = window.innerHeight;
-
-backCanvas.width = W;
-backCanvas.height = H;
-middleCanvas.width = W;
-middleCanvas.height = H;
-frontCanvas.width = W;
-frontCanvas.height = H;
-
+canvas.width = W;
+canvas.height = H;
 
 //snowflake particles
 var mp = 30; //max particles
@@ -72,245 +68,32 @@ for (var i = 0; i < mp; i++)
     });
 }
 
-// Game variables
-
-var gameScore = 0;
-var firstNumber = 0;
-var secondNumber = 0;
-var questionAnswer = 0;
-var gameSpeed = 5;
-
-//Hinder Object
-var hinderX = W + ((Math.random() * (W / 2)));
-var hinderY = 0;
-var hinderWidth = W / 10;
-var hinderHeight = H / 8;
-
-//Math Object
-var Math1ObjectX = W + ((Math.random() * (W / 2)));
-var Math1ObjectY = Math.random() * (H - 1) + 1;
-var Math1ObjectWidth = W / 40;
-var Math1Number = 0;
-
-//Math Object2
-var Math2ObjectX = W + ((Math.random() * (W / 2)));
-var Math2ObjectY = (Math.random() * (H - 1)) + 1;
-var Math2ObjectWidth = W / 40;
-var Math2Number = 0;
-
-//Math Object3
-var Math3ObjectX = W + ((Math.random() * (W / 2)));
-var Math3ObjectY = Math.random() * (H - 1) + 1;
-var Math3ObjectWidth = W / 40;
-var Math3Number = 0;
-
-//PlayerVariables
-var playerX = W / 12;
-var playerY = H / 2;
-var playerHeight = H / 8;
-var playerWidth = W / 10;
-
-var x = 0;
-var y = 0;
-
-// Player Controll
-var timer = 0;
-
-var mouseMove = window.addEventListener("mousemove", function () {
-    x = event.x;
-    y = (event.y - middleCanvas.offsetTop) * 1.4;
-});
-
-var mouseDown = window.addEventListener("mousedown", function () {
-    if (timer === 0) {
-        timer = setInterval(movePlayer, 20);
-    }
-}, false);
-
-var mouseUp = window.addEventListener("mouseup", function () {
-    clearInterval(timer);
-    timer = 0;
-}, false);
-
-function movePlayer() {
-    if (y < ((playerY + ((playerHeight) / 2)) - 24) && (playerY > 0)) {
-        playerY -= 10;
-    } else if (y > ((playerY + (playerHeight / 2)) + 24) && playerY < (H - (playerHeight))) {
-        playerY += 10;
-    }
-}
-
-
 //Lets draw the flakes
 function draw()
 {
-    backCtx.clearRect(0, 0, W, H);
-    middleCtx.clearRect(0, 0, W, H);
-    frontCtx.clearRect(0, 0, W, H);
+    ctx.clearRect(0, 0, W, H);
 
     updateFrame();
 
-    drawBack();
-    drawMiddle();
-    drawFront();
 
-    function drawBack() {
-        backCtx.fillStyle = "rgba(255, 255, 255, 0.8)";
-        backCtx.beginPath();
-        for (var i = 0; i < mp; i++)
-        {
-            var p = particles[i];
-            backCtx.moveTo(p.x, p.y);
-            backCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2, true);
-        }
-        backCtx.fill();
-        updateBackground();
+    ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
+    ctx.beginPath();
+    for (var i = 0; i < mp; i++)
+    {
+        var p = particles[i];
+        ctx.moveTo(p.x, p.y);
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2, true);
     }
-
-    function drawMiddle() {
-
-        middleCtx.fillStyle = "rgba(131, 92, 59, 1)";
-        middleCtx.beginPath();
-        middleCtx.rect(0, 0, W, H);
-        middleCtx.fill();
-
-        middleCtx.fillStyle = "rgba(255, 255, 255, 1)";
-        middleCtx.beginPath();
-        middleCtx.rect(playerX, playerY, playerWidth, playerHeight);
-        middleCtx.fill();
-        middleCtx.stroke();
-
-        if (gameState === 1) {
-
-            updateGame();
-
-            middleCtx.fillStyle = "rgba(0, 0, 0, 1)";
-            middleCtx.beginPath();
-            middleCtx.rect(hinderX, hinderY, hinderWidth, hinderHeight);
-            middleCtx.fill();
-
-            middleCtx.fillStyle = "rgba(255, 200, 200, 0.6)";
-            middleCtx.beginPath();
-            middleCtx.arc(Math1ObjectX, Math1ObjectY, Math1ObjectWidth, 0, 2 * Math.PI);
-            middleCtx.fill();
-            
-            middleCtx.beginPath();
-            middleCtx.arc(Math2ObjectX, Math2ObjectY, Math2ObjectWidth, 0, 2 * Math.PI);
-            middleCtx.fill();
-            
-            middleCtx.beginPath();
-            middleCtx.arc(Math3ObjectX, Math3ObjectY, Math3ObjectWidth, 0, 2 * Math.PI);
-            middleCtx.fill();
-            
-            middleCtx.fillStyle = "rgba(0, 0, 0, 1)";
-            middleCtx.font = "30px Arial";
-            middleCtx.fillText(Math1Number, Math1ObjectX 
-                    - (Math1ObjectWidth/2), Math1ObjectY 
-                    + (Math1ObjectWidth/2));
-            middleCtx.fillText(Math2Number, Math2ObjectX 
-                    - (Math2ObjectWidth/2), Math2ObjectY 
-                    + (Math1ObjectWidth/2));
-            middleCtx.fillText(Math3Number, Math3ObjectX 
-                    - (Math3ObjectWidth/2), Math3ObjectY 
-                    + (Math1ObjectWidth/2));
-        }
-    }
-
-    function drawFront() {
-        frontCtx.drawImage(plussCharacter, srcX, srcY, spriteWidth,
-                spriteHeight, 0, 100, W / 4, H / 2);
-    }
+    ctx.fill();
+    update();
+    ctx.drawImage(plussCharacter, srcX, srcY, spriteWidth, spriteHeight, 160, 150, spriteWidth, spriteHeight);
 }
 
-function updateGame() {
-
-    if (gameSpeed === 10) {
-        setWinGame();
-    } else if (gameSpeed === 0) {
-        setGameOver();
-    }
-
-    if (playerY > (hinderY - hinderHeight) && playerY < (hinderY + hinderHeight)
-            && playerX > (hinderX - hinderWidth)
-            && playerX < (hinderX + hinderWidth)) {
-        setGameOver();
-    }
-
-    if (Math1ObjectY > (playerY)
-            && Math1ObjectY < (playerY + playerHeight)
-            && Math1ObjectX > (playerX - playerWidth)
-            && Math1ObjectX < (playerX + playerWidth)) {
-        Math1ObjectX = W + ((Math.random() * (W / 2)));
-
-        if (Math1Number === questionAnswer) {
-            gameSpeed++;
-            restartGame();
-        } else {
-            gameSpeed--;
-            restartGame();
-        }
-    }
-
-    if (Math2ObjectY > (playerY)
-            && Math2ObjectY < (playerY + playerHeight)
-            && Math2ObjectX > (playerX - playerWidth)
-            && Math2ObjectX < (playerX + playerWidth)) {
-        Math2ObjectX = W + ((Math.random() * (W / 2)));
-
-        if (Math2Number === questionAnswer) {
-            gameSpeed++;
-            restartGame();
-        } else {
-            gameSpeed--;
-            restartGame();
-        }
-    }
-
-    if (Math3ObjectY > (playerY)
-            && Math3ObjectY < (playerY + playerHeight)
-            && Math3ObjectX > (playerX - playerWidth)
-            && Math3ObjectX < (playerX + playerWidth)) {
-        Math3ObjectX = W + ((Math.random() * (W / 2)));
-
-        if (Math3Number === questionAnswer) {
-            gameSpeed++;
-            restartGame();
-        } else {
-            gameSpeed--;
-            restartGame();
-        }
-    }
-
-    hinderX -= gameSpeed + 1;
-    if (hinderX < -hinderWidth) {
-        hinderX = W + ((Math.random() * (W / 2)));
-        hinderY = (Math.random() * (H - 1)) + 1;
-    }
-
-    Math1ObjectX -= gameSpeed;
-    if (Math1ObjectX < -Math1ObjectWidth) {
-        Math1ObjectX = W + ((Math.random() * (W / 2)));
-        Math1ObjectY = (Math.random() * (H - 1)) + 1;
-    }
-
-    Math2ObjectX -= gameSpeed;
-    if (Math2ObjectX < -Math2ObjectWidth) {
-        Math2ObjectX = W + ((Math.random() * (W / 2)));
-        Math2ObjectY = (Math.random() * (H - 1)) + 1;
-    }
-
-    Math3ObjectX -= gameSpeed;
-    if (Math3ObjectX < -Math3ObjectWidth) {
-        Math3ObjectX = W + ((Math.random() * (W / 2)));
-        Math3ObjectY = (Math.random() * (H - 1)) + 1;
-    }
-}
-
+//Function to move the snowflakes
+//angle will be an ongoing incremental flag. Sin and Cos functions will be applied to it to create vertical and horizontal movements of the flakes
 var angle = 0;
-function updateBackground()
+function update()
 {
-    //Function to move the snowflakes
-    //angle will be an ongoing incremental flag. Sin and Cos functions will be applied to it to create vertical and horizontal movements of the flakes
     angle += 0.01;
     for (var i = 0; i < mp; i++)
     {
@@ -321,6 +104,7 @@ function updateBackground()
         //Lets make it more random by adding in the radius
         p.y += Math.cos(angle + p.d) + 1 + p.r / 2;
         p.x += Math.sin(angle) * 2;
+
         //Sending flakes back from the top when it exits
         //Lets make it a bit more organic and let flakes enter from the left and right also.
         if (p.x > W + 5 || p.x < -5 || p.y > H)
@@ -345,76 +129,91 @@ function updateBackground()
     }
 }
 
-function setGameOver() {
-    gameState = 0;
-    document.getElementById('myModal').style.display = "block";
-    document.getElementById("gameOverModalContent").style.display = "block";
-    document.getElementById("startModalContent").style.display = "none";
-    document.getElementById("winModalContent").style.display = "none";
-    restartGame();
+//animation loop
+animationLoop = setInterval(draw, 33);
+mathFourFinal();
+
+
+
+
+
+
+//creates a random price for a candy
+//and a random value of money you have on hand
+//
+
+
+//final level in world 1, for special assignement and timer function
+function mathFourFinal() {
+   
+    var answer = Math.floor(moneyOnHand/candyPrice);
+    var options = [answer, randomNumber(30), randomNumber(60), randomNumber(80)];
+    shuffle(options);
+
+    document.getElementById('question04').innerHTML = "If this candy is " + candyPrice + " cents and you have " + moneyOnHand + " cents, how many candies can you buy with the money you have?";
+    var text = "<ul>";
+    for (i = 0; i < options.length; i++) {
+        if (options[i] === answer) {
+            text += "<button onclick='victoryScreen()' style='height:50px;width:100px'>" + options[i] + "</button>"; // rett svar knapp
+        } else {
+            text += "<button onclick='sadnessScreen()' style='height:50px;width:100px'>" + options[i] + "</button>"; // feil svar knapp
+        }
+    }
+    document.getElementById('qanswers').innerHTML = text;
 }
 
-function setStartGame() {
-    gameState = 1;
-    document.getElementById('myModal').style.display = "none";
-    document.getElementById("gameOverModalContent").style.display = "none";
-    document.getElementById("startModalContent").style.display = "none";
-    document.getElementById("winModalContent").style.display = "none";
 
-    restartGame();
+
+    
+
+
+
+
+
+
+
+
+
+//Lets user know they were correct, 
+function victoryScreen() {
+
+
+    document.getElementById('qanswers').innerHTML = "CORRECT!";
+
+
 }
 
-function setBeforeGame() {
-    gameState = 0;
-    document.getElementById('myModal').style.display = "block";
-    document.getElementById("gameOverModalContent").style.display = "none";
-    document.getElementById("startModalContent").style.display = "block";
-    document.getElementById("winModalContent").style.display = "none";
+//lets user know they pressed wrong
+function sadnessScreen() {
+
+    document.getElementById('qanswers').innerHTML = "WRONG!";
+
 }
 
-function setWinGame() {
-    gameState = 0;
-    document.getElementById('myModal').style.display = "block";
-    document.getElementById("gameOverModalContent").style.display = "none";
-    document.getElementById("startModalContent").style.display = "none";
-    document.getElementById("winModalContent").style.display = "block";
+
+//få random nummer 
+//@param opp til nummer upToo
+//@return random nummer
+function randomNumber(upToo) {
+    var randNumb = Math.floor(Math.random() * upToo);
+    return randNumb;
 }
 
-function restartGame() {
-    // Game variables
-    //Hinder Object
 
-    firstNumber = Math.round(Math.random() * 10);
-    secondNumber = Math.round(Math.random() * 10);
-    questionAnswer = firstNumber + secondNumber;
-
-    document.getElementById("questionBox").innerHTML 
-            = firstNumber + " + " + secondNumber + " = ??     Score: " 
-            + gameSpeed;
-
-    hinderX = W + ((Math.random() * (W / 2)));
-    hinderY = 0;
-    hinderWidth = W / 10;
-    hinderHeight = H / 8;
-
-    //Math Object
-    Math1ObjectX = W + ((Math.random() * (W / 2)));
-    Math1ObjectY = Math.random() * (H - 1) + 1;
-    Math1ObjectWidth = W / 40;
-    Math1Number = firstNumber + secondNumber;
-
-    //Math Object2
-    Math2ObjectX = W + ((Math.random() * (W / 2)));
-    Math2ObjectY = (Math.random() * (H - 1)) + 1;
-    Math2ObjectWidth = W / 40;
-    Math2Number = firstNumber + secondNumber + Math.round((Math.random() * 5) + 1);
-
-    //Math Object3
-    Math3ObjectX = W + ((Math.random() * (W / 2)));
-    Math3ObjectY = Math.random() * (H - 1) + 1;
-    Math3ObjectWidth = W / 40;
-    Math3Number = firstNumber + secondNumber - Math.round((Math.random() * 5) - 1);
+//shuffle array (like answer array) (Modern Fisher–Yates shuffle algorithm via 
+function shuffle(a) {
+    var j, x, i;
+    for (i = a.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1));
+        x = a[i];
+        a[i] = a[j];
+        a[j] = x;
+    }
 }
 
-//animation loop, 60 fps
-animationLoop = setInterval(draw, 16);
+    function clikedPic(clickedId) {
+    
+   var value = document.getElementById(clickedId);
+   totalSum = candyPrice + totalSum;
+   document.getElementById('total04').innerHTML = "Money spent: " + totalSum + " cents";
+   }
