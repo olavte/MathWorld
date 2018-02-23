@@ -117,8 +117,8 @@ var y = 0;
 var timer = 0;
 
 var mouseMove = window.addEventListener("mousemove", function () {
-    x = event.x - 24;
-    y = event.y - 24;
+    x = event.x;
+    y = (event.y - middleCanvas.offsetTop) * 1.4;
 });
 
 var mouseDown = window.addEventListener("mousedown", function () {
@@ -133,9 +133,9 @@ var mouseUp = window.addEventListener("mouseup", function () {
 }, false);
 
 function movePlayer() {
-    if (y < (playerY + ((H / 8) / 2)) && (playerY > 0)) {
+    if (y < ((playerY + ((playerHeight) / 2)) - 24) && (playerY > 0)) {
         playerY -= 10;
-    } else if (y > (playerY + ((H / 8) / 2)) && (playerY < H - (H / 8))) {
+    } else if (y > ((playerY + (playerHeight / 2)) + 24) && playerY < (H - (playerHeight))) {
         playerY += 10;
     }
 }
@@ -193,14 +193,26 @@ function draw()
             middleCtx.beginPath();
             middleCtx.arc(Math1ObjectX, Math1ObjectY, Math1ObjectWidth, 0, 2 * Math.PI);
             middleCtx.fill();
-
+            
             middleCtx.beginPath();
             middleCtx.arc(Math2ObjectX, Math2ObjectY, Math2ObjectWidth, 0, 2 * Math.PI);
             middleCtx.fill();
-
+            
             middleCtx.beginPath();
             middleCtx.arc(Math3ObjectX, Math3ObjectY, Math3ObjectWidth, 0, 2 * Math.PI);
             middleCtx.fill();
+            
+            middleCtx.fillStyle = "rgba(0, 0, 0, 1)";
+            middleCtx.font = "30px Arial";
+            middleCtx.fillText(Math1Number, Math1ObjectX 
+                    - (Math1ObjectWidth/2), Math1ObjectY 
+                    + (Math1ObjectWidth/2));
+            middleCtx.fillText(Math2Number, Math2ObjectX 
+                    - (Math2ObjectWidth/2), Math2ObjectY 
+                    + (Math1ObjectWidth/2));
+            middleCtx.fillText(Math3Number, Math3ObjectX 
+                    - (Math3ObjectWidth/2), Math3ObjectY 
+                    + (Math1ObjectWidth/2));
         }
     }
 
@@ -210,23 +222,22 @@ function draw()
     }
 }
 
-function changePos() {
-    playerY = 0;
-}
-
 function updateGame() {
-    
-    if(gameSpeed === 10) {
+
+    if (gameSpeed === 10) {
         setWinGame();
+    } else if (gameSpeed === 0) {
+        setGameOver();
     }
-    
+
     if (playerY > (hinderY - hinderHeight) && playerY < (hinderY + hinderHeight)
             && playerX > (hinderX - hinderWidth)
             && playerX < (hinderX + hinderWidth)) {
         setGameOver();
     }
 
-    if (Math1ObjectY > (playerY - playerHeight) && Math1ObjectY < (playerY + playerHeight)
+    if (Math1ObjectY > (playerY)
+            && Math1ObjectY < (playerY + playerHeight)
             && Math1ObjectX > (playerX - playerWidth)
             && Math1ObjectX < (playerX + playerWidth)) {
         Math1ObjectX = W + ((Math.random() * (W / 2)));
@@ -234,10 +245,14 @@ function updateGame() {
         if (Math1Number === questionAnswer) {
             gameSpeed++;
             restartGame();
+        } else {
+            gameSpeed--;
+            restartGame();
         }
     }
 
-    if (Math2ObjectY > (playerY - playerHeight) && Math2ObjectY < (playerY + playerHeight)
+    if (Math2ObjectY > (playerY)
+            && Math2ObjectY < (playerY + playerHeight)
             && Math2ObjectX > (playerX - playerWidth)
             && Math2ObjectX < (playerX + playerWidth)) {
         Math2ObjectX = W + ((Math.random() * (W / 2)));
@@ -245,10 +260,14 @@ function updateGame() {
         if (Math2Number === questionAnswer) {
             gameSpeed++;
             restartGame();
+        } else {
+            gameSpeed--;
+            restartGame();
         }
     }
 
-    if (Math3ObjectY > (playerY - playerHeight) && Math3ObjectY < (playerY + playerHeight)
+    if (Math3ObjectY > (playerY)
+            && Math3ObjectY < (playerY + playerHeight)
             && Math3ObjectX > (playerX - playerWidth)
             && Math3ObjectX < (playerX + playerWidth)) {
         Math3ObjectX = W + ((Math.random() * (W / 2)));
@@ -256,10 +275,13 @@ function updateGame() {
         if (Math3Number === questionAnswer) {
             gameSpeed++;
             restartGame();
+        } else {
+            gameSpeed--;
+            restartGame();
         }
     }
 
-    hinderX -= gameSpeed+1;
+    hinderX -= gameSpeed + 1;
     if (hinderX < -hinderWidth) {
         hinderX = W + ((Math.random() * (W / 2)));
         hinderY = (Math.random() * (H - 1)) + 1;
@@ -361,13 +383,15 @@ function setWinGame() {
 function restartGame() {
     // Game variables
     //Hinder Object
-    
+
     firstNumber = Math.round(Math.random() * 10);
     secondNumber = Math.round(Math.random() * 10);
     questionAnswer = firstNumber + secondNumber;
-    
-    document.getElementById("questionBox").innerHTML = firstNumber + " + " + secondNumber;
-    
+
+    document.getElementById("questionBox").innerHTML 
+            = firstNumber + " + " + secondNumber + " = ??     Score: " 
+            + gameSpeed;
+
     hinderX = W + ((Math.random() * (W / 2)));
     hinderY = 0;
     hinderWidth = W / 10;
@@ -383,13 +407,13 @@ function restartGame() {
     Math2ObjectX = W + ((Math.random() * (W / 2)));
     Math2ObjectY = (Math.random() * (H - 1)) + 1;
     Math2ObjectWidth = W / 40;
-    Math2Number = firstNumber + secondNumber + 5;
+    Math2Number = firstNumber + secondNumber + Math.round((Math.random() * 5) + 1);
 
     //Math Object3
     Math3ObjectX = W + ((Math.random() * (W / 2)));
     Math3ObjectY = Math.random() * (H - 1) + 1;
     Math3ObjectWidth = W / 40;
-    Math3Number = firstNumber + secondNumber - 5;
+    Math3Number = firstNumber + secondNumber - Math.round((Math.random() * 5) - 1);
 }
 
 //animation loop, 60 fps

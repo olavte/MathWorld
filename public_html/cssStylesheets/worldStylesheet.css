@@ -26,8 +26,7 @@ and open the template in the editor.
     display: block;
     position: relative;
     width: 70%;
-    height: 90vh;
-    margin-top: 24px;
+    margin-top: 8px;
     margin-left: 15%;
     margin-right: 15%;
 }
@@ -84,11 +83,12 @@ and open the template in the editor.
     width: 80%;
     margin-left: 10%;
     margin-right: 10%;
-    margin-top: 16px;
-    font-size: 1vh;;
+    margin-top: 8px;
+    font-size: 3vw;
+    text-align: center;
     background-color: black;
     color: white;
-    height: 10vh;
+    height: 128px;
 }
 
 .world1title {
