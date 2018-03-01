@@ -9,8 +9,13 @@ and open the template in the editor.
 */
 
 body {
+    font-family: 'Open Sans';font-size: 22px;
     margin: 0px;
     overflow: hidden;
+}
+
+button {
+    font-family: 'Open Sans';font-size: 22px;
 }
 
 @font-face {
