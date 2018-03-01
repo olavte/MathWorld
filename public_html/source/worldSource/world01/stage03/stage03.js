@@ -185,7 +185,7 @@ function checkAnswer(i) {
     var guess = document.getElementById('questionField' + i).value;
     
     if (guess.toString() === mathAnswers[i].toString()){
-        document.getElementById('question' + i).innerHTML = '<p>Letter number ' + (i+1) + ' = ' + letterArray[i].toUpperCase() + '</p>';
+        document.getElementById('question' + i).innerHTML = '<p>Letter Number ' + (i+1) + ' = ' + letterArray[i].toUpperCase() + '</p>';
     } else {
         document.getElementById('answerOptionsTitle').innerHTML = '<p>WRONG, try again!</p>';
         setTimeout(function(){
@@ -215,17 +215,18 @@ function question1() {
             var div = document.createElement('div');
             var newId = 'question' + i;
             div.id = newId;
-            div.innerHTML = '<p>#' + (i+1) + ': ' + firstNumber + ' + ' + secondNumber + ' = <input type="text" name="guess" id=' + questionFieldId + '><button id=' + buttonId + ' onclick="checkAnswer(' + i + ')">Check Answer</button></p>';
+            div.innerHTML = '<p>' + firstNumber + ' + ' + secondNumber + ' = <input type="text" name="guess" id=' + questionFieldId + '><button id=' + buttonId + ' onclick="checkAnswer(' + i + ')">Check Answer</button></p>';
             document.getElementById('answerOptions').appendChild(div);
             
-
+            /* ENTER TO CHECK ANSWER DOES NOT WORK
+             * 
             var input = document.getElementById(questionFieldId);
             input.addEventListener('keyup', function(event) {
                 event.preventDefault();
                 if (event.keyCode === 13) {
                     document.getElementById(buttonId).click();
                 } 
-            });
+            });*/
         }
         generated = true;
     }   

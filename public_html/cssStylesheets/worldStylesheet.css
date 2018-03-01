@@ -15,6 +15,10 @@ button {
     font-family: 'Open Sans';font-size: 22px;
 }
 
+input {
+    font-family: 'Open Sans';font-size: 22px;
+}
+
 #world1Canvas, #stageCanvas {
     box-sizing: border-box;
     background-image: url("../assets/world1/world1photo.png");
