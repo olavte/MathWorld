@@ -10,23 +10,46 @@ var gameScreen = document.createElement('div');
 gameScreen.id = "gameScreen";
 document.body.appendChild(gameScreen);
 
-var globalVolume = 0;
-var musicVolume = 0;
-var soundVolume = 0;
-
 var latestWorld = 0;
 var currentWorld = 0;
 var currentStage = 0;
 
 var animationLoop = null;
 
-var mainMusic = new Audio('assets/music/startScreen.mp3');
-mainMusic.volume = globalVolume * musicVolume;
-mainMusic.addEventListener('ended', function () {
-    this.currentTime = 0;
-    this.play();
-}, false);
-mainMusic.play();
+// Music and sounds
+
+var globalVolume = 1;
+var musicVolume = 1;
+var soundVolume = 1;
+
+var startMenuMusic = new Audio('assets/music/startScreen.mp3');
+
+var currentMusic = null;
+
+var musicLooper = null;
+
+function playSound(sound) {
+    var s = new Audio(sound);
+    s.volume = soundVolume * globalVolume;
+    s.play();
+}
+
+function playMusic(music) {
+    if(musicLooper !== null) {
+        currentMusic.removeEventListener("ended", musicLooper);
+    }
+    currentMusic = music;
+    currentMusic.pause();
+    currentMusic.currentTime = 0;
+    currentMusic.volume = globalVolume * musicVolume;
+    currentMusic.play();
+    musicLooper = currentMusic.addEventListener("ended", function () {
+        if (currentMusic !== null) {
+            this.currentTime = 0;
+            this.play();
+        }
+    }, false);
+}
 
 //Controllers
 var mouseDown = 0;
@@ -68,10 +91,10 @@ function goToNewScreen(html, js) {
 }
 
 function clearAnimation() {
-    
+
     //Clears the animation loop (fps)
     clearInterval(animationLoop);
-    
+
     //Clears all window related events
     if (mouseDown !== 0) {
         window.removeEventListener("mousedown", mouseDown);
@@ -101,4 +124,4 @@ function clearAnimation() {
 
 //Start the game
 goToNewScreen("source/mainMenuSource/startScreen/startScreen.html",
-        "source/mainMenuSource/startScreen/startScreen.js");
+    "source/mainMenuSource/startScreen/startScreen.js");

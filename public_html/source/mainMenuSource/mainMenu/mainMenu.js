@@ -17,16 +17,18 @@ function volumeBarClickedDown(changeVolume) {
     volumeBarInterval = setInterval(changeVolume, 100);
 }
 
+playMusic(startMenuMusic);
+
 // Changes the main volume
 function changeVolumeOnMain() {
     globalVolume = document.getElementById("mainVolumeRange").value / 100;
-    mainMusic.volume = globalVolume * musicVolume;
+    currentMusic.volume = globalVolume * musicVolume;
 }
 
 // Changes the music volume
 function changeVolumeOnMusic() {
     musicVolume = document.getElementById("musicVolumeRange").value / 100;
-    mainMusic.volume = globalVolume * musicVolume;
+    currentMusic.volume = globalVolume * musicVolume;
 }
 
 // Changes the sound volume
