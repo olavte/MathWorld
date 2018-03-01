@@ -119,6 +119,7 @@ var timer = 0;
 mouseMove = window.addEventListener("mousemove", function (event) {
     userInputX = event.x;
     userInputY = (event.y - middleCanvas.offsetTop) * 1.4;
+    event.preventDefault();
 });
 
 touchMove = window.addEventListener("touchmove", function (event) {
