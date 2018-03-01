@@ -18,6 +18,10 @@ button {
     font-family: 'Open Sans';font-size: 22px;
 }
 
+input {
+    font-family: 'Open Sans';font-size: 22px;
+}
+
 @font-face {
     font-family: 'chalkboard';
     src: url("../assets/fonts/chalkboard.ttf") /* TTF file for CSS3 browsers */
