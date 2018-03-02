@@ -22,6 +22,8 @@ var ctx = canvas.getContext("2d");
 var srcX;
 var srcY;
 
+playMusic(startMenuMusic);
+
 var frameDelayerCounter = 0;
 var frameDelayerValue = 10;
 

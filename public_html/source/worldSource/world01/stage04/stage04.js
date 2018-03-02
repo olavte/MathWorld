@@ -5,19 +5,16 @@
 
 //canvas init
 
-var backCanvas = document.getElementById("stageCanvas");
-var backCtx = backCanvas.getContext("2d");
+iniBack();
 
-var middleCanvas = document.getElementById("middleCanvas");
-var middleCtx = middleCanvas.getContext("2d");
+iniMiddle();
 
-var frontCanvas = document.getElementById("frontCanvas");
-var frontCtx = frontCanvas.getContext("2d");
+iniFront();
 
 var srcX;
 var srcY;
 
-playMusic(startMenuMusic);
+playMusic(fightMusic);
 
 var frameDelayerCounter = 0;
 var frameDelayerValue = 10;

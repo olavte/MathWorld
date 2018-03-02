@@ -18,11 +18,12 @@ var animationLoop = null;
 
 // Music and sounds
 
-var globalVolume = 1;
-var musicVolume = 1;
-var soundVolume = 1;
+var globalVolume = 0;
+var musicVolume = 0;
+var soundVolume = 0;
 
 var startMenuMusic = new Audio('assets/music/startScreen.mp3');
+var fightMusic = new Audio('assets/music/falconLunch.mp3');
 
 var currentMusic = null;
 
@@ -37,9 +38,12 @@ function playSound(sound) {
 function playMusic(music) {
     if(musicLooper !== null) {
         currentMusic.removeEventListener("ended", musicLooper);
+        musicLooper = null;
+    }
+    if(currentMusic !== null) {
+        currentMusic.pause();
     }
     currentMusic = music;
-    currentMusic.pause();
     currentMusic.currentTime = 0;
     currentMusic.volume = globalVolume * musicVolume;
     currentMusic.play();
@@ -120,6 +124,41 @@ function clearAnimation() {
         window.removeEventListener("touchmove", touchMove);
         touchMove = 0;
     }
+}
+
+//Check collision
+function checkCollision(targetX, targetY, coliderY, coliderX, coliderW, coliderH) {
+    var result = false;
+    if (targetY > (hinderY - hinderHeight) && playerY < (hinderY + hinderHeight)
+        && playerX > (hinderX - hinderWidth)
+        && playerX < (hinderX + hinderWidth)) {
+        result = true;
+    }
+    return result;
+}
+
+//Initialize canvases
+var backCanvas = null;
+var middleCanvas = null;
+var frontCanvas = null;
+
+var backCtx = null;
+var middleCtx = null;
+var frontCtx = null;
+
+function iniBack() {
+    backCanvas = document.getElementById("stageCanvas");
+    backCtx = backCanvas.getContext("2d");
+}
+
+function iniMiddle() {
+    middleCanvas = document.getElementById("middleCanvas");
+    middleCtx = middleCanvas.getContext("2d");
+}
+
+function iniFront() {
+    frontCanvas = document.getElementById("frontCanvas");
+    frontCtx = frontCanvas.getContext("2d");
 }
 
 //Start the game
