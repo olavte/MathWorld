@@ -4,57 +4,28 @@
  * and open the template in the editor.
  */
 
+
 //canvas init
 
-var backCanvas = document.getElementById("stageCanvas");
-var backCtx = backCanvas.getContext("2d");
 
 var middleCanvas = document.getElementById("middleCanvas");
 var middleCtx = middleCanvas.getContext("2d");
 
-//var frontCanvas = document.getElementById("frontCanvas");
-//var frontCtx = frontCanvas.getContext("2d");
+//global selected variables
+var selectedRec;
+var computerSelected;
+var hasSelected = false;
 
 
-var srcX;
-var srcY;
 
-var frameDelayerCounter = 0;
-var frameDelayerValue = 10;
 
-var sheetWidth = 1200;
-var sheetHeight = 300;
-
-var frameCount = 4;
-
-var spriteWidth = 300;
-var spriteHeight = 300;
-
-var currentFrame = 0;
-
-//var plussCharacter = new Image();
-//plussCharacter.src = "assets/characters/plussCharSpr.png";
-
-function updateFrame() {
-    if (frameDelayerCounter > frameDelayerValue) {
-        frameDelayerCounter = 0;
-        currentFrame = ++currentFrame % frameCount;
-        srcX = currentFrame * spriteWidth;
-        srcY = 0;
-    } else {
-        frameDelayerCounter++;
-    }
-}
 
 var W = window.innerWidth;
 var H = window.innerHeight;
 
-backCanvas.width = W;
-backCanvas.height = H;
 middleCanvas.width = W;
 middleCanvas.height = H;
-//frontCanvas.width = W;
-//frontCanvas.height = H;
+
 
 //rectangles, placeholder for rock/paper/scissor figure
 var elements = [];
@@ -78,110 +49,90 @@ elements.push({
     left: W/2 + 105
     });
 
-//snowflake particles
-var mp = 30; //max particles
-var particles = [];
-for (var i = 0; i < mp; i++)
-{
-    particles.push({
-        x: Math.random() * W, //x-coordinate
-        y: Math.random() * H, //y-coordinate
-        r: Math.random() * 4 + 1, //radius
-        d: Math.random() * mp //density
+var computerOptions = [];
+
+computerOptions.push({
+    colour: 'red',
+    width: 75,
+    height: 75,
+    top: 175,
+    left: W/2 - 105
+}, {
+    colour: 'blue',
+    width: 75,
+    height: 75,
+    top: 175,
+    left: W/2
+    }, {
+    colour: 'green',
+    width: 75,
+    height: 75,
+    top: 175,
+    left: W/2 + 105
     });
+
+
+startGame();
+
+function startGame()
+{
+    drawMiddle();
+    computerSelecting();
+
 }
 
-//Lets draw the flakes
-function draw()
-{
-    backCtx.clearRect(0, 0, W, H);
-    middleCtx.clearRect(0, 0, W, H);
-    //frontCtx.clearRect(0, 0, W, H);
-
-    updateFrame();
-
-    drawBack();
-    drawMiddle();
-    //drawFront();
-
-    function drawBack() {
-        backCtx.fillStyle = "rgba(255, 255, 255, 0.8)";
-        backCtx.beginPath();
-        for (var i = 0; i < mp; i++)
-        {
-            var p = particles[i];
-            backCtx.moveTo(p.x, p.y);
-            backCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2, true);
-        }
-        backCtx.fill();
-        updateBackground();
-    }
-
-    function drawMiddle() {
+function drawMiddle() {
+        middleCtx.clearRect(0, 0, W, H);
         middleCtx.fillStyle = "black";
         middleCtx.fillRect(0, 0, W, H);
-        if(hasSelected) {
-            middleCtx.fillStyle = selectedRec.colour;
-            middleCtx.fillRect(W/2, selectedRec.top - 50, selectedRec.width + 30, selectedRec.height + 30);
-        } else{
-            for (var i = 0; i < elements.length; i++) {
-               var el = elements[i];
-               middleCtx.fillStyle = el.colour;
-               middleCtx.fillRect(el.left, el.top, el.width, el.height);
-        }
-    }
+        
+        //rules window
+        rulesVisual();
+        
+        
+        for (var i = 0; i < elements.length; i++) {
+            
+            var el = elements[i];
+                
+            middleCtx.fillStyle = el.colour;
+            middleCtx.fillRect(el.left, el.top, el.width, el.height);
+               
 
-
-    }
-
-    /* function drawFront() {
-        frontCtx.drawImage(plussCharacter, srcX, srcY, spriteWidth,
-                spriteHeight, 0, 100, W / 4, H / 2);
-    }*/
-}
-
-var angle = 0;
-function updateBackground()
-{
-    //Function to move the snowflakes
-    //angle will be an ongoing incremental flag. Sin and Cos functions will be applied to it to create vertical and horizontal movements of the flakes
-    angle += 0.01;
-    for (var i = 0; i < mp; i++)
-    {
-        var p = particles[i];
-        //Updating X and Y coordinates
-        //We will add 1 to the cos function to prevent negative values which will lead flakes to move upwards
-        //Every particle has its own density which can be used to make the downward movement different for each flake
-        //Lets make it more random by adding in the radius
-        p.y += Math.cos(angle + p.d) + 1 + p.r / 2;
-        p.x += Math.sin(angle) * 2;
-        //Sending flakes back from the top when it exits
-        //Lets make it a bit more organic and let flakes enter from the left and right also.
-        if (p.x > W + 5 || p.x < -5 || p.y > H)
-        {
-            if (i % 3 > 0) //66.67% of the flakes
-            {
-                particles[i] = {x: Math.random() * W, y: -10, r: p.r, d: p.d};
-            } else
-            {
-                //If the flake is exitting from the right
-                if (Math.sin(angle) > 0)
-                {
-                    //Enter from the left
-                    particles[i] = {x: -5, y: Math.random() * H, r: p.r, d: p.d};
-                } else
-                {
-                    //Enter from the right
-                    particles[i] = {x: W + 5, y: Math.random() * H, r: p.r, d: p.d};
-                }
             }
-        }
+        for (var i = 0; i < computerOptions.length; i++) {
+            
+            var cs = computerOptions[i];
+
+            middleCtx.fillStyle = cs.colour;
+            middleCtx.fillRect(cs.left, cs.top, cs.width, cs.height);
+
+            }
     }
+
+
+function playerSelecting() {
+    //waiting for player  
+    //player selected
+    var newSelected = {
+                colour: selectedRec.colour,
+                width: 135,
+                height: 125,
+                top: H - 310,
+                left: W/2
+                };
+    
+    elements = [];
+    elements.push(newSelected);
+    
+    if(computerSelected !== null) {
+            drawMiddle();
+        } else {
+            computerSelecting();
+        }
+        
+    determineWinner();
 }
 
-//has selected an option
-var selectedRec;
-var hasSelected = false;
 
 // Add event listener for `click` events.
 middleCanvas.addEventListener('click', function(event) {
@@ -203,6 +154,7 @@ middleCanvas.addEventListener('click', function(event) {
             
             selectedRec = element;
             hasSelected = true;
+            playerSelecting();
             
         }
     }
@@ -210,6 +162,111 @@ middleCanvas.addEventListener('click', function(event) {
 
 }, false);
 
+//computer selects rectangle
+function computerSelecting() {
+        
+    shuffle(computerOptions);
+    
+    var randNumb = randomNumber(2);
+    
+    
+    var cs = computerOptions[randNumb];
+    var newSelected = {
+                        colour: cs.colour,
+                        width: 135,
+                        height: 125,
+                        top: 185,
+                        left: W/2
+                       };
+    computerOptions = [];
+    computerSelected = newSelected;                    
+    computerOptions.push(newSelected);               
+}
 
-//animation loop, 60 fps
-animationLoop = setInterval(draw, 16);
+
+/**
+ * Pokemon Ruled:
+ * Red beats green
+ * green beats blue
+ * blue beats red
+ */
+function determineWinner() {
+    var computer = computerSelected.colour;
+    var player = selectedRec.colour;
+    var match = player + computer;
+    
+    var endgameText = "Hmmmm";
+    if(match === "redgreen" || match === "greenblue" || match === "bluered") {
+        //player won
+        endgameText = "You won!";
+        
+    } else if(match === "greengreen" || match === "blueblue" || match === "redred") {
+        //draw
+        endgameText = "Draw!";
+        
+    } else {
+        //computer won
+        endgameText = "Computer won!";
+    }
+    
+    middleCtx.font = "30px Arial";
+    middleCtx.fillStyle = "white";
+    middleCtx.textAlign = "center";
+    middleCtx.fillText(endgameText, W/2, H/2);
+}
+
+//shuffle array (like answer array) (Modern Fisher–Yates shuffle algorithm via 
+function shuffle(a) {
+    var j, x, i;
+    for (i = a.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1));
+        x = a[i];
+        a[i] = a[j];
+        a[j] = x;
+    }
+}
+
+function randomNumber(upToo) {
+    var randNumb = Math.floor(Math.random() * upToo);
+    return randNumb;
+}
+
+function reload() {
+    goToNewScreen('source/worldSource/world01/Minigames/RockPaperScissor/RockPaperScissor.html', 'source/worldSource/world01/Minigames/RockPaperScissor/RockPaperScissor.js');
+}
+
+function backToWorld() {
+    goToNewScreen('source/worldSource/world01/world01.html', 'source/worldSource/world01/world01.js');
+}
+
+function rulesVisual() {
+    
+    middleCtx.fillStyle = "white";
+    middleCtx.fillRect(0, 0, (W * 1)/6, H/2);
+        
+    middleCtx.font = "50px Arial";
+    middleCtx.fillStyle = "black";
+    middleCtx.textAlign = "center";
+    middleCtx.fillText("Rules:", (W*1)/12, 80);
+    middleCtx.font = "30px Arial";
+    middleCtx.fillText(" Beats ", (W*1)/12, 140);
+    middleCtx.fillText(" Beats ", (W*1)/12, 280);
+    middleCtx.fillText(" Beats ", (W*1)/12, 420);
+    
+    middleCtx.fillStyle = "green";
+    middleCtx.fillRect((W*1)/12 - 70, 130, 15, 15);
+    middleCtx.fillStyle = "blue";
+    middleCtx.fillRect((W*1)/12 + 60, 130, 15, 15);
+    
+    middleCtx.fillStyle = "blue";
+    middleCtx.fillRect((W*1)/12 - 70, 270, 15, 15);
+    middleCtx.fillStyle = "red";
+    middleCtx.fillRect((W*1)/12 + 60, 270, 15, 15);
+    
+    middleCtx.fillStyle = "red";
+    middleCtx.fillRect((W*1)/12 - 70, 410, 15, 15);
+    middleCtx.fillStyle = "green";
+    middleCtx.fillRect((W*1)/12 + 60, 410, 15, 15);
+        
+
+}
