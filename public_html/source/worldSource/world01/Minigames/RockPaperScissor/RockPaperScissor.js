@@ -57,8 +57,6 @@ middleCanvas.height = H;
 //frontCanvas.height = H;
 
 //rectangles, placeholder for rock/paper/scissor figure
-elemLeft = middleCanvas.offsetLeft;
-elemTop = middleCanvas.offsetTop;
 var elements = [];
 elements.push({
     colour: 'red',
@@ -122,11 +120,16 @@ function draw()
     function drawMiddle() {
         middleCtx.fillStyle = "black";
         middleCtx.fillRect(0, 0, W, H);
-        for (var i = 0; i < elements.length; i++) {
-            var el = elements[i];
-            middleCtx.fillStyle = el.colour;
-            middleCtx.fillRect(el.left, el.top, el.width, el.height);
+        if(hasSelected) {
+            middleCtx.fillStyle = selectedRec.colour;
+            middleCtx.fillRect(W/2, selectedRec.top - 50, selectedRec.width + 30, selectedRec.height + 30);
+        } else{
+            for (var i = 0; i < elements.length; i++) {
+               var el = elements[i];
+               middleCtx.fillStyle = el.colour;
+               middleCtx.fillRect(el.left, el.top, el.width, el.height);
         }
+    }
 
 
     }
@@ -176,7 +179,9 @@ function updateBackground()
     }
 }
 
-
+//has selected an option
+var selectedRec;
+var hasSelected = false;
 
 // Add event listener for `click` events.
 middleCanvas.addEventListener('click', function(event) {
@@ -195,7 +200,10 @@ middleCanvas.addEventListener('click', function(event) {
         var element = elements[i];
         if (y > element.top && y < element.top + element.height 
             && x > element.left && x < element.left + element.width) {
-            alert('clicked an element');
+            
+            selectedRec = element;
+            hasSelected = true;
+            
         }
     }
 
