@@ -3,9 +3,7 @@
 
 
 
-// variables for questions
-var answer;
-var totalSum = 0;
+
 
 //canvas init
 
@@ -124,17 +122,38 @@ function update()
 
 //animation loop
 animationLoop = setInterval(draw, 33);
+
+
+/*
+ * Math part
+ * 
+ */
+
+// variables for questions
+var answer;
+var totalSum;
+
+//run question1
 question1();
-
-
+//variable to save current question progress
+var currentQuestion = 1;
 
 
 //functions for math and questions below
-
+function backToWorld() {
+    goToNewScreen('source/worldSource/world01/world01.html', 'source/worldSource/world01/world01.js');
+}
 
 function victoryScreen() {
-
-    document.getElementById('answerOptions').innerHTML = "<button onclick='question2()'>Next question!</button>";
+    currentQuestion++;
+    var questionToLoad;
+    if(currentQuestion === 2){
+        questionToLoad = question2();
+    } else if(currentQuestion === 3) {
+        questionToLoad = question3();
+    } else if(currentQuestion === 4) {
+        questionToLoad = backToWorld();
+    }
 
 }
 
@@ -170,11 +189,23 @@ function shuffle(a) {
     }
 }
 
-//builds and executes first question
 function question1() {
-    var firstNumber = randomNumber(100);
-    var secondNumber = randomNumber(100);
-    var thirdNumber = randomNumber(100);
+    question(75);
+}
+function question2() {
+    question(100);
+}
+function question3() {
+    question(150);
+}
+
+//builds and executes first question
+//@param the max size of numbers used
+function question(dificulty) {
+    totalSum = 0; //resets total sum every time question is loaded
+    var firstNumber = randomNumber(dificulty);
+    var secondNumber = randomNumber(dificulty);
+    var thirdNumber = randomNumber(dificulty);
     answer = firstNumber + secondNumber + thirdNumber;
     
     document.getElementById('stageTitle').innerHTML = "Total:" + totalSum;
@@ -185,14 +216,18 @@ function question1() {
     
     
     
-    var options = [firstNumber, secondNumber, thirdNumber, randomNumber(50), randomNumber(75)];
+    var options = [firstNumber, secondNumber, thirdNumber, randomNumber(dificulty - 50), randomNumber(dificulty - 25)];
     shuffle(options);
     
     //add option text over pictures
     for(i = 0; i < options.length; i++) {
-
-        document.getElementById('option' + i).appendChild(document.createTextNode(options[i]));
-        document.getElementById('option' + i).value = options[i];
+        var thisOption = document.getElementById('option' + i);
+        //clears previous question nodes
+        if(thisOption.value !== null) {
+            thisOption.removeChild(thisOption.lastChild);
+        }
+        thisOption.appendChild(document.createTextNode(options[i]));
+        thisOption.value = options[i];
     }
     
     if(totalSum === answer){
@@ -219,8 +254,7 @@ function clikedPic(clickedId) {
     }
 }
 
-function question2() {
-    document.getElementById('stageTitle').innerHTML = "TODO";
-    document.getElementById('questionText').innerHTML ="TODO";
-    document.getElementById('answerOptions').innerHTML ="TODO";
+function reload() {
+    goToNewScreen('source/worldSource/world01/stage01/stage01.html', 'source/worldSource/world01/stage01/stage01.js');
 }
+
