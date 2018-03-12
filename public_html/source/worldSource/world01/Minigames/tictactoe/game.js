@@ -51,7 +51,7 @@ function Tile(x, y) {
 			_c.width = _c.height = 100;
 			var _ctx = _c.getContext("2d");
 
-			_ctx.fillStyle = "blue";
+			_ctx.fillStyle = "GreenYellow";
 			_ctx.lineWidth = 4;
 			_ctx.strokeStyle = "black";
 			_ctx.lineCap = "round";

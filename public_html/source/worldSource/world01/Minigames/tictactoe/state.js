@@ -1,5 +1,5 @@
 function MenuState(name) {
-
+        
 	this.name = name;
 	var scene = new Scene(canvas.width, canvas.height),
 		ctx = scene.getContext();
@@ -7,13 +7,17 @@ function MenuState(name) {
 	var btns = [], angle = 0, frames = 0;
 
 	var _yPos = 100;
-	btns.push(new MenuButton("One Player Game", 20, _yPos, function() {
+	btns.push(new MenuButton("Play", 20, _yPos, function() {
 		state.get("game").init(ONE_PLAYER);
 		state.change("game");
-	}));
+	}));/*
 	btns.push(new MenuButton("Two Player Game", 20, _yPos+70, function() {
 		state.get("game").init(TWO_PLAYER);
 		state.change("game");
+	}));*/
+	btns.push(new MenuButton("Back", 20, _yPos+70, function() {
+            
+	//!TODO	goToNewScreen('source/worldSource/world01/world01.html', 'source/worldSource/world01/world01.js');
 	}));
 
 	this.update = function() {
@@ -26,7 +30,7 @@ function MenuState(name) {
 
 		ctx.save();
 		ctx.translate(190, 60);
-		ctx.font = "40px Helvetica";
+		ctx.font = "40px Open Sans";
 		ctx.fillStyle = "black";
 		var txt = "Tic Tac Toe";
 		ctx.fillText(txt, -ctx.measureText(txt).width/2, 18);
@@ -163,9 +167,9 @@ function GameState(name) {
 			ctx.save();
 			ctx.translate((canvas.width - w + lw)/2, (canvas.height - h + lw)/2);
 			ctx.fillStyle = "white";
-			ctx.strokeStyle = "skyblue";
+			ctx.strokeStyle = "black";
 			ctx.lineWidth = lw;
-			ctx.font = "20px Helvetica";
+			ctx.font = "20px Open Sans";
 
 			ctx.beginPath();
 			ctx.arc(s, s, s, Math.PI, 1.5*Math.PI);
@@ -177,7 +181,7 @@ function GameState(name) {
 			ctx.fill();
 			ctx.stroke();
 
-			ctx.fillStyle = "skyblue";
+			ctx.fillStyle = "black";
 			var txt = winnerMsg;
 			ctx.fillText(txt, w/2 -ctx.measureText(txt).width/2, 45);
 
@@ -210,7 +214,7 @@ function AboutState(name) {
 	
 	(function() {
 
-		ctx.font = "20px Helvetica";
+		ctx.font = "20px Open Sans";
 		ctx.fillStyle = "skyblue";
 
 		ctx.translate(20, 20);
