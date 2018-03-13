@@ -152,19 +152,28 @@ var backCtx = null;
 var middleCtx = null;
 var frontCtx = null;
 
-function iniBack() {
-    backCanvas = document.getElementById("world1Canvas");
+var W = window.innerWidth;
+var H = window.innerHeight;
+
+function iniBack(canvasID) {
+    backCanvas = document.getElementById(canvasID);
     backCtx = backCanvas.getContext("2d");
+    backCanvas.width = W;
+    backCanvas.height = H;
 }
 
-function iniMiddle() {
-    middleCanvas = document.getElementById("middleCanvas");
+function iniMiddle(canvasID) {
+    middleCanvas = document.getElementById(canvasID);
     middleCtx = middleCanvas.getContext("2d");
+    middleCanvas.width = W;
+    middleCanvas.height = H;
 }
 
-function iniFront() {
-    frontCanvas = document.getElementById("frontCanvas");
+function iniFront(canvasID) {
+    frontCanvas = document.getElementById(canvasID);
     frontCtx = frontCanvas.getContext("2d");
+    frontCanvas.width = W;
+    frontCanvas.height = H;
 }
 
 function createAnimatedSprite(src, sheetWidth, sheetHeight, spriteWidth, spriteHeight, frameCount, frameDelay) {

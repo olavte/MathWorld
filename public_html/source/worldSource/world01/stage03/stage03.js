@@ -9,45 +9,9 @@ var letterArray = answer.split("");
 var mathAnswers = [];
 
 //canvas init
+iniBack("world1Canvas")
 
-var canvas = document.getElementById("world1Canvas");
-var ctx = canvas.getContext("2d");
-
-var srcX;
-var srcY;
-
-var frameDelayerCounter = 0;
-var frameDelayerValue = 10;
-
-var sheetWidth = 1200;
-var sheetHeight = 300;
-
-var frameCount = 4;
-
-var spriteWidth = 300;
-var spriteHeight = 300;
-
-var currentFrame = 0;
-
-var plussCharacter = new Image();
-plussCharacter.src = "assets/characters/plussCharSpr.png";
-
-function updateFrame() {
-    if (frameDelayerCounter > frameDelayerValue) {
-        frameDelayerCounter = 0;
-        currentFrame = ++currentFrame % frameCount;
-        srcX = currentFrame * spriteWidth;
-        srcY = 0;
-    } else {
-        frameDelayerCounter++;
-    }
-}
-
-//canvas dimensions
-var W = window.innerWidth;
-var H = window.innerHeight;
-canvas.width = W;
-canvas.height = H;
+var plussCharacter = createAnimatedSprite('assets/characters/plussCharSpr.png', 1200, 300, 300, 300, 4, 30);
 
 //snowflake particles
 var mp = 30; //max particles
@@ -65,22 +29,23 @@ for (var i = 0; i < mp; i++)
 //Lets draw the flakes
 function draw()
 {
-    ctx.clearRect(0, 0, W, H);
+    backCtx.clearRect(0, 0, W, H);
 
-    updateFrame();
+    plussCharacter.updateFrame();
 
 
-    ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
-    ctx.beginPath();
+    backCtx.fillStyle = "rgba(255, 255, 255, 0.8)";
+    backCtx.beginPath();
     for (var i = 0; i < mp; i++)
     {
         var p = particles[i];
-        ctx.moveTo(p.x, p.y);
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2, true);
+        backCtx.moveTo(p.x, p.y);
+        backCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2, true);
     }
-    ctx.fill();
+    backCtx.fill();
     update();
-    ctx.drawImage(plussCharacter, srcX, srcY, spriteWidth, spriteHeight, 160, 150, spriteWidth, spriteHeight);
+    backCtx.drawImage(plussCharacter.image, plussCharacter.srcX, plussCharacter.srcY, plussCharacter.spriteWidth,
+        plussCharacter.spriteHeight, 160, 150, plussCharacter.spriteWidth, plussCharacter.spriteHeight);
 }
 
 //Function to move the snowflakes

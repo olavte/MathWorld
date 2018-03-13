@@ -5,27 +5,15 @@
 
 //canvas init
 
-iniBack();
+iniBack("world1Canvas");
 
-iniMiddle();
+iniMiddle("middleCanvas");
 
-iniFront();
-
-//canvas dimensions
-var W = window.innerWidth;
-var H = window.innerHeight;
-
-backCanvas.width = W;
-backCanvas.height = H;
-middleCanvas.width = W;
-middleCanvas.height = H;
-frontCanvas.width = W;
-frontCanvas.height = H;
+iniFront("frontCanvas");
 
 //Music
 playMusic(fightMusic);
-
-var plussCharacter = createAnimatedSprite('assets/characters/plussCharSpr.png', 1200, 300, 300, 300, 3, 15);
+var plussCharacter = createAnimatedSprite('assets/characters/plussCharSpr.png', 1200, 300, 300, 300, 4, 30);
 
 var gameState = 0;
 setBeforeGame();
