@@ -34,7 +34,7 @@ aim({
 
 
 // set up start drag event
-window.addEventListener("mousedown", draw);
+mouseDown = window.addEventListener("mousedown", draw);
 
 function draw(e) {
     // pull back arrow
@@ -42,8 +42,8 @@ function draw(e) {
     TweenMax.to(".arrow-angle use", 0.3, {
         opacity: 1
     });
-    window.addEventListener("mousemove", aim);
-    window.addEventListener("mouseup", loose);
+    mouseMove = window.addEventListener("mousemove", aim);
+    mouseUp = window.addEventListener("mouseup", loose);
     aim(e);
 
 }

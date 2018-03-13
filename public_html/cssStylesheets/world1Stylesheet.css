@@ -19,7 +19,7 @@ input {
     font-family: 'Open Sans';font-size: 22px;
 }
 
-#world1Canvas, #stageCanvas {
+#world1Canvas, #world1Canvas {
     box-sizing: border-box;
     background-image: url("../assets/world1/world1photo.png");
     background-repeat: no-repeat;

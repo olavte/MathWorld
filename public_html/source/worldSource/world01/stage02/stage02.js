@@ -16,7 +16,7 @@ var totalSum = 0;
 
 //canvas init
 
-var canvas = document.getElementById("stageCanvas");
+var canvas = document.getElementById("world1Canvas");
 var ctx = canvas.getContext("2d");
 
 var srcX;

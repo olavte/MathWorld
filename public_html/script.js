@@ -127,11 +127,10 @@ function clearAnimation() {
 }
 
 //Check collision
-function checkCollision(targetX, targetY, coliderY, coliderX, coliderW, coliderH) {
+function checkCollision(targetX, targetY, targetW, targetH, coliderX, coliderY, coliderW, coliderH) {
     var result = false;
-    if (targetY > (hinderY - hinderHeight) && playerY < (hinderY + hinderHeight)
-        && playerX > (hinderX - hinderWidth)
-        && playerX < (hinderX + hinderWidth)) {
+    if((targetY < coliderY + coliderH) && (coliderY < targetY + targetH)
+        && (targetX < coliderX + coliderW) && (coliderX < targetX + targetW)) {
         result = true;
     }
     return result;
@@ -147,7 +146,7 @@ var middleCtx = null;
 var frontCtx = null;
 
 function iniBack() {
-    backCanvas = document.getElementById("stageCanvas");
+    backCanvas = document.getElementById("world1Canvas");
     backCtx = backCanvas.getContext("2d");
 }
 
@@ -159,6 +158,50 @@ function iniMiddle() {
 function iniFront() {
     frontCanvas = document.getElementById("frontCanvas");
     frontCtx = frontCanvas.getContext("2d");
+}
+
+function createChar() {
+    var frameDelayerCounter = 0;
+    var frameDelayerValue = 15;
+
+    var sheetWidth = 1200;
+    var sheetHeight = 300;
+
+    var frameCount = 3;
+
+    var spriteWidth = 300;
+    var spriteHeight = 300;
+
+    var currentFrame = 0;
+}
+
+function createAnimatedSprite(src, sheetWidth, sheetHeight, spriteWidth, spriteHeight, frameCount, frameDelay) {
+
+    var character = new Image();
+    character.src = src;
+    return {
+        image: character,
+        src: src,
+        srcX: 0,
+        srcY: 0,
+        sheetWidth: sheetWidth,
+        sheetHeight: sheetHeight,
+        spriteWidth: spriteWidth,
+        spriteHeight: spriteHeight,
+        currentFrame: 0,
+        frameCount: frameCount,
+        frameDelay: frameDelay,
+        frameDelayCounter: 0,
+        updateFrame: function() {
+            if (this.frameDelayCounter > this.frameDelay) {
+                this.frameDelayCounter = 0;
+                this.currentFrame = ++this.currentFrame % this.frameCount;
+                this.srcX = this.currentFrame * this.spriteWidth;
+                this.srcY = 0;
+            } else {
+                this.frameDelayCounter++;
+            }
+        }};
 }
 
 //Start the game

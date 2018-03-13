@@ -11,41 +11,6 @@ iniMiddle();
 
 iniFront();
 
-var srcX;
-var srcY;
-
-playMusic(fightMusic);
-
-var frameDelayerCounter = 0;
-var frameDelayerValue = 10;
-
-var sheetWidth = 1200;
-var sheetHeight = 300;
-
-var frameCount = 4;
-
-var spriteWidth = 300;
-var spriteHeight = 300;
-
-var currentFrame = 0;
-
-var gameState = 0;
-setBeforeGame();
-
-var plussCharacter = new Image();
-plussCharacter.src = "assets/characters/plussCharSpr.png";
-
-function updateFrame() {
-    if (frameDelayerCounter > frameDelayerValue) {
-        frameDelayerCounter = 0;
-        currentFrame = ++currentFrame % frameCount;
-        srcX = currentFrame * spriteWidth;
-        srcY = 0;
-    } else {
-        frameDelayerCounter++;
-    }
-}
-
 //canvas dimensions
 var W = window.innerWidth;
 var H = window.innerHeight;
@@ -56,6 +21,14 @@ middleCanvas.width = W;
 middleCanvas.height = H;
 frontCanvas.width = W;
 frontCanvas.height = H;
+
+//Music
+playMusic(fightMusic);
+
+var plussCharacter = createAnimatedSprite('assets/characters/plussCharSpr.png', 1200, 300, 300, 300, 3, 15);
+
+var gameState = 0;
+setBeforeGame();
 
 
 //snowflake particles
@@ -73,41 +46,38 @@ for (var i = 0; i < mp; i++)
 
 // Game variables
 
-var gameScore = 0;
 var firstNumber = 0;
 var secondNumber = 0;
 var questionAnswer = 0;
 var gameSpeed = 5;
 
 //Hinder Object
-var hinderX = W + ((Math.random() * (W / 2)));
-var hinderY = 0;
-var hinderWidth = W / 10;
-var hinderHeight = H / 8;
+var hinder = {
+    hinderX: W + ((Math.random() * (W / 2))),
+    hinderY: 0,
+    hinderWidth: W / 10,
+    hinderHeight: H / 8
 
-//Math Object
-var Math1ObjectX = W + ((Math.random() * (W / 2)));
-var Math1ObjectY = Math.random() * (H - 1) + 1;
-var Math1ObjectWidth = W / 40;
-var Math1Number = 0;
+};
 
-//Math Object2
-var Math2ObjectX = W + ((Math.random() * (W / 2)));
-var Math2ObjectY = (Math.random() * (H - 1)) + 1;
-var Math2ObjectWidth = W / 40;
-var Math2Number = 0;
-
-//Math Object3
-var Math3ObjectX = W + ((Math.random() * (W / 2)));
-var Math3ObjectY = Math.random() * (H - 1) + 1;
-var Math3ObjectWidth = W / 40;
-var Math3Number = 0;
+//Math Objects
+var mathObjects = [];
+for(var i = 0; i < 4; i++) {
+    mathObjects.push({
+        name:"math" + (i + 1),
+        mathX:W + ((Math.random() * (W / 2))),
+        mathY:Math.random() * (H - 1) + 1,
+        mathW:W/40,
+        mathNumber:0});
+}
 
 //PlayerVariables
-var playerX = W / 12;
-var playerY = H / 2;
-var playerHeight = H / 8;
-var playerWidth = W / 10;
+var player = {
+    playerX: W / 12,
+    playerY: H / 2,
+    playerHeight: H / 8,
+    playerWidth: W / 10
+};
 
 var userInputX = 0;
 var userInputY = 0;
@@ -143,16 +113,16 @@ mouseDown = window.addEventListener("mousedown", function () {
     }
 }, false);
 
-var mouseUp = window.addEventListener("mouseup", function () {
+mouseUp = window.addEventListener("mouseup", function () {
     clearInterval(timer);
     timer = 0;
 }, false);
 
 function movePlayer() {
-    if (userInputY < ((playerY + ((playerHeight) / 2)) - 24) && (playerY > 0)) {
-        playerY -= 10;
-    } else if (userInputY > ((playerY + (playerHeight / 2)) + 24) && playerY < (H - (playerHeight))) {
-        playerY += 10;
+    if (userInputY < ((player.playerY + ((player.playerHeight) / 2)) - 24) && (player.playerY > 0)) {
+        player.playerY -= 10;
+    } else if (userInputY > ((player.playerY + (player.playerHeight / 2)) + 24) && player.playerY < (H - (player.playerHeight))) {
+        player.playerY += 10;
     }
 }
 
@@ -163,8 +133,6 @@ function draw()
     backCtx.clearRect(0, 0, W, H);
     middleCtx.clearRect(0, 0, W, H);
     frontCtx.clearRect(0, 0, W, H);
-
-    updateFrame();
 
     drawBack();
     drawMiddle();
@@ -192,7 +160,7 @@ function draw()
 
         middleCtx.fillStyle = "rgba(255, 255, 255, 1)";
         middleCtx.beginPath();
-        middleCtx.rect(playerX, playerY, playerWidth, playerHeight);
+        middleCtx.rect(player.playerX, player.playerY, player.playerWidth, player.playerHeight);
         middleCtx.fill();
         middleCtx.stroke();
 
@@ -202,39 +170,28 @@ function draw()
 
             middleCtx.fillStyle = "rgba(0, 0, 0, 1)";
             middleCtx.beginPath();
-            middleCtx.rect(hinderX, hinderY, hinderWidth, hinderHeight);
+            middleCtx.rect(hinder.hinderX, hinder.hinderY, hinder.hinderWidth, hinder.hinderHeight);
             middleCtx.fill();
 
-            middleCtx.fillStyle = "rgba(255, 200, 200, 0.6)";
-            middleCtx.beginPath();
-            middleCtx.arc(Math1ObjectX, Math1ObjectY, Math1ObjectWidth, 0, 2 * Math.PI);
-            middleCtx.fill();
-            
-            middleCtx.beginPath();
-            middleCtx.arc(Math2ObjectX, Math2ObjectY, Math2ObjectWidth, 0, 2 * Math.PI);
-            middleCtx.fill();
-            
-            middleCtx.beginPath();
-            middleCtx.arc(Math3ObjectX, Math3ObjectY, Math3ObjectWidth, 0, 2 * Math.PI);
-            middleCtx.fill();
-            
-            middleCtx.fillStyle = "rgba(0, 0, 0, 1)";
-            middleCtx.font = "30px Arial";
-            middleCtx.fillText(Math1Number, Math1ObjectX 
-                    - (Math1ObjectWidth/2), Math1ObjectY 
-                    + (Math1ObjectWidth/2));
-            middleCtx.fillText(Math2Number, Math2ObjectX 
-                    - (Math2ObjectWidth/2), Math2ObjectY 
-                    + (Math1ObjectWidth/2));
-            middleCtx.fillText(Math3Number, Math3ObjectX 
-                    - (Math3ObjectWidth/2), Math3ObjectY 
-                    + (Math1ObjectWidth/2));
+            mathObjects.forEach(function(mathObject) {
+                middleCtx.fillStyle = "rgba(255, 200, 200, 0.6)";
+                middleCtx.beginPath();
+                middleCtx.arc(mathObject.mathX, mathObject.mathY, mathObject.mathW, 0, 2 * Math.PI);
+                middleCtx.fill();
+                middleCtx.fillStyle = "rgba(0, 0, 0, 1)";
+                middleCtx.font = "30px Arial";
+                middleCtx.fillText(mathObject.mathNumber, mathObject.mathX
+                    - (mathObject.mathW/2), mathObject.mathY
+                    + (mathObject.mathW/2));
+            });
         }
     }
 
     function drawFront() {
-        frontCtx.drawImage(plussCharacter, srcX, srcY, spriteWidth,
-                spriteHeight, 0, 100, W / 4, H / 2);
+        frontCtx.drawImage(plussCharacter.image, plussCharacter.srcX, plussCharacter.srcY, plussCharacter.spriteWidth,
+                plussCharacter.spriteHeight, 0, 100, W / 4, H / 2);
+        plussCharacter.updateFrame();
+
     }
 }
 
@@ -246,80 +203,34 @@ function updateGame() {
         setGameOver();
     }
 
-    if (playerY > (hinderY - hinderHeight) && playerY < (hinderY + hinderHeight)
-            && playerX > (hinderX - hinderWidth)
-            && playerX < (hinderX + hinderWidth)) {
+    if(checkCollision(player.playerX, player.playerY, player.playerWidth, player.playerHeight,
+            hinder.hinderX, hinder.hinderY, hinder.hinderWidth, hinder.hinderHeight)) {
         setGameOver();
     }
 
-    if (Math1ObjectY > (playerY)
-            && Math1ObjectY < (playerY + playerHeight)
-            && Math1ObjectX > (playerX - playerWidth)
-            && Math1ObjectX < (playerX + playerWidth)) {
-        Math1ObjectX = W + ((Math.random() * (W / 2)));
+    hinder.hinderX -= gameSpeed + 1;
+    if (hinder.hinderX < -hinder.hinderWidth) {
+        hinder.hinderX = W + ((Math.random() * (W / 2)));
+        hinder.hinderY = (Math.random() * (H - 1)) + 1;
+    }
 
-        if (Math1Number === questionAnswer) {
-            gameSpeed++;
-            restartGame();
-        } else {
-            gameSpeed--;
-            restartGame();
+    mathObjects.forEach(function(mathObject) {
+       if(checkCollision(player.playerX, player.playerY, player.playerWidth, player.playerHeight,
+               mathObject.mathX, mathObject.mathY, mathObject.mathW, mathObject.mathW)) {
+           if (mathObject.mathNumber === questionAnswer) {
+               gameSpeed++;
+               restartGame();
+           } else {
+               gameSpeed--;
+               restartGame();
+           }
+       }
+       mathObject.mathX -= gameSpeed;
+        if (mathObject.mathX < -mathObject.mathW) {
+            mathObject.mathX = W + ((Math.random() * (W / 2)));
+            mathObject.mathY = (Math.random() * (H - 1)) + 1;
         }
-    }
-
-    if (Math2ObjectY > (playerY)
-            && Math2ObjectY < (playerY + playerHeight)
-            && Math2ObjectX > (playerX - playerWidth)
-            && Math2ObjectX < (playerX + playerWidth)) {
-        Math2ObjectX = W + ((Math.random() * (W / 2)));
-
-        if (Math2Number === questionAnswer) {
-            gameSpeed++;
-            restartGame();
-        } else {
-            gameSpeed--;
-            restartGame();
-        }
-    }
-
-    if (Math3ObjectY > (playerY)
-            && Math3ObjectY < (playerY + playerHeight)
-            && Math3ObjectX > (playerX - playerWidth)
-            && Math3ObjectX < (playerX + playerWidth)) {
-        Math3ObjectX = W + ((Math.random() * (W / 2)));
-
-        if (Math3Number === questionAnswer) {
-            gameSpeed++;
-            restartGame();
-        } else {
-            gameSpeed--;
-            restartGame();
-        }
-    }
-
-    hinderX -= gameSpeed + 1;
-    if (hinderX < -hinderWidth) {
-        hinderX = W + ((Math.random() * (W / 2)));
-        hinderY = (Math.random() * (H - 1)) + 1;
-    }
-
-    Math1ObjectX -= gameSpeed;
-    if (Math1ObjectX < -Math1ObjectWidth) {
-        Math1ObjectX = W + ((Math.random() * (W / 2)));
-        Math1ObjectY = (Math.random() * (H - 1)) + 1;
-    }
-
-    Math2ObjectX -= gameSpeed;
-    if (Math2ObjectX < -Math2ObjectWidth) {
-        Math2ObjectX = W + ((Math.random() * (W / 2)));
-        Math2ObjectY = (Math.random() * (H - 1)) + 1;
-    }
-
-    Math3ObjectX -= gameSpeed;
-    if (Math3ObjectX < -Math3ObjectWidth) {
-        Math3ObjectX = W + ((Math.random() * (W / 2)));
-        Math3ObjectY = (Math.random() * (H - 1)) + 1;
-    }
+    });
 }
 
 var angle = 0;
@@ -372,6 +283,7 @@ function setGameOver() {
 
 function setStartGame() {
     gameState = 1;
+    gameSpeed = 5;
     document.getElementById('myModal').style.display = "none";
     document.getElementById("gameOverModalContent").style.display = "none";
     document.getElementById("startModalContent").style.display = "none";
@@ -408,28 +320,19 @@ function restartGame() {
             = firstNumber + " + " + secondNumber + " = ??     Score: " 
             + gameSpeed;
 
-    hinderX = W + ((Math.random() * (W / 2)));
-    hinderY = 0;
-    hinderWidth = W / 10;
-    hinderHeight = H / 8;
+    hinder.hinderX = W + ((Math.random() * (W / 2)));
+    hinder.hinderY = 0;
+    hinder.hinderWidth = W / 10;
+    hinder.hinderHeight = H / 8;
 
     //Math Object
-    Math1ObjectX = W + ((Math.random() * (W / 2)));
-    Math1ObjectY = Math.random() * (H - 1) + 1;
-    Math1ObjectWidth = W / 40;
-    Math1Number = firstNumber + secondNumber;
-
-    //Math Object2
-    Math2ObjectX = W + ((Math.random() * (W / 2)));
-    Math2ObjectY = (Math.random() * (H - 1)) + 1;
-    Math2ObjectWidth = W / 40;
-    Math2Number = firstNumber + secondNumber + Math.round((Math.random() * 5) + 1);
-
-    //Math Object3
-    Math3ObjectX = W + ((Math.random() * (W / 2)));
-    Math3ObjectY = Math.random() * (H - 1) + 1;
-    Math3ObjectWidth = W / 40;
-    Math3Number = firstNumber + secondNumber - Math.round((Math.random() * 5) - 1);
+    mathObjects.forEach(function(mathObject) {
+        mathObject.mathX = W + ((Math.random() * (W / 2)));
+        mathObject.mathY = Math.random() * (H - 1) + 1;
+        mathObject.mathW = W / 40;
+        mathObject.mathNumber = Math.round(Math.random() * 20);
+    });
+    mathObjects[0].mathNumber = firstNumber + secondNumber;
 }
 
 //animation loop, 60 fps
