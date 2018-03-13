@@ -1,4 +1,10 @@
 
 nbproject/private/private\.xml
 
+<<<<<<< HEAD
 nbproject/project\.properties
+=======
+*.iml
+
+*.xml
+>>>>>>> RemodelingCode
