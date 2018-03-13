@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-//Creating the global
+//Creating the global game controllers
 
 var gameScreen = document.createElement('div');
 gameScreen.id = "gameScreen";
@@ -176,6 +176,7 @@ function iniFront(canvasID) {
     frontCanvas.height = H;
 }
 
+// Create a animated sprite object
 function createAnimatedSprite(src, sheetWidth, sheetHeight, spriteWidth, spriteHeight, frameCount, frameDelay) {
 
     var character = new Image();
@@ -203,6 +204,127 @@ function createAnimatedSprite(src, sheetWidth, sheetHeight, spriteWidth, spriteH
                 this.frameDelayCounter++;
             }
         }};
+}
+
+var backgroundAngle = 0;
+var mp = 30; //max letters
+var particles = [];
+
+//iniBackgroundEffects
+function iniBackgroundEffects(effect) {
+    backgroundAngle = 0;
+    switch (effect) {
+        case 0:
+            //letters
+            mp = 30; //max letters
+            particles = [];
+            for (var i = 0; i < mp; i++)
+            {
+                particles.push({
+                    x: Math.random() * W, //x-coordinate
+                    y: Math.random() * H, //y-coordinate
+                    r: Math.random() * 4 + 1, //radius
+                    d: Math.random() * mp, //density
+                    n: Math.round((Math.random() * 100) + 1),
+                    s: Math.round((Math.random() * 300) + 1),
+                    cr: Math.round((Math.random() * 255) + 1),
+                    cg: Math.round((Math.random() * 255) + 1),
+                    cb: Math.round((Math.random() * 255) + 1),
+                });
+            }
+            break;
+
+        case 1:
+            //snowflake particles
+            mp = 30; //max particles
+            particles = [];
+            for (var i = 0; i < mp; i++)
+            {
+                particles.push({
+                    x: Math.random() * W, //x-coordinate
+                    y: Math.random() * H, //y-coordinate
+                    r: Math.random() * 4 + 1, //radius
+                    d: Math.random() * mp //density
+                });
+            }
+            break;
+
+        case 2:
+            break;
+    }
+}
+
+function updateBackgroundEffects(effect) {
+
+    switch(effect) {
+        case 0:
+            backCtx.beginPath();
+            for (var i = 0; i < mp; i++)
+            {
+                var p = particles[i];
+                backCtx.fillStyle = "rgba(" + p.cr + ", " + p.cg + ", " + p.cb + ", 0.9)";
+                backCtx.font = p.s + "px Verdana";
+                backCtx.fillText(p.n, p.x, p.y);
+            }
+
+            backgroundAngle += 0.01;
+            for (var i = 0; i < mp; i++)
+            {
+                var p = particles[i];
+                p.y += Math.cos(backgroundAngle + p.d) + 1 + p.r / 2;
+                p.x += Math.sin(backgroundAngle) * 2;
+
+                if (p.x > W + 15 || p.x < -200 || p.y > H + 200)
+                {
+                    particles[i] = {x: Math.random() * W, y: -10, r: p.r, d: p.d, n: p.n, s: p.s, cr: p.cr, cg: p.cg, cb: p.cb};
+                }
+            }
+            break;
+
+        case 1:
+            backCtx.fillStyle = "rgba(255, 255, 255, 0.8)";
+            backCtx.beginPath();
+            for (var i = 0; i < mp; i++) {
+                var p = particles[i];
+                backCtx.moveTo(p.x, p.y);
+                backCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2, true);
+            }
+            backCtx.fill();
+
+            backgroundAngle += 0.01;
+            for (var i = 0; i < mp; i++)
+            {
+                var p = particles[i];
+                //Updating X and Y coordinates
+                //We will add 1 to the cos function to prevent negative values which will lead flakes to move upwards
+                //Every particle has its own density which can be used to make the downward movement different for each flake
+                //Lets make it more random by adding in the radius
+                p.y += Math.cos(backgroundAngle + p.d) + 1 + p.r / 2;
+                p.x += Math.sin(backgroundAngle) * 2;
+                //Sending flakes back from the top when it exits
+                //Lets make it a bit more organic and let flakes enter from the left and right also.
+                if (p.x > W + 5 || p.x < -5 || p.y > H)
+                {
+                    if (i % 3 > 0) //66.67% of the flakes
+                    {
+                        particles[i] = {x: Math.random() * W, y: -10, r: p.r, d: p.d};
+                    } else
+                    {
+                        //If the flake is exitting from the right
+                        if (Math.sin(backgroundAngle) > 0)
+                        {
+                            //Enter from the left
+                            particles[i] = {x: -5, y: Math.random() * H, r: p.r, d: p.d};
+                        } else
+                        {
+                            //Enter from the right
+                            particles[i] = {x: W + 5, y: Math.random() * H, r: p.r, d: p.d};
+                        }
+                    }
+                }
+            }
+            break;
+    }
 }
 
 //Start the game
