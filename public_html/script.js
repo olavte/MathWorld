@@ -251,6 +251,21 @@ function iniBackgroundEffects(effect) {
 
         case 2:
             break;
+
+        case 5:
+            //star particles
+            mp = 30; //max particles
+            particles = [];
+            for (var i = 0; i < mp; i++)
+            {
+                particles.push({
+                    x: Math.random() * W, //x-coordinate
+                    y: Math.random() * H, //y-coordinate
+                    r: Math.random() * 4 + 1, //radius
+                    d: Math.random() * mp //density
+                });
+            }
+            break;
     }
 }
 
@@ -323,6 +338,18 @@ function updateBackgroundEffects(effect) {
                     }
                 }
             }
+            break;
+
+        case 5:
+            backCtx.beginPath();
+            backCtx.fillStyle = "rgba(255, 255, 255, 0.9)";
+            for (var i = 0; i < mp; i++)
+            {
+                var p = particles[i];
+                backCtx.moveTo(p.x, p.y);
+                backCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2, true);
+            }
+            backCtx.fill();
             break;
     }
 }

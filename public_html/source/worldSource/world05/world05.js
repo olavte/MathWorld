@@ -10,14 +10,14 @@ function goToMenu(x) {
 
 
 //canvas init
-iniBack('world1Canvas');
+iniBack('world5Canvas');
 
 var plussCharacter = createAnimatedSprite('assets/characters/plussCharSpr.png', 1200, 300, 300, 300, 4, 30);
 
 playMusic(startMenuMusic);
 
 //snowflake particles
-iniBackgroundEffects(1);
+iniBackgroundEffects(5);
 
 //Lets draw the flakes
 function draw() {
@@ -25,7 +25,7 @@ function draw() {
     backCtx.drawImage(plussCharacter.image, plussCharacter.srcX, plussCharacter.srcY, plussCharacter.spriteWidth,
         plussCharacter.spriteHeight, 10, H / 3, W / 5, W / 4);
     plussCharacter.updateFrame();
-    updateBackgroundEffects(1);
+    updateBackgroundEffects(5);
 }
 
 //animation loop
