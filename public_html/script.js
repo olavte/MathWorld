@@ -94,6 +94,13 @@ function goToNewScreen(html, js) {
     xhttp.send();
 }
 
+function addExtraScript(js) {
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = js;
+    gameScreen.append(script);
+}
+
 function clearAnimation() {
 
     //Clears the animation loop (fps)
@@ -158,21 +165,6 @@ function iniMiddle() {
 function iniFront() {
     frontCanvas = document.getElementById("frontCanvas");
     frontCtx = frontCanvas.getContext("2d");
-}
-
-function createChar() {
-    var frameDelayerCounter = 0;
-    var frameDelayerValue = 15;
-
-    var sheetWidth = 1200;
-    var sheetHeight = 300;
-
-    var frameCount = 3;
-
-    var spriteWidth = 300;
-    var spriteHeight = 300;
-
-    var currentFrame = 0;
 }
 
 function createAnimatedSprite(src, sheetWidth, sheetHeight, spriteWidth, spriteHeight, frameCount, frameDelay) {
