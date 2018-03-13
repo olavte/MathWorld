@@ -399,3 +399,13 @@ button[disabled]{
         text-align: center;
     
 }
+
+.worldDoor {
+    position: fixed;
+    right: 0;
+    bottom: 20vh;
+}
+
+#world2Door {
+
+}

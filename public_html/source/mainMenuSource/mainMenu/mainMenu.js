@@ -39,6 +39,7 @@ function changeVolumeOnSound() {
 // User releases the button, removes volumeBarInterval
 function volumeBarClickedUp() {
     clearInterval(volumeBarInterval);
+    console.log(currentMusic.volume);
 }
 
 // User clicks the settings button, open the settings modal 
