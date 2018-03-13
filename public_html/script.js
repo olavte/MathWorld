@@ -10,23 +10,50 @@ var gameScreen = document.createElement('div');
 gameScreen.id = "gameScreen";
 document.body.appendChild(gameScreen);
 
-var globalVolume = 0;
-var musicVolume = 0;
-var soundVolume = 0;
-
 var latestWorld = 0;
 var currentWorld = 0;
 var currentStage = 0;
 
 var animationLoop = null;
 
-var mainMusic = new Audio('assets/music/startScreen.mp3');
-mainMusic.volume = globalVolume * musicVolume;
-mainMusic.addEventListener('ended', function () {
-    this.currentTime = 0;
-    this.play();
-}, false);
-mainMusic.play();
+// Music and sounds
+
+var globalVolume = 0;
+var musicVolume = 0;
+var soundVolume = 0;
+
+var startMenuMusic = new Audio('assets/music/startScreen.mp3');
+var fightMusic = new Audio('assets/music/falconLunch.mp3');
+
+var currentMusic = null;
+
+var musicLooper = null;
+
+function playSound(sound) {
+    var s = new Audio(sound);
+    s.volume = soundVolume * globalVolume;
+    s.play();
+}
+
+function playMusic(music) {
+    if(musicLooper !== null) {
+        currentMusic.removeEventListener("ended", musicLooper);
+        musicLooper = null;
+    }
+    if(currentMusic !== null) {
+        currentMusic.pause();
+    }
+    currentMusic = music;
+    currentMusic.currentTime = 0;
+    currentMusic.volume = globalVolume * musicVolume;
+    currentMusic.play();
+    musicLooper = currentMusic.addEventListener("ended", function () {
+        if (currentMusic !== null) {
+            this.currentTime = 0;
+            this.play();
+        }
+    }, false);
+}
 
 //Controllers
 var mouseDown = 0;
@@ -67,11 +94,18 @@ function goToNewScreen(html, js) {
     xhttp.send();
 }
 
+function addExtraScript(js) {
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = js;
+    gameScreen.append(script);
+}
+
 function clearAnimation() {
-    
+
     //Clears the animation loop (fps)
     clearInterval(animationLoop);
-    
+
     //Clears all window related events
     if (mouseDown !== 0) {
         window.removeEventListener("mousedown", mouseDown);
@@ -99,6 +133,69 @@ function clearAnimation() {
     }
 }
 
+//Check collision
+function checkCollision(targetX, targetY, targetW, targetH, coliderX, coliderY, coliderW, coliderH) {
+    var result = false;
+    if((targetY < coliderY + coliderH) && (coliderY < targetY + targetH)
+        && (targetX < coliderX + coliderW) && (coliderX < targetX + targetW)) {
+        result = true;
+    }
+    return result;
+}
+
+//Initialize canvases
+var backCanvas = null;
+var middleCanvas = null;
+var frontCanvas = null;
+
+var backCtx = null;
+var middleCtx = null;
+var frontCtx = null;
+
+function iniBack() {
+    backCanvas = document.getElementById("world1Canvas");
+    backCtx = backCanvas.getContext("2d");
+}
+
+function iniMiddle() {
+    middleCanvas = document.getElementById("middleCanvas");
+    middleCtx = middleCanvas.getContext("2d");
+}
+
+function iniFront() {
+    frontCanvas = document.getElementById("frontCanvas");
+    frontCtx = frontCanvas.getContext("2d");
+}
+
+function createAnimatedSprite(src, sheetWidth, sheetHeight, spriteWidth, spriteHeight, frameCount, frameDelay) {
+
+    var character = new Image();
+    character.src = src;
+    return {
+        image: character,
+        src: src,
+        srcX: 0,
+        srcY: 0,
+        sheetWidth: sheetWidth,
+        sheetHeight: sheetHeight,
+        spriteWidth: spriteWidth,
+        spriteHeight: spriteHeight,
+        currentFrame: 0,
+        frameCount: frameCount,
+        frameDelay: frameDelay,
+        frameDelayCounter: 0,
+        updateFrame: function() {
+            if (this.frameDelayCounter > this.frameDelay) {
+                this.frameDelayCounter = 0;
+                this.currentFrame = ++this.currentFrame % this.frameCount;
+                this.srcX = this.currentFrame * this.spriteWidth;
+                this.srcY = 0;
+            } else {
+                this.frameDelayCounter++;
+            }
+        }};
+}
+
 //Start the game
 goToNewScreen("source/mainMenuSource/startScreen/startScreen.html",
-        "source/mainMenuSource/startScreen/startScreen.js");
+    "source/mainMenuSource/startScreen/startScreen.js");

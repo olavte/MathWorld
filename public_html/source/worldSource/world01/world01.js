@@ -16,6 +16,8 @@ var ctx = canvas.getContext("2d");
 var srcX;
 var srcY;
 
+playMusic(startMenuMusic);
+
 var frameDelayerCounter = 0;
 var frameDelayerValue = 10;
 
@@ -52,8 +54,7 @@ canvas.height = H;
 //snowflake particles
 var mp = 30; //max particles
 var particles = [];
-for (var i = 0; i < mp; i++)
-{
+for (var i = 0; i < mp; i++) {
     particles.push({
         x: Math.random() * W, //x-coordinate
         y: Math.random() * H, //y-coordinate
@@ -63,17 +64,15 @@ for (var i = 0; i < mp; i++)
 }
 
 //Lets draw the flakes
-function draw()
-{
+function draw() {
     ctx.clearRect(0, 0, W, H);
-    ctx.drawImage(plussCharacter, srcX, srcY, spriteWidth, spriteHeight, 10, H/3, W/5, W/4);
+    ctx.drawImage(plussCharacter, srcX, srcY, spriteWidth, spriteHeight, 10, H / 3, W / 5, W / 4);
     updateFrame();
 
 
     ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
     ctx.beginPath();
-    for (var i = 0; i < mp; i++)
-    {
+    for (var i = 0; i < mp; i++) {
         var p = particles[i];
         ctx.moveTo(p.x, p.y);
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2, true);
@@ -85,11 +84,10 @@ function draw()
 //Function to move the snowflakes
 //angle will be an ongoing incremental flag. Sin and Cos functions will be applied to it to create vertical and horizontal movements of the flakes
 var angle = 0;
-function update()
-{
+
+function update() {
     angle += 0.01;
-    for (var i = 0; i < mp; i++)
-    {
+    for (var i = 0; i < mp; i++) {
         var p = particles[i];
         //Updating X and Y coordinates
         //We will add 1 to the cos function to prevent negative values which will lead flakes to move upwards
@@ -100,20 +98,16 @@ function update()
 
         //Sending flakes back from the top when it exits
         //Lets make it a bit more organic and let flakes enter from the left and right also.
-        if (p.x > W + 5 || p.x < -5 || p.y > H)
-        {
+        if (p.x > W + 5 || p.x < -5 || p.y > H) {
             if (i % 3 > 0) //66.67% of the flakes
             {
                 particles[i] = {x: Math.random() * W, y: -10, r: p.r, d: p.d};
-            } else
-            {
+            } else {
                 //If the flake is exitting from the right
-                if (Math.sin(angle) > 0)
-                {
+                if (Math.sin(angle) > 0) {
                     //Enter from the left
                     particles[i] = {x: -5, y: Math.random() * H, r: p.r, d: p.d};
-                } else
-                {
+                } else {
                     //Enter from the right
                     particles[i] = {x: W + 5, y: Math.random() * H, r: p.r, d: p.d};
                 }
@@ -215,9 +209,7 @@ function sadnessScreen() {
 }
 
 
-
-
-//få random nummer 
+//få random nummer
 //@param opp til nummer upToo
 //@return random nummer
 function randomNumber(upToo) {

@@ -1,14 +1,9 @@
 /* 
  */
 
-
-
-
-
 //canvas init
 
-var canvas = document.getElementById("stageCanvas");
-var ctx = canvas.getContext("2d");
+iniBack();
 
 var srcX;
 var srcY;
@@ -25,9 +20,6 @@ var spriteWidth = 300;
 var spriteHeight = 300;
 
 var currentFrame = 0;
-
-var plussCharacter = new Image();
-plussCharacter.src = "assets/characters/plussCharSpr.png";
 
 function updateFrame() {
     if (frameDelayerCounter > frameDelayerValue) {
