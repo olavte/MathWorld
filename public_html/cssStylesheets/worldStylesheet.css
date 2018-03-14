@@ -48,9 +48,9 @@ input {
 
 #world5planet {
     position: fixed;
-    width: 150vw;
-    bottom: -100vw;
-    right: -120vh;
+    width: 100vw;
+    bottom: -60vw;
+    right: -80vh;
     z-index: -1;
 }
 

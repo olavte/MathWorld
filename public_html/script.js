@@ -262,7 +262,9 @@ function iniBackgroundEffects(effect) {
                     x: Math.random() * W, //x-coordinate
                     y: Math.random() * H, //y-coordinate
                     r: Math.random() * 4 + 1, //radius
-                    d: Math.random() * mp //density
+                    d: Math.random() * mp, //density
+                    l: Math.random() * 1,
+                    lu:false
                 });
             }
             break;
@@ -342,10 +344,23 @@ function updateBackgroundEffects(effect) {
 
         case 5:
             backCtx.beginPath();
-            backCtx.fillStyle = "rgba(255, 255, 255, 0.9)";
             for (var i = 0; i < mp; i++)
             {
                 var p = particles[i];
+                var lightDegree = Math.random() / 100;
+                if(p.lu === true) {
+                    p.l += lightDegree;
+                } else {
+                    p.l -= lightDegree;
+                }
+                if(p.l > 1) {
+                    p.l = 1;
+                    p.lu = false;
+                } else if (p.l < 0.2) {
+                    p.l = 0.2;
+                    p.lu = true;
+                }
+                backCtx.fillStyle = "rgba(255, 255, 200, " + p.l + ")";
                 backCtx.moveTo(p.x, p.y);
                 backCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2, true);
             }
