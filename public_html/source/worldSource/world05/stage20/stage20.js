@@ -13,7 +13,7 @@ iniFront("frontCanvas");
 
 //Music
 playMusic(fightMusic);
-var plussCharacter = createAnimatedSprite('assets/characters/plussCharSpr.png', 1200, 300, 300, 300, 4, 30);
+var roundingChar = createAnimatedSprite('assets/characters/roundingChar.png', 1800, 300, 300, 300, 6, 15);
 
 var gameState = 0;
 setBeforeGame();
@@ -50,8 +50,8 @@ for(var i = 0; i < 4; i++) {
 
 //PlayerVariables
 var player = {
-    playerX: W / 12,
-    playerY: H / 2,
+    playerX: W / 2,
+    playerY: H - (H/8),
     playerHeight: H / 8,
     playerWidth: W / 10
 };
@@ -63,13 +63,13 @@ var userInputY = 0;
 var timer = 0;
 
 mouseMove = window.addEventListener("mousemove", function (event) {
-    userInputX = event.x;
+    userInputX = (event.x - middleCanvas.offsetLeft) * 1.4;
     userInputY = (event.y - middleCanvas.offsetTop) * 1.4;
     event.preventDefault();
 });
 
 touchMove = window.addEventListener("touchmove", function (event) {
-    userInputX = event.touches[0].clientX;
+    userInputX = (event.touches[0].clientX - middleCanvas.offsetLeft) * 1.4;
     userInputY = (event.touches[0].clientY - middleCanvas.offsetTop) * 1.4;
 }, false);
 
@@ -96,10 +96,10 @@ mouseUp = window.addEventListener("mouseup", function () {
 }, false);
 
 function movePlayer() {
-    if (userInputY < ((player.playerY + ((player.playerHeight) / 2)) - 24) && (player.playerY > 0)) {
-        player.playerY -= 10;
-    } else if (userInputY > ((player.playerY + (player.playerHeight / 2)) + 24) && player.playerY < (H - (player.playerHeight))) {
-        player.playerY += 10;
+    if (userInputX < W/2) {
+        player.playerX -= 10;
+    } else if (userInputX > W/2) {
+        player.playerX += 10;
     }
 }
 
@@ -156,8 +156,8 @@ function draw()
     }
 
     function drawFront() {
-        drawSpriteImage(frontCtx, plussCharacter, 0, 100, W/4, H/2);
-        plussCharacter.updateFrame();
+        drawSpriteImage(frontCtx, roundingChar, 0, 100, W/4, H/2);
+        roundingChar.updateFrame();
     }
 }
 

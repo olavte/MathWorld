@@ -64,13 +64,13 @@ var userInputY = 0;
 var timer = 0;
 
 mouseMove = window.addEventListener("mousemove", function (event) {
-    userInputX = event.x;
+    userInputX = (event.x - middleCanvas.offsetLeft) * 1.4;
     userInputY = (event.y - middleCanvas.offsetTop) * 1.4;
     event.preventDefault();
 });
 
 touchMove = window.addEventListener("touchmove", function (event) {
-    userInputX = event.touches[0].clientX;
+    userInputX = (event.touches[0].clientX - middleCanvas.offsetLeft) * 1.4;
     userInputY = (event.touches[0].clientY - middleCanvas.offsetTop) * 1.4;
 }, false);
 
@@ -97,6 +97,11 @@ mouseUp = window.addEventListener("mouseup", function () {
 }, false);
 
 function movePlayer() {
+    if (userInputX < ((player.playerX + ((player.playerWidth) / 2)) - 24) && (player.playerX > 0)) {
+        player.playerX -= 10;
+    } else if (userInputX > ((player.playerX + (player.playerWidth / 2)) + 24) && player.playerX < (W - (player.playerWidth))) {
+        player.playerX += 10;
+    }
     if (userInputY < ((player.playerY + ((player.playerHeight) / 2)) - 24) && (player.playerY > 0)) {
         player.playerY -= 10;
     } else if (userInputY > ((player.playerY + (player.playerHeight / 2)) + 24) && player.playerY < (H - (player.playerHeight))) {

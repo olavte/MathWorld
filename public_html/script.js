@@ -361,7 +361,7 @@ function updateBackgroundEffects(effect) {
                 if(p.l > 1) {
                     p.l = 1;
                     p.lu = false;
-                } else if (p.l < 0.2) {
+                } else if (p.l < 0.1) {
                     p.l = 0.2;
                     p.lu = true;
                 }

@@ -3,28 +3,24 @@
 
 //canvas init
 
-iniBack('world1Canvas');
+iniBack('world5Canvas');
 
-var plussCharacter = createAnimatedSprite('assets/characters/plussCharSpr.png', 1200, 300, 300, 300, 3, 30);
+var roundingChar = createAnimatedSprite('assets/characters/roundingChar.png', 1800, 300, 300, 300, 6, 15);
 
 //snowflake particles
-iniBackgroundEffects(1);
+iniBackgroundEffects(5);
 
 //Lets draw the flakes
 function draw()
 {
     backCtx.clearRect(0, 0, W, H);
-
-    plussCharacter.updateFrame();
-
-
-    updateBackgroundEffects(1);
-    backCtx.drawImage(plussCharacter.image, plussCharacter.srcX, plussCharacter.srcY, plussCharacter.spriteWidth,
-        plussCharacter.spriteHeight, 160, 150, plussCharacter.spriteWidth, plussCharacter.spriteHeight);
+    roundingChar.updateFrame();
+    updateBackgroundEffects(5);
+    drawSpriteImage(backCtx, roundingChar, 10, H / 4, W / 5, W / 4)
 }
 
 //animation loop
-animationLoop = setInterval(draw, 16);
+animationLoop = setInterval(draw, 33);
 
 
 /*
@@ -44,7 +40,7 @@ var currentQuestion = 1;
 
 //functions for math and questions below
 function backToWorld() {
-    goToNewScreen('source/worldSource/world01/world01.html', 'source/worldSource/world01/world01.js');
+    goToNewScreen('source/worldSource/world05/world05.html', 'source/worldSource/world05/world05.js');
 }
 
 function victoryScreen() {
