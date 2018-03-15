@@ -12,7 +12,7 @@ function goToMenu(x) {
 //canvas init
 iniBack('world5Canvas');
 
-var plussCharacter = createAnimatedSprite('assets/characters/plussCharSpr.png', 1200, 300, 300, 300, 4, 30);
+var plussCharacter = createAnimatedSprite('assets/characters/roundingChar.png', 1800, 300, 300, 300, 6, 15);
 
 playMusic(startMenuMusic);
 

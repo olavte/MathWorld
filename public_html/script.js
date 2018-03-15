@@ -206,6 +206,11 @@ function createAnimatedSprite(src, sheetWidth, sheetHeight, spriteWidth, spriteH
         }};
 }
 
+function drawSpriteImage(canvasCtx, object, x, y, w, h) {
+    canvasCtx.drawImage(object.image, object.srcX, object.srcY, object.spriteWidth,
+        object.spriteHeight, x, y, w, h);
+}
+
 var backgroundAngle = 0;
 var mp = 30; //max letters
 var particles = [];

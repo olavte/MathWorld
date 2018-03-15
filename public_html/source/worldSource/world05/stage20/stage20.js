@@ -5,7 +5,7 @@
 
 //canvas init
 
-iniBack("world1Canvas");
+iniBack("world5Canvas");
 
 iniMiddle("middleCanvas");
 
@@ -19,7 +19,7 @@ var gameState = 0;
 setBeforeGame();
 
 
-iniBackgroundEffects(1);
+iniBackgroundEffects(5);
 
 // Game variables
 
@@ -116,7 +116,7 @@ function draw()
     drawFront();
 
     function drawBack() {
-        updateBackgroundEffects(1);
+        updateBackgroundEffects(5);
     }
 
     function drawMiddle() {
@@ -156,10 +156,8 @@ function draw()
     }
 
     function drawFront() {
-        frontCtx.drawImage(plussCharacter.image, plussCharacter.srcX, plussCharacter.srcY, plussCharacter.spriteWidth,
-                plussCharacter.spriteHeight, 0, 100, W / 4, H / 2);
+        drawSpriteImage(frontCtx, plussCharacter, 0, 100, W/4, H/2);
         plussCharacter.updateFrame();
-
     }
 }
 

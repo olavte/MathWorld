@@ -14,6 +14,7 @@ iniFront("frontCanvas");
 //Music
 playMusic(fightMusic);
 var plussCharacter = createAnimatedSprite('assets/characters/plussCharSpr.png', 1200, 300, 300, 300, 4, 30);
+var marshChar = createAnimatedSprite('assets/characters/marshmellowsSheet.png', 512, 128, 128, 128, 4, 15);
 
 var gameState = 0;
 setBeforeGame();
@@ -121,16 +122,13 @@ function draw()
 
     function drawMiddle() {
 
-        middleCtx.fillStyle = "rgba(131, 92, 59, 1)";
+        middleCtx.fillStyle = "rgba(115, 77, 44, 1)";
         middleCtx.beginPath();
         middleCtx.rect(0, 0, W, H);
         middleCtx.fill();
 
-        middleCtx.fillStyle = "rgba(255, 255, 255, 1)";
-        middleCtx.beginPath();
-        middleCtx.rect(player.playerX, player.playerY, player.playerWidth, player.playerHeight);
-        middleCtx.fill();
-        middleCtx.stroke();
+        drawSpriteImage(middleCtx, marshChar, player.playerX, player.playerY, player.playerWidth, player.playerHeight);
+        marshChar.updateFrame();
 
         if (gameState === 1) {
 
@@ -171,7 +169,7 @@ function updateGame() {
         setGameOver();
     }
 
-    if(checkCollision(player.playerX, player.playerY, player.playerWidth, player.playerHeight,
+    if(checkCollision(player.playerX, player.playerY, player.playerWidth - 16, player.playerHeight - 16,
             hinder.hinderX, hinder.hinderY, hinder.hinderWidth, hinder.hinderHeight)) {
         setGameOver();
     }
@@ -183,7 +181,7 @@ function updateGame() {
     }
 
     mathObjects.forEach(function(mathObject) {
-       if(checkCollision(player.playerX, player.playerY, player.playerWidth, player.playerHeight,
+       if(checkCollision(player.playerX, player.playerY, player.playerWidth - 16, player.playerHeight - 16,
                mathObject.mathX, mathObject.mathY, mathObject.mathW, mathObject.mathW)) {
            if (mathObject.mathNumber === questionAnswer) {
                gameSpeed++;
