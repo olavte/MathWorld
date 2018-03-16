@@ -23,9 +23,7 @@ iniBackgroundEffects(5);
 
 // Game variables
 
-var firstNumber = 0;
-var secondNumber = 0;
-var questionAnswer = 0;
+var isAnswerFloor = true;
 var gameScore = 10;
 var currentCorrect = 0;
 
@@ -41,12 +39,12 @@ var hinder = {
 
 //Math Objects
 var mathObjects = [];
-for(var i = 0; i < 8; i++) {
+for(var i = 0; i < 12; i++) {
     mathObjects.push({
         name:"math" + (i + 1),
-        mathX:W + ((Math.random() * (W / 2))),
+        mathX:Math.random() * W,
         mathY:Math.random() * H,
-        mathW:Math.random() * W,
+        mathW:W/60,
         mathNumber:0});
 }
 
@@ -206,19 +204,48 @@ function updateGame() {
     mathObjects.forEach(function(mathObject) {
        if(checkCollision(player.playerX, player.playerY, player.playerWidth, player.playerHeight,
                mathObject.mathX, mathObject.mathY, mathObject.mathW, mathObject.mathW)) {
-           if (mathObject.mathNumber === questionAnswer) {
-               gameScore += 2;
-               mathObject.mathX = 99999;
-               currentCorrect++;
-               document.getElementById("questionBox").innerHTML
-                   = firstNumber + " + " + secondNumber + " = ??     Score: "
-                   + gameScore;
+           if(isAnswerFloor) {
+               if (mathObject.mathNumber > Math.round(mathObject.mathNumber)
+                   || mathObject.mathNumber === Math.round(mathObject.mathNumber)) {
+                   gameScore += 2;
+                   mathObject.mathX = 99999;
+                   currentCorrect++;
+                   if(isAnswerFloor) {
+                       document.getElementById("questionBox").innerHTML = "floor!.. Score: " + gameScore;
+                   } else {
+                       document.getElementById("questionBox").innerHTML = "roof!.. Score: " + gameScore;
+                   }
+               } else {
+                   gameScore--;
+                   currentCorrect++;
+                   mathObject.mathX = 99999;
+                   if(isAnswerFloor) {
+                       document.getElementById("questionBox").innerHTML = "floor!.. Score: " + gameScore;
+                   } else {
+                       document.getElementById("questionBox").innerHTML = "roof!.. Score: " + gameScore;
+                   }
+               }
            } else {
-               gameScore--;
-               mathObject.mathX = 99999;
-               document.getElementById("questionBox").innerHTML
-                   = firstNumber + " + " + secondNumber + " = ??     Score: "
-                   + gameScore;
+               if (mathObject.mathNumber < Math.round(mathObject.mathNumber)
+                   || mathObject.mathNumber === Math.round(mathObject.mathNumber)) {
+                   gameScore += 2;
+                   mathObject.mathX = 99999;
+                   currentCorrect++;
+                   if(isAnswerFloor) {
+                       document.getElementById("questionBox").innerHTML = "floor!.. Score: " + gameScore;
+                   } else {
+                       document.getElementById("questionBox").innerHTML = "roof!.. Score: " + gameScore;
+                   }
+               } else {
+                   gameScore--;
+                   currentCorrect++;
+                   mathObject.mathX = 99999;
+                   if(isAnswerFloor) {
+                       document.getElementById("questionBox").innerHTML = "floor!.. Score: " + gameScore;
+                   } else {
+                       document.getElementById("questionBox").innerHTML = "roof!.. Score: " + gameScore;
+                   }
+               }
            }
        }
     });
@@ -265,13 +292,11 @@ function restartGame() {
     // Game variables
     //Hinder Object
 
-    firstNumber = Math.round(Math.random() * 10);
-    secondNumber = Math.round(Math.random() * 10);
-    questionAnswer = firstNumber + secondNumber;
-
-    document.getElementById("questionBox").innerHTML 
-            = firstNumber + " + " + secondNumber + " = ??     Score: " 
-            + gameScore;
+    if(isAnswerFloor) {
+        document.getElementById("questionBox").innerHTML = "floor!.. Score: " + gameScore;
+    } else {
+        document.getElementById("questionBox").innerHTML = "roof!.. Score: " + gameScore;
+    }
 
     hinder.hinderX = W + ((Math.random() * (W / 2)));
     hinder.hinderY = 0;
@@ -284,13 +309,9 @@ function restartGame() {
     mathObjects.forEach(function(mathObject) {
         mathObject.mathX = Math.random() * (W - 24) + 24;
         mathObject.mathY = Math.random() * (H - 24) + 24;
-        mathObject.mathW = W / 40;
-        mathObject.mathNumber = Math.round(Math.random() * 20);
+        mathObject.mathW = W / 60;
+        mathObject.mathNumber = Math.round (((Math.random() * 10) + 1) * 10) / 10;
     });
-    mathObjects[0].mathNumber = firstNumber + secondNumber;
-    mathObjects[1].mathNumber = firstNumber + secondNumber;
-    mathObjects[2].mathNumber = firstNumber + secondNumber;
-    mathObjects[3].mathNumber = firstNumber + secondNumber;
 }
 
 //animation loop, 60 fps

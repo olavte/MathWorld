@@ -427,6 +427,12 @@ button[disabled]{
     bottom: 20vh;
 }
 
+.worldBackDoor {
+    position: fixed;
+    left: 0;
+    bottom: 20vh;
+}
+
 #world2Door {
 
 }

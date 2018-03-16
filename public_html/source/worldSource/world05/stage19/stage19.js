@@ -54,23 +54,12 @@ function loseScreen() {
 
 }
 
-
-
-//få random nummer 
-//@param opp til nummer upToo
-//@return random nummer
-function randomNumber(upTo) {
-    var randNumb = Math.floor(Math.random() * upTo);
-    return randNumb;
-}
-
 //Selects a random word within the words array and returns it.
 function selectWord() {    
     var words = ["apple", "ice", "orange", "car", "computer", 
                  "game", "math", "school", "juice", "soda", 
                  "carrot", "purple", "movie", "superhero"];
-    var randNumb = randomNumber(words.length);
-    return words[randNumb];
+    return words[Math.round(Math.random() * words.length)];
 }
 
 function guessWord() {
@@ -109,15 +98,14 @@ function question1() {
         for (i = 0; i < answer.length; i++) {
             var buttonId = "button" + i;
             var questionFieldId = "questionField" + i;
-            var firstNumber = randomNumber(15);
-            var secondNumber = randomNumber(15);
-            var ans = firstNumber + secondNumber;
+            var number = Math.round ((Math.random() * 20 + 1) * 10) / 10;
+            var ans = Math.round(number);
             mathAnswers.push(ans);
             
             var div = document.createElement('div');
             var newId = 'question' + i;
             div.id = newId;
-            div.innerHTML = '<p>' + firstNumber + ' + ' + secondNumber + ' = <input type="text" name="guess" id=' + questionFieldId + '><button id=' + buttonId + ' onclick="checkAnswer(' + i + ')">Check Answer</button></p>';
+            div.innerHTML = '<p>' + number + ' = <input type="text" name="guess" id=' + questionFieldId + '><button id=' + buttonId + ' onclick="checkAnswer(' + i + ')">Check Answer</button></p>';
             document.getElementById('answerOptions').appendChild(div);
             
             /* ENTER TO CHECK ANSWER DOES NOT WORK
@@ -132,11 +120,4 @@ function question1() {
         }
         generated = true;
     }   
-}
-
-
-function question2() {
-    document.getElementById('stageTitle').innerHTML = "TODO";
-    document.getElementById('questionText').innerHTML ="TODO";
-    document.getElementById('answerOptions').innerHTML ="TODO";
 }
