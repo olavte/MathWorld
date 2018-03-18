@@ -32,7 +32,7 @@ var hinder = {
     hinderX: 0,
     hinderY: 0,
     hinderWidth: W / 2,
-    hinderHeight: H
+    hinderHeight: H * 2
 
 };
 
@@ -127,9 +127,9 @@ function draw()
         middleCtx.fill();
 
         if(player.playerPlacement === 1 && player.playerX < W*(2/3)) {
-            player.playerX += 8;
+            player.playerX += 10;
         } else if (player.playerPlacement === 0 && player.playerX > W/4) {
-            player.playerX -= 8;
+            player.playerX -= 10;
         }
 
         middleCtx.fillStyle = "rgba(255, 255, 255, 1)";
@@ -182,7 +182,7 @@ function updateGame() {
         }
     });
 
-    hinder.hinderY += 40 + (gameScore*2);
+    hinder.hinderY += 40 + (gameScore*3);
 
     if (hinder.hinderY > H+hinder.hinderHeight) {
 

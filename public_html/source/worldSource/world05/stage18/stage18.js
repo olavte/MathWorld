@@ -71,29 +71,29 @@ mouseMove = window.addEventListener("mousemove", function (event) {
 touchMove = window.addEventListener("touchmove", function (event) {
     userInputX = (event.touches[0].clientX - middleCanvas.offsetLeft) * 1.4;
     userInputY = (event.touches[0].clientY - middleCanvas.offsetTop) * 1.4;
-}, false);
+});
 
 touchStart = window.addEventListener("touchstart", function () {
     if (timer === 0) {
         timer = setInterval(movePlayer, 20);
     }
-}, false);
+});
 
 touchEnd = window.addEventListener("touchend", function () {
     clearInterval(timer);
     timer = 0;
-}, false);
+});
 
 mouseDown = window.addEventListener("mousedown", function () {
     if (timer === 0) {
         timer = setInterval(movePlayer, 20);
     }
-}, false);
+});
 
 mouseUp = window.addEventListener("mouseup", function () {
     clearInterval(timer);
     timer = 0;
-}, false);
+});
 
 function movePlayer() {
     if (userInputX < ((player.playerX + ((player.playerWidth) / 2)) - 24) && (player.playerX > 0)) {
@@ -168,7 +168,7 @@ function draw()
 
 function updateGame() {
 
-    if (gameScore >= 20) {
+    if (gameScore >= 25) {
         setWinGame();
     } else if (gameScore < 0) {
         setGameOver();
@@ -190,15 +190,15 @@ function updateGame() {
     }
 
     if(hinder.hinderY < hinder.hinderGoalY - 100) {
-        hinder.hinderY += 3;
+        hinder.hinderY += 3 + (gameScore/4);
     } else if (hinder.hinderY > hinder.hinderGoalY + 100) {
-        hinder.hinderY -= 3;
+        hinder.hinderY -= 3 + (gameScore/4);
     }
 
     if(hinder.hinderX < hinder.hinderGoalX - 100) {
-        hinder.hinderX += 3;
+        hinder.hinderX += 3 + (gameScore/4);
     } else if (hinder.hinderX > hinder.hinderGoalX + 100) {
-        hinder.hinderX -= 3;
+        hinder.hinderX -= 3 + (gameScore/4);
     }
 
     mathObjects.forEach(function(mathObject) {
