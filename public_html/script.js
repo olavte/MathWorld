@@ -24,6 +24,7 @@ var soundVolume = 0;
 
 var startMenuMusic = new Audio('assets/music/startScreen.mp3');
 var fightMusic = new Audio('assets/music/falconLunch.mp3');
+var forestMusic = new Audio('assets/music/forestMusic.mp3');
 
 var currentMusic = null;
 
