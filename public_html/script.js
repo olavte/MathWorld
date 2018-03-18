@@ -18,13 +18,18 @@ var animationLoop = null;
 
 // Music and sounds
 
-var globalVolume = 0;
-var musicVolume = 0;
-var soundVolume = 0;
+var globalVolume = 0.5;
+var musicVolume = 0.5;
+var soundVolume = 0.5;
 
 var startMenuMusic = new Audio('assets/music/startScreen.mp3');
 var fightMusic = new Audio('assets/music/falconLunch.mp3');
 var forestMusic = new Audio('assets/music/forestMusic.mp3');
+var candyMusic = new Audio('assets/music/happy.mp3');
+var rockMusic = new Audio('assets/music/rock.mp3');
+var spaceMusic = new Audio('assets/music/space.mp3');
+var norwayMusic = new Audio('assets/music/winter.mp3');
+var crazyMusic = new Audio('assets/music/crazy.mp3');
 
 var currentMusic = null;
 

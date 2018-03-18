@@ -12,7 +12,7 @@ iniMiddle("middleCanvas");
 iniFront("frontCanvas");
 
 //Music
-playMusic(fightMusic);
+playMusic(rockMusic);
 var plussCharacter = createAnimatedSprite('assets/characters/plussCharSpr.png', 1200, 300, 300, 300, 4, 30);
 var marshChar = createAnimatedSprite('assets/characters/marshmellowsSheet.png', 512, 128, 128, 128, 4, 15);
 

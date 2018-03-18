@@ -14,8 +14,9 @@ iniBack('world5Canvas');
 
 var roundingChar = createAnimatedSprite('assets/characters/roundingChar.png', 1800, 300, 300, 300, 6, 15);
 
-playMusic(startMenuMusic);
-
+if(currentMusic !== spaceMusic) {
+    playMusic(spaceMusic);
+}
 //snowflake particles
 iniBackgroundEffects(5);
 

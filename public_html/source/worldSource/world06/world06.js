@@ -14,7 +14,7 @@ iniBack('world1Canvas');
 
 var plussCharacter = createAnimatedSprite('assets/characters/plussCharSpr.png', 1200, 300, 300, 300, 4, 30);
 
-playMusic(startMenuMusic);
+playMusic(crazyMusic);
 
 //snowflake particles
 iniBackgroundEffects(1);

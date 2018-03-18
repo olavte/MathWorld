@@ -7,6 +7,7 @@
 // User clicks the candyland button, open the candyland modal 
 function worldSelectWorld01() {
     exitModal();
+    playMusic(candyMusic);
     document.getElementById('myModal').style.display = "block";
     document.getElementById("selectWorld01ModalContent").style.display = "block";
 }
@@ -29,6 +30,7 @@ function worldSelectWorld03() {
 // User clicks the paris button, open the paris modal
 function worldSelectWorld04() {
     exitModal();
+    playMusic(norwayMusic);
     document.getElementById('myModal').style.display = "block";
     document.getElementById("selectWorld04ModalContent").style.display = "block";
 }
@@ -36,6 +38,7 @@ function worldSelectWorld04() {
 // User clicks the paris button, open the paris modal
 function worldSelectWorld05() {
     exitModal();
+    playMusic(spaceMusic);
     document.getElementById('myModal').style.display = "block";
     document.getElementById("selectWorld05ModalContent").style.display = "block";
 }
@@ -43,6 +46,7 @@ function worldSelectWorld05() {
 // User clicks the paris button, open the paris modal
 function worldSelectWorld06() {
     exitModal();
+    playMusic(crazyMusic);
     document.getElementById('myModal').style.display = "block";
     document.getElementById("selectWorld06ModalContent").style.display = "block";
 }
