@@ -436,3 +436,95 @@ button[disabled]{
 #world2Door {
 
 }
+
+/*world 3 css */
+
+#world3Canvas{
+    box-sizing: border-box;
+    background-image: url("../assets/world3/world03.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    display: block;
+    position: absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:-1;
+    
+}
+
+#selectWorld3Button{
+    background-image: url("../assets/world3/world03.png");
+background-repeat: no-repeat;
+background-size: 100%;
+    
+}
+
+
+#pineconediv1{
+     font-size:30px;
+    font-family:"Comic Sans MS", cursive, sans-serif;
+    color:black;
+    text-align:center;
+    position:absolute;
+    width:15%;
+    left:500px;
+ 
+}
+
+#pineconediv2{
+     font-size:30px;
+    font-family:"Comic Sans MS", cursive, sans-serif;
+    color:black;
+    text-align:center;
+    position:absolute;
+    width:15%;
+    left:500px;
+    
+}
+
+#pineconediv3{
+     font-size:30px;
+    font-family:"Comic Sans MS", cursive, sans-serif;
+    color:black;
+    text-align:center;
+    position:absolute;
+    width:15%;
+    left:500px;
+    
+}
+
+  .animationArea{
+      width:100%;
+      height:50%;
+  }
+  
+  .pineconepic{
+        width:200px;
+}
+
+#stage10background {    
+    background: radial-gradient(#00FF7F , green);
+    border:solid 3px;
+    width: 50%;
+    height: 100%;  
+    position: absolute;   
+    text-align: center;
+    left:500px;   
+}
+
+#question10{
+    
+    font-size:30px;
+    font-family:sans-serif;
+    color:black;
+    text-align: center;        
+}
+
+.stage10buttons{
+    
+    float:left;
+    
+}
+
