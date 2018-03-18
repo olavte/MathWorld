@@ -2,17 +2,62 @@
     
     <!-- Modal for Candyland! -->
     
-    <div id="selectCandyLandModalContent">
+    <div id="selectWorld01ModalContent" class="selectWorldModal">
         <span class="closeModal" onclick="exitModal()">&times;</span>
         <h1>Candyland!</h1>
-        <img src="assets/world1/world1photo.png" height="200">
+        <img src="assets/world1/world1photo.png" height="200" onclick="goToNewScreen(
+            'source/worldSource/world01/world01.html',
+            'source/worldSource/world01/world01.js')">
     </div>
     
     <!-- Modal for Paris  -->
     
-    <div id="selectParisModalContent">
+    <div id="selectWorld02ModalContent" class="selectWorldModal">
         <span class="closeModal" onclick="exitModal()">&times;</span>
         <h1>Credits!</h1>
+        <img src="assets/world1/world1photo.png" height="200" onclick="goToNewScreen(
+            'source/worldSource/world02/world02.html',
+            'source/worldSource/world02/world02.js')">
+    </div>
+
+    <!-- Modal for Forest  -->
+
+    <div id="selectWorld03ModalContent" class="selectWorldModal">
+        <span class="closeModal" onclick="exitModal()">&times;</span>
+        <h1>Credits!</h1>
+        <img src="assets/world1/world1photo.png" height="200" onclick="goToNewScreen(
+            'source/worldSource/world03/world03.html',
+            'source/worldSource/world03/world03.js')">
+    </div>
+
+    <!-- Modal for Norway  -->
+
+    <div id="selectWorld04ModalContent" class="selectWorldModal">
+        <span class="closeModal" onclick="exitModal()">&times;</span>
+        <h1>Credits!</h1>
+        <img src="assets/world1/world1photo.png" height="200" onclick="goToNewScreen(
+            'source/worldSource/world04/world04.html',
+            'source/worldSource/world04/world04.js')">
+    </div>
+
+    <!-- Modal for Space  -->
+
+    <div id="selectWorld05ModalContent" class="selectWorldModal">
+        <span class="closeModal" onclick="exitModal()">&times;</span>
+        <h1>Credits!</h1>
+        <img src="assets/world5/world5.png" height="200" onclick="goToNewScreen(
+            'source/worldSource/world05/world05.html',
+            'source/worldSource/world05/world05.js')">
+    </div>
+
+    <!-- Modal for Classroom  -->
+
+    <div id="selectWorld06ModalContent" class="selectWorldModal">
+        <span class="closeModal" onclick="exitModal()">&times;</span>
+        <h1>Credits!</h1>
+        <img src="assets/world1/world1photo.png" height="200" onclick="goToNewScreen(
+            'source/worldSource/world06/world06.html',
+            'source/worldSource/world06/world06.js')">
     </div>
 </div>
 
@@ -23,17 +68,17 @@
         <h6 id="Title-World-Select">Select World:</h6>
         <div id="worldSelectionWrapper">
             <button id="selectWorld1Button" class="selectWorldButton" 
-                    onclick="worldSelectCandyLand()"></button>
-            <button id="selectWorld3Button" class="selectWorldButton" 
-                    onclick="worldSelectParis()"></button>
-            <button id="selectWorld2Button" class="selectWorldButton" 
-                    onclick="goToNewScreen('worlds/world01/stage01.html', 'null')"></button>
-            <button id="selectWorld3Button" class="selectWorldButton" 
-                    onclick="goToNewScreen('worlds/world01/stage01.html', 'null')"></button>
-            <button id="selectWorld3Button" class="selectWorldButton" 
-                    onclick="goToNewScreen('worlds/world01/stage01.html', 'null')"></button>
+                    onclick="worldSelectWorld01()"></button>
+            <button id="selectWorld4Button" class="selectWorldButton"
+                    onclick="worldSelectWorld04()"></button>
+            <button id="selectWorld2Button" class="selectWorldButton"
+                    onclick="worldSelectWorld02()"></button>
+            <button id="selectWorld5Button" class="selectWorldButton"
+                    onclick="worldSelectWorld05()"></button>
+            <button id="selectWorld3Button" class="selectWorldButton"
+                    onclick="worldSelectWorld03()"></button>
             <button id="selectWorld6sButton" class="selectWorldButton" 
-                    onclick="goToNewScreen('worlds/world01/stage01.html', 'null')"></button>
+                    onclick="worldSelectWorld06()"></button>
         </div>
         <button id="back-button" onclick="goToNewScreen('source/mainMenuSource/mainMenu/mainMenu.html', 'source/mainMenuSource/mainMenu/mainMenu.js')">Back</button>
         <script src="script.js"></script>

@@ -137,8 +137,7 @@ input {
     animation: blowUpElement 1s;
 }
 
-/* Modal Content/Box */
-#selectCandyLandModalContent {
+.selectWorldModal {
     background-color: rgb(25, 25, 25);
     color: white;
     margin: 15% auto; /* 15% from the top and centered */
@@ -150,15 +149,11 @@ input {
 }
 
 /* Modal Content/Box */
-#selectParisModalContent {
-    background-color: rgb(25, 25, 25);
-    color: white;
-    margin: 15% auto; /* 15% from the top and centered */
-    padding: 20px;
-    border: 2px solid #888;
-    border-radius: 5px;
-    width: 25%; /* Could be more or less, depending on screen size */
-    animation: blowUpElement 1s;
+#selectWorld01ModalContent {
+}
+
+/* Modal Content/Box */
+#selectWorld02ModalContent {
 }
 
 #worldSelectionWrapper {
@@ -200,6 +195,12 @@ input {
 
 #selectWorld1Button {
     background-image: url("../assets/world1/world1photo.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+#selectWorld5Button {
+    background-image: url("../assets/world5/world5.png");
     background-repeat: no-repeat;
     background-size: 100%;
 }

@@ -14,6 +14,7 @@ iniFront("frontCanvas");
 //Music
 playMusic(fightMusic);
 var plussCharacter = createAnimatedSprite('assets/characters/plussCharSpr.png', 1200, 300, 300, 300, 4, 30);
+var marshChar = createAnimatedSprite('assets/characters/marshmellowsSheet.png', 512, 128, 128, 128, 4, 15);
 
 var gameState = 0;
 setBeforeGame();
@@ -61,41 +62,56 @@ var userInputY = 0;
 
 // Player Controll
 var timer = 0;
+userInputGame = true;
 
-mouseMove = window.addEventListener("mousemove", function (event) {
-    userInputX = event.x;
+window.addEventListener("mousemove", mouseMove);
+function mouseMove(event) {
+    userInputX = (event.x - middleCanvas.offsetLeft) * 1.4;
     userInputY = (event.y - middleCanvas.offsetTop) * 1.4;
     event.preventDefault();
-});
+}
 
-touchMove = window.addEventListener("touchmove", function (event) {
-    userInputX = event.touches[0].clientX;
+window.addEventListener("touchmove", touchMove);
+function touchMove(event) {
+    userInputX = (event.touches[0].clientX - middleCanvas.offsetLeft) * 1.4;
     userInputY = (event.touches[0].clientY - middleCanvas.offsetTop) * 1.4;
-}, false);
+}
 
-touchStart = window.addEventListener("touchstart", function () {
+window.addEventListener("touchstart", touchStart);
+function touchStart() {
+    movePlayer();
     if (timer === 0) {
         timer = setInterval(movePlayer, 20);
     }
-}, false);
+}
 
-touchEnd = window.addEventListener("touchend", function () {
+window.addEventListener("touchend", touchEnd);
+function touchEnd() {
     clearInterval(timer);
     timer = 0;
-}, false);
+}
 
-mouseDown = window.addEventListener("mousedown", function () {
+window.addEventListener("mousedown", mouseDown);
+function mouseDown() {
+    movePlayer();
+    clearInterval(timer);
     if (timer === 0) {
         timer = setInterval(movePlayer, 20);
     }
-}, false);
+}
 
-mouseUp = window.addEventListener("mouseup", function () {
+window.addEventListener("mouseup", mouseUp);
+function mouseUp() {
     clearInterval(timer);
     timer = 0;
-}, false);
+}
 
 function movePlayer() {
+    if (userInputX < ((player.playerX + ((player.playerWidth) / 2)) - 24) && (player.playerX > 0)) {
+        player.playerX -= 10;
+    } else if (userInputX > ((player.playerX + (player.playerWidth / 2)) + 24) && player.playerX < (W - (player.playerWidth))) {
+        player.playerX += 10;
+    }
     if (userInputY < ((player.playerY + ((player.playerHeight) / 2)) - 24) && (player.playerY > 0)) {
         player.playerY -= 10;
     } else if (userInputY > ((player.playerY + (player.playerHeight / 2)) + 24) && player.playerY < (H - (player.playerHeight))) {
@@ -121,16 +137,13 @@ function draw()
 
     function drawMiddle() {
 
-        middleCtx.fillStyle = "rgba(131, 92, 59, 1)";
+        middleCtx.fillStyle = "rgba(115, 77, 44, 1)";
         middleCtx.beginPath();
         middleCtx.rect(0, 0, W, H);
         middleCtx.fill();
 
-        middleCtx.fillStyle = "rgba(255, 255, 255, 1)";
-        middleCtx.beginPath();
-        middleCtx.rect(player.playerX, player.playerY, player.playerWidth, player.playerHeight);
-        middleCtx.fill();
-        middleCtx.stroke();
+        drawSpriteImage(middleCtx, marshChar, player.playerX, player.playerY, player.playerWidth, player.playerHeight);
+        marshChar.updateFrame();
 
         if (gameState === 1) {
 
@@ -171,7 +184,7 @@ function updateGame() {
         setGameOver();
     }
 
-    if(checkCollision(player.playerX, player.playerY, player.playerWidth, player.playerHeight,
+    if(checkCollision(player.playerX, player.playerY, player.playerWidth - 16, player.playerHeight - 16,
             hinder.hinderX, hinder.hinderY, hinder.hinderWidth, hinder.hinderHeight)) {
         setGameOver();
     }
@@ -183,7 +196,7 @@ function updateGame() {
     }
 
     mathObjects.forEach(function(mathObject) {
-       if(checkCollision(player.playerX, player.playerY, player.playerWidth, player.playerHeight,
+       if(checkCollision(player.playerX, player.playerY, player.playerWidth - 16, player.playerHeight - 16,
                mathObject.mathX, mathObject.mathY, mathObject.mathW, mathObject.mathW)) {
            if (mathObject.mathNumber === questionAnswer) {
                gameSpeed++;
