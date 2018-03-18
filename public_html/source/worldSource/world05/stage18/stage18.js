@@ -61,39 +61,49 @@ var userInputY = 0;
 
 // Player Controll
 var timer = 0;
+userInputGame = true;
 
-mouseMove = window.addEventListener("mousemove", function (event) {
+window.addEventListener("mousemove", mouseMove);
+function mouseMove(event) {
     userInputX = (event.x - middleCanvas.offsetLeft) * 1.4;
     userInputY = (event.y - middleCanvas.offsetTop) * 1.4;
     event.preventDefault();
-});
+}
 
-touchMove = window.addEventListener("touchmove", function (event) {
+window.addEventListener("touchmove", touchMove);
+function touchMove(event) {
     userInputX = (event.touches[0].clientX - middleCanvas.offsetLeft) * 1.4;
     userInputY = (event.touches[0].clientY - middleCanvas.offsetTop) * 1.4;
-});
+}
 
-touchStart = window.addEventListener("touchstart", function () {
+window.addEventListener("touchstart", touchStart);
+function touchStart() {
+    movePlayer();
     if (timer === 0) {
         timer = setInterval(movePlayer, 20);
     }
-});
+}
 
-touchEnd = window.addEventListener("touchend", function () {
+window.addEventListener("touchend", touchEnd);
+function touchEnd() {
     clearInterval(timer);
     timer = 0;
-});
+}
 
-mouseDown = window.addEventListener("mousedown", function () {
+window.addEventListener("mousedown", mouseDown);
+function mouseDown() {
+    movePlayer();
+    clearInterval(timer);
     if (timer === 0) {
         timer = setInterval(movePlayer, 20);
     }
-});
+}
 
-mouseUp = window.addEventListener("mouseup", function () {
+window.addEventListener("mouseup", mouseUp);
+function mouseUp() {
     clearInterval(timer);
     timer = 0;
-});
+}
 
 function movePlayer() {
     if (userInputX < ((player.playerX + ((player.playerWidth) / 2)) - 24) && (player.playerX > 0)) {

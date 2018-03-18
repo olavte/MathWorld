@@ -36,11 +36,11 @@ function playSound(sound) {
 }
 
 function playMusic(music) {
-    if(musicLooper !== null) {
+    if (musicLooper !== null) {
         currentMusic.removeEventListener("ended", musicLooper);
         musicLooper = null;
     }
-    if(currentMusic !== null) {
+    if (currentMusic !== null) {
         currentMusic.pause();
     }
     currentMusic = music;
@@ -56,7 +56,6 @@ function playMusic(music) {
 }
 
 //Controllers
-var mouseDown = 0;
 var mouseUp = 0;
 var mouseMove = 0;
 var touchStart = 0;
@@ -101,42 +100,28 @@ function addExtraScript(js) {
     gameScreen.append(script);
 }
 
+var userInputGame = false;
+
 function clearAnimation() {
 
     //Clears the animation loop (fps)
     clearInterval(animationLoop);
 
     //Clears all window related events
-    if (mouseDown !== 0) {
+    if (userInputGame) {
         window.removeEventListener("mousedown", mouseDown);
-        mouseDown = 0;
-    }
-    if (mouseUp !== 0) {
         window.removeEventListener("mouseup", mouseUp);
-        mouseUp = 0;
-    }
-    if (mouseMove !== 0) {
         window.removeEventListener("mousemove", mouseMove);
-        mouseMove = 0;
-    }
-    if (touchStart !== 0) {
         window.removeEventListener("touchstart", touchStart);
-        touchStart = 0;
-    }
-    if (touchEnd !== 0) {
         window.removeEventListener("touchend", touchEnd);
-        touchEnd = 0;
-    }
-    if (touchMove !== 0) {
         window.removeEventListener("touchmove", touchMove);
-        touchMove = 0;
     }
 }
 
 //Check collision
 function checkCollision(targetX, targetY, targetW, targetH, coliderX, coliderY, coliderW, coliderH) {
     var result = false;
-    if((targetY < coliderY + coliderH) && (coliderY < targetY + targetH)
+    if ((targetY < coliderY + coliderH) && (coliderY < targetY + targetH)
         && (targetX < coliderX + coliderW) && (coliderX < targetX + targetW)) {
         result = true;
     }
@@ -194,7 +179,7 @@ function createAnimatedSprite(src, sheetWidth, sheetHeight, spriteWidth, spriteH
         frameCount: frameCount,
         frameDelay: frameDelay,
         frameDelayCounter: 0,
-        updateFrame: function() {
+        updateFrame: function () {
             if (this.frameDelayCounter > this.frameDelay) {
                 this.frameDelayCounter = 0;
                 this.currentFrame = ++this.currentFrame % this.frameCount;
@@ -203,7 +188,8 @@ function createAnimatedSprite(src, sheetWidth, sheetHeight, spriteWidth, spriteH
             } else {
                 this.frameDelayCounter++;
             }
-        }};
+        }
+    };
 }
 
 function drawSpriteImage(canvasCtx, object, x, y, w, h) {
@@ -223,8 +209,7 @@ function iniBackgroundEffects(effect) {
             //letters
             mp = 30; //max letters
             particles = [];
-            for (var i = 0; i < mp; i++)
-            {
+            for (var i = 0; i < mp; i++) {
                 particles.push({
                     x: Math.random() * W, //x-coordinate
                     y: Math.random() * H, //y-coordinate
@@ -243,8 +228,7 @@ function iniBackgroundEffects(effect) {
             //snowflake particles
             mp = 30; //max particles
             particles = [];
-            for (var i = 0; i < mp; i++)
-            {
+            for (var i = 0; i < mp; i++) {
                 particles.push({
                     x: Math.random() * W, //x-coordinate
                     y: Math.random() * H, //y-coordinate
@@ -261,15 +245,14 @@ function iniBackgroundEffects(effect) {
             //star particles
             mp = 30; //max particles
             particles = [];
-            for (var i = 0; i < mp; i++)
-            {
+            for (var i = 0; i < mp; i++) {
                 particles.push({
                     x: Math.random() * W, //x-coordinate
                     y: Math.random() * H, //y-coordinate
                     r: Math.random() * 4 + 1, //radius
                     d: Math.random() * mp, //density
                     l: Math.random() * 1,
-                    lu:false
+                    lu: false
                 });
             }
             break;
@@ -278,11 +261,10 @@ function iniBackgroundEffects(effect) {
 
 function updateBackgroundEffects(effect) {
 
-    switch(effect) {
+    switch (effect) {
         case 0:
             backCtx.beginPath();
-            for (var i = 0; i < mp; i++)
-            {
+            for (var i = 0; i < mp; i++) {
                 var p = particles[i];
                 backCtx.fillStyle = "rgba(" + p.cr + ", " + p.cg + ", " + p.cb + ", 0.9)";
                 backCtx.font = p.s + "px Verdana";
@@ -290,15 +272,23 @@ function updateBackgroundEffects(effect) {
             }
 
             backgroundAngle += 0.01;
-            for (var i = 0; i < mp; i++)
-            {
+            for (var i = 0; i < mp; i++) {
                 var p = particles[i];
                 p.y += Math.cos(backgroundAngle + p.d) + 1 + p.r / 2;
                 p.x += Math.sin(backgroundAngle) * 2;
 
-                if (p.x > W + 15 || p.x < -200 || p.y > H + 200)
-                {
-                    particles[i] = {x: Math.random() * W, y: -10, r: p.r, d: p.d, n: p.n, s: p.s, cr: p.cr, cg: p.cg, cb: p.cb};
+                if (p.x > W + 15 || p.x < -200 || p.y > H + 200) {
+                    particles[i] = {
+                        x: Math.random() * W,
+                        y: -10,
+                        r: p.r,
+                        d: p.d,
+                        n: p.n,
+                        s: p.s,
+                        cr: p.cr,
+                        cg: p.cg,
+                        cb: p.cb
+                    };
                 }
             }
             break;
@@ -314,8 +304,7 @@ function updateBackgroundEffects(effect) {
             backCtx.fill();
 
             backgroundAngle += 0.01;
-            for (var i = 0; i < mp; i++)
-            {
+            for (var i = 0; i < mp; i++) {
                 var p = particles[i];
                 //Updating X and Y coordinates
                 //We will add 1 to the cos function to prevent negative values which will lead flakes to move upwards
@@ -325,20 +314,16 @@ function updateBackgroundEffects(effect) {
                 p.x += Math.sin(backgroundAngle) * 2;
                 //Sending flakes back from the top when it exits
                 //Lets make it a bit more organic and let flakes enter from the left and right also.
-                if (p.x > W + 5 || p.x < -5 || p.y > H)
-                {
+                if (p.x > W + 5 || p.x < -5 || p.y > H) {
                     if (i % 3 > 0) //66.67% of the flakes
                     {
                         particles[i] = {x: Math.random() * W, y: -10, r: p.r, d: p.d};
-                    } else
-                    {
+                    } else {
                         //If the flake is exitting from the right
-                        if (Math.sin(backgroundAngle) > 0)
-                        {
+                        if (Math.sin(backgroundAngle) > 0) {
                             //Enter from the left
                             particles[i] = {x: -5, y: Math.random() * H, r: p.r, d: p.d};
-                        } else
-                        {
+                        } else {
                             //Enter from the right
                             particles[i] = {x: W + 5, y: Math.random() * H, r: p.r, d: p.d};
                         }
@@ -349,16 +334,15 @@ function updateBackgroundEffects(effect) {
 
         case 5:
             backCtx.beginPath();
-            for (var i = 0; i < mp; i++)
-            {
+            for (var i = 0; i < mp; i++) {
                 var p = particles[i];
                 var lightDegree = Math.random() / 100;
-                if(p.lu === true) {
+                if (p.lu === true) {
                     p.l += lightDegree;
                 } else {
                     p.l -= lightDegree;
                 }
-                if(p.l > 1) {
+                if (p.l > 1) {
                     p.l = 1;
                     p.lu = false;
                 } else if (p.l < 0.1) {
