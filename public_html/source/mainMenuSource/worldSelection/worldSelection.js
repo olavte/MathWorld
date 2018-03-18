@@ -21,6 +21,7 @@ function worldSelectWorld02() {
 // User clicks the paris button, open the paris modal
 function worldSelectWorld03() {
     exitModal();
+    playMusic(forestMusic);
     document.getElementById('myModal').style.display = "block";
     document.getElementById("selectWorld03ModalContent").style.display = "block";
 }
@@ -48,6 +49,7 @@ function worldSelectWorld06() {
 
 // When the user clicks on <span> (x), close the modal
 function exitModal() {
+    playMusic(startMenuMusic);
     document.getElementById('myModal').style.display = "none";
     document.getElementById("selectWorld01ModalContent").style.display = "none";
     document.getElementById("selectWorld02ModalContent").style.display = "none";

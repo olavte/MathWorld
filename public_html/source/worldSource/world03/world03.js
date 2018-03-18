@@ -17,7 +17,7 @@ var plussCharacter = createAnimatedSprite('assets/characters/plussCharSpr.png', 
 playMusic(forestMusic);
 
 //snowflake particles
-iniBackgroundEffects(1);
+iniBackgroundEffects(3);
 
 //Lets draw the flakes
 function draw() {
@@ -25,7 +25,7 @@ function draw() {
     backCtx.drawImage(plussCharacter.image, plussCharacter.srcX, plussCharacter.srcY, plussCharacter.spriteWidth,
         plussCharacter.spriteHeight, 10, H / 3, W / 5, W / 4);
     plussCharacter.updateFrame();
-    updateBackgroundEffects(1);
+    updateBackgroundEffects(3);
 }
 
 //animation loop
