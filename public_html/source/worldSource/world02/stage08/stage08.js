@@ -241,12 +241,12 @@ function restartGame() {
     // Game variables
     //Hinder Object
 
-    firstNumber = Math.round(Math.random() * 10);
     secondNumber = Math.round(Math.random() * 10);
-    questionAnswer = firstNumber + secondNumber;
+    firstNumber = Math.round(Math.random() * 10)+secondNumber;
+    questionAnswer = firstNumber - secondNumber;
 
     document.getElementById("questionBox").innerHTML 
-            = firstNumber + " + " + secondNumber + " = ??     Score: " 
+            = firstNumber + " - " + secondNumber + " = ??     Score: " 
             + gameSpeed;
 
     hinder.hinderX = W + ((Math.random() * (W / 2)));
@@ -261,7 +261,11 @@ function restartGame() {
         mathObject.mathW = W / 40;
         mathObject.mathNumber = Math.round(Math.random() * 20);
     });
-    mathObjects[0].mathNumber = firstNumber + secondNumber;
+    mathObjects[0].mathNumber = firstNumber - secondNumber;
+}
+
+function backToWorld() {
+    goToNewScreen('source/worldSource/world02/world02.html', 'source/worldSource/world02/world02.js');
 }
 
 //animation loop, 60 fps

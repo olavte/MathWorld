@@ -41,7 +41,7 @@ function victoryScreen() {
     document.getElementById('questionPicture').innerHTML = "";
     document.getElementById('answerOptions').innerHTML = "";
     setTimeout(function(){
-        goToNewScreen('source/worldSource/world01/world01.html', 'source/worldSource/world01/world01.js');
+        goToNewScreen('source/worldSource/world02/world02.html', 'source/worldSource/world02/world02.js');
     }, 1500);
 }
 
@@ -110,15 +110,15 @@ function question1() {
         for (i = 0; i < answer.length; i++) {
             var buttonId = "button" + i;
             var questionFieldId = "questionField" + i;
-            var firstNumber = randomNumber(15);
             var secondNumber = randomNumber(15);
-            var ans = firstNumber + secondNumber;
+            var firstNumber = randomNumber(15)+secondNumber;
+            var ans = firstNumber - secondNumber;
             mathAnswers.push(ans);
             
             var div = document.createElement('div');
             var newId = 'question' + i;
             div.id = newId;
-            div.innerHTML = '<p>' + firstNumber + ' + ' + secondNumber + ' = <input type="text" name="guess" id=' + questionFieldId + '><button id=' + buttonId + ' onclick="checkAnswer(' + i + ')">Check Answer</button></p>';
+            div.innerHTML = '<p>' + firstNumber + ' - ' + secondNumber + ' = <input type="text" name="guess" id=' + questionFieldId + '><button id=' + buttonId + ' onclick="checkAnswer(' + i + ')">Check Answer</button></p>';
             document.getElementById('answerOptions').appendChild(div);
             
             /* ENTER TO CHECK ANSWER DOES NOT WORK
