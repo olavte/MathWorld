@@ -11,7 +11,7 @@ var mathAnswers = [];
 //canvas init
 iniBack("world1Canvas")
 
-var plussCharacter = createAnimatedSprite('assets/characters/plussCharSpr.png', 1200, 300, 300, 300, 4, 30);
+var minusCharacter = createAnimatedSprite('assets/characters/minusCharSpr.png', 8400, 300, 600, 300, 14, 2);
 
 //snowflake particles
 iniBackgroundEffects(1);
@@ -20,10 +20,10 @@ iniBackgroundEffects(1);
 function draw()
 {
     backCtx.clearRect(0, 0, W, H);
-    plussCharacter.updateFrame();
+    minusCharacter.updateFrame();
     updateBackgroundEffects(1);
-    backCtx.drawImage(plussCharacter.image, plussCharacter.srcX, plussCharacter.srcY, plussCharacter.spriteWidth,
-        plussCharacter.spriteHeight, 160, 150, plussCharacter.spriteWidth, plussCharacter.spriteHeight);
+    backCtx.drawImage(minusCharacter.image, minusCharacter.srcX, minusCharacter.srcY, minusCharacter.spriteWidth,
+        minusCharacter.spriteHeight, 60, 50, minusCharacter.spriteWidth, minusCharacter.spriteHeight);
 }
 
 //animation loop

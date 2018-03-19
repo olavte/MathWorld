@@ -13,7 +13,7 @@ iniFront("frontCanvas");
 
 //Music
 playMusic(fightMusic);
-var plussCharacter = createAnimatedSprite('assets/characters/plussCharSpr.png', 1200, 300, 300, 300, 4, 30);
+var minusCharacter = createAnimatedSprite('assets/characters/minusCharSpr.png', 8400, 300, 600, 300, 14, 2);
 
 var gameState = 0;
 setBeforeGame();
@@ -156,9 +156,9 @@ function draw()
     }
 
     function drawFront() {
-        frontCtx.drawImage(plussCharacter.image, plussCharacter.srcX, plussCharacter.srcY, plussCharacter.spriteWidth,
-                plussCharacter.spriteHeight, 0, 100, W / 4, H / 2);
-        plussCharacter.updateFrame();
+        frontCtx.drawImage(minusCharacter.image, minusCharacter.srcX, minusCharacter.srcY, minusCharacter.spriteWidth,
+                minusCharacter.spriteHeight, 0, 100, W / 4, H / 2);
+        minusCharacter.updateFrame();
 
     }
 }
