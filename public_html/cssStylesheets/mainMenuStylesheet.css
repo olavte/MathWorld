@@ -56,24 +56,28 @@ input {
     margin-top: 10%;
     padding-bottom: 5%;
     box-sizing: border-box;
-    background-image: url("../assets/mainMenu/mainMenuBorder.png");
-    background-repeat: no-repeat;
+    background: url("../assets/mainMenu/mainMenuBorder.png") no-repeat;
     background-size: 100% 100%;
     display: inline-block;
+    text-align: center;
 }
 
-#mainMenuContent img {
+#mainMenuContent a {
+    color: white;
+    font-size: 2vw;
+    font-family: chalkboard;
+    display: inline-block;
     margin-top: 5%;
-    margin-left: 25%;
-    margin-right: 25%;
-    width: 50%;
+    margin-left: 20%;
+    margin-right: 20%;
+    width: 60%;
     height: 5%;
     transition: all 1s;
 }
 
-#mainMenuContent img:hover {
+#mainMenuContent a:hover {
     cursor: pointer;
-    transform: scale(1.1);
+    transform: scale(1.3);
 }
 
 /* Modal Content/Box, and MathQuestion */

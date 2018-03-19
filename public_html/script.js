@@ -10,7 +10,6 @@ var gameScreen = document.createElement('div');
 gameScreen.id = "gameScreen";
 document.body.appendChild(gameScreen);
 
-var latestWorld = 0;
 var currentWorld = 0;
 var currentStage = 0;
 

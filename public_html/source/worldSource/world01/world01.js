@@ -4,6 +4,23 @@
  * and open the template in the editor.
  */
 
+currentWorld = 1;
+if(currentStage === 0) {
+    currentStage = 1;
+}
+if(currentStage < 2) {
+    document.getElementById("level2").disabled = true;
+}
+if(currentStage < 3) {
+    document.getElementById("level3").disabled = true;
+}
+if(currentStage < 4) {
+    document.getElementById("level4").disabled = true;
+}
+
+document.getElementById("currentStageScore").innerHTML = ": " + currentStage;
+
+
 function goToMenu(x) {
     x.classList.toggle("change");
 }

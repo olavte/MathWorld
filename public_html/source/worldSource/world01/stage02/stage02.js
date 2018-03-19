@@ -150,7 +150,9 @@ function victoryScreen3(){
       document.getElementById("nextstage").disabled = false;
       document.getElementById("levelFinal").disabled = false;
 
-    
+      if(currentStage < 3) {
+          currentStage = 3;
+      }
 }
 
 function sadnessScreen3() {

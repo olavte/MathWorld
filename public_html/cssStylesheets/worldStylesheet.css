@@ -248,6 +248,8 @@ button[disabled]{
     margin-left: -34px;
 }
 
+/* World top bar */
+
 .worldTopBar {
     font-size: 5vh;
     width: 100%;
@@ -275,7 +277,6 @@ button[disabled]{
 }
 
 .menuButton {
-    width: 10%;
     display: inline-block;
     cursor: pointer;
 }
@@ -285,19 +286,14 @@ button[disabled]{
     height: 5px;
     background-color: #333;
     margin: 6px 6px 6px 6px;
-    transition: 0.4s;
 }
 
-.change .bar1 {
-    -webkit-transform: rotate(-45deg) translate(-9px, 6px);
-    transform: rotate(-45deg) translate(-9px, 6px);
-}
 
-.change .bar2 {opacity: 0;}
 
-.change .bar3 {
-    -webkit-transform: rotate(45deg) translate(-8px, -8px); 
-}
+
+
+
+
 
 /* Bottom left*/
 .bottom-left {
@@ -383,42 +379,20 @@ button[disabled]{
     text-align: center;
   }
   
-  #icediv{
+#icediv {
     font-size:22px;
     font-family:"Open Sans";
     color:black;
     text-align: center;
-      
-  }
-  svg{
+}
+
+svg {
 	width:100%;
 	height:80%;
 	position:relative;
 	top:0;
 	left:0;
         padding-bottom:30px;
-}
-
-#bullseyeinfo{
-	color:black;
-	font-family:sans-serif;
-	 text-align: center;
-         font-size:22px;
-}
-
-#bullseyeScore{
-        font-size:40px;
-        font-family:sans-serif;
-        color:black;
-        text-align: center;
-}
-
-#numarrows{
-     font-size:40px;
-        font-family:sans-serif;
-        color:black;
-        text-align: center;
-    
 }
 
 .worldDoor {
