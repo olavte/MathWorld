@@ -19,7 +19,7 @@ iniBack("world1Canvas");
 
 playMusic(startMenuMusic);
 
-var plussCharacter = createAnimatedSprite('assets/characters/plussCharSpr.png', 1200, 300, 300, 300, 4, 30);
+var minusCharacter = createAnimatedSprite('assets/characters/minusCharSpr.png', 8400, 300, 600, 300, 14, 2);
 
 //backgroundEffects
 iniBackgroundEffects(1);
@@ -29,12 +29,12 @@ function draw()
 {
     backCtx.clearRect(0, 0, W, H);
 
-    plussCharacter.updateFrame();
+    minusCharacter.updateFrame();
 
 
     updateBackgroundEffects(1);
-    backCtx.drawImage(plussCharacter.image, plussCharacter.srcX, plussCharacter.srcY, plussCharacter.spriteWidth,
-        plussCharacter.spriteHeight, 160, 150, plussCharacter.spriteWidth, plussCharacter.spriteHeight);
+    backCtx.drawImage(minusCharacter.image, minusCharacter.srcX, minusCharacter.srcY, minusCharacter.spriteWidth,
+        minusCharacter.spriteHeight, 60, 50, minusCharacter.spriteWidth, minusCharacter.spriteHeight);
 }
 
 //animation loop
@@ -49,11 +49,11 @@ mathTwoFirst();
 
 //final level in world 1, for special assignement and timer function
 function mathTwoFirst() {
-    var answer = Math.floor(moneyOnHand/candyPrice);
+    var answer = Math.floor(moneyOnHand-candyPrice);
     var options = [answer, randomNumber(25)+ 1, randomNumber(20)+ 1, randomNumber(20)+ 1];
     shuffle(options);
 
-    document.getElementById('question04').innerHTML = "If this candy is " + candyPrice + " cents and you have " + moneyOnHand + " cents, how many candies can you buy with the money you have?";
+    document.getElementById('question04').innerHTML = "If you buy a candy, costing " + candyPrice + " cents, and you have " + moneyOnHand + " cents, how much money do you have left??";
     var text = "<ul>";
     for (i = 0; i < options.length; i++) {
         if (options[i] === answer) {
@@ -67,14 +67,13 @@ function mathTwoFirst() {
 
 function mathTwoSecond() {
     
-    
-   var num1 = randomNumber(10)+1;
-   var num2 = randomNumber(10)+1;
-    var answer = num1 + num2;
+    var num2 = randomNumber(10)+1;
+    var num1 = randomNumber(10)+1+num2;
+    var answer = num1 - num2;
     var options = [answer, randomNumber(15)+1, randomNumber(20)+1, randomNumber(15)+1];
     shuffle(options);
 
-    document.getElementById('question04').innerHTML = "If this candy is " + num1 + " + " + num2 + "cents, how much does the candy cost?";
+    document.getElementById('question04').innerHTML = "If this candy is " + num1 + " - " + num2 + "cents, how much does the candy cost?";
     var text = "<ul>";
     for (i = 0; i < options.length; i++) {
         if (options[i] === answer) {
@@ -89,14 +88,14 @@ function mathTwoSecond() {
 function mathTwoThird() {
     
     
-   var num1 = randomNumber(10)+1;
-   var num2 = randomNumber(10)+1;
-   var num3 = randomNumber(10)+1;
-    var answer = num1 + num2 + num3;
+    var num3 = randomNumber(10)+1;
+    var num2 = randomNumber(10)+1;
+    var num1 = randomNumber(10)+1+num2+num3;
+    var answer = num1 - num2 - num3;
     var options = [answer, randomNumber(15)+1, randomNumber(20)+1, randomNumber(15)+1];
     shuffle(options);
 
-    document.getElementById('question04').innerHTML = "If this candy is " + num1 + " + " + num2 + " + " + num3 + "cents, how much does the candy cost?";
+    document.getElementById('question04').innerHTML = "If this candy is " + num1 + " - " + num2 + " - " + num3 + " cents, how much does the candy cost?";
     var text = "<ul>";
     for (i = 0; i < options.length; i++) {
         if (options[i] === answer) {
@@ -148,9 +147,14 @@ function victoryScreen3(){
     
       document.getElementById('qanswers').innerHTML = "CORRECT!!" + "<br/>" + "Move on to next stage";
       document.getElementById("nextstage").disabled = false;
-      document.getElementById("levelFinal").disabled = false;
 
     
+}
+
+
+//functions for math and questions below
+function backToWorld() {
+    goToNewScreen('source/worldSource/world02/world02.html', 'source/worldSource/world02/world02.js');
 }
 
 function sadnessScreen3() {

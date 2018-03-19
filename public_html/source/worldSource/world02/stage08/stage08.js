@@ -13,7 +13,7 @@ iniFront("frontCanvas");
 
 //Music
 playMusic(fightMusic);
-var plussCharacter = createAnimatedSprite('assets/characters/plussCharSpr.png', 1200, 300, 300, 300, 4, 30);
+var minusCharacter = createAnimatedSprite('assets/characters/minusCharSpr.png', 8400, 300, 600, 300, 14, 2);
 
 var gameState = 0;
 setBeforeGame();
@@ -156,9 +156,9 @@ function draw()
     }
 
     function drawFront() {
-        frontCtx.drawImage(plussCharacter.image, plussCharacter.srcX, plussCharacter.srcY, plussCharacter.spriteWidth,
-                plussCharacter.spriteHeight, 0, 100, W / 4, H / 2);
-        plussCharacter.updateFrame();
+        frontCtx.drawImage(minusCharacter.image, minusCharacter.srcX, minusCharacter.srcY, minusCharacter.spriteWidth,
+                minusCharacter.spriteHeight, 0, 100, W / 4, H / 2);
+        minusCharacter.updateFrame();
 
     }
 }
@@ -241,12 +241,12 @@ function restartGame() {
     // Game variables
     //Hinder Object
 
-    firstNumber = Math.round(Math.random() * 10);
     secondNumber = Math.round(Math.random() * 10);
-    questionAnswer = firstNumber + secondNumber;
+    firstNumber = Math.round(Math.random() * 10)+secondNumber;
+    questionAnswer = firstNumber - secondNumber;
 
     document.getElementById("questionBox").innerHTML 
-            = firstNumber + " + " + secondNumber + " = ??     Score: " 
+            = firstNumber + " - " + secondNumber + " = ??     Score: " 
             + gameSpeed;
 
     hinder.hinderX = W + ((Math.random() * (W / 2)));
@@ -261,7 +261,11 @@ function restartGame() {
         mathObject.mathW = W / 40;
         mathObject.mathNumber = Math.round(Math.random() * 20);
     });
-    mathObjects[0].mathNumber = firstNumber + secondNumber;
+    mathObjects[0].mathNumber = firstNumber - secondNumber;
+}
+
+function backToWorld() {
+    goToNewScreen('source/worldSource/world02/world02.html', 'source/worldSource/world02/world02.js');
 }
 
 //animation loop, 60 fps
