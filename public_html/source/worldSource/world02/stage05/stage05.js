@@ -44,7 +44,7 @@ var currentQuestion = 1;
 
 //functions for math and questions below
 function backToWorld() {
-    goToNewScreen('source/worldSource/world01/world01.html', 'source/worldSource/world01/world01.js');
+    goToNewScreen('source/worldSource/world02/world02.html', 'source/worldSource/world02/world02.js');
 }
 
 function victoryScreen() {
@@ -64,6 +64,7 @@ function victoryScreen() {
 function sadnessScreen() {
     var text = "<p>Wrong</p>";
    document.getElementById('questionText').innerHTML = text;
+   document.getElementById('answerOptions').innerHTML = "";
    
 
 }
@@ -105,14 +106,14 @@ function question3() {
 //builds and executes first question
 //@param the max size of numbers used
 function question(dificulty) {
-    totalSum = 0; //resets total sum every time question is loaded
     var firstNumber = randomNumber(dificulty);
     var secondNumber = randomNumber(dificulty);
     var thirdNumber = randomNumber(dificulty);
     answer = firstNumber + secondNumber + thirdNumber;
+    totalSum = answer; //resets total sum every time question is loaded
     
-    document.getElementById('stageTitle').innerHTML = "Total:" + totalSum;
-    document.getElementById('questionText').innerHTML ="This icecream is " + answer + " grams, wich of these icecream balls must you pick to get the same weight?";
+    document.getElementById('stageTitle').innerHTML = "Total left:" + totalSum;
+    document.getElementById('questionText').innerHTML ="This icecream is " + answer + " grams, you can take max 3 bites to eat it all, wich bites can you take, to eat exactly this weight ??";
    
    
     document.getElementById('questionPicture').innerHTML = "<img src='assets/world1/world1ice.png' class = '.centered' style = 'height: 200px;'>";
@@ -133,11 +134,6 @@ function question(dificulty) {
         thisOption.value = options[i];
     }
     
-    if(totalSum === answer){
-        victoryScreen();
-    } else if(totalSum > answer) {
-        sadnessScreen();
-    }
     
 }
 
@@ -147,17 +143,17 @@ function question(dificulty) {
 function clikedPic(clickedId) {
     
    var value = document.getElementById(clickedId).value;
-   totalSum = totalSum + value;
-   document.getElementById('stageTitle').innerHTML = "Total:" + totalSum;
+   totalSum = totalSum - value;
+   document.getElementById('stageTitle').innerHTML = "Total left:" + totalSum;
    
-    if(totalSum === answer){
+    if(totalSum === 0){
         victoryScreen();
-    } else if(totalSum > answer) {
+    } else if(totalSum < 0) {
         sadnessScreen();
     }
 }
 
 function reload() {
-    goToNewScreen('source/worldSource/world01/stage01/stage01.html', 'source/worldSource/world01/stage01/stage01.js');
+    goToNewScreen('source/worldSource/world02/stage05/stage05.html', 'source/worldSource/world02/stage05/stage05.js');
 }
 
