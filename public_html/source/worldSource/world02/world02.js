@@ -22,8 +22,7 @@ iniBackgroundEffects(1);
 //Lets draw the flakes
 function draw() {
     backCtx.clearRect(0, 0, W, H);
-    backCtx.drawImage(minusCharacter.image, minusCharacter.srcX, minusCharacter.srcY, minusCharacter.spriteWidth,
-        minusCharacter.spriteHeight, 10, H / 3, W / 5, W / 4);
+    drawSpriteImage(backCtx, minusCharacter, 10, H/3, W/4, W/6);
     minusCharacter.updateFrame();
     updateBackgroundEffects(1);
 }
