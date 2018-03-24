@@ -7,8 +7,19 @@ and open the template in the editor.
     Created on : 27.jan.2018, 15:27:56
     Author     : olavt
 */
+body {
+    font-family: 'Open Sans';font-size: 22px;
+}
 
-#world1Canvas, #stage01Canvas {
+button {
+    font-family: 'Open Sans';font-size: 22px;
+}
+
+input {
+    font-family: 'Open Sans';font-size: 22px;
+}
+
+#world1Canvas {
     box-sizing: border-box;
     background-image: url("../assets/world1/world1photo.png");
     background-repeat: no-repeat;
@@ -20,6 +31,121 @@ and open the template in the editor.
     width:100%;
     height:100%;
     z-index:-1;
+}
+
+#world5Canvas {
+    box-sizing: border-box;
+    background: linear-gradient(to bottom right, rgb(0,0,0), rgba(0,0,20, 0.7));
+    background-size: 100% 100%;
+    display: block;
+    position: absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:-1;
+}
+
+#world5planet {
+    position: fixed;
+    width: 40vw;
+    bottom: -10vw;
+    right: -10vh;
+    z-index: -1;
+}
+
+#middleCanvas {
+    display: block;
+    position: relative;
+    width: 70%;
+    margin-top: 8px;
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+
+#frontCanvas {
+    display: block;
+    position: absolute;
+    top:0;
+    left:0;
+} 
+
+
+#snakeCanvas {
+    display: block;
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    margin-top: 8px;
+    margin-left: 15%;
+    margin-right: 15%;
+    background-color:white;
+}
+
+#bullsEyeGame {
+    display: block;
+    position: absolute;
+    width: 80%;
+    height: 70%;
+    margin-top: 8px;
+    margin-left: 10%;
+    margin-right: 5%;
+    background-color:#222;
+}
+
+
+#startModalContent {
+    background-color: rgb(25, 25, 25);
+    font-size: 1vw;
+    color: white;
+    margin-left: 20%;
+    margin-right: 20%;
+    width: 60%;
+    padding: 20px;
+    border: 2px solid #888;
+    border-radius: 5px;
+    animation: blowUpElement 1s;
+    z-index: 2;
+}
+
+#gameOverModalContent {
+    background-color: rgb(25, 25, 25);
+    color: white;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 2px solid #888;
+    border-radius: 5px;
+    width: 25%; /* Could be more or less, depending on screen size */
+    animation: blowUpElement 1s;
+    z-index: 2;
+}
+
+#gameOverModalContent button {
+    float: right;
+}
+
+#winModalContent {
+    background-color: rgb(25, 25, 25);
+    color: white;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 2px solid #888;
+    border-radius: 5px;
+    width: 25%; /* Could be more or less, depending on screen size */
+    animation: blowUpElement 1s;
+}
+
+#questionBox {
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 8px;
+    font-size: 3vw;
+    text-align: center;
+    background-color: black;
+    color: white;
+    height: 128px;
 }
 
 .world1title {
@@ -40,7 +166,10 @@ and open the template in the editor.
     border-radius: 100px;
     background-color: pink;
     animation: blowUpElement 1s;
+}
 
+.mathbutton:hover {
+    transform: scale(1.1);
 }
 
 .mathbutton:hover {
@@ -50,7 +179,7 @@ and open the template in the editor.
 button:disabled,
 button[disabled]{
     background-color: rgb(230,230,230);
-  color: #666666;
+    color: #666666;
 }
 
 #mathwrapper {
@@ -70,47 +199,306 @@ button[disabled]{
 }
 
 /* stage1 testing */
-#stage01Center {
+#stageCenter {
     position: absolute;
     margin-left: 20%;
     width: 60%;
     height: 100%;
 }
 
-#stage01Title {
+#stageTitle {
     margin: 0px;
     text-align: center;
     font-size:50px;
 }
 
-#question1 {
-background-color: white;
-width: 100%;
-height: 30%;
-margin-bottom: 20px;
-position: relative;
-background: #ffffff;
-border-radius: .4em;
+#question {
+    background-color: white;
+    width: 100%;
+    height: 30%;
+    margin-bottom: 20px;
+    position: relative;
+    background: #ffffff;
+    border-radius: .4em;
+    text-align: center;
 }
 #answerOptions {
-background: #ffffff;
-border-radius: .4em;
-width: 100%;
-height: 65%;
+    background: #ffffff;
+    border-radius: .4em;
+    width: 100%;
+    height: 60%;
+    text-align: center;
+    position: relative;
 }
 
+
 /* speach bubble css */
-#question1:after {
-	content: '';
-	position: absolute;
-	left: 0;
-	top: 50%;
-	width: 0;
-	height: 0;
-	border: 34px solid transparent;
-	border-right-color: #ffffff;
-	border-left: 0;
-	border-bottom: 0;
-	margin-top: -17px;
-	margin-left: -34px;
+#question:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 0;
+    height: 0;
+    border: 34px solid transparent;
+    border-right-color: #ffffff;
+    border-left: 0;
+    border-bottom: 0;
+    margin-top: -17px;
+    margin-left: -34px;
 }
+
+/* World top bar */
+
+.worldTopBar {
+    font-size: 5vh;
+    width: 100%;
+}
+
+.worldTopBar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.worldTopBar li {
+    float: left;
+    display: block;
+}
+
+.worldScorePanel {
+    width: 10%;
+}
+
+.world1title {
+    text-align: center;
+    width: 70%;
+}
+
+.menuButton {
+    display: inline-block;
+    cursor: pointer;
+}
+
+.bar1, .bar2, .bar3 {
+    width: 35px;
+    height: 5px;
+    background-color: #333;
+    margin: 6px 6px 6px 6px;
+}
+
+
+
+
+
+
+
+
+/* Bottom left*/
+.bottom-left {
+    position: absolute;
+    bottom: 25px;
+    left: 16px;
+}
+
+/* Top left*/
+.top-left {
+    position: absolute;
+    top: 8px;
+    left: 16px;
+}
+
+/* Top right*/
+.top-right {
+    position: absolute;
+    top: 8px;
+    right: 16px;
+}
+
+/* Bottom right*/
+.bottom-right {
+    position: absolute;
+    bottom: 25px;
+    right: 16px;
+}
+
+/* Centered*/
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+#questionPicture {
+    position: relative;
+}
+
+
+#stagebackground {    
+    background: radial-gradient(DarkTurquoise  , whitesmoke);
+    border:solid 3px;
+    width: 50%;
+    height: 100%;  
+    position: absolute;   
+    text-align: center;
+    left:500px;   
+}
+
+#question04{
+    
+    font-size:30px;
+    font-family:sans-serif;
+    color:black;
+    text-align: center;        
+}
+
+#qanswers{
+    font-size:30px;
+    font-family:"Open Sans";
+    color:black;
+    text-align: center;
+}
+
+#exitbutton{  
+    text-align: center;
+}
+
+#minigamebutton04{
+    text-align: center;
+}
+
+#icecream04{
+        width:400px;
+}
+
+#total04{
+     font-size:22px;
+    font-family:'Open Sans';
+    color:black;
+    text-align: center;
+  }
+  
+#icediv {
+    font-size:22px;
+    font-family:"Open Sans";
+    color:black;
+    text-align: center;
+}
+
+svg {
+	width:100%;
+	height:80%;
+	position:relative;
+	top:0;
+	left:0;
+        padding-bottom:30px;
+}
+
+.worldDoor {
+    position: fixed;
+    right: 0;
+    bottom: 20vh;
+}
+
+.worldBackDoor {
+    position: fixed;
+    left: 0;
+    bottom: 20vh;
+}
+
+#world2Door {
+
+}
+
+/*world 3 css */
+
+#world3Canvas{
+    box-sizing: border-box;
+    background-image: url("../assets/world3/world03.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    display: block;
+    position: absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:-1;
+    
+}
+
+#selectWorld3Button{
+    background-image: url("../assets/world3/world03.png");
+background-repeat: no-repeat;
+background-size: 100%;
+    
+}
+
+
+#pineconediv1{
+     font-size:30px;
+    font-family:"Comic Sans MS", cursive, sans-serif;
+    color:black;
+    text-align:center;
+    position:absolute;
+    width:15%;
+    left:500px;
+ 
+}
+
+#pineconediv2{
+     font-size:30px;
+    font-family:"Comic Sans MS", cursive, sans-serif;
+    color:black;
+    text-align:center;
+    position:absolute;
+    width:15%;
+    left:500px;
+    
+}
+
+#pineconediv3{
+     font-size:30px;
+    font-family:"Comic Sans MS", cursive, sans-serif;
+    color:black;
+    text-align:center;
+    position:absolute;
+    width:15%;
+    left:500px;
+    
+}
+
+  .animationArea{
+      width:100%;
+      height:50%;
+  }
+  
+  .pineconepic{
+        width:200px;
+}
+
+#stage10background {    
+    background: radial-gradient(#00FF7F , green);
+    border:solid 3px;
+    width: 50%;
+    height: 100%;  
+    position: absolute;   
+    text-align: center;
+    left:500px;   
+}
+
+#question10{
+    
+    font-size:30px;
+    font-family:sans-serif;
+    color:black;
+    text-align: center;        
+}
+
+.stage10buttons{
+    
+    float:left;
+    
+}
+
