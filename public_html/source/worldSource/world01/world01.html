@@ -1,27 +1,54 @@
-<div>
-    <div id="world1">
-        <h1 class="world1title">
-            CanDyLanD (Her må det nesten være et bilde eller font av candytext)
-        </h1>
-        <canvas id="world1Canvas"></canvas>
+<div id="world1">
 
-        <div id="mathwrapper">
-            <button class="mathbutton" id="level1"
-                    onclick="goToNewScreen('source/worldSource/world01/stage01/stage01.html', 'source/worldSource/world01/stage01/stage01.js')">1</button>
-            <button class="mathbutton" id="level2"
-                    onclick="mathOne('level2')" disabled>2</button>
-            <button class="mathbutton" id="level3"
-                    onclick="mathOne('level3')" disabled>3</button>
-            <button class="mathbutton" id="levelFinal" onclick="mathOneFinal()" disabled>4</button>
-        </div>
+    <nav class="worldTopBar">
+        <ul>
+            <li class="worldScorePanel" id="currentStageScore">: 0</li>
+            <li class="worldScorePanel">: 0</li>
+            <li class="worldTitle">
+                CandyLand
+            </li>
+            <li style="float:right" class="menuButton"
+                onclick="goToNewScreen('source/mainMenuSource/mainMenu/mainMenu.html','source/mainMenuSource/mainMenu/mainMenu.js')">
+                <div>
+                    <div class="bar1"></div>
+                    <div class="bar2"></div>
+                    <div class="bar3"></div>
+                </div>
+            </li>
+        </ul>
+    </nav>
 
+    <canvas id="world1Canvas"></canvas>
+
+    <button onclick="goToNewScreen('source/worldSource/world01/minigames/RockPaperScissor/RockPaperScissor.html', 'source/worldSource/world01/minigames/RockPaperScissor/RockPaperScissor.js')">
+        miniGameTest
+    </button>
+    <button onclick="goToNewScreen('source/worldSource/world01/minigames/tictactoe/tictactoe.html', 'source/worldSource/world01/minigames/tictactoe/startgame.js')">
+        TicTacToe
+    </button>
+    <button onclick="goToNewScreen('source/worldSource/world01/minigames/Bullseye/Bullseye.html', 'source/worldSource/world01/minigames/Bullseye/Bullseye.js')">
+        Bullseye
+    </button>
+    <div id="mathwrapper">
+        <button class="mathbutton" id="level1"
+                onclick="goToNewScreen('source/worldSource/world01/stage01/stage01.html', 'source/worldSource/world01/stage01/stage01.js')">
+            1
+        </button>
+        <button class="mathbutton" id="level2"
+                onclick="goToNewScreen('source/worldSource/world01/stage02/stage02.html', 'source/worldSource/world01/stage02/stage02.js')">
+            2
+        </button>
+        <button class="mathbutton" id="level3"
+                onclick="goToNewScreen('source/worldSource/world01/stage03/stage03.html', 'source/worldSource/world01/stage03/stage03.js')">
+            3
+        </button>
+        <button class="mathbutton" id="level4"
+                onclick="goToNewScreen('source/worldSource/world01/stage04/stage04.html', 'source/worldSource/world01/stage04/stage04.js')">
+            4
+        </button>
     </div>
-</div> 
+    <button id="World2Door" class="worldDoor" onclick="goToNewScreen('source/worldSource/world02/world02.html',
+    'source/worldSource/world02/world02.js')"> DOOR
+    </button>
 
-<div id="MathModal" class="modal">
-    <div id="MathQuestion">
-        <span class="closeModal" onclick="exitModal()">&times;</span>
-        <div id="World1Question">Question!</div>
-        <div id="answers"></div>
-    </div>
 </div>

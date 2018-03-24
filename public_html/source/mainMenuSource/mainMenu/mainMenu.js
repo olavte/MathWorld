@@ -4,6 +4,20 @@
  * and open the template in the editor.
  */
 
+if(currentStage === 0) {
+    document.getElementById("mainMenuStartButton").innerHTML = "New Game";
+    document.getElementById("mainMenuStartButton").addEventListener('click', function (ev) {
+        goToNewScreen('source/worldSource/world01/world01.html', 'source/worldSource/world01/world01.js')
+    });
+} else {
+    document.getElementById("mainMenuStartButton").innerHTML = "Continue";
+    document.getElementById("mainMenuStartButton").addEventListener('click', function (ev) {
+        var html = 'source/worldSource/world0' + currentWorld + '/world0' + currentWorld + '.html';
+        var js = 'source/worldSource/world0' + currentWorld + '/world0' + currentWorld + '.js';
+        goToNewScreen(html, js);
+    });
+}
+
 // setting a global variable for the volume sliders
 var volumeBarInterval = 0;
 
@@ -17,16 +31,18 @@ function volumeBarClickedDown(changeVolume) {
     volumeBarInterval = setInterval(changeVolume, 100);
 }
 
+playMusic(startMenuMusic);
+
 // Changes the main volume
 function changeVolumeOnMain() {
     globalVolume = document.getElementById("mainVolumeRange").value / 100;
-    mainMusic.volume = globalVolume * musicVolume;
+    currentMusic.volume = globalVolume * musicVolume;
 }
 
 // Changes the music volume
 function changeVolumeOnMusic() {
     musicVolume = document.getElementById("musicVolumeRange").value / 100;
-    mainMusic.volume = globalVolume * musicVolume;
+    currentMusic.volume = globalVolume * musicVolume;
 }
 
 // Changes the sound volume
@@ -37,6 +53,7 @@ function changeVolumeOnSound() {
 // User releases the button, removes volumeBarInterval
 function volumeBarClickedUp() {
     clearInterval(volumeBarInterval);
+    console.log(currentMusic.volume);
 }
 
 // User clicks the settings button, open the settings modal 
@@ -63,65 +80,18 @@ function exitModal() {
 //Letters falling animation
 //canvas init
 
-var canvas = document.getElementById("mainMenuCanvas");
-var ctx = canvas.getContext("2d");
-
-//canvas dimensions
-var W = window.innerWidth;
-var H = window.innerHeight;
-canvas.width = W;
-canvas.height = H;
+iniBack("mainMenuCanvas");
 
 //letters
-var mp = 30; //max letters
-var particles = [];
-for (var i = 0; i < mp; i++)
-{
-    particles.push({
-        x: Math.random() * W, //x-coordinate
-        y: Math.random() * H, //y-coordinate
-        r: Math.random() * 4 + 1, //radius
-        d: Math.random() * mp, //density
-        n: Math.round((Math.random() * 100) + 1),
-        s: Math.round((Math.random() * 300) + 1),
-        cr: Math.round((Math.random() * 255) + 1),
-        cg: Math.round((Math.random() * 255) + 1),
-        cb: Math.round((Math.random() * 255) + 1),
-    });
-}
+iniBackgroundEffects(0);
 
 //Draw the letters
 function draw()
 {
-    ctx.clearRect(0, 0, W, H);
-    ctx.beginPath();
-    for (var i = 0; i < mp; i++)
-    {
-        var p = particles[i];
-        ctx.fillStyle = "rgba(" + p.cr + ", " + p.cg + ", " + p.cb + ", 0.9)";
-        ctx.font = p.s + "px Verdana";
-        ctx.fillText(p.n, p.x, p.y);
-    }
-    update();
+    backCtx.clearRect(0, 0, W, H);
+    updateBackgroundEffects(0);
 }
 
-//Function to move the letters
-var angle = 0;
-function update()
-{
-    angle += 0.01;
-    for (var i = 0; i < mp; i++)
-    {
-        var p = particles[i];
-        p.y += Math.cos(angle + p.d) + 1 + p.r / 2;
-        p.x += Math.sin(angle) * 2;
-
-        if (p.x > W + 15 || p.x < -200 || p.y > H + 200)
-        {
-            particles[i] = {x: Math.random() * W, y: -10, r: p.r, d: p.d, n: p.n, s: p.s, cr: p.cr, cg: p.cg, cb: p.cb};
-        }
-    }
-}
 
 //animation loop
 var animationLoop = setInterval(draw, 33);
