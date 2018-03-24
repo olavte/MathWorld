@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 
+currentWorld = 6;
 function goToMenu(x) {
     x.classList.toggle("change");
 }

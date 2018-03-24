@@ -179,9 +179,6 @@ input {
 
 
 .selectWorldButton {
-    -webkit-transform: rotate(0);
-    -moz-transform: rotate(0);
-    transform: rotate(0);
     width: 80%;
     height: 16vh;
     transition: all 1.5s;

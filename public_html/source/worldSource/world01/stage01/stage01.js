@@ -55,8 +55,8 @@ function victoryScreen() {
     } else if(currentQuestion === 3) {
         questionToLoad = question3();
     } else if(currentQuestion === 4) {
-        if(currentStage < 2) {
-            currentStage = 2;
+        if(currentStage < 1) {
+            currentStage = 1;
         }
         questionToLoad = backToWorld();
     }
@@ -96,13 +96,13 @@ function shuffle(a) {
 }
 
 function question1() {
-    question(25);
+    question(15);
 }
 function question2() {
-    question(50);
+    question(20);
 }
 function question3() {
-    question(75);
+    question(25);
 }
 
 //builds and executes first question

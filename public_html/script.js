@@ -404,7 +404,7 @@ function updateBackgroundEffects(effect) {
                     p.l = 1;
                     p.lu = false;
                 } else if (p.l < 0.1) {
-                    p.l = 0.2;
+                    p.l = 0.1;
                     p.lu = true;
                 }
                 backCtx.fillStyle = "rgba(255, 255, 200, " + p.l + ")";

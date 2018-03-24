@@ -244,8 +244,8 @@ function setBeforeGame() {
 
 function setWinGame() {
     gameState = 0;
-    if(currentStage < 5) {
-        currentStage = 5;
+    if(currentStage < 4) {
+        currentStage = 4;
     }
     document.getElementById('myModal').style.display = "block";
     document.getElementById("gameOverModalContent").style.display = "none";

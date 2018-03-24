@@ -5,17 +5,17 @@
  */
 
 currentWorld = 1;
-if(currentStage === 0) {
-    currentStage = 1;
-}
-if(currentStage < 2) {
+if(currentStage < 1) {
     document.getElementById("level2").disabled = true;
 }
-if(currentStage < 3) {
+if(currentStage < 2) {
     document.getElementById("level3").disabled = true;
 }
-if(currentStage < 4) {
+if(currentStage < 3) {
     document.getElementById("level4").disabled = true;
+}
+if(currentStage < 4) {
+    document.getElementById("World2Door").disabled = true;
 }
 
 document.getElementById("currentStageScore").innerHTML = ": " + currentStage;

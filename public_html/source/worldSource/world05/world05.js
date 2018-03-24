@@ -4,11 +4,7 @@
  * and open the template in the editor.
  */
 
-function goToMenu(x) {
-    x.classList.toggle("change");
-}
-
-
+currentWorld = 5;
 //canvas init
 iniBack('world5Canvas');
 
