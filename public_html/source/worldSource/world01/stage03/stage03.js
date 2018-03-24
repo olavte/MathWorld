@@ -40,6 +40,9 @@ function victoryScreen() {
     document.getElementById('questionText').innerHTML = '<p>Correct!</p>';
     document.getElementById('questionPicture').innerHTML = "";
     document.getElementById('answerOptions').innerHTML = "";
+    if(currentStage < 3) {
+        currentStage = 3;
+    }
     setTimeout(function(){
         goToNewScreen('source/worldSource/world01/world01.html', 'source/worldSource/world01/world01.js');
     }, 1500);
@@ -133,11 +136,4 @@ function question1() {
         }
         generated = true;
     }   
-}
-
-
-function question2() {
-    document.getElementById('stageTitle').innerHTML = "TODO";
-    document.getElementById('questionText').innerHTML ="TODO";
-    document.getElementById('answerOptions').innerHTML ="TODO";
 }

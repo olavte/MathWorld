@@ -4,6 +4,20 @@
  * and open the template in the editor.
  */
 
+if(currentStage === 0) {
+    document.getElementById("mainMenuStartButton").innerHTML = "New Game";
+    document.getElementById("mainMenuStartButton").addEventListener('click', function (ev) {
+        goToNewScreen('source/worldSource/world01/world01.html', 'source/worldSource/world01/world01.js')
+    });
+} else {
+    document.getElementById("mainMenuStartButton").innerHTML = "Continue";
+    document.getElementById("mainMenuStartButton").addEventListener('click', function (ev) {
+        var html = 'source/worldSource/world0' + currentWorld + '/world0' + currentWorld + '.html';
+        var js = 'source/worldSource/world0' + currentWorld + '/world0' + currentWorld + '.js';
+        goToNewScreen(html, js);
+    });
+}
+
 // setting a global variable for the volume sliders
 var volumeBarInterval = 0;
 

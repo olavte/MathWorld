@@ -56,24 +56,28 @@ input {
     margin-top: 10%;
     padding-bottom: 5%;
     box-sizing: border-box;
-    background-image: url("../assets/mainMenu/mainMenuBorder.png");
-    background-repeat: no-repeat;
+    background: url("../assets/mainMenu/mainMenuBorder.png") no-repeat;
     background-size: 100% 100%;
     display: inline-block;
+    text-align: center;
 }
 
-#mainMenuContent img {
+#mainMenuContent a {
+    color: white;
+    font-size: 2vw;
+    font-family: chalkboard;
+    display: inline-block;
     margin-top: 5%;
-    margin-left: 25%;
-    margin-right: 25%;
-    width: 50%;
+    margin-left: 20%;
+    margin-right: 20%;
+    width: 60%;
     height: 5%;
     transition: all 1s;
 }
 
-#mainMenuContent img:hover {
+#mainMenuContent a:hover {
     cursor: pointer;
-    transform: scale(1.1);
+    transform: scale(1.3);
 }
 
 /* Modal Content/Box, and MathQuestion */
@@ -137,8 +141,7 @@ input {
     animation: blowUpElement 1s;
 }
 
-/* Modal Content/Box */
-#selectCandyLandModalContent {
+.selectWorldModal {
     background-color: rgb(25, 25, 25);
     color: white;
     margin: 15% auto; /* 15% from the top and centered */
@@ -150,15 +153,11 @@ input {
 }
 
 /* Modal Content/Box */
-#selectParisModalContent {
-    background-color: rgb(25, 25, 25);
-    color: white;
-    margin: 15% auto; /* 15% from the top and centered */
-    padding: 20px;
-    border: 2px solid #888;
-    border-radius: 5px;
-    width: 25%; /* Could be more or less, depending on screen size */
-    animation: blowUpElement 1s;
+#selectWorld01ModalContent {
+}
+
+/* Modal Content/Box */
+#selectWorld02ModalContent {
 }
 
 #worldSelectionWrapper {
@@ -180,9 +179,6 @@ input {
 
 
 .selectWorldButton {
-    -webkit-transform: rotate(0);
-    -moz-transform: rotate(0);
-    transform: rotate(0);
     width: 80%;
     height: 16vh;
     transition: all 1.5s;
@@ -200,6 +196,12 @@ input {
 
 #selectWorld1Button {
     background-image: url("../assets/world1/world1photo.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+#selectWorld5Button {
+    background-image: url("../assets/world5/world5.png");
     background-repeat: no-repeat;
     background-size: 100%;
 }

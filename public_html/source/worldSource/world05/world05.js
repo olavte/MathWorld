@@ -4,28 +4,24 @@
  * and open the template in the editor.
  */
 
-function goToMenu(x) {
-    x.classList.toggle("change");
-}
-
-
+currentWorld = 5;
 //canvas init
 iniBack('world5Canvas');
 
-var plussCharacter = createAnimatedSprite('assets/characters/plussCharSpr.png', 1200, 300, 300, 300, 4, 30);
+var roundingChar = createAnimatedSprite('assets/characters/roundingChar.png', 1800, 300, 300, 300, 6, 15);
 
-playMusic(startMenuMusic);
-
+if(currentMusic !== spaceMusic) {
+    playMusic(spaceMusic);
+}
 //snowflake particles
 iniBackgroundEffects(5);
 
 //Lets draw the flakes
 function draw() {
     backCtx.clearRect(0, 0, W, H);
-    backCtx.drawImage(plussCharacter.image, plussCharacter.srcX, plussCharacter.srcY, plussCharacter.spriteWidth,
-        plussCharacter.spriteHeight, 10, H / 3, W / 5, W / 4);
-    plussCharacter.updateFrame();
+    drawSpriteImage(backCtx, roundingChar, 10, H / 3, W / 5, W / 4);
     updateBackgroundEffects(5);
+    roundingChar.updateFrame();
 }
 
 //animation loop

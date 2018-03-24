@@ -6,8 +6,8 @@
 
 /* 
  */
- var candyPrice = randomNumber(10) + 1;
- var moneyOnHand = Math.floor(Math.random() * 40) + 15;
+var candyPrice = randomNumber(10) + 1;
+var moneyOnHand = Math.floor(Math.random() * 40) + 15;
 
 
 // variables for questions
@@ -25,8 +25,7 @@ var plussCharacter = createAnimatedSprite('assets/characters/plussCharSpr.png', 
 iniBackgroundEffects(1);
 
 //Lets draw the flakes
-function draw()
-{
+function draw() {
     backCtx.clearRect(0, 0, W, H);
 
     plussCharacter.updateFrame();
@@ -49,8 +48,8 @@ mathTwoFirst();
 
 //final level in world 1, for special assignement and timer function
 function mathTwoFirst() {
-    var answer = Math.floor(moneyOnHand/candyPrice);
-    var options = [answer, randomNumber(25)+ 1, randomNumber(20)+ 1, randomNumber(20)+ 1];
+    var answer = Math.floor(moneyOnHand / candyPrice);
+    var options = [answer, randomNumber(25) + 1, randomNumber(20) + 1, randomNumber(20) + 1];
     shuffle(options);
 
     document.getElementById('question04').innerHTML = "If this candy is " + candyPrice + " cents and you have " + moneyOnHand + " cents, how many candies can you buy with the money you have?";
@@ -66,12 +65,12 @@ function mathTwoFirst() {
 }
 
 function mathTwoSecond() {
-    
-    
-   var num1 = randomNumber(10)+1;
-   var num2 = randomNumber(10)+1;
+
+
+    var num1 = randomNumber(10) + 1;
+    var num2 = randomNumber(10) + 1;
     var answer = num1 + num2;
-    var options = [answer, randomNumber(15)+1, randomNumber(20)+1, randomNumber(15)+1];
+    var options = [answer, randomNumber(15) + 1, randomNumber(20) + 1, randomNumber(15) + 1];
     shuffle(options);
 
     document.getElementById('question04').innerHTML = "If this candy is " + num1 + " + " + num2 + "cents, how much does the candy cost?";
@@ -87,13 +86,13 @@ function mathTwoSecond() {
 }
 
 function mathTwoThird() {
-    
-    
-   var num1 = randomNumber(10)+1;
-   var num2 = randomNumber(10)+1;
-   var num3 = randomNumber(10)+1;
+
+
+    var num1 = randomNumber(10) + 1;
+    var num2 = randomNumber(10) + 1;
+    var num3 = randomNumber(10) + 1;
     var answer = num1 + num2 + num3;
-    var options = [answer, randomNumber(15)+1, randomNumber(20)+1, randomNumber(15)+1];
+    var options = [answer, randomNumber(15) + 1, randomNumber(20) + 1, randomNumber(15) + 1];
     shuffle(options);
 
     document.getElementById('question04').innerHTML = "If this candy is " + num1 + " + " + num2 + " + " + num3 + "cents, how much does the candy cost?";
@@ -108,15 +107,13 @@ function mathTwoThird() {
     document.getElementById('qanswers').innerHTML = text;
 }
 
-    
-
 
 //Lets user know they were correct, 
 function victoryScreen() {
 
 
     document.getElementById('qanswers').innerHTML = "CORRECT!";
-    
+
     document.getElementById("mathbutton2").disabled = false;
 
 }
@@ -125,47 +122,43 @@ function victoryScreen() {
 function sadnessScreen() {
 
     document.getElementById('qanswers').innerHTML = "WRONG!";
-document.getElementById('reload').innerHTML = "<button onclick='mathTwoFirst()'>Try Again!</button>";
+    document.getElementById('reload').innerHTML = "<button onclick='mathTwoFirst()'>Try Again!</button>";
 }
 
 
-function victoryScreen2(){
-    
-      document.getElementById('qanswers').innerHTML = "CORRECT!";
-    
+function victoryScreen2() {
+
+    document.getElementById('qanswers').innerHTML = "CORRECT!";
+
     document.getElementById("mathbutton3").disabled = false;
-    
+
 }
 
 function sadnessScreen2() {
 
     document.getElementById('qanswers').innerHTML = "WRONG!";
-document.getElementById('reload').innerHTML = "<button onclick='mathTwoSecond()'>Try Again!</button>";
+    document.getElementById('reload').innerHTML = "<button onclick='mathTwoSecond()'>Try Again!</button>";
 }
 
 
-function victoryScreen3(){
-    
-      document.getElementById('qanswers').innerHTML = "CORRECT!!" + "<br/>" + "Move on to next stage";
-      document.getElementById("nextstage").disabled = false;
-      document.getElementById("levelFinal").disabled = false;
+function victoryScreen3() {
 
-    
+    document.getElementById('qanswers').innerHTML = "CORRECT!!" + "<br/>" + "Move on to next stage";
+    if (currentStage < 2) {
+        currentStage = 2;
+    }
+    document.getElementById("nextstage").disabled = false;
+    document.getElementById("levelFinal").disabled = false;
 }
 
 function sadnessScreen3() {
 
     document.getElementById('qanswers').innerHTML = "WRONG!";
-document.getElementById('reload').innerHTML = "<button onclick='mathTwoThird()'>Try Again!</button>";
+    document.getElementById('reload').innerHTML = "<button onclick='mathTwoThird()'>Try Again!</button>";
 }
 
 
-
-
-
-
-
-//få random nummer 
+//få random nummer
 //@param opp til nummer upToo
 //@return random nummer
 function randomNumber(upToo) {
@@ -185,9 +178,9 @@ function shuffle(a) {
     }
 }
 
-   /* function clikedPic(clickedId) {
-    
-   var value = document.getElementById(clickedId);
-   totalSum = candyPrice + totalSum;
-   document.getElementById('total04').innerHTML = "Money spent: " + totalSum + " cents";
-  } */
+/* function clikedPic(clickedId) {
+
+var value = document.getElementById(clickedId);
+totalSum = candyPrice + totalSum;
+document.getElementById('total04').innerHTML = "Money spent: " + totalSum + " cents";
+} */

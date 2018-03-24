@@ -9,21 +9,20 @@ var letterArray = answer.split("");
 var mathAnswers = [];
 
 //canvas init
-iniBack("world1Canvas")
+iniBack("world5Canvas")
 
-var plussCharacter = createAnimatedSprite('assets/characters/plussCharSpr.png', 1200, 300, 300, 300, 4, 30);
+var roudningChar = createAnimatedSprite('assets/characters/roundingChar.png', 1800, 300, 300, 300, 6, 15);
 
 //snowflake particles
-iniBackgroundEffects(1);
+iniBackgroundEffects(5);
 
 //Lets draw the flakes
 function draw()
 {
     backCtx.clearRect(0, 0, W, H);
-    plussCharacter.updateFrame();
-    updateBackgroundEffects(1);
-    backCtx.drawImage(plussCharacter.image, plussCharacter.srcX, plussCharacter.srcY, plussCharacter.spriteWidth,
-        plussCharacter.spriteHeight, 160, 150, plussCharacter.spriteWidth, plussCharacter.spriteHeight);
+    roudningChar.updateFrame();
+    updateBackgroundEffects(5);
+    drawSpriteImage(backCtx, roundingChar, 10, H / 4, W / 5, W / 4);
 }
 
 //animation loop
@@ -41,7 +40,7 @@ function victoryScreen() {
     document.getElementById('questionPicture').innerHTML = "";
     document.getElementById('answerOptions').innerHTML = "";
     setTimeout(function(){
-        goToNewScreen('source/worldSource/world01/world01.html', 'source/worldSource/world01/world01.js');
+        goToNewScreen('source/worldSource/world05/world05.html', 'source/worldSource/world05/world05.js');
     }, 1500);
 }
 
@@ -55,23 +54,12 @@ function loseScreen() {
 
 }
 
-
-
-//få random nummer 
-//@param opp til nummer upToo
-//@return random nummer
-function randomNumber(upTo) {
-    var randNumb = Math.floor(Math.random() * upTo);
-    return randNumb;
-}
-
 //Selects a random word within the words array and returns it.
 function selectWord() {    
     var words = ["apple", "ice", "orange", "car", "computer", 
                  "game", "math", "school", "juice", "soda", 
                  "carrot", "purple", "movie", "superhero"];
-    var randNumb = randomNumber(words.length);
-    return words[randNumb];
+    return words[Math.round(Math.random() * words.length)];
 }
 
 function guessWord() {
@@ -110,15 +98,14 @@ function question1() {
         for (i = 0; i < answer.length; i++) {
             var buttonId = "button" + i;
             var questionFieldId = "questionField" + i;
-            var firstNumber = randomNumber(15);
-            var secondNumber = randomNumber(15);
-            var ans = firstNumber + secondNumber;
+            var number = Math.round ((Math.random() * 20 + 1) * 10) / 10;
+            var ans = Math.round(number);
             mathAnswers.push(ans);
             
             var div = document.createElement('div');
             var newId = 'question' + i;
             div.id = newId;
-            div.innerHTML = '<p>' + firstNumber + ' + ' + secondNumber + ' = <input type="text" name="guess" id=' + questionFieldId + '><button id=' + buttonId + ' onclick="checkAnswer(' + i + ')">Check Answer</button></p>';
+            div.innerHTML = '<p>' + number + ' = <input type="text" name="guess" id=' + questionFieldId + '><button id=' + buttonId + ' onclick="checkAnswer(' + i + ')">Check Answer</button></p>';
             document.getElementById('answerOptions').appendChild(div);
             
             /* ENTER TO CHECK ANSWER DOES NOT WORK
@@ -133,11 +120,4 @@ function question1() {
         }
         generated = true;
     }   
-}
-
-
-function question2() {
-    document.getElementById('stageTitle').innerHTML = "TODO";
-    document.getElementById('questionText').innerHTML ="TODO";
-    document.getElementById('answerOptions').innerHTML ="TODO";
 }

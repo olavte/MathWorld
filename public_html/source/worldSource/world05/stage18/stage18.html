@@ -4,66 +4,46 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<div>
-
-    <div id="stage04">
-
-        <canvas id="world1Canvas"></canvas>
-
-        <div id="stagebackground">
-            <h1 id="stageTitle">Stage 4 - CandyLand!</h1>
-           
-            <div id="total04">
-                
-            </div>
-
-            <div id="question04"></div>
-            
-            
-            <div id ="icediv" onclick="clikedPic(this.id)">
-                               
-
-            <img id="icecream04" src="assets/world1/world1ice.png">
-           </div>
-          
-            <div id="qanswers"></div>
-
-
-            <div id="exitbutton">
-                <button class="backbutton" onclick="goToNewScreen('source/worldSource/world01/world01.html', 'source/worldSource/world01/world01.js')" >
-                    Back
-                </button>
-            </div>
-            <div id="nextquestion" >
-                <button id="mathbutton2" onclick="mathTwoSecond()" disabled="true" >
-                    Second Question 
-                </button>
-    
-            </div>
-            
-              <div id="nextquestion" >
-                <button id="mathbutton3" onclick="mathTwoThird()" disabled="true" >
-                    Third Question 
-                </button>
-    
-            </div>
-            
-             <div id="next" >
-                <button id="nextstage" onclick="goToNewScreen('source/worldSource/world01/world01.html', 'source/worldSource/world01/world1.js')" disabled="true" >
-                    Next Stage
-                </button>
-    
-            </div>
-            
-            
-            
-            
-            <div id="reload">
-                                
-            </div>
+<div id="stage02">
+    <div id="myModal" class="modal">
+        <div id="startModalContent">
+            Hey!! The badie is here and is trying to polute the chocolate pool!!
+            <br>
+            We have to gather enough cotton candy to capture him! <br> 
+            You have to take the correct cotton candy, if you take the 
+            wrong one you will lose one point, I will help you taking the correct one. 
+            <p>
+                OH NO!! The badie is coming! He 
+                is trying to target you, evade him as you collect cotton candy.
+            </p>
+            <button onclick="setStartGame()">Start!</button>
+            <button onclick="goToNewScreen(
+                        'source/worldSource/world05/world05.html',
+                        'source/worldSource/world05/world05.js')">
+                Exit!
+            </button>
+        </div>
+        <div id="gameOverModalContent">
+            <button onclick="setBeforeGame()">Start!</button>
+            <button onclick="goToNewScreen(
+                        'source/worldSource/world05/world05.html',
+                        'source/worldSource/world05/world05.js')">
+                Exit!
+            </button>
+        </div>
+        <div id="winModalContent">
+            WIN!!!
+            <button onclick="goToNewScreen(
+                        'source/worldSource/world05/world05.html',
+                        'source/worldSource/world05/world05.js')">
+                Exit!
+            </button>
         </div>
     </div>
+    
+    <div id="questionBox"></div>
+
+    <canvas id="world5Canvas"></canvas>
+    <canvas id="middleCanvas"></canvas>
+    <canvas id="frontCanvas"></canvas>
 </div>
-
-
-

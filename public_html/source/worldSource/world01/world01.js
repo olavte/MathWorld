@@ -4,6 +4,23 @@
  * and open the template in the editor.
  */
 
+currentWorld = 1;
+if(currentStage < 1) {
+    document.getElementById("level2").disabled = true;
+}
+if(currentStage < 2) {
+    document.getElementById("level3").disabled = true;
+}
+if(currentStage < 3) {
+    document.getElementById("level4").disabled = true;
+}
+if(currentStage < 4) {
+    document.getElementById("World2Door").disabled = true;
+}
+
+document.getElementById("currentStageScore").innerHTML = ": " + currentStage;
+
+
 function goToMenu(x) {
     x.classList.toggle("change");
 }
@@ -13,8 +30,9 @@ function goToMenu(x) {
 iniBack('world1Canvas');
 
 var plussCharacter = createAnimatedSprite('assets/characters/plussCharSpr.png', 1200, 300, 300, 300, 4, 30);
-
-playMusic(startMenuMusic);
+if(currentMusic != candyMusic) {
+    playMusic(candyMusic);
+}
 
 //snowflake particles
 iniBackgroundEffects(1);

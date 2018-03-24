@@ -55,6 +55,9 @@ function victoryScreen() {
     } else if(currentQuestion === 3) {
         questionToLoad = question3();
     } else if(currentQuestion === 4) {
+        if(currentStage < 1) {
+            currentStage = 1;
+        }
         questionToLoad = backToWorld();
     }
 
@@ -93,13 +96,13 @@ function shuffle(a) {
 }
 
 function question1() {
-    question(75);
+    question(15);
 }
 function question2() {
-    question(100);
+    question(20);
 }
 function question3() {
-    question(150);
+    question(25);
 }
 
 //builds and executes first question
@@ -119,7 +122,7 @@ function question(dificulty) {
     
     
     
-    var options = [firstNumber, secondNumber, thirdNumber, randomNumber(dificulty - 50), randomNumber(dificulty - 25)];
+    var options = [firstNumber, secondNumber, thirdNumber, randomNumber(dificulty-5), randomNumber(dificulty-10)];
     shuffle(options);
     
     //add option text over pictures

@@ -11,7 +11,7 @@ var mathAnswers = [];
 //canvas init
 iniBack("world1Canvas")
 
-var plussCharacter = createAnimatedSprite('assets/characters/plussCharSpr.png', 1200, 300, 300, 300, 4, 30);
+var minusCharacter = createAnimatedSprite('assets/characters/minusCharSpr.png', 8400, 300, 600, 300, 14, 2);
 
 //snowflake particles
 iniBackgroundEffects(1);
@@ -20,10 +20,10 @@ iniBackgroundEffects(1);
 function draw()
 {
     backCtx.clearRect(0, 0, W, H);
-    plussCharacter.updateFrame();
+    minusCharacter.updateFrame();
     updateBackgroundEffects(1);
-    backCtx.drawImage(plussCharacter.image, plussCharacter.srcX, plussCharacter.srcY, plussCharacter.spriteWidth,
-        plussCharacter.spriteHeight, 160, 150, plussCharacter.spriteWidth, plussCharacter.spriteHeight);
+    backCtx.drawImage(minusCharacter.image, minusCharacter.srcX, minusCharacter.srcY, minusCharacter.spriteWidth,
+        minusCharacter.spriteHeight, 60, 50, minusCharacter.spriteWidth, minusCharacter.spriteHeight);
 }
 
 //animation loop
@@ -41,7 +41,7 @@ function victoryScreen() {
     document.getElementById('questionPicture').innerHTML = "";
     document.getElementById('answerOptions').innerHTML = "";
     setTimeout(function(){
-        goToNewScreen('source/worldSource/world01/world01.html', 'source/worldSource/world01/world01.js');
+        goToNewScreen('source/worldSource/world02/world02.html', 'source/worldSource/world02/world02.js');
     }, 1500);
 }
 
@@ -110,15 +110,15 @@ function question1() {
         for (i = 0; i < answer.length; i++) {
             var buttonId = "button" + i;
             var questionFieldId = "questionField" + i;
-            var firstNumber = randomNumber(15);
             var secondNumber = randomNumber(15);
-            var ans = firstNumber + secondNumber;
+            var firstNumber = randomNumber(15)+secondNumber;
+            var ans = firstNumber - secondNumber;
             mathAnswers.push(ans);
             
             var div = document.createElement('div');
             var newId = 'question' + i;
             div.id = newId;
-            div.innerHTML = '<p>' + firstNumber + ' + ' + secondNumber + ' = <input type="text" name="guess" id=' + questionFieldId + '><button id=' + buttonId + ' onclick="checkAnswer(' + i + ')">Check Answer</button></p>';
+            div.innerHTML = '<p>' + firstNumber + ' - ' + secondNumber + ' = <input type="text" name="guess" id=' + questionFieldId + '><button id=' + buttonId + ' onclick="checkAnswer(' + i + ')">Check Answer</button></p>';
             document.getElementById('answerOptions').appendChild(div);
             
             /* ENTER TO CHECK ANSWER DOES NOT WORK

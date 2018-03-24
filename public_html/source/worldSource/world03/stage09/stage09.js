@@ -3,7 +3,7 @@
 
 //canvas init
 
-iniBack('world1Canvas');
+iniBack('world3Canvas');
 
 var plussCharacter = createAnimatedSprite('assets/characters/plussCharSpr.png', 1200, 300, 300, 300, 3, 30);
 
