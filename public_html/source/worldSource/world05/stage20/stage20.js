@@ -38,19 +38,20 @@ var hinder = {
 
 //Math Objects
 var mathObjects = [];
-for(var i = 0; i < 4; i++) {
+for (var i = 0; i < 4; i++) {
     mathObjects.push({
-        name:"math" + (i + 1),
-        mathX:W + ((Math.random() * (W / 2))),
-        mathY:Math.random() * (H - 1) + 1,
-        mathW:(Math.random() * W/80) + 5,
-        mathNumber:0});
+        name: "math" + (i + 1),
+        mathX: W + ((Math.random() * (W / 2))),
+        mathY: Math.random() * (H - 1) + 1,
+        mathW: (Math.random() * W / 80) + 5,
+        mathNumber: 0
+    });
 }
 
 //PlayerVariables
 var player = {
     playerX: W / 2,
-    playerY: H - ((H/8)*2),
+    playerY: H - ((H / 8) * 2),
     playerHeight: H / 8,
     playerWidth: W / 10,
     playerPlacement: 1
@@ -64,6 +65,7 @@ var timer = 0;
 userInputGame = true;
 
 window.addEventListener("mousemove", mouseMove);
+
 function mouseMove(event) {
     userInputX = (event.x - middleCanvas.offsetLeft) * 1.4;
     userInputY = (event.y - middleCanvas.offsetTop) * 1.4;
@@ -71,12 +73,14 @@ function mouseMove(event) {
 }
 
 window.addEventListener("touchmove", touchMove);
+
 function touchMove(event) {
     userInputX = (event.touches[0].clientX - middleCanvas.offsetLeft) * 1.4;
     userInputY = (event.touches[0].clientY - middleCanvas.offsetTop) * 1.4;
 }
 
 window.addEventListener("touchstart", touchStart);
+
 function touchStart() {
     movePlayer();
     if (timer === 0) {
@@ -85,12 +89,14 @@ function touchStart() {
 }
 
 window.addEventListener("touchend", touchEnd);
+
 function touchEnd() {
     clearInterval(timer);
     timer = 0;
 }
 
 window.addEventListener("mousedown", mouseDown);
+
 function mouseDown() {
     movePlayer();
     clearInterval(timer);
@@ -100,23 +106,23 @@ function mouseDown() {
 }
 
 window.addEventListener("mouseup", mouseUp);
+
 function mouseUp() {
     clearInterval(timer);
     timer = 0;
 }
 
 function movePlayer() {
-    if (userInputX < W/2) {
+    if (userInputX < W / 2) {
         player.playerPlacement = 0;
-    } else if (userInputX > W/2) {
+    } else if (userInputX > W / 2) {
         player.playerPlacement = 1;
     }
 }
 
 
 //Lets draw the flakes
-function draw()
-{
+function draw() {
     backCtx.clearRect(0, 0, W, H);
     middleCtx.clearRect(0, 0, W, H);
     frontCtx.clearRect(0, 0, W, H);
@@ -136,9 +142,9 @@ function draw()
         middleCtx.rect(0, 0, W, H);
         middleCtx.fill();
 
-        if(player.playerPlacement === 1 && player.playerX < W*(2/3)) {
+        if (player.playerPlacement === 1 && player.playerX < W * (2 / 3)) {
             player.playerX += 10;
-        } else if (player.playerPlacement === 0 && player.playerX > W/4) {
+        } else if (player.playerPlacement === 0 && player.playerX > W / 4) {
             player.playerX -= 10;
         }
 
@@ -152,12 +158,44 @@ function draw()
 
             updateGame();
 
+            if (gameScore <= 5) {
+                frontCtx.fillStyle = "rgba(0, 0, 0, 1)";
+                frontCtx.font = "50px Arial";
+                frontCtx.fillText("1", W / 4, H / 2, W / 8);
+
+                frontCtx.fillStyle = "rgba(0, 0, 0, 1)";
+                frontCtx.font = "50px Arial";
+                frontCtx.fillText("2", W * (3 / 4), H / 2, W / 8);
+
+                if (questionAnswer === 1) {
+                    middleCtx.fillStyle = "rgba(150,255,150,0.1)";
+                    middleCtx.beginPath();
+                    middleCtx.rect(0, 0, W / 2, H);
+                    middleCtx.fill();
+
+                    middleCtx.fillStyle = "rgba(255,150,150,0.1)";
+                    middleCtx.beginPath();
+                    middleCtx.rect(W / 2, 0, W / 2, H);
+                    middleCtx.fill();
+                } else {
+                    middleCtx.fillStyle = "rgba(255,150,150,0.1)";
+                    middleCtx.beginPath();
+                    middleCtx.rect(0, 0, W / 2, H);
+                    middleCtx.fill();
+
+                    middleCtx.fillStyle = "rgba(150,255,150,0.1)";
+                    middleCtx.beginPath();
+                    middleCtx.rect(W / 2, 0, W / 2, H);
+                    middleCtx.fill();
+                }
+            }
+
             middleCtx.fillStyle = "rgba(25, 20, 20, 1)";
             middleCtx.beginPath();
             middleCtx.rect(hinder.hinderX, hinder.hinderY, hinder.hinderWidth, hinder.hinderHeight);
             middleCtx.fill();
 
-            mathObjects.forEach(function(mathObject) {
+            mathObjects.forEach(function (mathObject) {
                 middleCtx.fillStyle = "rgba(0, 0, 0, 1)";
                 middleCtx.beginPath();
                 middleCtx.arc(mathObject.mathX, mathObject.mathY, mathObject.mathW, 0, 2 * Math.PI);
@@ -167,45 +205,45 @@ function draw()
     }
 
     function drawFront() {
-        drawSpriteImage(frontCtx, roundingChar, 0, 100, W/4, H/2);
+        drawSpriteImage(frontCtx, roundingChar, 0, 100, W / 4, H / 2);
         roundingChar.updateFrame();
     }
 }
 
 function updateGame() {
 
-    if (gameScore === 10) {
+    if (gameScore === 20) {
         setWinGame();
     }
 
-    if(checkCollision(player.playerX, player.playerY, player.playerWidth, player.playerHeight,
+    if (checkCollision(player.playerX, player.playerY, player.playerWidth, player.playerHeight,
             hinder.hinderX, hinder.hinderY, hinder.hinderWidth, hinder.hinderHeight)) {
         setGameOver();
     }
 
-    mathObjects.forEach(function(mathObject) {
-        mathObject.mathY += (Math.random() * 5) + 25 + (gameScore*4);
-        if(mathObject.mathY > H) {
+    mathObjects.forEach(function (mathObject) {
+        mathObject.mathY += (Math.random() * 5) + 25 + (gameScore * 4);
+        if (mathObject.mathY > H) {
             mathObject.mathY = -(Math.random() * H);
             mathObject.mathX = Math.random() * W;
-            mathObject.mathW = (Math.random() * W/80) + 5;
+            mathObject.mathW = (Math.random() * W / 80) + 5;
         }
     });
 
-    hinder.hinderY += 40 + (gameScore*3);
+    hinder.hinderY += 40 + (gameScore * 3);
 
-    if (hinder.hinderY > H+hinder.hinderHeight) {
+    if (hinder.hinderY > H + hinder.hinderHeight) {
 
         gameScore++;
-        number = Math.round ((Math.random() + 1) * 10) / 10;
+        number = Math.round((Math.random() + 1) * 10) / 10;
         questionAnswer = Math.round(number);
 
         document.getElementById("questionBox").innerHTML
-            = number + "... Score: "
+            = number + " rounded is?... Score: "
             + gameScore;
 
         hinder.hinderY = -12000;
-        if(questionAnswer === 1) {
+        if (questionAnswer === 1) {
             hinder.hinderX = W / 2;
         } else {
             hinder.hinderX = 0;
@@ -250,22 +288,22 @@ function setWinGame() {
 function restartGame() {
     // Game variables
     //Hinder Object
-    number = Math.round(Math.random())/10 + 1;
+    number = Math.round(Math.random()) / 10 + 1;
     questionAnswer = Math.round(number);
     gameScore = 0;
 
-    document.getElementById("questionBox").innerHTML 
-            = number + "... Score: "
-            + gameScore;
+    document.getElementById("questionBox").innerHTML
+        = number + " rounded is?... Score: "
+        + gameScore;
 
     hinder.hinderX = W / 2;
     hinder.hinderY = -12000;
 
     //Math Object
-    mathObjects.forEach(function(mathObject) {
+    mathObjects.forEach(function (mathObject) {
         mathObject.mathY = -(Math.random() * H);
         mathObject.mathX = Math.random() * W;
-        mathObject.mathW = (Math.random() * W/80) + 5;
+        mathObject.mathW = (Math.random() * W / 80) + 5;
     });
 }
 
