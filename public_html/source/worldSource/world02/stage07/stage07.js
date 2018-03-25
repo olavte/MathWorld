@@ -40,6 +40,9 @@ function victoryScreen() {
     document.getElementById('questionText').innerHTML = '<p>Correct!</p>';
     document.getElementById('questionPicture').innerHTML = "";
     document.getElementById('answerOptions').innerHTML = "";
+    if(currentStage < 7) {
+        currentStage = 7;
+    }
     setTimeout(function(){
         goToNewScreen('source/worldSource/world02/world02.html', 'source/worldSource/world02/world02.js');
     }, 1500);

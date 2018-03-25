@@ -13,6 +13,12 @@ var roundingChar = createAnimatedSprite('assets/characters/roundingChar.png', 18
 if(currentMusic !== spaceMusic) {
     playMusic(spaceMusic);
 }
+
+if(currentStage >= 4 && worldKeys < 1) {
+    playSound(gotKeySound);
+    worldKeys = 5;
+}
+
 //snowflake particles
 iniBackgroundEffects(5);
 

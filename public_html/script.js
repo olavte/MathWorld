@@ -12,6 +12,7 @@ document.body.appendChild(gameScreen);
 
 var currentWorld = 0;
 var currentStage = 0;
+var worldKeys = 0;
 
 var animationLoop = null;
 
@@ -29,15 +30,16 @@ var rockMusic = new Audio('assets/music/rock.mp3');
 var spaceMusic = new Audio('assets/music/space.mp3');
 var norwayMusic = new Audio('assets/music/winter.mp3');
 var crazyMusic = new Audio('assets/music/crazy.mp3');
+var gotKeySound = new Audio('assets/sound/gotKey.mp3');
 
 var currentMusic = null;
 
 var musicLooper = null;
 
 function playSound(sound) {
-    var s = new Audio(sound);
-    s.volume = soundVolume * globalVolume;
-    s.play();
+    sound.currentTime = 0;
+    sound.volume = soundVolume * globalVolume;
+    sound.play();
 }
 
 function playMusic(music) {

@@ -17,6 +17,11 @@ if(currentStage < 3) {
 if(currentStage < 4) {
     document.getElementById("World2Door").disabled = true;
 }
+if(currentStage >= 4 && worldKeys < 1) {
+    worldKeys = 1;
+    playSound(gotKeySound);
+
+}
 
 document.getElementById("currentStageScore").innerHTML = ": " + currentStage;
 
@@ -44,6 +49,10 @@ function draw() {
         plussCharacter.spriteHeight, 10, H / 3, W / 5, W / 4);
     plussCharacter.updateFrame();
     updateBackgroundEffects(1);
+
+    if(currentStage < 4 && worldKeys < 1) {
+
+    }
 }
 
 //animation loop

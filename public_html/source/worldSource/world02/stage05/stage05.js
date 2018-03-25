@@ -55,6 +55,9 @@ function victoryScreen() {
     } else if(currentQuestion === 3) {
         questionToLoad = question3();
     } else if(currentQuestion === 4) {
+        if(currentStage < 5) {
+            currentStage = 5;
+        }
         questionToLoad = backToWorld();
     }
 

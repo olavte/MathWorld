@@ -63,10 +63,10 @@
 
 <!-- The World Select main window -->
 
-<div id="World-Select">
+<div id="worldSelect">
         <canvas id="mainMenuCanvas"></canvas>
-        <h2 id="Title-World-Select">Select World:</h2>
-        <div id="worldSelectionWrapper">
+        <h2 class="titleWorldSelect">Select World:</h2>
+        <div class="worldSelectionWrapper">
             <button id="selectWorld1Button" class="selectWorldButton" 
                     onclick="worldSelectWorld01()"></button>
             <button id="selectWorld4Button" class="selectWorldButton"
@@ -80,5 +80,15 @@
             <button id="selectWorld6sButton" class="selectWorldButton" 
                     onclick="worldSelectWorld06()"></button>
         </div>
+    <h2 class="titleWorldSelect">Mini Games:</h2>
+    <div class="worldSelectionWrapper">
+        <button class="selectWorldButton"
+                onclick="worldSelectWorld01()"></button>
+        <button class="selectWorldButton"
+                onclick="worldSelectWorld04()"></button>
+        <button class="selectWorldButton"
+                onclick="worldSelectWorld02()"></button>
+    </div>
+
         <button id="back-button" onclick="goToNewScreen('source/mainMenuSource/mainMenu/mainMenu.html', 'source/mainMenuSource/mainMenu/mainMenu.js')">Back</button>
 </div>
