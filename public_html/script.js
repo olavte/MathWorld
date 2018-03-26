@@ -30,13 +30,15 @@ var rockMusic = new Audio('assets/music/rock.mp3');
 var spaceMusic = new Audio('assets/music/space.mp3');
 var norwayMusic = new Audio('assets/music/winter.mp3');
 var crazyMusic = new Audio('assets/music/crazy.mp3');
-var gotKeySound = new Audio('assets/sound/gotKey.mp3');
+var heartbeatMusic = new Audio('assets/music/heartbeat.mp3');
+var droneMusic = new Audio('assets/music/drone.mp3');
 
 var currentMusic = null;
 
 var musicLooper = null;
 
-function playSound(sound) {
+function playSound(s) {
+    var sound = new Audio(s);
     sound.currentTime = 0;
     sound.volume = soundVolume * globalVolume;
     sound.play();

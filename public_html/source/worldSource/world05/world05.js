@@ -15,7 +15,7 @@ if(currentMusic !== spaceMusic) {
 }
 
 if(currentStage >= 4 && worldKeys < 1) {
-    playSound(gotKeySound);
+    playSound('assets/sound/gotKey.mp3');
     worldKeys = 5;
 }
 
