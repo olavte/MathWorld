@@ -187,6 +187,11 @@ input {
     background-size: 100%;
 }
 
+#selectWorld2Button {
+    background: url("../assets/world2/world2.png") no-repeat;
+    background-size: 100%;
+}
+
 #selectWorld5Button {
     background: url("../assets/world5/world5.png") no-repeat;
     background-size: 100%;

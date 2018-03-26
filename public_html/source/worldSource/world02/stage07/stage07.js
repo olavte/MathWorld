@@ -9,7 +9,7 @@ var letterArray = answer.split("");
 var mathAnswers = [];
 
 //canvas init
-iniBack("world1Canvas")
+iniBack("world2Canvas");
 
 var minusCharacter = createAnimatedSprite('assets/characters/minusCharSpr.png', 8400, 300, 600, 300, 14, 2);
 

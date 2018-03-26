@@ -5,7 +5,7 @@
 
 //canvas init
 
-iniBack("world1Canvas");
+iniBack("world2Canvas");
 
 iniMiddle("middleCanvas");
 

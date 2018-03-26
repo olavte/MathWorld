@@ -15,7 +15,7 @@ var answer;
 var totalSum = 0;
 
 //canvas init
-iniBack("world1Canvas");
+iniBack("world2Canvas");
 
 playMusic(startMenuMusic);
 
