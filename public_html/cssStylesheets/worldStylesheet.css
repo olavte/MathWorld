@@ -46,6 +46,34 @@ input {
     z-index:-1;
 }
 
+#world4Canvas {
+    box-sizing: border-box;
+    background-image: url("../assets/world4/world4.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    display: block;
+    position: absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:-1;
+}
+
+#world4StageCanvas {
+    box-sizing: border-box;
+    background-image: url("../assets/world4/world4Stage.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    display: block;
+    position: absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:-1;
+}
+
 #world5Canvas {
     box-sizing: border-box;
     background: linear-gradient(to bottom right, rgb(0,0,0), rgba(0,0,20, 0.7));
@@ -513,5 +541,28 @@ background-size: 100%;
     
     float:left;
     
+}
+
+
+div#memory_board{
+	background: white;
+	border:#999 1px solid;
+	width:800px;
+	height:540px;
+	padding:24px;
+	margin:0px auto;
+}
+div#memory_board > div{
+	background: greenyellow;
+	border:#000 1px solid;
+	width:71px;
+	height:71px;
+        line-height: 71px;
+	float:left;
+	margin:10px;
+	padding:20px;
+	font-size:22px;
+	cursor:pointer;
+	text-align:center;
 }
 

@@ -10,22 +10,22 @@ function goToMenu(x) {
 
 
 //canvas init
-iniBack('world1Canvas');
+iniBack('world4Canvas');
 
-var plussCharacter = createAnimatedSprite('assets/characters/plussCharSpr.png', 1200, 300, 300, 300, 4, 30);
+var divisionCharacter = createAnimatedSprite('assets/characters/divisionCharSpr.png', 1200, 300, 300, 300, 22, 1);
 
 playMusic(norwayMusic);
 
 //snowflake particles
-iniBackgroundEffects(1);
+//iniBackgroundEffects(1);
 
 //Lets draw the flakes
 function draw() {
     backCtx.clearRect(0, 0, W, H);
-    backCtx.drawImage(plussCharacter.image, plussCharacter.srcX, plussCharacter.srcY, plussCharacter.spriteWidth,
-        plussCharacter.spriteHeight, 10, H / 3, W / 5, W / 4);
-    plussCharacter.updateFrame();
-    updateBackgroundEffects(1);
+    backCtx.drawImage(divisionCharacter.image, divisionCharacter.srcX, divisionCharacter.srcY, divisionCharacter.spriteWidth,
+        divisionCharacter.spriteHeight, 10, H / 3, W / 5, W / 4);
+    divisionCharacter.updateFrame();
+    //updateBackgroundEffects(1);
 }
 
 //animation loop
