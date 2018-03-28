@@ -5,9 +5,9 @@
  */
 
 currentWorld = 6;
-function goToMenu(x) {
-    x.classList.toggle("change");
-}
+document.getElementById("currentStageScore").innerHTML = "Level: " + currentStage;
+document.getElementById("currentKeys").innerHTML = "Keys: " + worldKeys;
+document.getElementById("currentCredits").innerHTML = "Credits: " + creditsMoney;
 
 
 //canvas init

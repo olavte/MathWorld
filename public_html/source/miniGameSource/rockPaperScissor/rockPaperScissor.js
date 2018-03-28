@@ -232,7 +232,7 @@ function randomNumber(upToo) {
 }
 
 function reload() {
-    goToNewScreen('source/worldSource/world01/Minigames/RockPaperScissor/RockPaperScissor.html', 'source/worldSource/world01/Minigames/RockPaperScissor/RockPaperScissor.js');
+    goToNewScreen('source/worldSource/world01/Minigames/RockPaperScissor/rockPaperScissor.html', 'source/worldSource/world01/Minigames/RockPaperScissor/rockPaperScissor.js');
 }
 
 function backToWorld() {

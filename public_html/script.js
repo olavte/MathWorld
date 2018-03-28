@@ -13,6 +13,7 @@ document.body.appendChild(gameScreen);
 var currentWorld = 0;
 var currentStage = 0;
 var worldKeys = 0;
+var creditsMoney = 0;
 
 var animationLoop = null;
 
