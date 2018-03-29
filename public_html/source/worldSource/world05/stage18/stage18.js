@@ -193,6 +193,15 @@ function updateGame() {
         setGameOver();
     }
 
+    if(checkCollision(player.playerX - 250, player.playerY - 250, player.playerWidth + 500, player.playerHeight + 500,
+            hinder.hinderX, hinder.hinderY, hinder.hinderWidth, hinder.hinderHeight)) {
+        if(currentMusic !== heartbeatMusic) {
+            playMusic(heartbeatMusic);
+        }
+    } else if (currentMusic !== crazyMusic) {
+        playMusic(crazyMusic)
+    }
+
     if(hinder.hinderX > hinder.hinderGoalX - 100 && hinder.hinderX < hinder.hinderGoalX + 100
         && hinder.hinderY > hinder.hinderGoalY - 100 && hinder.hinderY < hinder.hinderGoalY + 100) {
         hinder.hinderGoalX = Math.random() * W;

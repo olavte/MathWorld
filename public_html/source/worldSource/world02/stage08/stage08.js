@@ -5,7 +5,7 @@
 
 //canvas init
 
-iniBack("world1Canvas");
+iniBack("world2Canvas");
 
 iniMiddle("middleCanvas");
 
@@ -231,6 +231,9 @@ function setBeforeGame() {
 
 function setWinGame() {
     gameState = 0;
+    if(currentStage < 8) {
+        currentStage = 8;
+    }
     document.getElementById('myModal').style.display = "block";
     document.getElementById("gameOverModalContent").style.display = "none";
     document.getElementById("startModalContent").style.display = "none";

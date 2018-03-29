@@ -2,8 +2,9 @@
 
     <nav class="worldTopBar">
         <ul>
-            <li class="worldScorePanel">: 0 </li>
-            <li class="worldScorePanel">: 0 </li>
+            <li class="worldScorePanel" id="currentStageScore">: 0</li>
+            <li class="worldScorePanel" id="currentKeys">: 0</li>
+            <li class="worldScorePanel" id="currentCredits"></li>
             <li class="worldTitle">
                 CandyLand
             </li>
@@ -30,13 +31,6 @@
         <button class="mathbutton" id="levelFinal" 
                 onclick="goToNewScreen('source/worldSource/world01/stage04/stage04.html', 'source/worldSource/world01/stage04/stage04.js')">4</button>
     </div>
-
-</div>
-
-<div id="MathModal" class="modal">
-    <div id="MathQuestion">
-        <span class="closeModal" onclick="exitModal()">&times;</span>
-        <div id="World1Question">Question!</div>
-        <div id="answers"></div>
-    </div>
+    <button id="World5BackDoor" class="worldBackDoor" onclick="goToNewScreen('source/worldSource/world05/world05.html',
+    'source/worldSource/world05/world05.js')"> DOOR </button>
 </div>

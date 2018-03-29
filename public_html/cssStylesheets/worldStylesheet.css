@@ -32,6 +32,47 @@ input {
     height:100%;
     z-index:-1;
 }
+#world2Canvas {
+    box-sizing: border-box;
+    background-image: url("../assets/world2/world2.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    display: block;
+    position: absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:-1;
+}
+
+#world4Canvas {
+    box-sizing: border-box;
+    background-image: url("../assets/world4/world4.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    display: block;
+    position: absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:-1;
+}
+
+#world4StageCanvas {
+    box-sizing: border-box;
+    background-image: url("../assets/world4/world4Stage.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    display: block;
+    position: absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:-1;
+}
 
 #world5Canvas {
     box-sizing: border-box;
@@ -248,15 +289,24 @@ button[disabled]{
     margin-left: -34px;
 }
 
+/* World top bar */
+
 .worldTopBar {
-    font-size: 5vh;
+    box-sizing: border-box;
+    background: url("../assets/mainMenu/mainMenuBorder.png") no-repeat;
+    background-size: 100% 100%;
     width: 100%;
+    color: white;
+    font-weight: bold;
+    font-family: chalkboard;
 }
 
 .worldTopBar ul {
     list-style-type: none;
-    margin: 0;
-    padding: 0;
+    margin-left: 2vw;
+    margin-right: 2vw;
+    margin-top: 0;
+    padding: 8px;
     overflow: hidden;
 }
 
@@ -266,16 +316,16 @@ button[disabled]{
 }
 
 .worldScorePanel {
-    width: 10%;
+    width: 20%;
 }
 
 .world1title {
     text-align: center;
-    width: 70%;
+    vertical-align: center;
+    width: 40%;
 }
 
 .menuButton {
-    width: 10%;
     display: inline-block;
     cursor: pointer;
 }
@@ -283,21 +333,16 @@ button[disabled]{
 .bar1, .bar2, .bar3 {
     width: 35px;
     height: 5px;
-    background-color: #333;
+    background-color: white;
     margin: 6px 6px 6px 6px;
-    transition: 0.4s;
 }
 
-.change .bar1 {
-    -webkit-transform: rotate(-45deg) translate(-9px, 6px);
-    transform: rotate(-45deg) translate(-9px, 6px);
-}
 
-.change .bar2 {opacity: 0;}
 
-.change .bar3 {
-    -webkit-transform: rotate(45deg) translate(-8px, -8px); 
-}
+
+
+
+
 
 /* Bottom left*/
 .bottom-left {
@@ -383,42 +428,20 @@ button[disabled]{
     text-align: center;
   }
   
-  #icediv{
+#icediv {
     font-size:22px;
     font-family:"Open Sans";
     color:black;
     text-align: center;
-      
-  }
-  svg{
+}
+
+svg {
 	width:100%;
 	height:80%;
 	position:relative;
 	top:0;
 	left:0;
         padding-bottom:30px;
-}
-
-#bullseyeinfo{
-	color:black;
-	font-family:sans-serif;
-	 text-align: center;
-         font-size:22px;
-}
-
-#bullseyeScore{
-        font-size:40px;
-        font-family:sans-serif;
-        color:black;
-        text-align: center;
-}
-
-#numarrows{
-     font-size:40px;
-        font-family:sans-serif;
-        color:black;
-        text-align: center;
-    
 }
 
 .worldDoor {
@@ -526,5 +549,28 @@ background-size: 100%;
     
     float:left;
     
+}
+
+
+div#memory_board{
+	background: white;
+	border:#999 1px solid;
+	width:800px;
+	height:540px;
+	padding:24px;
+	margin:0px auto;
+}
+div#memory_board > div{
+	background: greenyellow;
+	border:#000 1px solid;
+	width:71px;
+	height:71px;
+        line-height: 71px;
+	float:left;
+	margin:10px;
+	padding:20px;
+	font-size:22px;
+	cursor:pointer;
+	text-align:center;
 }
 

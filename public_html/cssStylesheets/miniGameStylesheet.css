@@ -6,3 +6,25 @@ canvas {
     left: 0;
     right: 0;
 }
+
+#bullseyeinfo{
+    color:black;
+    font-family:sans-serif;
+    text-align: center;
+    font-size:22px;
+}
+
+#bullseyeScore{
+    font-size:40px;
+    font-family:sans-serif;
+    color:black;
+    text-align: center;
+}
+
+#numarrows{
+    font-size:40px;
+    font-family:sans-serif;
+    color:black;
+    text-align: center;
+
+}

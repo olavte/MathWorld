@@ -10,9 +10,10 @@ var gameScreen = document.createElement('div');
 gameScreen.id = "gameScreen";
 document.body.appendChild(gameScreen);
 
-var latestWorld = 0;
 var currentWorld = 0;
 var currentStage = 0;
+var worldKeys = 0;
+var creditsMoney = 0;
 
 var animationLoop = null;
 
@@ -30,15 +31,18 @@ var rockMusic = new Audio('assets/music/rock.mp3');
 var spaceMusic = new Audio('assets/music/space.mp3');
 var norwayMusic = new Audio('assets/music/winter.mp3');
 var crazyMusic = new Audio('assets/music/crazy.mp3');
+var heartbeatMusic = new Audio('assets/music/heartbeat.mp3');
+var droneMusic = new Audio('assets/music/drone.mp3');
 
 var currentMusic = null;
 
 var musicLooper = null;
 
-function playSound(sound) {
-    var s = new Audio(sound);
-    s.volume = soundVolume * globalVolume;
-    s.play();
+function playSound(s) {
+    var sound = new Audio(s);
+    sound.currentTime = 0;
+    sound.volume = soundVolume * globalVolume;
+    sound.play();
 }
 
 function playMusic(music) {
@@ -405,7 +409,7 @@ function updateBackgroundEffects(effect) {
                     p.l = 1;
                     p.lu = false;
                 } else if (p.l < 0.1) {
-                    p.l = 0.2;
+                    p.l = 0.1;
                     p.lu = true;
                 }
                 backCtx.fillStyle = "rgba(255, 255, 200, " + p.l + ")";

@@ -4,9 +4,10 @@
  * and open the template in the editor.
  */
 
-function goToMenu(x) {
-    x.classList.toggle("change");
-}
+currentWorld = 6;
+document.getElementById("currentStageScore").innerHTML = "Level: " + currentStage;
+document.getElementById("currentKeys").innerHTML = "Keys: " + worldKeys;
+document.getElementById("currentCredits").innerHTML = "Credits: " + creditsMoney;
 
 
 //canvas init

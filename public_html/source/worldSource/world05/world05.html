@@ -2,12 +2,13 @@
 
     <nav class="worldTopBar">
         <ul>
-            <li class="worldScorePanel">: 0 </li>
-            <li class="worldScorePanel">: 0 </li>
+            <li class="worldScorePanel" id="currentStageScore">: 0</li>
+            <li class="worldScorePanel" id="currentKeys">: 0</li>
+            <li class="worldScorePanel" id="currentCredits"></li>
             <li class="worldTitle">
-                Space
+                CandyLand
             </li>
-            <li style="float:right"><div class="menuButton" onclick="goToMenu(this)">
+            <li style="float:right" class="menuButton" onclick="goToNewScreen('source/mainMenuSource/mainMenu/mainMenu.html','source/mainMenuSource/mainMenu/mainMenu.js')"><div>
                 <div class="bar1"></div>
                 <div class="bar2"></div>
                 <div class="bar3"></div>
@@ -38,11 +39,3 @@
 </div>
 
 <img id="world5planet" src="assets/world5/planetPic.png">
-
-<div id="MathModal" class="modal">
-    <div id="MathQuestion">
-        <span class="closeModal" onclick="exitModal()">&times;</span>
-        <div id="World1Question">Question!</div>
-        <div id="answers"></div>
-    </div>
-</div>

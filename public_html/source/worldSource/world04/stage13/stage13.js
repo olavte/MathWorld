@@ -3,9 +3,9 @@
 
 //canvas init
 
-iniBack('world1Canvas');
+iniBack('world4Canvas');
 
-var plussCharacter = createAnimatedSprite('assets/characters/plussCharSpr.png', 1200, 300, 300, 300, 3, 30);
+var divisionCharacter = createAnimatedSprite('assets/characters/divisionCharSpr.png', 1200, 300, 300, 300, 22, 1);
 
 //snowflake particles
 iniBackgroundEffects(1);
@@ -15,12 +15,12 @@ function draw()
 {
     backCtx.clearRect(0, 0, W, H);
 
-    plussCharacter.updateFrame();
+    divisionCharacter.updateFrame();
 
 
     updateBackgroundEffects(1);
-    backCtx.drawImage(plussCharacter.image, plussCharacter.srcX, plussCharacter.srcY, plussCharacter.spriteWidth,
-        plussCharacter.spriteHeight, 160, 150, plussCharacter.spriteWidth, plussCharacter.spriteHeight);
+    backCtx.drawImage(divisionCharacter.image, divisionCharacter.srcX, divisionCharacter.srcY, divisionCharacter.spriteWidth,
+        divisionCharacter.spriteHeight, 160, 150, divisionCharacter.spriteWidth, divisionCharacter.spriteHeight);
 }
 
 //animation loop

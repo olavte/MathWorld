@@ -3,14 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
+currentWorld = 2;
 function goToMenu(x) {
     x.classList.toggle("change");
 }
 
+document.getElementById("currentStageScore").innerHTML = "Level: " + currentStage;
+document.getElementById("currentKeys").innerHTML = "Keys: " + worldKeys;
+document.getElementById("currentCredits").innerHTML = "Credits: " + creditsMoney;
 
 //canvas init
-iniBack('world1Canvas');
+iniBack('world2Canvas');
 
 var minusCharacter = createAnimatedSprite('assets/characters/minusCharSpr.png', 8400, 300, 600, 300, 14, 2);
 
@@ -22,8 +25,7 @@ iniBackgroundEffects(1);
 //Lets draw the flakes
 function draw() {
     backCtx.clearRect(0, 0, W, H);
-    backCtx.drawImage(minusCharacter.image, minusCharacter.srcX, minusCharacter.srcY, minusCharacter.spriteWidth,
-        minusCharacter.spriteHeight, 10, H / 3, W / 5, W / 4);
+    drawSpriteImage(backCtx, minusCharacter, 10, H/3, W/4, W/6);
     minusCharacter.updateFrame();
     updateBackgroundEffects(1);
 }

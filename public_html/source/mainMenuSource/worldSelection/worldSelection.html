@@ -15,7 +15,7 @@
     <div id="selectWorld02ModalContent" class="selectWorldModal">
         <span class="closeModal" onclick="exitModal()">&times;</span>
         <h1>Credits!</h1>
-        <img src="assets/world1/world1photo.png" height="200" onclick="goToNewScreen(
+        <img src="assets/world2/world2.png" height="200" onclick="goToNewScreen(
             'source/worldSource/world02/world02.html',
             'source/worldSource/world02/world02.js')">
     </div>
@@ -59,27 +59,66 @@
             'source/worldSource/world06/world06.html',
             'source/worldSource/world06/world06.js')">
     </div>
+
+    <!-- Modal for MiniGame1  -->
+
+    <div id="selectWorldMiniGame1ModalContent" class="selectWorldModal">
+        <span class="closeModal" onclick="exitModal()">&times;</span>
+        <h1>MiniGame 1!</h1>
+        <img src="assets/world1/world1photo.png" height="200" onclick="goToNewScreen(
+            'source/miniGameSource/rockPaperScissor/rockPaperScissor.html',
+            'source/miniGameSource/rockPaperScissor/rockPaperScissor.js')">
+    </div>
+
+    <!-- Modal for MiniGame2  -->
+
+    <div id="selectWorldMiniGame2ModalContent" class="selectWorldModal">
+        <span class="closeModal" onclick="exitModal()">&times;</span>
+        <h1>MiniGame 2!</h1>
+        <img src="assets/world1/world1photo.png" height="200" onclick="goToNewScreen(
+            'source/miniGameSource/bullseye/bullseye.html',
+            'source/miniGameSource/bullseye/bullseye.js')">
+    </div>
+
+    <!-- Modal for MiniGame3  -->
+
+    <div id="selectWorldMiniGame3ModalContent" class="selectWorldModal">
+        <span class="closeModal" onclick="exitModal()">&times;</span>
+        <h1>MiniGame 3!</h1>
+        <img src="assets/world1/world1photo.png" height="200" onclick="goToNewScreen(
+            'source/worldSource/world06/world06.html',
+            'source/worldSource/world06/world06.js')">
+    </div>
 </div>
 
 <!-- The World Select main window -->
 
-<div id="World-Select">
+<div id="worldSelect">
         <canvas id="mainMenuCanvas"></canvas>
-        <h6 id="Title-World-Select">Select World:</h6>
-        <div id="worldSelectionWrapper">
+        <h2 class="titleWorldSelect">Select World:</h2>
+        <div class="worldSelectionWrapper">
             <button id="selectWorld1Button" class="selectWorldButton" 
                     onclick="worldSelectWorld01()"></button>
-            <button id="selectWorld4Button" class="selectWorldButton"
-                    onclick="worldSelectWorld04()"></button>
             <button id="selectWorld2Button" class="selectWorldButton"
                     onclick="worldSelectWorld02()"></button>
-            <button id="selectWorld5Button" class="selectWorldButton"
-                    onclick="worldSelectWorld05()"></button>
             <button id="selectWorld3Button" class="selectWorldButton"
                     onclick="worldSelectWorld03()"></button>
+            <button id="selectWorld4Button" class="selectWorldButton"
+                    onclick="worldSelectWorld04()"></button>
+            <button id="selectWorld5Button" class="selectWorldButton"
+                    onclick="worldSelectWorld05()"></button>
             <button id="selectWorld6sButton" class="selectWorldButton" 
                     onclick="worldSelectWorld06()"></button>
         </div>
+    <h2 class="titleWorldSelect">Mini Games:</h2>
+    <div class="worldSelectionWrapper">
+        <button id="selectWorldMiniGame1" class="selectWorldButton"
+                onclick="miniGame1()"></button>
+        <button id="selectWorldMiniGame2"class="selectWorldButton"
+                onclick="miniGame2()"></button>
+        <button id="selectWorldMiniGame3" class="selectWorldButton"
+                onclick="miniGame3()"></button>
+    </div>
+
         <button id="back-button" onclick="goToNewScreen('source/mainMenuSource/mainMenu/mainMenu.html', 'source/mainMenuSource/mainMenu/mainMenu.js')">Back</button>
-        <script src="script.js"></script>
 </div>

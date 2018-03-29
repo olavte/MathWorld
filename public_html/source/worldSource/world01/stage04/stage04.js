@@ -216,6 +216,7 @@ function updateGame() {
 
 function setGameOver() {
     gameState = 0;
+    playSound('assets/sound/lostGame.mp3');
     document.getElementById('myModal').style.display = "block";
     document.getElementById("gameOverModalContent").style.display = "block";
     document.getElementById("startModalContent").style.display = "none";
@@ -244,6 +245,9 @@ function setBeforeGame() {
 
 function setWinGame() {
     gameState = 0;
+    if(currentStage < 4) {
+        currentStage = 4;
+    }
     document.getElementById('myModal').style.display = "block";
     document.getElementById("gameOverModalContent").style.display = "none";
     document.getElementById("startModalContent").style.display = "none";
