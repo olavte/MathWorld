@@ -1,268 +1,209 @@
-/* 
- */
-//document.getElementById('myModal').style.display = "block";
-//document.getElementById('stage2StartModalContent').style.display = "block";
 
-//canvas init
-
-iniBack("world1Canvas");
-
-iniMiddle("middleCanvas");
-
-iniFront("frontCanvas");
-
-//Music
-playMusic(fightMusic);
-var plussCharacter = createAnimatedSprite('assets/characters/plussCharSpr.png', 1200, 300, 300, 300, 4, 30);
-
-var gameState = 0;
-setBeforeGame();
+$('#pineconediv4,#pineconediv5,#pineconediv6').draggable(); 
 
 
-iniBackgroundEffects(1);
+var answer;
 
-// Game variables
+mathStageNine();
+//mathStageNineSecond();
+//mathStageNineThird();
 
-var firstNumber = 0;
-var secondNumber = 0;
-var questionAnswer = 0;
-var gameSpeed = 5;
 
-//Hinder Object
-var hinder = {
-    hinderX: W + ((Math.random() * (W / 2))),
-    hinderY: 0,
-    hinderWidth: W / 10,
-    hinderHeight: H / 8
 
-};
+function mathStageNine(){
+  
+    
+    var ansArray = new Array();
+    var text = "";
+    for(i = 0; i<1; i++){
+        var num1 = randomNumber(9) +2;
+        var num2 = randomNumber(10) +2;
+        ansArray.push(num1 * num2);
+       
+        text += num1 + " x " + num2 + " = " + "<br />";
+        
+    }
+    var answer = num1 * num2;
+     document.getElementById('question10').innerHTML = "Drag the correct pinecone to the squirrel <br /> for the multiplication below: <br />"+text;
+    
+     document.getElementById('pineconediv4').appendChild(document.createTextNode(answer));
+     document.getElementById('pineconediv5').appendChild(document.createTextNode(randomNumber(15)+30));
+     document.getElementById('pineconediv6').appendChild(document.createTextNode(randomNumber(10)+40));
+     //animations for the objects
+    
 
-//Math Objects
-var mathObjects = [];
-for(var i = 0; i < 4; i++) {
-    mathObjects.push({
-        name:"math" + (i + 1),
-        mathX:W + ((Math.random() * (W / 2))),
-        mathY:Math.random() * (H - 1) + 1,
-        mathW:W/40,
-        mathNumber:0});
 }
 
-//PlayerVariables
-var player = {
-    playerX: W / 12,
-    playerY: H / 2,
-    playerHeight: H / 8,
-    playerWidth: W / 10
-};
-
-var userInputX = 0;
-var userInputY = 0;
-
-// Player Controll
-var timer = 0;
-
-mouseMove = window.addEventListener("mousemove", function (event) {
-    userInputX = event.x;
-    userInputY = (event.y - middleCanvas.offsetTop) * 1.4;
-    event.preventDefault();
-});
-
-touchMove = window.addEventListener("touchmove", function (event) {
-    userInputX = event.touches[0].clientX;
-    userInputY = (event.touches[0].clientY - middleCanvas.offsetTop) * 1.4;
-}, false);
-
-touchStart = window.addEventListener("touchstart", function () {
-    if (timer === 0) {
-        timer = setInterval(movePlayer, 20);
+function mathStageNineSecond(){
+    
+   
+    
+    var ansArray = new Array();
+    var text = "";
+    for(i = 0; i<1; i++){
+        var num1 = randomNumber(4) +2;
+        var num2 = randomNumber(5) +3;
+        var num3 = randomNumber(5) +2;
+        ansArray.push(num1 * num2 * num3);
+       
+        text += num1 + " x " + num2 + " x " + num3 + " = " + "<br />";
+        
     }
-}, false);
+    var answer = num1 * num2 * num3;
+     document.getElementById('question10').innerHTML = "Drag the correct pinecone to the squirrel <br /> for the multiplication below: <br />"+text;
+    
+     document.getElementById('pineconediv4').appendChild(document.createTextNode(answer));
+     document.getElementById('pineconediv5').appendChild(document.createTextNode(randomNumber(10)+40));
+     document.getElementById('pineconediv6').appendChild(document.createTextNode(randomNumber(10)+20));
+      //animations for the objects
+    
+ 
+    document.getElementById('qanswers').innerHTML = "";
 
-touchEnd = window.addEventListener("touchend", function () {
-    clearInterval(timer);
-    timer = 0;
-}, false);
-
-mouseDown = window.addEventListener("mousedown", function () {
-    if (timer === 0) {
-        timer = setInterval(movePlayer, 20);
-    }
-}, false);
-
-mouseUp = window.addEventListener("mouseup", function () {
-    clearInterval(timer);
-    timer = 0;
-}, false);
-
-function movePlayer() {
-    if (userInputY < ((player.playerY + ((player.playerHeight) / 2)) - 24) && (player.playerY > 0)) {
-        player.playerY -= 10;
-    } else if (userInputY > ((player.playerY + (player.playerHeight / 2)) + 24) && player.playerY < (H - (player.playerHeight))) {
-        player.playerY += 10;
-    }
 }
 
 
-//Lets draw the flakes
-function draw()
-{
-    backCtx.clearRect(0, 0, W, H);
-    middleCtx.clearRect(0, 0, W, H);
-    frontCtx.clearRect(0, 0, W, H);
 
-    drawBack();
-    drawMiddle();
-    drawFront();
+function mathStageNineThird(){
+    
+   
+    
+    var ansArray = new Array();
+    var text = "";
+    for(i = 0; i<1; i++){
+        var num1 = randomNumber(10) +1;
+        var num2 = randomNumber(10) +3;
+        var num3 = randomNumber(5) +1;
+        ansArray.push(num1 * num2 * num3);
+       
+        text += num1 + " * " + num2 + " * " + num3 + " = " + "<br />";
+        
+    }
+    var answer = num1 * num2 * num3;
+     document.getElementById('question10').innerHTML = "Drag the correct pinecone to the squirrel <br /> for the multiplication below: <br />"+text;
+    
+     document.getElementById('pineconediv4').appendChild(document.createTextNode(answer));
+     document.getElementById('pineconediv5').appendChild(document.createTextNode(randomNumber(15)+2));
+     document.getElementById('pineconediv6').appendChild(document.createTextNode(randomNumber(10)+2));
 
-    function drawBack() {
-        updateBackgroundEffects(1);
+     //animations for the objects
+     
+ 
+
+}
+
+function removeChilds(){
+       var option1 = document.getElementById('pineconediv4');
+        option1.removeChild(option1.lastChild);
+        var option2 = document.getElementById('pineconediv5');
+        option2.removeChild(option2.lastChild);
+        var option3 = document.getElementById('pineconediv6');
+        option3.removeChild(option3.lastChild);
+    
+}
+
+function nextMath(){
+    removeChilds();
+    mathStageNineSecond();
+    
+}
+
+
+//Lets user know they were correct, 
+function victoryScreen() {
+    
+    document.getElementById('qanswers').innerHTML = "CORRECT!";
+    document.getElementById("mathbutton2").disabled = false;
+     
+
+}
+
+//lets user know they pressed wrong
+function sadnessScreen() {
+
+    document.getElementById('qanswers').innerHTML = "WRONG!";
+    reload();
+}
+
+
+//få random nummer 
+//@param opp til nummer upToo
+//@return random nummer
+function randomNumber(upToo) {
+    var randNumb = Math.floor(Math.random() * upToo);
+    return randNumb;
+}
+
+
+//shuffle array (like answer array) (Modern Fisher–Yates shuffle algorithm via 
+function shuffle(a) {
+    var j, x, i;
+    for (i = a.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1));
+        x = a[i];
+        a[i] = a[j];
+        a[j] = x;
+    }
+}
+
+
+
+window.setInterval(function() {
+    $('#result').text(collision_($('#pineconediv4'), $('#squirrel')));
+}, 200);
+ 
+function rand (min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}    
+
+function reload() {
+    goToNewScreen('source/worldSource/world03/stage12/stage12.html', 'source/worldSource/world03/stage12/stage12.js');
+    
+}
+
+function backToWorld() {
+    goToNewScreen('source/worldSource/world03/world03.html', 'source/worldSource/world03/world03.js');
+    } 
+    
+    
+    
+ function collision($pineconediv4, $squirrel) {
+      var x1 = $pineconediv4.offset().left;
+      var y1 = $pineconediv4.offset().top;
+      var h1 = $pineconediv4.outerHeight(true);
+      var w1 = $pineconediv4.outerWidth(true);
+      var b1 = y1 + h1;
+      var r1 = x1 + w1;
+      var x2 = $squirrel.offset().left;
+      var y2 = $squirrel.offset().top;
+      var h2 = $squirrel.outerHeight(true);
+      var w2 = $squirrel.outerWidth(true);
+      var b2 = y2 + h2;
+      var r2 = x2 + w2;
+        
+      if (b1 < y2 || y1 > b2 || r1 < x2 || x1 > r2) return false;
+      return true;
     }
 
-    function drawMiddle() {
-
-        middleCtx.fillStyle = "rgba(131, 92, 59, 1)";
-        middleCtx.beginPath();
-        middleCtx.rect(0, 0, W, H);
-        middleCtx.fill();
-
-        middleCtx.fillStyle = "rgba(255, 255, 255, 1)";
-        middleCtx.beginPath();
-        middleCtx.rect(player.playerX, player.playerY, player.playerWidth, player.playerHeight);
-        middleCtx.fill();
-        middleCtx.stroke();
-
-        if (gameState === 1) {
-
-            updateGame();
-
-            middleCtx.fillStyle = "rgba(0, 0, 0, 1)";
-            middleCtx.beginPath();
-            middleCtx.rect(hinder.hinderX, hinder.hinderY, hinder.hinderWidth, hinder.hinderHeight);
-            middleCtx.fill();
-
-            mathObjects.forEach(function(mathObject) {
-                middleCtx.fillStyle = "rgba(255, 200, 200, 0.6)";
-                middleCtx.beginPath();
-                middleCtx.arc(mathObject.mathX, mathObject.mathY, mathObject.mathW, 0, 2 * Math.PI);
-                middleCtx.fill();
-                middleCtx.fillStyle = "rgba(0, 0, 0, 1)";
-                middleCtx.font = "30px Arial";
-                middleCtx.fillText(mathObject.mathNumber, mathObject.mathX
-                    - (mathObject.mathW/2), mathObject.mathY
-                    + (mathObject.mathW/2));
-            });
+    function collision_() {
+    if (arguments.length > 1) {
+        for (var x = 0; x < arguments.length; x++) {
+            for (var y = 1; y < arguments.length; y++) {
+                if (x === y) {
+                    continue;
+                }
+                if (collision(arguments[x], arguments[y])) {
+                        victoryScreen();
+                        return true;
+                   
+                }
+            }
         }
-    }
-
-    function drawFront() {
-        frontCtx.drawImage(plussCharacter.image, plussCharacter.srcX, plussCharacter.srcY, plussCharacter.spriteWidth,
-                plussCharacter.spriteHeight, 0, 100, W / 4, H / 2);
-        plussCharacter.updateFrame();
-
+        return false;
+      
+        
     }
 }
 
-function updateGame() {
 
-    if (gameSpeed === 10) {
-        setWinGame();
-    } else if (gameSpeed === 0) {
-        setGameOver();
-    }
-
-    if(checkCollision(player.playerX, player.playerY, player.playerWidth, player.playerHeight,
-            hinder.hinderX, hinder.hinderY, hinder.hinderWidth, hinder.hinderHeight)) {
-        setGameOver();
-    }
-
-    hinder.hinderX -= gameSpeed + 1;
-    if (hinder.hinderX < -hinder.hinderWidth) {
-        hinder.hinderX = W + ((Math.random() * (W / 2)));
-        hinder.hinderY = (Math.random() * (H - 1)) + 1;
-    }
-
-    mathObjects.forEach(function(mathObject) {
-       if(checkCollision(player.playerX, player.playerY, player.playerWidth, player.playerHeight,
-               mathObject.mathX, mathObject.mathY, mathObject.mathW, mathObject.mathW)) {
-           if (mathObject.mathNumber === questionAnswer) {
-               gameSpeed++;
-               restartGame();
-           } else {
-               gameSpeed--;
-               restartGame();
-           }
-       }
-       mathObject.mathX -= gameSpeed;
-        if (mathObject.mathX < -mathObject.mathW) {
-            mathObject.mathX = W + ((Math.random() * (W / 2)));
-            mathObject.mathY = (Math.random() * (H - 1)) + 1;
-        }
-    });
-}
-
-function setGameOver() {
-    gameState = 0;
-    document.getElementById('myModal').style.display = "block";
-    document.getElementById("gameOverModalContent").style.display = "block";
-    document.getElementById("startModalContent").style.display = "none";
-    document.getElementById("winModalContent").style.display = "none";
-    restartGame();
-}
-
-function setStartGame() {
-    gameState = 1;
-    gameSpeed = 5;
-    document.getElementById('myModal').style.display = "none";
-    document.getElementById("gameOverModalContent").style.display = "none";
-    document.getElementById("startModalContent").style.display = "none";
-    document.getElementById("winModalContent").style.display = "none";
-
-    restartGame();
-}
-
-function setBeforeGame() {
-    gameState = 0;
-    document.getElementById('myModal').style.display = "block";
-    document.getElementById("gameOverModalContent").style.display = "none";
-    document.getElementById("startModalContent").style.display = "block";
-    document.getElementById("winModalContent").style.display = "none";
-}
-
-function setWinGame() {
-    gameState = 0;
-    document.getElementById('myModal').style.display = "block";
-    document.getElementById("gameOverModalContent").style.display = "none";
-    document.getElementById("startModalContent").style.display = "none";
-    document.getElementById("winModalContent").style.display = "block";
-}
-
-function restartGame() {
-    // Game variables
-    //Hinder Object
-
-    firstNumber = Math.round(Math.random() * 10);
-    secondNumber = Math.round(Math.random() * 10);
-    questionAnswer = firstNumber + secondNumber;
-
-    document.getElementById("questionBox").innerHTML 
-            = firstNumber + " + " + secondNumber + " = ??     Score: " 
-            + gameSpeed;
-
-    hinder.hinderX = W + ((Math.random() * (W / 2)));
-    hinder.hinderY = 0;
-    hinder.hinderWidth = W / 10;
-    hinder.hinderHeight = H / 8;
-
-    //Math Object
-    mathObjects.forEach(function(mathObject) {
-        mathObject.mathX = W + ((Math.random() * (W / 2)));
-        mathObject.mathY = Math.random() * (H - 1) + 1;
-        mathObject.mathW = W / 40;
-        mathObject.mathNumber = Math.round(Math.random() * 20);
-    });
-    mathObjects[0].mathNumber = firstNumber + secondNumber;
-}
-
-//animation loop, 60 fps
-animationLoop = setInterval(draw, 16);
+    

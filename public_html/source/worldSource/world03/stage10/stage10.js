@@ -156,14 +156,18 @@ function shuffle(a) {
  
    }
    //creates an area for the animation of the objects, width and heigth of stage background
-$('#animationArea').width($('#stage10background').width()).height(($('#stage10background').height()/2));
+//$('#animationArea').width($('#stage10background').width()).height(($('#stage10background').height()/2));
 
 
 function doNextPoint1(){
+    
+   $('#animationArea').width($('#stage10background').width());
+   $('#animationArea').height($('#stage10background').height());
+    var animationTop = $("#animationArea")[0].getBoundingClientRect();
     var maxX = $('#animationArea').width() - $('#pineconediv1').width();    
     var newX = rand(0, maxX);    
-    var maxY = $('#animationArea').height() + $('#pineconediv1').height();
-    var newY = rand(0, maxY);
+    var maxY = $('#animationArea').height() - $('#pineconediv1').height();
+    var newY = rand(animationTop.top, maxY);
     var speed  = rand (1000, 3000);
     
     $('#pineconediv1').animate({
@@ -178,14 +182,15 @@ function doNextPoint1(){
     
     
 }
-$('#animationArea').width($('#stage10background').width()).height(($('#stage10background').height()/2));
+//$('#animationArea').width($('#stage10background').width()).height(($('#stage10background').height()/2));
 
 
 function doNextPoint2(){
+    var animationTop = $("#animationArea")[0].getBoundingClientRect();
     var maxX = $('#animationArea').width() - $('#pineconediv2').width();    
     var newX = rand(0, maxX);    
-    var maxY = $('#animationArea').height() + $('#pineconediv2').height();
-    var newY = rand(0, maxY);
+    var maxY = $('#animationArea').height() - $('#pineconediv2').height();
+    var newY = rand(animationTop.top, maxY);
     var speed  = rand (1000, 3000);
     
     $('#pineconediv2').animate({
@@ -195,20 +200,17 @@ function doNextPoint2(){
     }, speed, function(){
         doNextPoint2();    
     });
-    
- 
-    
+
 }
-
-
-$('#animationArea').width($('#stage10background').width()).height(($('#stage10background').height()/2));
+//$('#animationArea').width($('#stage10background').width()).height(($('#stage10background').height()/2));
 
 
 function doNextPoint3(){
+    var animationTop = $("#animationArea")[0].getBoundingClientRect();
     var maxX = $('#animationArea').width() - $('#pineconediv3').width();    
     var newX = rand(0, maxX);    
-    var maxY = $('#animationArea').height() + $('#pineconediv3').height();
-    var newY = rand(0, maxY);
+    var maxY = $('#animationArea').height() - $('#pineconediv3').height();
+    var newY = rand(animationTop.top, maxY);
     var speed  = rand (1000, 3000);
     
     $('#pineconediv3').animate({
@@ -219,11 +221,7 @@ function doNextPoint3(){
         doNextPoint3();    
     });
     
-    
-    
-    
 }
- 
 function rand (min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }    
