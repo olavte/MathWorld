@@ -1,12 +1,21 @@
 
 $('#pineconediv4,#pineconediv5,#pineconediv6').draggable(); 
 
+var pinecones = $(".divshuffle");
+for(var i = 0; i < pinecones.length; i++){
+    var target = Math.floor(Math.random() * pinecones.length -1) + 1;
+    var target2 = Math.floor(Math.random() * pinecones.length -1) +1;
+    pinecones.eq(target).before(pinecones.eq(target2));
+}
+
 
 var answer;
-
+currentQuestion=1;
 mathStageNine();
 //mathStageNineSecond();
 //mathStageNineThird();
+
+var changeMathDelay = 1000;
 
 
 
@@ -24,7 +33,8 @@ function mathStageNine(){
         
     }
     var answer = num1 * num2;
-     document.getElementById('question10').innerHTML = "Drag the correct pinecone to the squirrel <br /> for the multiplication below: <br />"+text;
+     document.getElementById('question10').innerHTML = "Drag the correct pinecone to the squirrel <br />\n\
+                                                       for the multiplication below: <br />"+text;
     
      document.getElementById('pineconediv4').appendChild(document.createTextNode(answer));
      document.getElementById('pineconediv5').appendChild(document.createTextNode(randomNumber(15)+30));
@@ -50,7 +60,8 @@ function mathStageNineSecond(){
         
     }
     var answer = num1 * num2 * num3;
-     document.getElementById('question10').innerHTML = "Drag the correct pinecone to the squirrel <br /> for the multiplication below: <br />"+text;
+     document.getElementById('question10').innerHTML = "Drag the correct pinecone to the squirrel <br />\n\
+                                                        for the multiplication below: <br />"+text;
     
      document.getElementById('pineconediv4').appendChild(document.createTextNode(answer));
      document.getElementById('pineconediv5').appendChild(document.createTextNode(randomNumber(10)+40));
@@ -104,25 +115,44 @@ function removeChilds(){
 
 function nextMath(){
     removeChilds();
-    mathStageNineSecond();
+    creditsMoney += 50;
+    reload();
+
     
+   
+   
+    setTimeout(function() {
+    removeChilds();
+    mathStageNineSecond();
+}, changeMathDelay);
+    
+   
 }
 
 
 //Lets user know they were correct, 
 function victoryScreen() {
-    
+    removeChilds();
     document.getElementById('qanswers').innerHTML = "CORRECT!";
     document.getElementById("mathbutton2").disabled = false;
-     
+    
+   
+   
+    nextMath(); 
 
+    
+   
+    
+
+   
+      
 }
 
 //lets user know they pressed wrong
 function sadnessScreen() {
 
     document.getElementById('qanswers').innerHTML = "WRONG!";
-    reload();
+    
 }
 
 
@@ -206,4 +236,3 @@ function backToWorld() {
 }
 
 
-    

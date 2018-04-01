@@ -5,53 +5,58 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <div id="stage12">
-     
+
     <div id="squirrel" >     
     </div>
+
+
+
+    <div class="stage10buttons">
+        <button id="mathbutton2" onclick='nextMath()' style='height:50px;width:100px' disabled="true" >
+            Next
+        </button>
+    </div>
+
+    <div class="stage10buttons">
+        <button class="backbutton" onclick="backToWorld()" style='height:50px;width:100px' >
+            Back
+        </button>
+    </div>
+    <div class="stage10buttons">
+        <button class="minigamebutton" onclick="reload()" style='height:50px;width:100px' >
+            Reload
+        </button>
+    </div> 
+
+    <h1 id="stageTitle">Squirrely is hungry!!</h1>
+
+
+
+    <div id="question10"></div>
     
-    
-     
-        <div class="stage10buttons">
-     <button id="mathbutton2" onclick='nextMath()' style='height:50px;width:100px' disabled="true" >
-                Next
-            </button>
+        <div class="divshuffle" id ="pineconediv4">
+            <img class ="pineconepic" src="assets/world3/pinecone.png">
         </div>
-        
-            <div class="stage10buttons">
-                <button class="backbutton" onclick="backToWorld()" style='height:50px;width:100px' >
-                    Back
-                </button>
-            </div>
-            <div class="stage10buttons">
-                <button class="minigamebutton" onclick="reload()" style='height:50px;width:100px' >
-                    Reload
-                </button>
-            </div> 
     
-<h1 id="stageTitle">Squirrely is hungry!!</h1>
-       
-      
+
+    
+        <div class="divshuffle" id ="pineconediv5" >
+            <img class ="pineconepic" src="assets/world3/pinecone.png">
+        </div>  
         
-        <div id="question10"></div>
-       
-            <div id ="pineconediv4">
-                <img class ="pineconepic" src="assets/world3/pinecone.png">
-            </div>
-            <div id ="pineconediv5">
-                <img class ="pineconepic" src="assets/world3/pinecone.png">
-            </div>  
-            <div id ="pineconediv6">
-                <img class ="pineconepic" src="assets/world3/pinecone.png">
-            </div>
-            
-            
-        </div>
-        
-        <div id="qanswers"></div>
+    
+        <div class="divshuffle" id ="pineconediv6" >
+            <img class ="pineconepic" src="assets/world3/pinecone.png">
        
 
-        
-    
-    
+    </div>  
+</div>
+
+<div id="qanswers"></div>
+
+
+
+
+
 
 <canvas id="world3Canvas"></canvas> 
