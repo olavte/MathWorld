@@ -5,7 +5,7 @@ var tiles_flipped = 0;
 
 
 //canvas init
-iniBack("world4StageCanvas")
+iniBack("world4StageCanvas");
 
 var divisionCharacter = createAnimatedSprite('assets/characters/divisionCharSpr.png', 1200, 300, 300, 300, 22, 1);
 

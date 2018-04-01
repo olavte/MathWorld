@@ -44,7 +44,7 @@ var currentQuestion = 1;
 
 //functions for math and questions below
 function backToWorld() {
-    goToNewScreen('source/worldSource/world01/world01.html', 'source/worldSource/world01/world01.js');
+    goToNewScreen('source/worldSource/world04/world04.html', 'source/worldSource/world04/world04.js');
 }
 
 function victoryScreen() {
@@ -158,6 +158,6 @@ function clikedPic(clickedId) {
 }
 
 function reload() {
-    goToNewScreen('source/worldSource/world01/stage01/stage01.html', 'source/worldSource/world01/stage01/stage01.js');
+    goToNewScreen('source/worldSource/world04/stage13/stage13.html', 'source/worldSource/world04/stage13/stage13.js');
 }
 

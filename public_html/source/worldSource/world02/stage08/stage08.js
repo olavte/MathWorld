@@ -268,7 +268,7 @@ function restartGame() {
 }
 
 function backToWorld() {
-    goToNewScreen('source/worldSource/world02/world02.html', 'source/worldSource/world02/world02.js');
+    goToNewScreen('source/worldSource/world03/world03.html', 'source/worldSource/world03/world03.js');
 }
 
 //animation loop, 60 fps

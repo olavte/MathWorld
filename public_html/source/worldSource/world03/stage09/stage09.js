@@ -44,7 +44,7 @@ var currentQuestion = 1;
 
 //functions for math and questions below
 function backToWorld() {
-    goToNewScreen('source/worldSource/world01/world01.html', 'source/worldSource/world01/world01.js');
+    goToNewScreen('source/worldSource/world03/world03.html', 'source/worldSource/world03/world03.js');
 }
 
 function victoryScreen() {
