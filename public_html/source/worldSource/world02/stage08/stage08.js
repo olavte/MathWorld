@@ -12,8 +12,8 @@ var hasSelected = false;
 var numb1 = randomNumber(20);
 var numb2 = randomNumber(30);
 var numb3 = numb1 + numb2;
-
-
+var options = [numb1, numb2, numb3];
+shuffle(options);
 
 
 
@@ -32,7 +32,7 @@ elements.push({
     height: 75,
     top: H - 175,
     left: W/2 - 105,
-    number: numb1
+    number: ""
     
 }, {
     colour: 'blue',
@@ -40,14 +40,14 @@ elements.push({
     height: 75,
     top: H - 175,
     left: W/2,
-    number: numb2
+    number: ""
     }, {
     colour: 'green',
     width: 75,
     height: 75,
     top: H - 175,
     left: W/2 + 105,
-    number: numb3
+    number: ""
     });
 
 var computerOptions = [];
@@ -75,13 +75,12 @@ computerOptions.push({
     number: ""
     });
 
-
 startGame();
 
 function startGame()
 {   
-    shuffle(elements);
     drawMiddle();
+    headLine("Add the numbers in the right order");
 
 }
 
@@ -89,14 +88,24 @@ function drawMiddle() {
         middleCtx.clearRect(0, 0, W, H);
         middleCtx.fillStyle = "white";
         middleCtx.fillRect(0, 0, W, H);
-        var numbString = "";
-        //minus signs
+        
+        
+        //minus and equal signs
         middleCtx.fillStyle = "black";
         middleCtx.font="100px Arial";
-        middleCtx.fillText("-", computerOptions[0].left + 240, 445);
-        middleCtx.fillText("=", computerOptions[1].left + 240, 445);
-        for (var i = 0; i < elements.length; i++) {
+        middleCtx.fillText("-", W/2 - 110, 445);
+        middleCtx.fillText("=", W/2 + 240, 445);
+        
+        drawOptions();
+        drawMath();
+    }
+
+//the number options
+function drawOptions() {
+            var numbString = "";
+            for (var i = 0; i < elements.length; i++) {
             var el = elements[i];
+            el.number = options[i];
             numbString = el.number;
 
             if(el === selectedRec) {
@@ -118,19 +127,27 @@ function drawMiddle() {
                
 
             }
-        for (var i = 0; i < computerOptions.length; i++) {
+    
+}
+//the empty rectangles to be filled with numbers
+function drawMath() {
+            var numbString = "";
+            
+            for (var i = 0; i < computerOptions.length; i++) {
             
             var cs = computerOptions[i];
             numbString = cs.number;
             
             if(cs === selectedRec2) {    
+                middleCtx.fillStyle = "black";
+                middleCtx.fillRect(cs.left - 6, cs.top - 6, cs.width + 12, cs.height + 12);
                 middleCtx.fillStyle = "white";
                 middleCtx.fillRect(cs.left, cs.top, cs.width, cs.height);
             } else {
                 
                 middleCtx.fillStyle = "black";
                 middleCtx.fillRect(cs.left - 6, cs.top - 6, cs.width + 12, cs.height + 12);
-                middleCtx.fillStyle = "white";
+                middleCtx.fillStyle = "grey";
                 middleCtx.fillRect(cs.left, cs.top, cs.width, cs.height);
                 
             }
@@ -142,8 +159,8 @@ function drawMiddle() {
             middleCtx.fillText(numbString, cs.left + (cs.width / 2), cs.top + (cs.height / 2));
             
             }
-    }
-
+    
+}
 
 // Add event listener for `click` events.
 middleCanvas.addEventListener('click', function(event) {
@@ -184,26 +201,36 @@ middleCanvas.addEventListener('click', function(event) {
 }, false);
 
 function checkAnswer() {
-    
+        
         var first = computerOptions[0];
         var second = computerOptions[1];
         var third = computerOptions[2];
         if((first.number - second.number) === third.number) {
-            alert("correct!");
+            headLine("Correct!");
         } else {
-            alert("wrong, you got" + (first.number - second.number));
+            headLine("Hmm no, this will give you " + (first.number - second.number) + ", try again");
         }
    
 }
 
+function headLine(text) {
+
+    
+    middleCtx.fillStyle = "black";
+    middleCtx.font="50px Arial";
+    middleCtx.fillText(text, W/2, 50);
+    
+}
+
 //shuffle array (like answer array) (Modern Fisher–Yates shuffle algorithm via 
-function shuffle(a) {
-    var j, x, i;
-    for (i = a.length - 1; i > 0; i--) {
-        j = Math.floor(Math.random() * (i + 1));
-        x = a[i];
-        a[i] = a[j];
-        a[j] = x;
+
+function shuffle(sourceArray) {
+    for (var n = 0; n < sourceArray.length - 1; n++) {
+        var k = n + Math.floor(Math.random() * (sourceArray.length - n));
+
+        var temp = sourceArray[k];
+        sourceArray[k] = sourceArray[n];
+        sourceArray[n] = temp;
     }
 }
 
