@@ -624,3 +624,6 @@ div#memory_board > div{
     margin:40px;
     float:left;
 }
+#centeredButtons{
+    text-align: center;
+}
