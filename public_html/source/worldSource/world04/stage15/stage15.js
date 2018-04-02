@@ -136,13 +136,13 @@ function question1() {
             var questionFieldId = "questionField" + i;
             
             var firstNumber, secondNumber, ans;
-            
+        
             while (decimalCheck) {
-                firstNumber = randomNumber(12);
-                secondNumber = randomNumber(12);
+                firstNumber = randomNumber(30);
+                secondNumber = randomNumber(30);
                 ans = firstNumber / secondNumber;
                 
-                if(countDecimals(ans) === 0) {
+                if((countDecimals(ans) === 0) && (ans != 1)) {
                     decimalCheck = false;
                 }
             }
