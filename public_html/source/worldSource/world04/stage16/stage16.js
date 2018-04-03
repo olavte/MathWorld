@@ -28,7 +28,7 @@ animationLoop = setInterval(draw, 33);
 //få random nummer 
 //@param opp til nummer upToo
 //@return random nummer
-function randomNumber(upTo) {
+function divRandomNumber(upTo) {
     var zeroCheck = true;
     while (zeroCheck) {
         var randNumb = Math.floor(Math.random() * upTo);
@@ -61,8 +61,8 @@ function fillArray() {
         var firstNumber, secondNumber, ans;
         
             while (decimalCheck) {
-                firstNumber = randomNumber(100);
-                secondNumber = randomNumber(12);
+                firstNumber = divRandomNumber(100);
+                secondNumber = divRandomNumber(12);
                 ans = firstNumber / secondNumber;
                 
                 if((countDecimals(ans) === 0) && (ans != 1) && (ans < 13)) {

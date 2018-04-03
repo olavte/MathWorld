@@ -443,7 +443,3 @@ function updateBackgroundEffects(effect) {
             break;
     }
 }
-
-//Start the game
-goToNewScreen("source/mainMenuSource/startScreen/startScreen.html",
-    "source/mainMenuSource/startScreen/startScreen.js");
