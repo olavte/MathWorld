@@ -168,29 +168,29 @@ function draw() {
                 frontCtx.fillText("2", W * (3 / 4), H / 2, W / 8);
 
                 if (questionAnswer === 1) {
-                    middleCtx.fillStyle = "rgba(150,255,150,0.1)";
+                    middleCtx.fillStyle = "rgba(200,255,200,0.3)";
                     middleCtx.beginPath();
                     middleCtx.rect(0, 0, W / 2, H);
                     middleCtx.fill();
 
-                    middleCtx.fillStyle = "rgba(255,150,150,0.1)";
+                    middleCtx.fillStyle = "rgba(255,200,200,0.3)";
                     middleCtx.beginPath();
                     middleCtx.rect(W / 2, 0, W / 2, H);
                     middleCtx.fill();
                 } else {
-                    middleCtx.fillStyle = "rgba(255,150,150,0.1)";
+                    middleCtx.fillStyle = "rgba(255,200,200,0.3)";
                     middleCtx.beginPath();
                     middleCtx.rect(0, 0, W / 2, H);
                     middleCtx.fill();
 
-                    middleCtx.fillStyle = "rgba(150,255,150,0.1)";
+                    middleCtx.fillStyle = "rgba(200,255,200,0.3)";
                     middleCtx.beginPath();
                     middleCtx.rect(W / 2, 0, W / 2, H);
                     middleCtx.fill();
                 }
             }
 
-            middleCtx.fillStyle = "rgba(25, 20, 20, 1)";
+            middleCtx.fillStyle = "rgba(55, 50, 50, 1)";
             middleCtx.beginPath();
             middleCtx.rect(hinder.hinderX, hinder.hinderY, hinder.hinderWidth, hinder.hinderHeight);
             middleCtx.fill();
