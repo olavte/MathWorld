@@ -6,6 +6,7 @@
 
 //Creating the global game controllers
 
+
 var gameScreen = document.createElement('div');
 gameScreen.id = "gameScreen";
 document.body.appendChild(gameScreen);
@@ -14,6 +15,22 @@ var currentWorld = 0;
 var currentStage = 0;
 var worldKeys = 0;
 var creditsMoney = 0;
+
+var cookies = [];
+cookies = document.cookie.split("; ");
+for(var i = 0; i < cookies.length; i++) {
+    var name = cookies[i].split('=')[0];
+    var value = cookies[i].split('=')[1];
+    if (name === "currentWorld") {
+        currentWorld = value;
+    } else if (name === "currentStage") {
+        currentStage = value;
+    } else if (name === "worldKeys") {
+        worldKeys = value;
+    } else if (name === "creditsMoney") {
+        creditsMoney = value;
+    }
+}
 
 var animationLoop = null;
 
@@ -32,7 +49,6 @@ var spaceMusic = new Audio('assets/music/space.mp3');
 var norwayMusic = new Audio('assets/music/winter.mp3');
 var crazyMusic = new Audio('assets/music/crazy.mp3');
 var heartbeatMusic = new Audio('assets/music/heartbeat.mp3');
-var droneMusic = new Audio('assets/music/drone.mp3');
 var parisMusic = new Audio('assets/music/parisMusic.mp3');
 
 var currentMusic = null;
@@ -92,6 +108,12 @@ function goToNewScreen(html, js) {
             if (animationLoop != null) {
                 clearAnimation();
             }
+
+            document.cookie= "currentWorld=" + currentWorld + ";";
+            document.cookie= "currentStage=" + currentStage + ";";
+            document.cookie= "worldKeys=" + worldKeys + ";";
+            document.cookie= "creditsMoney=" + creditsMoney + ";";
+
             gameScreen.innerHTML = this.responseText;
             fadeIn(gameScreen);
             var script = document.createElement('script');

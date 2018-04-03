@@ -289,6 +289,8 @@ button[disabled]{
     margin-left: -34px;
 }
 
+
+
 /* World top bar */
 
 .worldTopBar {
@@ -456,10 +458,6 @@ svg {
     bottom: 20vh;
 }
 
-#world2Door {
-
-}
-
 /*world 3 css */
 
 #world3Canvas{
@@ -476,14 +474,6 @@ svg {
     z-index:-1;
     
 }
-
-#selectWorld3Button{
-    background-image: url("../assets/world3/world03.png");
-background-repeat: no-repeat;
-background-size: 100%;
-    
-}
-
 
 #pineconediv1{
      font-size:30px;
