@@ -22,12 +22,11 @@ if(currentStage >= 4 && worldKeys < 1) {
 
 }
 
-updateCookies();
-
 document.getElementById("currentStageScore").innerHTML = "Level: " + currentStage;
 document.getElementById("currentKeys").innerHTML = "Keys: " + worldKeys;
 document.getElementById("currentCredits").innerHTML = "Credits: " + creditsMoney;
 
+updateCookies();
 
 function goToMenu(x) {
     x.classList.toggle("change");
