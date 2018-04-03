@@ -7,7 +7,6 @@
 
 //canvas init
 
-
 var middleCanvas = document.getElementById("middleCanvas");
 var middleCtx = middleCanvas.getContext("2d");
 
@@ -123,14 +122,16 @@ function playerSelecting() {
     
     elements = [];
     elements.push(newSelected);
-    
-    if(computerSelected !== null) {
+    setTimeout(function(){
+        if(computerSelected !== null) {
             drawMiddle();
         } else {
             computerSelecting();
-        }
-        
-    determineWinner();
+        };
+        determineWinner();
+    }, 500);
+    
+
 }
 
 
@@ -232,11 +233,14 @@ function randomNumber(upToo) {
 }
 
 function reload() {
-    goToNewScreen('source/worldSource/world01/Minigames/RockPaperScissor/rockPaperScissor.html', 'source/worldSource/world01/Minigames/RockPaperScissor/rockPaperScissor.js');
+    goToNewScreen('source/miniGameSource/rockPaperScissor/rockPaperScissor.html', 'source/miniGameSource/rockPaperScissor/rockPaperScissor.js');
 }
 
 function backToWorld() {
-    goToNewScreen('source/worldSource/world01/world01.html', 'source/worldSource/world01/world01.js');
+    goToNewScreen('source/worldSource/world02/world02.html', 'source/worldSource/world02/world02.js');
+}
+function backToMenu() {
+    goToNewScreen('source/mainMenuSource/mainMenu/mainMenu.html', 'source/mainMenuSource/mainMenu/mainMenu.js');
 }
 
 function rulesVisual() {

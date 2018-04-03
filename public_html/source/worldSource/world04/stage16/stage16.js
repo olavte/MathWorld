@@ -5,7 +5,7 @@ var tiles_flipped = 0;
 
 
 //canvas init
-iniBack("world4StageCanvas")
+iniBack("world4StageCanvas");
 
 var divisionCharacter = createAnimatedSprite('assets/characters/divisionCharSpr.png', 1200, 300, 300, 300, 22, 1);
 
@@ -28,7 +28,7 @@ animationLoop = setInterval(draw, 33);
 //få random nummer 
 //@param opp til nummer upToo
 //@return random nummer
-function randomNumber(upTo) {
+function divRandomNumber(upTo) {
     var zeroCheck = true;
     while (zeroCheck) {
         var randNumb = Math.floor(Math.random() * upTo);
@@ -61,11 +61,11 @@ function fillArray() {
         var firstNumber, secondNumber, ans;
         
             while (decimalCheck) {
-                firstNumber = randomNumber(30);
-                secondNumber = randomNumber(30);
+                firstNumber = divRandomNumber(100);
+                secondNumber = divRandomNumber(12);
                 ans = firstNumber / secondNumber;
                 
-                if((countDecimals(ans) === 0) && (ans != 1)) {
+                if((countDecimals(ans) === 0) && (ans != 1) && (ans < 13)) {
                     decimalCheck = false;
                 }
             }

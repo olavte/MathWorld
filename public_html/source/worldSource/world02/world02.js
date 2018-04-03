@@ -12,12 +12,14 @@ document.getElementById("currentStageScore").innerHTML = "Level: " + currentStag
 document.getElementById("currentKeys").innerHTML = "Keys: " + worldKeys;
 document.getElementById("currentCredits").innerHTML = "Credits: " + creditsMoney;
 
+updateCookies();
+
 //canvas init
 iniBack('world2Canvas');
 
 var minusCharacter = createAnimatedSprite('assets/characters/minusCharSpr.png', 8400, 300, 600, 300, 14, 2);
 
-playMusic(startMenuMusic);
+playMusic(parisMusic);
 
 //snowflake particles
 iniBackgroundEffects(1);
