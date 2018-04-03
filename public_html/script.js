@@ -126,6 +126,13 @@ function goToNewScreen(html, js) {
     xhttp.send();
 }
 
+function updateCookies() {
+    document.cookie= "currentWorld=" + currentWorld + ";";
+    document.cookie= "currentStage=" + currentStage + ";";
+    document.cookie= "worldKeys=" + worldKeys + ";";
+    document.cookie= "creditsMoney=" + creditsMoney + ";";
+}
+
 function addExtraScript(js) {
     var script = document.createElement('script');
     script.type = 'text/javascript';

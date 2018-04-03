@@ -12,6 +12,8 @@ document.getElementById("currentStageScore").innerHTML = "Level: " + currentStag
 document.getElementById("currentKeys").innerHTML = "Keys: " + worldKeys;
 document.getElementById("currentCredits").innerHTML = "Credits: " + creditsMoney;
 
+updateCookies();
+
 //canvas init
 iniBack('world2Canvas');
 
