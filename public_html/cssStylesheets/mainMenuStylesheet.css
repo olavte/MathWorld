@@ -157,7 +157,7 @@ input {
 
 
 .selectWorldButton {
-    width: 23%;
+    width: 22%;
     margin: 2% 5%;
     height: 16vh;
     transition: all 1.5s;
@@ -184,17 +184,27 @@ input {
 
 #selectWorld1Button {
     background: url("../assets/world1/world1photo.png") no-repeat;
-    background-size: 100%;
+    box-sizing: border-box;
+    background-size: 100% 100%;
 }
 
 #selectWorld2Button {
     background: url("../assets/world2/world2.png") no-repeat;
-    background-size: 100%;
+    box-sizing: border-box;
+    background-size: 100% 100%;
+}
+
+#selectWorld3Button{
+    background: url("../assets/world3/world03.png") no-repeat;
+    box-sizing: border-box;
+    background-size: 100% 100%;
+
 }
 
 #selectWorld5Button {
     background: url("../assets/world5/world5.png") no-repeat;
-    background-size: 100%;
+    box-sizing: border-box;
+    background-size: 100% 100%;
 }
 
 #back-button {

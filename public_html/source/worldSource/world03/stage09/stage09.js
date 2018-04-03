@@ -44,7 +44,7 @@ var currentQuestion = 1;
 
 //functions for math and questions below
 function backToWorld() {
-    goToNewScreen('source/worldSource/world01/world01.html', 'source/worldSource/world01/world01.js');
+    goToNewScreen('source/worldSource/world03/world03.html', 'source/worldSource/world03/world03.js');
 }
 
 function victoryScreen() {
@@ -58,6 +58,7 @@ function victoryScreen() {
         if(currentStage < 9) {
             currentStage = 9;
         }
+        creditsMoney += 50;
         questionToLoad = backToWorld();
     }
 
@@ -118,7 +119,7 @@ function question(dificulty) {
    
     document.getElementById('questionText').innerHTML ="This pinecone is " + firstNumber + 
             
-            " grams, how many of them can you have to reach" + firstNumber * secondNumber + " ?";
+            " grams, how many of them can you have to reach " + firstNumber * secondNumber + " ?";
    
    
     document.getElementById('questionPicture').innerHTML = "<img src='assets/world3/pinecone.png' class = '.centered' style = 'height: 100px;'>";
@@ -139,11 +140,7 @@ function question(dificulty) {
         thisOption.value = options[i];
     }
     
-    if(totalGrams === answer){
-        victoryScreen();
-    } else if(totalGrams !== answer) {
-        sadnessScreen();
-    }
+   
     
 }
 

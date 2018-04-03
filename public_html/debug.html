@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/qunit/2.4.1/qunit.css">
+        <title>Unit Tests</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div id="qunit"></div>
+        <div id="qunit-fixture"></div>
+        
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/qunit/2.4.1/qunit.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js"></script>
+        <script src="//s3-us-west-2.amazonaws.com/s.cdpn.io/16327/MorphSVGPlugin.min.js"></script>
+        <script src="//static.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/4.0.1/math.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+        <script src="script.js"></script> 
+        <script src="source/worldSource/world04/stage16/stage16.js"></script>
+        <script src="source/worldSource/world01/stage01/stage01.js"></script>
+        <script>
+            QUnit.test( "Stage 16 - divRandomNumber()", function( assert ) {
+                var value = divRandomNumber(4);
+                assert.notEqual( value, "0", "Value should not be 0." );
+                assert.notEqual( value, "1", "Value should not be 1.");
+            });
+            
+            QUnit.test( "Stage01 - randomNumber()", function( assert ) {
+                var value = randomNumber(4);
+                assert.ok( value >= 0 , "Value should be larger than or equal to 0." );
+                assert.ok( value <= 4 , "Value should be less than or equal to 4." );
+            });
+        </script>
+        
+    </body>
+</html>

@@ -5,35 +5,32 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <div id="stage12">
-
-    <div id="squirrel" >     
+     
+    
+    
+    <div id="squirrel" > 
+        <img src="assets/world3/squirrel.png">
     </div>
 
-
-
-    <div class="stage10buttons">
-        <button id="mathbutton2" onclick='nextMath()' style='height:50px;width:100px' disabled="true" >
-            Next
-        </button>
-    </div>
 
     <div class="stage10buttons">
         <button class="backbutton" onclick="backToWorld()" style='height:50px;width:100px' >
             Back
         </button>
-    </div>
-    <div class="stage10buttons">
+   
         <button class="minigamebutton" onclick="reload()" style='height:50px;width:100px' >
             Reload
         </button>
+        
+        <button id="mathbutton2" onclick="nextMath()" style='height:50px;width:100px' disabled="true" >
+            Next 
+        </button>
     </div> 
-
-    <h1 id="stageTitle">Squirrely is hungry!!</h1>
-
-
-
-    <div id="question10"></div>
     
+    <h1 id="stageTitle">Squirrely is hungry!!</h1>
+   
+    <div id="question10"></div>
+    <div id="qanswers"></div>
         <div class="divshuffle" id ="pineconediv4">
             <img class ="pineconepic" src="assets/world3/pinecone.png">
         </div>
@@ -49,10 +46,11 @@ and open the template in the editor.
             <img class ="pineconepic" src="assets/world3/pinecone.png">
        
 
-    </div>  
+  
+    </div>
 </div>
 
-<div id="qanswers"></div>
+
 
 
 

@@ -9,7 +9,7 @@ var letterArray = answer.split("");
 var mathAnswers = [];
 
 //canvas init
-iniBack("world4StageCanvas")
+iniBack("world4StageCanvas");
 
 var divisionCharacter = createAnimatedSprite('assets/characters/divisionCharSpr.png', 1200, 300, 300, 300, 22, 1);
 
@@ -136,13 +136,13 @@ function question1() {
             var questionFieldId = "questionField" + i;
             
             var firstNumber, secondNumber, ans;
-            
+        
             while (decimalCheck) {
-                firstNumber = randomNumber(12);
+                firstNumber = randomNumber(100);
                 secondNumber = randomNumber(12);
                 ans = firstNumber / secondNumber;
                 
-                if(countDecimals(ans) === 0) {
+                if((countDecimals(ans) === 0) && (ans != 1) && (ans < 13)) {
                     decimalCheck = false;
                 }
             }

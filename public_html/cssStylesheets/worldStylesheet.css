@@ -289,6 +289,8 @@ button[disabled]{
     margin-left: -34px;
 }
 
+
+
 /* World top bar */
 
 .worldTopBar {
@@ -403,10 +405,12 @@ button[disabled]{
 }
 
 #qanswers{
-    font-size:30px;
+    font-size:60px;
     font-family:"Open Sans";
     color:black;
     text-align: center;
+    position:absolute;
+    left:800px;
 }
 
 #exitbutton{  
@@ -456,10 +460,6 @@ svg {
     bottom: 20vh;
 }
 
-#world2Door {
-
-}
-
 /*world 3 css */
 
 #world3Canvas{
@@ -476,14 +476,6 @@ svg {
     z-index:-1;
     
 }
-
-#selectWorld3Button{
-    background-image: url("../assets/world3/world03.png");
-background-repeat: no-repeat;
-background-size: 100%;
-    
-}
-
 
 #pineconediv1{
      font-size:30px;
@@ -583,6 +575,11 @@ background-size: 100%;
 .stage10buttons{
     
     float:left;
+    margin:2px;
+    position:absolute;
+    display:table-column;
+    
+    
     
 }
 
@@ -612,8 +609,8 @@ div#memory_board > div{
 
 #squirrel{
 	  position: absolute;
-          background-image:url("../assets/world3/squirrel.png");
-	  width: 50%;
+          /*background-image:url("../assets/world3/squirrel.png");*/
+	  width: 15%;
 	  height: 50%;
           background-repeat: no-repeat;	 
           top:700px;
@@ -623,4 +620,7 @@ div#memory_board > div{
 .divshuffle{
     margin:40px;
     float:left;
+}
+#centeredButtons{
+    text-align: center;
 }

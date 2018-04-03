@@ -1,275 +1,252 @@
-/* 
- */
-//document.getElementById('myModal').style.display = "block";
-//document.getElementById('stage2StartModalContent').style.display = "block";
-
+// get canvas related references
 //canvas init
 
-iniBack("world2Canvas");
+var middleCanvas = document.getElementById("middleCanvas");
+var middleCtx = middleCanvas.getContext("2d");
 
-iniMiddle("middleCanvas");
-
-iniFront("frontCanvas");
-
-//Music
-playMusic(fightMusic);
-var minusCharacter = createAnimatedSprite('assets/characters/minusCharSpr.png', 8400, 300, 600, 300, 14, 2);
-
-var gameState = 0;
-setBeforeGame();
-
-
-iniBackgroundEffects(1);
-
-// Game variables
-
-var firstNumber = 0;
-var secondNumber = 0;
-var questionAnswer = 0;
-var gameSpeed = 5;
-
-//Hinder Object
-var hinder = {
-    hinderX: W + ((Math.random() * (W / 2))),
-    hinderY: 0,
-    hinderWidth: W / 10,
-    hinderHeight: H / 8
-
-};
-
-//Math Objects
-var mathObjects = [];
-for(var i = 0; i < 4; i++) {
-    mathObjects.push({
-        name:"math" + (i + 1),
-        mathX:W + ((Math.random() * (W / 2))),
-        mathY:Math.random() * (H - 1) + 1,
-        mathW:W/40,
-        mathNumber:0});
-}
-
-//PlayerVariables
-var player = {
-    playerX: W / 12,
-    playerY: H / 2,
-    playerHeight: H / 8,
-    playerWidth: W / 10
-};
-
-var userInputX = 0;
-var userInputY = 0;
-
-// Player Controll
-var timer = 0;
-
-mouseMove = window.addEventListener("mousemove", function (event) {
-    userInputX = event.x;
-    userInputY = (event.y - middleCanvas.offsetTop) * 1.4;
-    event.preventDefault();
-});
-
-touchMove = window.addEventListener("touchmove", function (event) {
-    userInputX = event.touches[0].clientX;
-    userInputY = (event.touches[0].clientY - middleCanvas.offsetTop) * 1.4;
-}, false);
-
-touchStart = window.addEventListener("touchstart", function () {
-    if (timer === 0) {
-        timer = setInterval(movePlayer, 20);
-    }
-}, false);
-
-touchEnd = window.addEventListener("touchend", function () {
-    clearInterval(timer);
-    timer = 0;
-}, false);
-
-mouseDown = window.addEventListener("mousedown", function () {
-    if (timer === 0) {
-        timer = setInterval(movePlayer, 20);
-    }
-}, false);
-
-mouseUp = window.addEventListener("mouseup", function () {
-    clearInterval(timer);
-    timer = 0;
-}, false);
-
-function movePlayer() {
-    if (userInputY < ((player.playerY + ((player.playerHeight) / 2)) - 24) && (player.playerY > 0)) {
-        player.playerY -= 10;
-    } else if (userInputY > ((player.playerY + (player.playerHeight / 2)) + 24) && player.playerY < (H - (player.playerHeight))) {
-        player.playerY += 10;
-    }
-}
+//global selected variables
+var selectedRec;
+var selectedRec2;
+var computerSelected;
+var hasSelected = false;
+var numb1 = randomNumber(20);
+var numb2 = randomNumber(30);
+var numb3 = numb1 + numb2;
+var options = [numb1, numb2, numb3];
+shuffle(options);
 
 
-//Lets draw the flakes
-function draw()
-{
-    backCtx.clearRect(0, 0, W, H);
-    middleCtx.clearRect(0, 0, W, H);
-    frontCtx.clearRect(0, 0, W, H);
 
-    drawBack();
+var W = window.innerWidth;
+var H = window.innerHeight;
+
+middleCanvas.width = W;
+middleCanvas.height = H;
+
+
+//rectangles, placeholder for rock/paper/scissor figure
+var elements = [];
+elements.push({
+    colour: 'red',
+    width: 75,
+    height: 75,
+    top: H - 175,
+    left: W/2 - 105,
+    number: ""
+    
+}, {
+    colour: 'blue',
+    width: 75,
+    height: 75,
+    top: H - 175,
+    left: W/2,
+    number: ""
+    }, {
+    colour: 'green',
+    width: 75,
+    height: 75,
+    top: H - 175,
+    left: W/2 + 105,
+    number: ""
+    });
+
+var computerOptions = [];
+
+computerOptions.push({
+    colour: 'white',
+    width: 150,
+    height: 150,
+    top: 350,
+    left: W/2 - 350,
+    number: ""
+}, {
+    colour: 'white',
+    width: 150,
+    height: 150,
+    top: 350,
+    left: W/2,
+    number: ""
+    }, {
+    colour: 'white',
+    width: 150,
+    height: 150,
+    top: 350,
+    left: W/2 + 350,
+    number: ""
+    });
+
+startGame();
+
+function startGame()
+{   
     drawMiddle();
-    drawFront();
+    headLine("Add the numbers in the right order");
 
-    function drawBack() {
-        updateBackgroundEffects(1);
+}
+
+function drawMiddle() {
+        middleCtx.clearRect(0, 0, W, H);
+        middleCtx.fillStyle = "white";
+        middleCtx.fillRect(0, 0, W, H);
+        
+        
+        //minus and equal signs
+        middleCtx.fillStyle = "black";
+        middleCtx.font="100px Arial";
+        middleCtx.fillText("-", W/2 - 110, 445);
+        middleCtx.fillText("=", W/2 + 240, 445);
+        
+        drawOptions();
+        drawMath();
     }
 
-    function drawMiddle() {
+//the number options
+function drawOptions() {
+            var numbString = "";
+            for (var i = 0; i < elements.length; i++) {
+            var el = elements[i];
+            el.number = options[i];
+            numbString = el.number;
 
-        middleCtx.fillStyle = "rgba(131, 92, 59, 1)";
-        middleCtx.beginPath();
-        middleCtx.rect(0, 0, W, H);
-        middleCtx.fill();
+            if(el === selectedRec) {
+                middleCtx.fillStyle = "red";
+                middleCtx.fillRect(el.left - 6, el.top - 6, el.width + 12, el.height + 12);
+                middleCtx.fillStyle = "white";
+                middleCtx.fillRect(el.left, el.top, el.width, el.height);
+            } else {
+                
+                middleCtx.fillStyle = "grey";
+                middleCtx.fillRect(el.left, el.top, el.width, el.height);
 
-        middleCtx.fillStyle = "rgba(255, 255, 255, 1)";
-        middleCtx.beginPath();
-        middleCtx.rect(player.playerX, player.playerY, player.playerWidth, player.playerHeight);
-        middleCtx.fill();
-        middleCtx.stroke();
+            }
+            middleCtx.fillStyle = "black";
+            middleCtx.textAlign="center"; 
+            middleCtx.textBaseline = "middle";
+            middleCtx.font="25px Arial";
+            middleCtx.fillText(numbString, el.left + (el.width / 2), el.top + (el.height / 2));
+               
 
-        if (gameState === 1) {
+            }
+    
+}
+//the empty rectangles to be filled with numbers
+function drawMath() {
+            var numbString = "";
+            
+            for (var i = 0; i < computerOptions.length; i++) {
+            
+            var cs = computerOptions[i];
+            numbString = cs.number;
+            
+            if(cs === selectedRec2) {    
+                middleCtx.fillStyle = "black";
+                middleCtx.fillRect(cs.left - 6, cs.top - 6, cs.width + 12, cs.height + 12);
+                middleCtx.fillStyle = "white";
+                middleCtx.fillRect(cs.left, cs.top, cs.width, cs.height);
+            } else {
+                
+                middleCtx.fillStyle = "black";
+                middleCtx.fillRect(cs.left - 6, cs.top - 6, cs.width + 12, cs.height + 12);
+                middleCtx.fillStyle = "grey";
+                middleCtx.fillRect(cs.left, cs.top, cs.width, cs.height);
+                
+            }
+            
+            middleCtx.fillStyle = "black";
+            middleCtx.textAlign="center"; 
+            middleCtx.textBaseline = "middle";
+            middleCtx.font="35px Arial";
+            middleCtx.fillText(numbString, cs.left + (cs.width / 2), cs.top + (cs.height / 2));
+            
+            }
+    
+}
 
-            updateGame();
+// Add event listener for `click` events.
+middleCanvas.addEventListener('click', function(event) {
+    
+    //scaling if canvas is resised from bitmap
+    var rect = middleCanvas.getBoundingClientRect();
+    var scaleX = middleCanvas.width / rect.width;
+    var scaleY = middleCanvas.height / rect.height;
+    
+    //get mouse position
+    var x = (event.clientX - rect.left) * scaleX,
+        y = (event.clientY - rect.top) * scaleY;
 
-            middleCtx.fillStyle = "rgba(0, 0, 0, 1)";
-            middleCtx.beginPath();
-            middleCtx.rect(hinder.hinderX, hinder.hinderY, hinder.hinderWidth, hinder.hinderHeight);
-            middleCtx.fill();
-
-            mathObjects.forEach(function(mathObject) {
-                middleCtx.fillStyle = "rgba(255, 200, 200, 0.6)";
-                middleCtx.beginPath();
-                middleCtx.arc(mathObject.mathX, mathObject.mathY, mathObject.mathW, 0, 2 * Math.PI);
-                middleCtx.fill();
-                middleCtx.fillStyle = "rgba(0, 0, 0, 1)";
-                middleCtx.font = "30px Arial";
-                middleCtx.fillText(mathObject.mathNumber, mathObject.mathX
-                    - (mathObject.mathW/2), mathObject.mathY
-                    + (mathObject.mathW/2));
-            });
+    // Collision detection between clicked offset and element.
+       for(i = 0; i < elements.length; i++){
+        var element = elements[i];
+        if (y > element.top && y < element.top + element.height 
+            && x > element.left && x < element.left + element.width) {
+            selectedRec = element;
         }
+        drawMiddle();
     }
-
-    function drawFront() {
-        frontCtx.drawImage(minusCharacter.image, minusCharacter.srcX, minusCharacter.srcY, minusCharacter.spriteWidth,
-                minusCharacter.spriteHeight, 0, 100, W / 4, H / 2);
-        minusCharacter.updateFrame();
-
-    }
-}
-
-function updateGame() {
-
-    if (gameSpeed === 10) {
-        setWinGame();
-    } else if (gameSpeed === 0) {
-        setGameOver();
-    }
-
-    if(checkCollision(player.playerX, player.playerY, player.playerWidth, player.playerHeight,
-            hinder.hinderX, hinder.hinderY, hinder.hinderWidth, hinder.hinderHeight)) {
-        setGameOver();
-    }
-
-    hinder.hinderX -= gameSpeed + 1;
-    if (hinder.hinderX < -hinder.hinderWidth) {
-        hinder.hinderX = W + ((Math.random() * (W / 2)));
-        hinder.hinderY = (Math.random() * (H - 1)) + 1;
-    }
-
-    mathObjects.forEach(function(mathObject) {
-       if(checkCollision(player.playerX, player.playerY, player.playerWidth, player.playerHeight,
-               mathObject.mathX, mathObject.mathY, mathObject.mathW, mathObject.mathW)) {
-           if (mathObject.mathNumber === questionAnswer) {
-               gameSpeed++;
-               restartGame();
-           } else {
-               gameSpeed--;
-               restartGame();
-           }
-       }
-       mathObject.mathX -= gameSpeed;
-        if (mathObject.mathX < -mathObject.mathW) {
-            mathObject.mathX = W + ((Math.random() * (W / 2)));
-            mathObject.mathY = (Math.random() * (H - 1)) + 1;
+       for(i = 0; i < computerOptions.length; i++){
+        var element = computerOptions[i];
+        if (y > element.top && y < element.top + element.height 
+            && x > element.left && x < element.left + element.width) {
+            selectedRec2 = element;
         }
-    });
-}
-
-function setGameOver() {
-    gameState = 0;
-    document.getElementById('myModal').style.display = "block";
-    document.getElementById("gameOverModalContent").style.display = "block";
-    document.getElementById("startModalContent").style.display = "none";
-    document.getElementById("winModalContent").style.display = "none";
-    restartGame();
-}
-
-function setStartGame() {
-    gameState = 1;
-    gameSpeed = 5;
-    document.getElementById('myModal').style.display = "none";
-    document.getElementById("gameOverModalContent").style.display = "none";
-    document.getElementById("startModalContent").style.display = "none";
-    document.getElementById("winModalContent").style.display = "none";
-
-    restartGame();
-}
-
-function setBeforeGame() {
-    gameState = 0;
-    document.getElementById('myModal').style.display = "block";
-    document.getElementById("gameOverModalContent").style.display = "none";
-    document.getElementById("startModalContent").style.display = "block";
-    document.getElementById("winModalContent").style.display = "none";
-}
-
-function setWinGame() {
-    gameState = 0;
-    if(currentStage < 8) {
-        currentStage = 8;
+        drawMiddle();
     }
-    document.getElementById('myModal').style.display = "block";
-    document.getElementById("gameOverModalContent").style.display = "none";
-    document.getElementById("startModalContent").style.display = "none";
-    document.getElementById("winModalContent").style.display = "block";
+    
+    if(selectedRec2 && selectedRec) {
+        
+        selectedRec2.number = selectedRec.number;
+        drawMiddle();
+    }
+    
+}, false);
+
+function checkAnswer() {
+        
+        var first = computerOptions[0];
+        var second = computerOptions[1];
+        var third = computerOptions[2];
+        if((first.number - second.number) === third.number) {
+            headLine("Correct!");
+        } else {
+            headLine("Hmm no, this will give you " + (first.number - second.number) + ", try again");
+        }
+   
 }
 
-function restartGame() {
-    // Game variables
-    //Hinder Object
+function headLine(text) {
 
-    secondNumber = Math.round(Math.random() * 10);
-    firstNumber = Math.round(Math.random() * 10)+secondNumber;
-    questionAnswer = firstNumber - secondNumber;
+    
+    middleCtx.fillStyle = "black";
+    middleCtx.font="50px Arial";
+    middleCtx.fillText(text, W/2, 50);
+    
+}
 
-    document.getElementById("questionBox").innerHTML 
-            = firstNumber + " - " + secondNumber + " = ??     Score: " 
-            + gameSpeed;
+//shuffle array (like answer array) (Modern Fisher–Yates shuffle algorithm via 
 
-    hinder.hinderX = W + ((Math.random() * (W / 2)));
-    hinder.hinderY = 0;
-    hinder.hinderWidth = W / 10;
-    hinder.hinderHeight = H / 8;
+function shuffle(sourceArray) {
+    for (var n = 0; n < sourceArray.length - 1; n++) {
+        var k = n + Math.floor(Math.random() * (sourceArray.length - n));
 
-    //Math Object
-    mathObjects.forEach(function(mathObject) {
-        mathObject.mathX = W + ((Math.random() * (W / 2)));
-        mathObject.mathY = Math.random() * (H - 1) + 1;
-        mathObject.mathW = W / 40;
-        mathObject.mathNumber = Math.round(Math.random() * 20);
-    });
-    mathObjects[0].mathNumber = firstNumber - secondNumber;
+        var temp = sourceArray[k];
+        sourceArray[k] = sourceArray[n];
+        sourceArray[n] = temp;
+    }
+}
+
+function randomNumber(upToo) {
+    var randNumb = Math.floor((Math.random() * upToo) + 1);
+    return randNumb;
+}
+
+function reload() {
+    goToNewScreen('source/worldSource/world02/stage08/stage08.html', 'source/worldSource/world02/stage08/stage08.js');
 }
 
 function backToWorld() {
     goToNewScreen('source/worldSource/world02/world02.html', 'source/worldSource/world02/world02.js');
 }
+function backToMenu() {
+    goToNewScreen('source/mainMenuSource/mainMenu/mainMenu.html', 'source/mainMenuSource/mainMenu/mainMenu.js');
+}
 
-//animation loop, 60 fps
-animationLoop = setInterval(draw, 16);

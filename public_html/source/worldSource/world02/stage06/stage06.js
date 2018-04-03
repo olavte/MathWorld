@@ -17,8 +17,6 @@ var totalSum = 0;
 //canvas init
 iniBack("world2Canvas");
 
-playMusic(startMenuMusic);
-
 var minusCharacter = createAnimatedSprite('assets/characters/minusCharSpr.png', 8400, 300, 600, 300, 14, 2);
 
 //backgroundEffects

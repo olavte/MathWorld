@@ -17,8 +17,6 @@ var totalSum = 0;
 //canvas init
 iniBack("world1Canvas");
 
-playMusic(startMenuMusic);
-
 var plussCharacter = createAnimatedSprite('assets/characters/plussCharSpr.png', 1200, 300, 300, 300, 4, 30);
 
 //backgroundEffects
