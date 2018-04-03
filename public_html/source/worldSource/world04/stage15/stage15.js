@@ -138,11 +138,11 @@ function question1() {
             var firstNumber, secondNumber, ans;
         
             while (decimalCheck) {
-                firstNumber = randomNumber(30);
-                secondNumber = randomNumber(30);
+                firstNumber = randomNumber(100);
+                secondNumber = randomNumber(12);
                 ans = firstNumber / secondNumber;
                 
-                if((countDecimals(ans) === 0) && (ans != 1)) {
+                if((countDecimals(ans) === 0) && (ans != 1) && (ans < 13)) {
                     decimalCheck = false;
                 }
             }
