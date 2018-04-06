@@ -5,12 +5,18 @@
  */
 
 currentWorld = 5;
-
-document.getElementById("currentStageScore").innerHTML = "Level: " + currentStage;
-document.getElementById("currentKeys").innerHTML = "Keys: " + worldKeys;
-document.getElementById("currentCredits").innerHTML = "Credits: " + creditsMoney;
-
-updateCookies();
+if(currentStage < 17) {
+    document.getElementById("level2").disabled = true;
+}
+if(currentStage < 18) {
+    document.getElementById("level3").disabled = true;
+}
+if(currentStage < 19) {
+    document.getElementById("level4").disabled = true;
+}
+if(currentStage < 20) {
+    document.getElementById("World6Door").disabled = true;
+}
 
 //canvas init
 iniBack('world5Canvas');
@@ -37,13 +43,20 @@ function draw() {
     roundingChar.updateFrame();
 
     if(currentStage >= 20 && worldKeys < 5) {
-        drawSpriteImage(backCtx, goldenKey, W/2-(W/4), H/2-(H/3), W/2, H/2);
-        goldenKey.updateFrame();
         if(goldenKey.currentFrame === 22) {
             worldKeys = 5;
+        } else {
+            drawSpriteImage(backCtx, goldenKey, W/2-(W/4), H/2-(H/3), W/2, H/2);
+            goldenKey.updateFrame();
         }
     }
 }
 
+updateCookies();
+
 //animation loop
 animationLoop = setInterval(draw, 33);
+
+document.getElementById("currentStageScore").innerHTML = "Level: " + currentStage;
+document.getElementById("currentKeys").innerHTML = "Keys: " + worldKeys;
+document.getElementById("currentCredits").innerHTML = "Credits: " + creditsMoney;

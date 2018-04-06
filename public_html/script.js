@@ -22,13 +22,13 @@ for(var i = 0; i < cookies.length; i++) {
     var name = cookies[i].split('=')[0];
     var value = cookies[i].split('=')[1];
     if (name === "currentWorld") {
-        currentWorld = value;
+        currentWorld = Number(value);
     } else if (name === "currentStage") {
-        currentStage = value;
+        currentStage = Number(value);
     } else if (name === "worldKeys") {
-        worldKeys = value;
+        worldKeys = Number(value);
     } else if (name === "creditsMoney") {
-        creditsMoney = value;
+        creditsMoney = Number(value);
     }
 }
 
