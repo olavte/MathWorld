@@ -65,7 +65,7 @@ function randomNumber(upTo) {
     while (zeroCheck) {
         var randNumb = Math.floor(Math.random() * upTo);
         
-        if (randNumb != 0 && randNumb != 1) {
+        if (randNumb !== 0 && randNumb !== 1) {
             zeroCheck = false;;
         }
     }
@@ -142,7 +142,7 @@ function question1() {
                 secondNumber = randomNumber(12);
                 ans = firstNumber / secondNumber;
                 
-                if((countDecimals(ans) === 0) && (ans != 1) && (ans < 13)) {
+                if((countDecimals(ans) === 0) && (ans !== 1) && (ans < 13)) {
                     decimalCheck = false;
                 }
             }
