@@ -4,16 +4,18 @@
 var middleCanvas = document.getElementById("middleCanvas");
 var middleCtx = middleCanvas.getContext("2d");
 
+//stage progression, gets harder as it goes along, until beatStage is reached
+var currentOptions = 3;
+var beatStage = 6;
+
 //global selected variables
 var selectedRec;
 var selectedRec2;
 var computerSelected;
 var hasSelected = false;
-var numb1 = randomNumber(20);
-var numb2 = randomNumber(30);
-var numb3 = numb1 + numb2;
-var options = [numb1, numb2, numb3];
-shuffle(options);
+var options = [];
+
+
 
 
 
@@ -24,63 +26,20 @@ middleCanvas.width = W;
 middleCanvas.height = H;
 
 
-//rectangles, placeholder for rock/paper/scissor figure
-var elements = [];
-elements.push({
-    colour: 'red',
-    width: 75,
-    height: 75,
-    top: H - 175,
-    left: W/2 - 105,
-    number: ""
-    
-}, {
-    colour: 'blue',
-    width: 75,
-    height: 75,
-    top: H - 175,
-    left: W/2,
-    number: ""
-    }, {
-    colour: 'green',
-    width: 75,
-    height: 75,
-    top: H - 175,
-    left: W/2 + 105,
-    number: ""
-    });
-
-var computerOptions = [];
-
-computerOptions.push({
-    colour: 'white',
-    width: 150,
-    height: 150,
-    top: 350,
-    left: W/2 - 350,
-    number: ""
-}, {
-    colour: 'white',
-    width: 150,
-    height: 150,
-    top: 350,
-    left: W/2,
-    number: ""
-    }, {
-    colour: 'white',
-    width: 150,
-    height: 150,
-    top: 350,
-    left: W/2 + 350,
-    number: ""
-    });
+//the squares on canvas for options/answer
+var elements;
+var computerOptions;
 
 startGame();
 
-function startGame()
-{   
+function startGame() {
+    
+    selectedRec1 = null;
+    selectedRec2 = null;
+    fillElements();
+    fillComputerOptions();
+    fillOptions();
     drawMiddle();
-    headLine("Add the numbers in the right order");
 
 }
 
@@ -89,6 +48,7 @@ function drawMiddle() {
         middleCtx.fillStyle = "white";
         middleCtx.fillRect(0, 0, W, H);
         
+        headLine("Add the numbers in the right order", 50);
         
         //minus and equal signs
         middleCtx.fillStyle = "black";
@@ -96,18 +56,17 @@ function drawMiddle() {
         middleCtx.fillText("-", W/2 - 110, 445);
         middleCtx.fillText("=", W/2 + 240, 445);
         
-        drawOptions();
+        drawOptions(currentOptions);
         drawMath();
     }
 
 //the number options
-function drawOptions() {
+function drawOptions(optionNumber) {
             var numbString = "";
-            for (var i = 0; i < elements.length; i++) {
+            for (var i = 0; i < optionNumber; i++) {
             var el = elements[i];
             el.number = options[i];
             numbString = el.number;
-
             if(el === selectedRec) {
                 middleCtx.fillStyle = "red";
                 middleCtx.fillRect(el.left - 6, el.top - 6, el.width + 12, el.height + 12);
@@ -137,11 +96,10 @@ function drawMath() {
             
             var cs = computerOptions[i];
             numbString = cs.number;
-            
             if(cs === selectedRec2) {    
                 middleCtx.fillStyle = "black";
                 middleCtx.fillRect(cs.left - 6, cs.top - 6, cs.width + 12, cs.height + 12);
-                middleCtx.fillStyle = "white";
+                middleCtx.fillStyle = cs.colour;
                 middleCtx.fillRect(cs.left, cs.top, cs.width, cs.height);
             } else {
                 
@@ -200,25 +158,127 @@ middleCanvas.addEventListener('click', function(event) {
     
 }, false);
 
+//empties option pool, and re-fill it with random numbers + a failsafe number (two of the random numbers added)
+//making sure there is always a solution
+function fillOptions() {
+    var tempOptions = [randomNumber(60, 30), randomNumber(25, 4), randomNumber(50, 15), randomNumber(30, 9), randomNumber(30, 10), randomNumber(30, 10)];
+    var numb6 = tempOptions[tempOptions.length - 1] + tempOptions[tempOptions.length - 2];
+    tempOptions.push(numb6);
+    options = [];
+    options = tempOptions.slice(currentOptions * (-1));
+    shuffle(options);
+    
+}
+
+function fillElements() {
+    
+    elements = [];
+    elements.push({
+        width: 75,
+        height: 75,
+        top: H - 175,
+        left: W/2 - 105,
+        number: ""
+        }, {
+        width: 75,
+        height: 75,
+        top: H - 175,
+        left: W/2,
+        number: ""
+        }, {
+        width: 75,
+        height: 75,
+        top: H - 175,
+        left: W/2 + 105,
+        number: ""
+        }, {
+        width: 75,
+        height: 75,
+        top: H - 175,
+        left: W/2 - 210,
+        number: ""
+        }, {
+        width: 75,
+        height: 75,
+        top: H - 175,
+        left: W/2 + 210,
+        number: ""
+        }, {
+        width: 75,
+        height: 75,
+        top: H - 175,
+        left: W/2 + 315,
+        number: ""
+        } 
+        );
+    
+}
+
+function fillComputerOptions() {
+    
+    computerOptions = [];
+
+    computerOptions.push({
+        colour: 'white',
+        width: 150,
+        height: 150,
+        top: 350,
+        left: W/2 - 350,
+        number: ""
+    }, {
+        colour: 'white',
+        width: 150,
+        height: 150,
+        top: 350,
+        left: W/2,
+        number: ""
+        }, {
+        colour: 'white',
+        width: 150,
+        height: 150,
+        top: 350,
+        left: W/2 + 350,
+        number: ""
+        });
+    
+}
+
+//determine if answer is right, and progress to harder assignement, until stage is beat, then exit to world
 function checkAnswer() {
+        var playerSolution = computerOptions[0].number;
+        var playerAnswer = computerOptions[computerOptions.length - 1].number;
         
-        var first = computerOptions[0];
-        var second = computerOptions[1];
-        var third = computerOptions[2];
-        if((first.number - second.number) === third.number) {
-            headLine("Correct!");
+        for(i = 1; i < computerOptions.length - 1; i++) {
+            playerSolution -= computerOptions[i].number;
+        }
+
+        if(playerSolution === playerAnswer) {
+            drawMiddle();
+            headLine("Correct!", 120);
+            setTimeout(function () {
+                if(currentOptions < beatStage) {
+                //progress if not beat
+                    currentOptions ++;
+                    startGame();
+                } else {
+                //beat stage
+                    drawMiddle();
+                    headLine("You are now ready for the next world!", 205);
+                    setTimeout(function() {backToWorld();}, 2500);
+                }
+            }, 1000);
         } else {
-            headLine("Hmm no, this will give you " + (first.number - second.number) + ", try again");
+            drawMiddle();
+            headLine("Hmm no, this will give you " + playerSolution + " not " + playerAnswer, 120);
         }
    
 }
 
-function headLine(text) {
+function headLine(text, height) {
 
-    
     middleCtx.fillStyle = "black";
     middleCtx.font="50px Arial";
-    middleCtx.fillText(text, W/2, 50);
+    middleCtx.fillText(text, W/2, height);
     
 }
 
@@ -234,8 +294,8 @@ function shuffle(sourceArray) {
     }
 }
 
-function randomNumber(upToo) {
-    var randNumb = Math.floor((Math.random() * upToo) + 1);
+function randomNumber(upToo, min) {
+    var randNumb = Math.floor((Math.random() * upToo) + min);
     return randNumb;
 }
 
