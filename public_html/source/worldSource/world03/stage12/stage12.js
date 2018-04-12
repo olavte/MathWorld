@@ -1,11 +1,39 @@
 
-$('#pineconediv4,#pineconediv5,#pineconediv6').draggable();
 var pinecones = $(".divshuffle");
 for (var i = 0; i < pinecones.length; i++) {
     var target = Math.floor(Math.random() * pinecones.length - 1) + 1;
     var target2 = Math.floor(Math.random() * pinecones.length - 1) + 1;
     pinecones.eq(target).before(pinecones.eq(target2));
 }
+
+iniBack('world3Canvas');
+
+var multiplicationCharacter = createAnimatedSprite('assets/characters/MultiPlicationCharSpr.png', 1200, 300, 300, 300, 3, 30);
+
+//snowflake particles
+iniBackgroundEffects(1);
+
+//Lets draw the flakes
+function draw()
+{
+    backCtx.clearRect(0, 0, W, H);
+
+    multiplicationCharacter.updateFrame();
+
+
+    updateBackgroundEffects(1);
+    backCtx.drawImage(multiplicationCharacter.image, multiplicationCharacter.srcX, multiplicationCharacter.srcY, multiplicationCharacter.spriteWidth,
+        multiplicationCharacter.spriteHeight, 160, 150, multiplicationCharacter.spriteWidth, multiplicationCharacter.spriteHeight);
+}
+
+//animation loop
+animationLoop = setInterval(draw, 16);
+
+
+
+
+$('#pineconediv4,#pineconediv5,#pineconediv6').draggable();
+
 
 
 doNextPoint1();
@@ -15,14 +43,14 @@ mathStageNine();
 //mathStageNineSecond();
 //mathStageNineThird();
 
-var changeMathDelay = 5000;
+var changeMathDelay = 50;
 currentQuestion = 1;
 
 
 
 function mathStageNine() {
 
-
+    document.getElementById("mathbutton2").disabled = true;
     var ansArray = new Array();
     var text = "";
     for (i = 0; i < 1; i++) {
@@ -42,7 +70,7 @@ function mathStageNine() {
     document.getElementById('pineconediv6').appendChild(document.createTextNode(randomNumber(10) + 40));
     //animations for the objects
 
-
+document.getElementById('qanswers').innerHTML = "" ;
 }
 
 function mathStageNineSecond() {
@@ -57,8 +85,8 @@ $("#pineconediv6").css({top: 200, left: Math.floor(Math.random() * 1200 - 1), po
     var ansArray = new Array();
     var text = "";
     for (i = 0; i < 1; i++) {
-        var num1 = randomNumber(4) + 2;
-        var num2 = randomNumber(5) + 1;
+        var num1 = randomNumber(4) + 1;
+        var num2 = randomNumber(4) + 1;
         var num3 = randomNumber(5) + 2;
         ansArray.push(num1 * num2 * num3);
 
@@ -73,9 +101,9 @@ $("#pineconediv6").css({top: 200, left: Math.floor(Math.random() * 1200 - 1), po
     document.getElementById('pineconediv5').appendChild(document.createTextNode(randomNumber(15) + 43));
     document.getElementById('pineconediv6').appendChild(document.createTextNode(randomNumber(15) + 21));
     //animations for the objects
+document.getElementById('qanswers').innerHTML = "" ;
 
 
-    document.getElementById('qanswers').innerHTML = "";
  
 }
 
@@ -95,9 +123,9 @@ $("#pineconediv6").css({top: 200, left: Math.floor(Math.random() * 1200 - 1), po
     var text = "";
     for (i = 0; i < 1; i++) {
         var num1 = randomNumber(3) + 2;
-        var num2 = randomNumber(4) + 2;
-        var num3 = randomNumber(4) + 2;
-        var num4 = randomNumber(3) + 2;
+        var num2 = randomNumber(2) + 2;
+        var num3 = randomNumber(3) + 2;
+        var num4 = randomNumber(3) + 1;
         ansArray.push(num1 * num2 * num3 * num4);
 
         text += num1 + " x " + num2 + " x " + num3 + " x " + num4 + " = " + "<br />";
@@ -107,13 +135,13 @@ $("#pineconediv6").css({top: 200, left: Math.floor(Math.random() * 1200 - 1), po
     document.getElementById('question10').innerHTML = "Drag the correct pinecone to the squirrel <br /> for the multiplication below: <br />" + text;
 
     document.getElementById('pineconediv4').appendChild(document.createTextNode(answer));
-    document.getElementById('pineconediv5').appendChild(document.createTextNode(randomNumber(5)+3 * 8));
-    document.getElementById('pineconediv6').appendChild(document.createTextNode(randomNumber(6)+3 * 9));
+    document.getElementById('pineconediv5').appendChild(document.createTextNode(randomNumber(8)+3 * 8));
+    document.getElementById('pineconediv6').appendChild(document.createTextNode(randomNumber(8)+3 * 9));
 
     //animations for the objects
 doNextPoint1();
 
-
+document.getElementById('qanswers').innerHTML = "" ;
 }
 
 function removeChilds() {
@@ -127,31 +155,49 @@ function removeChilds() {
 }
 
 function nextMath() {
-    
+     $("#pineconediv4").css({top: 200, left: Math.floor(Math.random() * 1000 - 1), position:'absolute'});
     currentQuestion++;
     if(currentQuestion===2){
         removeChilds();
         setTimeout(function () {
       
-        mathStageNineSecond();
+        mathStageNine();
     }, changeMathDelay);
         
     }else if(currentQuestion===3){
         removeChilds();
         setTimeout(function () {
       
-        mathStageNineSecond();
+        mathStageNine();
     }, changeMathDelay);
     }else if(currentQuestion===4){
         removeChilds();
         setTimeout(function () {
       
+        mathStageNineSecond();
+    }, changeMathDelay);
+     }else if(currentQuestion===5){
+        removeChilds();
+        setTimeout(function () {
+      
+        mathStageNineSecond();
+    }, changeMathDelay);
+     }else if(currentQuestion===6){
+        removeChilds();
+        setTimeout(function () {
+      
+        mathStageNineSecond();
+    }, changeMathDelay);
+    }else if(currentQuestion===7){
+        removeChilds();
+        setTimeout(function () {
+      
         mathStageNineThird();
     }, changeMathDelay);
-    }else if(currentQuestion===5){
-        creditsMoney += 50;
-        backToWorld();
+    }else if(currentQuestion===8){
         
+        backToWorld();
+        creditsMoney += 50;
     }
     
     
@@ -172,10 +218,10 @@ function nextMath() {
 function victoryScreen() {
     
      //$("#pineconediv4").parent().css({position: 'relative'});
-    $("#pineconediv4").css({top: 200, left: Math.floor(Math.random() * 300 - 1) + 1, position:'absolute'});
+   // $("#pineconediv4").css({top: 200, left: Math.floor(Math.random() * 300 - 1) + 1, position:'absolute'});
     
-    nextMath();
-   document.getElementById('qanswers').innerHTML = "CORRECT! <br /> Next Question in 5 seconds" ;
+    
+   document.getElementById('qanswers').innerHTML = "Correct, click next!" ;
    document.getElementById("mathbutton2").disabled = false;
 }
 
@@ -252,25 +298,33 @@ function collision($pineconediv4, $squirrel) {
     return true;
 }
 
-function collision_() {
-    if (arguments.length > 1) {
-        for (var x = 0; x < arguments.length; x++) {
-            for (var y = 1; y < arguments.length; y++) {
-                if (x === y) {
-                    continue;
-                }
-                if (collision(arguments[x], arguments[y])) {
-                    victoryScreen();
-                    return true;
 
-                }
+    function collision_() {
+ 
+
+    if (arguments.length > 1) {
+ 
+        for (var x = 0; x < arguments.length; x++) {
+ 
+            for (var y = 1; y < arguments.length; y++) {
+ 
+                
+ 
+                if (collision(arguments[x], arguments[y])) {
+ 
+                        victoryScreen();
+ 
+                        return true;
+ 
+       
+                      }
+                return false;
+                }  
+ 
             }
         }
-        return false;
-
-
     }
-}
+
 
 
 function doNextPoint1(){

@@ -413,6 +413,15 @@ button[disabled]{
     left:800px;
 }
 
+#stage2answers{
+    font-size:30px;
+    font-family:"Open Sans";
+    color:black;
+    text-align: center;
+    position:relative;
+   
+}
+
 #exitbutton{  
     text-align: center;
 }

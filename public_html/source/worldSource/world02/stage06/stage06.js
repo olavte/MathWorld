@@ -59,7 +59,7 @@ function mathTwoFirst() {
             text += "<button onclick='sadnessScreen()' style='height:50px;width:100px'>" + options[i] + "</button>"; // feil svar knapp
         }
     }
-    document.getElementById('qanswers').innerHTML = text;
+    document.getElementById('stage2answers').innerHTML = text;
 }
 
 function mathTwoSecond() {
@@ -79,7 +79,7 @@ function mathTwoSecond() {
             text += "<button onclick='sadnessScreen2()' style='height:50px;width:100px'>" + options[i] + "</button>"; // feil svar knapp
         }
     }
-    document.getElementById('qanswers').innerHTML = text;
+    document.getElementById('stage2answers').innerHTML = text;
 }
 
 function mathTwoThird() {
@@ -101,7 +101,7 @@ function mathTwoThird() {
             text += "<button onclick='sadnessScreen3()' style='height:50px;width:100px'>" + options[i] + "</button>"; // feil svar knapp
         }
     }
-    document.getElementById('qanswers').innerHTML = text;
+    document.getElementById('stage2answers').innerHTML = text;
 }
 
 
@@ -109,7 +109,7 @@ function mathTwoThird() {
 function victoryScreen() {
 
 
-    document.getElementById('qanswers').innerHTML = "CORRECT!";
+    document.getElementById('stage2answers').innerHTML = "CORRECT!";
 
     document.getElementById("mathbutton2").disabled = false;
 
@@ -118,14 +118,14 @@ function victoryScreen() {
 //lets user know they pressed wrong
 function sadnessScreen() {
 
-    document.getElementById('qanswers').innerHTML = "WRONG!";
+    document.getElementById('stage2answers').innerHTML = "WRONG!";
     document.getElementById('reload').innerHTML = "<button onclick='mathTwoFirst()'>Try Again!</button>";
 }
 
 
 function victoryScreen2() {
 
-    document.getElementById('qanswers').innerHTML = "CORRECT!";
+    document.getElementById('stage2answers').innerHTML = "CORRECT!";
 
     document.getElementById("mathbutton3").disabled = false;
 
@@ -133,14 +133,14 @@ function victoryScreen2() {
 
 function sadnessScreen2() {
 
-    document.getElementById('qanswers').innerHTML = "WRONG!";
+    document.getElementById('stage2answers').innerHTML = "WRONG!";
     document.getElementById('reload').innerHTML = "<button onclick='mathTwoSecond()'>Try Again!</button>";
 }
 
 
 function victoryScreen3() {
 
-    document.getElementById('qanswers').innerHTML = "CORRECT!!" + "<br/>" + "Move on to next stage";
+    document.getElementById('stage2answers').innerHTML = "CORRECT!!" + "<br/>" + "Move on to next stage";
     if (currentStage < 6) {
         currentStage = 6;
     }
@@ -157,7 +157,7 @@ function backToWorld() {
 
 function sadnessScreen3() {
 
-    document.getElementById('qanswers').innerHTML = "WRONG!";
+    document.getElementById('stage2answers').innerHTML = "WRONG!";
     document.getElementById('reload').innerHTML = "<button onclick='mathTwoThird()'>Try Again!</button>";
 }
 
