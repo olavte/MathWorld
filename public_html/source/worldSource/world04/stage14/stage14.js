@@ -1,191 +1,319 @@
 /* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
  */
-
-/* 
- */
- var candyPrice = randomNumber(10) + 1;
- var moneyOnHand = Math.floor(Math.random() * 40) + 15;
-
-
-// variables for questions
-var answer;
-var totalSum = 0;
+//document.getElementById('myModal').style.display = "block";
+//document.getElementById('stage2StartModalContent').style.display = "block";
 
 //canvas init
-iniBack("world1Canvas");
 
-var plussCharacter = createAnimatedSprite('assets/characters/plussCharSpr.png', 1200, 300, 300, 300, 4, 30);
+iniBack("world4Canvas");
 
-//backgroundEffects
+iniMiddle("middleCanvas");
+
+iniFront("frontCanvas");
+
+//Music
+playMusic(norwayMusic);
+var divisionCharacter = createAnimatedSprite('assets/characters/divisionCharSpr.png', 1200, 300, 300, 300, 22, 1);
+
+var gameState = 0;
+setBeforeGame();
+
 iniBackgroundEffects(1);
+
+// Game variables
+
+var firstNumber = 0;
+var secondNumber = 0;
+var questionAnswer = 0;
+var gameSpeed = 5;
+
+//Math Objects
+var mathObjects = [];
+for(var i = 0; i < 4; i++) {
+    mathObjects.push({
+        name:"math" + (i + 1),
+        mathX:W + ((Math.random() * (W / 2))),
+        mathY:H - 150,
+        mathW:W/40,
+        mathNumber:0});
+}
+
+//PlayerVariables
+var player = {
+    playerX: W / 12,
+    playerY: H - 150,
+    playerHeight: H / 8,
+    playerWidth: W / 10
+};
+
+var isJumping = false;
+var isFalling = false;
+var maxH = 600;
+
+var userInputY = 0;
+
+// Player Controll
+var timer = 0;
+userInputGame = true;
+
+window.addEventListener("mousemove", mouseMove);
+function mouseMove(event) {
+    if ((!isJumping) && (!isFalling)) {    
+        isJumping = true;
+        isFalling = false;
+    }
+    event.preventDefault();
+}
+
+window.addEventListener("touchmove", touchMove);
+function touchMove(event) {
+    if ((!isJumping) && (!isFalling)) {    
+        isJumping = true;
+        isFalling = false;
+    }
+}
+
+window.addEventListener("touchstart", touchStart);
+function touchStart() {
+    movePlayer();
+    if (timer === 0) {
+        timer = setInterval(movePlayer, 20);
+    }
+}
+
+window.addEventListener("touchend", touchEnd);
+function touchEnd() {
+    clearInterval(timer);
+    timer = 0;
+}
+
+window.addEventListener("mousedown", mouseDown);
+function mouseDown() {
+
+    clearInterval(timer);
+    if (timer === 0) {
+        timer = setInterval(movePlayer, 20);
+    }
+}
+
+window.addEventListener("mouseup", mouseUp);
+function mouseUp() {
+    clearInterval(timer);
+    timer = 0;
+}
+
+function movePlayer() {
+    var increment = 10
+    if ((isJumping) && (player.playerY > H - maxH))
+    {
+        player.playerY -= increment;
+    } else if ((isJumping) && (player.playerY <= H - maxH)){
+        isJumping = false;
+        isFalling = true;
+    }
+    
+    if ((isFalling) && (player.playerY <= H - 150)){
+        player.playerY += increment;
+    } else if ((isFalling) && (player.playerY >= H - 150)){
+        isJumping = false;
+        isFalling = false;
+    }
+}
+
 
 //Lets draw the flakes
 function draw()
 {
     backCtx.clearRect(0, 0, W, H);
+    middleCtx.clearRect(0, 0, W, H);
+    frontCtx.clearRect(0, 0, W, H);
 
-    plussCharacter.updateFrame();
+    drawBack();
+    drawMiddle();
+    drawFront();
 
+    function drawBack() {
+        updateBackgroundEffects(1);
+    }
 
-    updateBackgroundEffects(1);
-    backCtx.drawImage(plussCharacter.image, plussCharacter.srcX, plussCharacter.srcY, plussCharacter.spriteWidth,
-        plussCharacter.spriteHeight, 160, 150, plussCharacter.spriteWidth, plussCharacter.spriteHeight);
-}
+    function drawMiddle() {
 
-//animation loop
-animationLoop = setInterval(draw, 33);
+        middleCtx.fillStyle = "rgba(255, 255, 255, 1)";
+        middleCtx.beginPath();
+        middleCtx.rect(0, 0, W, H);
+        middleCtx.fill();
+        
+        middleCtx.fillStyle = "rgba(0, 0, 0, 1)";
+        middleCtx.beginPath();
+        middleCtx.strokeRect(0, 0, W, H);
+        middleCtx.fill();
 
+        drawSpriteImage(middleCtx, divisionCharacter, player.playerX, player.playerY, player.playerWidth, player.playerHeight);
+        divisionCharacter.updateFrame();
 
-mathTwoFirst();
-//mathTwoSecond();
-//creates a random price for a candy
-//and a random value of money you have on hand
+        if (gameState === 1) {
 
+            updateGame();
 
-//final level in world 1, for special assignement and timer function
-function mathTwoFirst() {
-    var answer = Math.floor(moneyOnHand/candyPrice);
-    var options = [answer, randomNumber(25)+ 1, randomNumber(20)+ 1, randomNumber(20)+ 1];
-    shuffle(options);
-
-    document.getElementById('question04').innerHTML = "If this candy is " + candyPrice + " cents and you have " + moneyOnHand + " cents, how many candies can you buy with the money you have?";
-    var text = "<ul>";
-    for (i = 0; i < options.length; i++) {
-        if (options[i] === answer) {
-            text += "<button onclick='victoryScreen()' style='height:50px;width:100px'>" + options[i] + "</button>"; // rett svar knapp
-        } else {
-            text += "<button onclick='sadnessScreen()' style='height:50px;width:100px'>" + options[i] + "</button>"; // feil svar knapp
+            mathObjects.forEach(function(mathObject) {
+                middleCtx.fillStyle = "rgba(0, 0, 0, 1)";
+                middleCtx.beginPath();
+                middleCtx.rect(mathObject.mathX, mathObject.mathY, mathObject.mathW, mathObject.mathH);
+                middleCtx.fill();
+                middleCtx.fillStyle = "rgba(255, 255, 255, 1)";
+                middleCtx.font = "30px Arial";
+                middleCtx.fillText(mathObject.mathNumber, mathObject.mathX
+                    + (mathObject.mathW/2), mathObject.mathY
+                    + (mathObject.mathH/2));
+            });
         }
     }
-    document.getElementById('qanswers').innerHTML = text;
 }
 
-function mathTwoSecond() {
-    
-    
-   var num1 = randomNumber(10)+1;
-   var num2 = randomNumber(10)+1;
-    var answer = num1 + num2;
-    var options = [answer, randomNumber(15)+1, randomNumber(20)+1, randomNumber(15)+1];
-    shuffle(options);
+function updateGame() {
 
-    document.getElementById('question04').innerHTML = "If this candy is " + num1 + " + " + num2 + "cents, how much does the candy cost?";
-    var text = "<ul>";
-    for (i = 0; i < options.length; i++) {
-        if (options[i] === answer) {
-            text += "<button onclick='victoryScreen2()' style='height:50px;width:100px'>" + options[i] + "</button>"; // rett svar knapp
-        } else {
-            text += "<button onclick='sadnessScreen2()' style='height:50px;width:100px'>" + options[i] + "</button>"; // feil svar knapp
+    if (gameSpeed === 10) {
+        setWinGame();
+    } else if (gameSpeed === 0) {
+        setGameOver();
+    }
+
+    mathObjects.forEach(function(mathObject) {
+        if(checkCollision(player.playerX, player.playerY, player.playerWidth - 16, player.playerHeight - 16,
+               mathObject.mathX, mathObject.mathY, mathObject.mathW, mathObject.mathW)) {
+            if (mathObject.mathNumber === questionAnswer) {
+               gameSpeed++;
+               restartGame();
+            } else {
+               gameSpeed--;
+               restartGame();
+            }
+        }
+        
+
+        
+        
+        mathObject.mathX -= gameSpeed;
+        var colliding = true;
+        while (colliding)
+        {
+            if (mathObject.mathX < -mathObject.mathW) {
+                mathObject.mathX = W + ((Math.random() * (W / 2)));
+                mathObject.mathY = H - 150;
+            }
+            
+            for (var i = 0; i < mathObjects.length; i++){
+                for (var j = 0; j < mathObjects.length; j++){
+                    if (i != j)
+                    {
+                        if (!checkCollision(mathObjects[i].mathX - 100, mathObjects[i].mathY, mathObjects[i].mathW + 100, mathObjects[i].mathH,
+                            mathObjects[j].mathX, mathObjects[j].mathY, mathObjects[j].mathW, mathObjects[j].mathH))
+                        {
+                            colliding = false;
+                        }
+                    }
+                }
+            }
+            
+        }
+    });
+}
+
+function setGameOver() {
+    gameState = 0;
+    playSound('assets/sound/lostGame.mp3');
+    document.getElementById('myModal').style.display = "block";
+    document.getElementById("gameOverModalContent").style.display = "block";
+    document.getElementById("startModalContent").style.display = "none";
+    document.getElementById("winModalContent").style.display = "none";
+    restartGame();
+}
+
+function setStartGame() {
+    gameState = 1;
+    gameSpeed = 5;
+    document.getElementById('myModal').style.display = "none";
+    document.getElementById("gameOverModalContent").style.display = "none";
+    document.getElementById("startModalContent").style.display = "none";
+    document.getElementById("winModalContent").style.display = "none";
+
+    restartGame();
+}
+
+function setBeforeGame() {
+    gameState = 0;
+    document.getElementById('myModal').style.display = "block";
+    document.getElementById("gameOverModalContent").style.display = "none";
+    document.getElementById("startModalContent").style.display = "block";
+    document.getElementById("winModalContent").style.display = "none";
+}
+
+function setWinGame() {
+    gameState = 0;
+    if(currentStage < 4) {
+        currentStage = 4;
+    }
+    document.getElementById('myModal').style.display = "block";
+    document.getElementById("gameOverModalContent").style.display = "none";
+    document.getElementById("startModalContent").style.display = "none";
+    document.getElementById("winModalContent").style.display = "block";
+}
+
+
+function randomNumber(upTo) {
+    var zeroCheck = true;
+    while (zeroCheck) {
+        var randNumb = Math.floor(Math.random() * upTo);
+        
+        if (randNumb != 0 && randNumb != 1) {
+            zeroCheck = false;;
         }
     }
-    document.getElementById('qanswers').innerHTML = text;
-}
-
-function mathTwoThird() {
-    
-    
-   var num1 = randomNumber(10)+1;
-   var num2 = randomNumber(10)+1;
-   var num3 = randomNumber(10)+1;
-    var answer = num1 + num2 + num3;
-    var options = [answer, randomNumber(15)+1, randomNumber(20)+1, randomNumber(15)+1];
-    shuffle(options);
-
-    document.getElementById('question04').innerHTML = "If this candy is " + num1 + " + " + num2 + " + " + num3 + "cents, how much does the candy cost?";
-    var text = "<ul>";
-    for (i = 0; i < options.length; i++) {
-        if (options[i] === answer) {
-            text += "<button onclick='victoryScreen3()' style='height:50px;width:100px'>" + options[i] + "</button>"; // rett svar knapp
-        } else {
-            text += "<button onclick='sadnessScreen3()' style='height:50px;width:100px'>" + options[i] + "</button>"; // feil svar knapp
-        }
-    }
-    document.getElementById('qanswers').innerHTML = text;
-}
-
-    
-
-
-//Lets user know they were correct, 
-function victoryScreen() {
-
-
-    document.getElementById('qanswers').innerHTML = "CORRECT!";
-    
-    document.getElementById("mathbutton2").disabled = false;
-
-}
-
-//lets user know they pressed wrong
-function sadnessScreen() {
-
-    document.getElementById('qanswers').innerHTML = "WRONG!";
-document.getElementById('reload').innerHTML = "<button onclick='mathTwoFirst()'>Try Again!</button>";
-}
-
-
-function victoryScreen2(){
-    
-      document.getElementById('qanswers').innerHTML = "CORRECT!";
-    
-    document.getElementById("mathbutton3").disabled = false;
-    
-}
-
-function sadnessScreen2() {
-
-    document.getElementById('qanswers').innerHTML = "WRONG!";
-document.getElementById('reload').innerHTML = "<button onclick='mathTwoSecond()'>Try Again!</button>";
-}
-
-
-function victoryScreen3(){
-    
-      document.getElementById('qanswers').innerHTML = "CORRECT!!" + "<br/>" + "Move on to next stage";
-      document.getElementById("nextstage").disabled = false;
-      document.getElementById("levelFinal").disabled = false;
-
-    
-}
-
-function sadnessScreen3() {
-
-    document.getElementById('qanswers').innerHTML = "WRONG!";
-document.getElementById('reload').innerHTML = "<button onclick='mathTwoThird()'>Try Again!</button>";
-}
-
-
-
-
-
-
-
-//få random nummer 
-//@param opp til nummer upToo
-//@return random nummer
-function randomNumber(upToo) {
-    var randNumb = Math.floor(Math.random() * upToo);
     return randNumb;
 }
 
 
-//shuffle array (like answer array) (Modern Fisher–Yates shuffle algorithm via 
-function shuffle(a) {
-    var j, x, i;
-    for (i = a.length - 1; i > 0; i--) {
-        j = Math.floor(Math.random() * (i + 1));
-        x = a[i];
-        a[i] = a[j];
-        a[j] = x;
-    }
+function countDecimals(number) {
+  var match = (''+number).match(/(?:\.(\d+))?(?:[eE]([+-]?\d+))?$/);
+  if (!match) { return 0; }
+  return Math.max(
+       0,
+       // Number of digits right of decimal point.
+       (match[1] ? match[1].length : 0)
+       // Adjust for scientific notation.
+       - (match[2] ? +match[2] : 0));
 }
 
-   /* function clikedPic(clickedId) {
-    
-   var value = document.getElementById(clickedId);
-   totalSum = candyPrice + totalSum;
-   document.getElementById('total04').innerHTML = "Money spent: " + totalSum + " cents";
-  } */
+
+function restartGame() {
+    // Game variables
+
+    var decimalCheck = true;
+       
+    while (decimalCheck) {
+        firstNumber = randomNumber(100);
+        secondNumber = randomNumber(12);
+        questionAnswer = firstNumber / secondNumber;
+               
+        if((countDecimals(questionAnswer) === 0) && (questionAnswer != 1) && (questionAnswer < 13)) {
+            decimalCheck = false;
+        }
+    }
+
+    document.getElementById("questionBox").innerHTML 
+            = firstNumber + " / " + secondNumber + " = ??     Score: " 
+            + gameSpeed;
+
+    //Math Object
+    mathObjects.forEach(function(mathObject) {
+            mathObject.mathX = W + ((Math.random() * W));
+            mathObject.mathY = H - 150;
+            mathObject.mathW = W / 10;
+            mathObject.mathH = H / 10;
+            mathObject.mathNumber = Math.round(Math.random() * 20);
+    });
+    mathObjects[0].mathNumber = firstNumber / secondNumber;
+}
+
+//animation loop, 60 fps
+animationLoop = setInterval(draw, 16);
