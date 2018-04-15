@@ -25,7 +25,7 @@ iniBackgroundEffects(1);
 var firstNumber = 0;
 var secondNumber = 0;
 var questionAnswer = 0;
-var gameSpeed = 5;
+var gameSpeed = 7;
 
 //Math Objects
 var mathObjects = [];
@@ -48,7 +48,8 @@ var player = {
 
 var isJumping = false;
 var isFalling = false;
-var maxH = 600;
+var jumpBoost = 90;
+var speed = 0;
 
 var userInputY = 0;
 
@@ -56,68 +57,51 @@ var userInputY = 0;
 var timer = 0;
 userInputGame = true;
 
-window.addEventListener("mousemove", mouseMove);
-function mouseMove(event) {
-    if ((!isJumping) && (!isFalling)) {    
-        isJumping = true;
-        isFalling = false;
-    }
-    event.preventDefault();
-}
-
-window.addEventListener("touchmove", touchMove);
-function touchMove(event) {
-    if ((!isJumping) && (!isFalling)) {    
-        isJumping = true;
-        isFalling = false;
-    }
-}
-
 window.addEventListener("touchstart", touchStart);
 function touchStart() {
-    movePlayer();
-    if (timer === 0) {
-        timer = setInterval(movePlayer, 20);
+    if ((!isJumping) && (!isFalling)) {    
+        speed = 100;
+        isJumping = true;
+        isFalling = false;
     }
-}
-
-window.addEventListener("touchend", touchEnd);
-function touchEnd() {
-    clearInterval(timer);
-    timer = 0;
 }
 
 window.addEventListener("mousedown", mouseDown);
 function mouseDown() {
-
-    clearInterval(timer);
-    if (timer === 0) {
-        timer = setInterval(movePlayer, 20);
+    if ((!isJumping) && (!isFalling)) {   
+        speed = jumpBoost;
+        isJumping = true;
+        isFalling = false;
     }
 }
 
-window.addEventListener("mouseup", mouseUp);
-function mouseUp() {
-    clearInterval(timer);
-    timer = 0;
-}
 
 function movePlayer() {
-    var increment = 10
-    if ((isJumping) && (player.playerY > H - maxH))
+    var gravity = 5;
+    
+    if (isJumping || isFalling)
     {
-        player.playerY -= increment;
-    } else if ((isJumping) && (player.playerY <= H - maxH)){
+        speed -= gravity;
+    }
+    
+    
+    if ((isJumping) && (speed > 0))
+    {
+    } else if ((isJumping) && (speed <= 0)){
         isJumping = false;
         isFalling = true;
     }
     
-    if ((isFalling) && (player.playerY <= H - 150)){
-        player.playerY += increment;
+    if ((isFalling) && (player.playerY < H - 150)){
     } else if ((isFalling) && (player.playerY >= H - 150)){
+        player.playerY = H -150;
+        speed = 0;
         isJumping = false;
         isFalling = false;
     }
+    
+    //Update playerY
+    player.playerY -= speed;
 }
 
 
@@ -171,7 +155,8 @@ function draw()
 }
 
 function updateGame() {
-
+    movePlayer();
+    
     if (gameSpeed === 10) {
         setWinGame();
     } else if (gameSpeed === 0) {
