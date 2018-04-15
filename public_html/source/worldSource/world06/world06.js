@@ -16,6 +16,7 @@ var minusChar = createAnimatedSprite('assets/characters/minusCharSpr.png', 8400,
 var multiplicationChar = createAnimatedSprite('assets/characters/MultiplicationCharSpr.png', 1800, 300, 300, 300, 6, 30);
 var divisionChar = createAnimatedSprite('assets/characters/divisionCharSpr.png', 1200, 300, 300, 300, 22, 1);
 var roundingChar = createAnimatedSprite('assets/characters/roundingChar.png', 1800, 300, 300, 300, 6, 15);
+var erlikChar = createAnimatedSprite('assets/characters/ErlikStanding.png', 300, 5400, 300, 300, 18, 10);
 
 playMusic(crazyMusic);
 
@@ -30,15 +31,17 @@ iniBackgroundEffects(1);
 function draw() {
     backCtx.clearRect(0, 0, W, H);
     drawSpriteImage(backCtx, plussChar, 10, H / 3, W / 5, W / 4);
-    drawSpriteImage(backCtx, minusChar, 10 + 200, H / 3 - 10, W / 5, W / 4);
-    drawSpriteImage(backCtx, multiplicationChar, 10 + 400, H / 3 - 20, W / 5, W / 4);
-    drawSpriteImage(backCtx, divisionChar, 10 + 600, H / 3 - 30, W / 5, W / 4);
-    drawSpriteImage(backCtx, roundingChar, 10 + 800, H / 3 - 40, W / 5, W / 4);
+    drawSpriteImage(backCtx, minusChar, 10 + 200, H / 3 - 10, W / 6, W / 5);
+    drawSpriteImage(backCtx, multiplicationChar, 10 + 400, H / 3 - 20, W / 6, W / 5);
+    drawSpriteImage(backCtx, divisionChar, 10 + 600, H / 3 - 30, W / 6, W / 5);
+    drawSpriteImage(backCtx, roundingChar, 10 + 800, H / 3 - 40, W / 6, W / 5);
+    drawSpriteImage(backCtx, erlikChar, W - (W / 5), H / 3 - 40, W / 5, W / 4);
     plussChar.updateFrame();
     minusChar.updateFrame();
     multiplicationChar.updateFrame();
     divisionChar.updateFrame();
     roundingChar.updateFrame();
+    erlikChar.updateFrame();
     updateBackgroundEffects(1);
 
     if(currentStage >= 24 && worldKeys < 6) {
