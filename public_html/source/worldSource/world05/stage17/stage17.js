@@ -220,9 +220,6 @@ function updateGame() {
         enemy.enemyY += 3;
 
         if(enemy.enemyY > H + enemy.enemyW) {
-            enemy.enemyX = Math.random() * W;
-            enemy.enemyY = -(Math.random() * H + H);
-            enemy.number = Math.round (((Math.random() * 10) + 1) * 10) / 10;
             if(isAnswerFloor) {
                 if(Math.round(enemy.number) <= enemy.number) {
                     gameScore += 5;
@@ -238,6 +235,9 @@ function updateGame() {
                 }
                 document.getElementById("questionBox").innerHTML = "skyt de tallene som må rundes ned! Score: " + gameScore;
             }
+            enemy.enemyX = Math.random() * W;
+            enemy.enemyY = -(Math.random() * H + H);
+            enemy.number = Math.round (((Math.random() * 10) + 1) * 10) / 10;
         }
         if(checkCollision(player.playerX, player.playerY, player.playerWidth, player.playerHeight,
                 enemy.enemyX, enemy.enemyY, enemy.enemyW, enemy.enemyW)) {
@@ -358,9 +358,9 @@ function restartGame() {
     //Hinder Object
 
     if(isAnswerFloor) {
-        document.getElementById("questionBox").innerHTML = "floor!.. Score: " + gameScore;
+        document.getElementById("questionBox").innerHTML = "skyt de tallene som må rundes opp! Score: " + gameScore;
     } else {
-        document.getElementById("questionBox").innerHTML = "roof!.. Score: " + gameScore;
+        document.getElementById("questionBox").innerHTML = "skyt de tallene som må rundes ned! Score: " + gameScore;
     }
 
     enemyObjects.forEach(function (enemy) {
