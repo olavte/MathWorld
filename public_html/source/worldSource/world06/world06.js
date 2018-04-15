@@ -9,7 +9,7 @@ currentWorld = 6;
 updateCookies();
 
 //canvas init
-iniBack('world1Canvas');
+iniBack('world6Canvas');
 
 var plussChar = createAnimatedSprite('assets/characters/plussCharSpr.png', 1200, 300, 300, 300, 4, 30);
 var minusChar = createAnimatedSprite('assets/characters/minusCharSpr.png', 8400, 300, 600, 300, 14, 2);
