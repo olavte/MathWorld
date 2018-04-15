@@ -62,7 +62,7 @@ function mathStageNineSecond(){
      doNextPoint2();
      doNextPoint3();
  
-    document.getElementById('qanswers').innerHTML = "";
+    document.getElementById('#stage2answers').innerHTML = "";
 
 }
 
@@ -102,7 +102,7 @@ function mathStageNineThird(){
 //Lets user know they were correct, 
 function victoryScreen() {
     
-    document.getElementById('qanswers').innerHTML = "CORRECT!";
+    document.getElementById('#stage2answers').innerHTML = "CORRECT!";
     document.getElementById("mathbutton2").disabled = false;
      var option1 = document.getElementById('pineconediv1');
         option1.removeChild(option1.lastChild);
@@ -116,7 +116,7 @@ function victoryScreen() {
 //lets user know they pressed wrong
 function sadnessScreen() {
 
-    document.getElementById('qanswers').innerHTML = "WRONG!";
+    document.getElementById('#stage2answers').innerHTML = "WRONG!";
     reload();
 }
 

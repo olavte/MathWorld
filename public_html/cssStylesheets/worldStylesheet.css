@@ -420,7 +420,16 @@ button[disabled] {
     left: 800px;
 }
 
-#exitbutton {
+#stage2answers{
+    font-size:30px;
+    font-family:"Open Sans";
+    color:black;
+    text-align: center;
+    position:relative;
+   
+}
+
+#exitbutton{  
     text-align: center;
 }
 
