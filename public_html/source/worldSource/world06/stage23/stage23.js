@@ -7,9 +7,25 @@
 var answer = selectWord();
 var letterArray = answer.split("");
 var mathAnswers = [];
+var previousOperator = "/"; //variable to avoid too many similar questions
+
+var operators = [{
+        sign: "+",
+        method: function(a,b){ return a + b; }
+    },{
+        sign: "-",
+        method: function(a,b){ return a - b; }
+    }, {
+        sign: "x",
+        method: function(a,b){ return a * b; }
+    },  {
+        sign: "/",
+        method: function(a,b){ return a / b; }
+    }
+];
 
 //canvas init
-iniBack("world1Canvas")
+iniBack("world1Canvas");
 
 var plussCharacter = createAnimatedSprite('assets/characters/plussCharSpr.png', 1200, 300, 300, 300, 4, 30);
 
@@ -41,7 +57,7 @@ function victoryScreen() {
     document.getElementById('questionPicture').innerHTML = "";
     document.getElementById('answerOptions').innerHTML = "";
     setTimeout(function(){
-        goToNewScreen('source/worldSource/world01/world01.html', 'source/worldSource/world01/world01.js');
+        goToNewScreen('source/worldSource/world06/world06.html', 'source/worldSource/world06/world06.js');
     }, 1500);
 }
 
@@ -61,7 +77,7 @@ function loseScreen() {
 //@param opp til nummer upToo
 //@return random nummer
 function randomNumber(upTo) {
-    var randNumb = Math.floor(Math.random() * upTo);
+    var randNumb = Math.floor(Math.random() * upTo) + 1;
     return randNumb;
 }
 
@@ -70,7 +86,7 @@ function selectWord() {
     var words = ["apple", "ice", "orange", "car", "computer", 
                  "game", "math", "school", "juice", "soda", 
                  "carrot", "purple", "movie", "superhero"];
-    var randNumb = randomNumber(words.length);
+    var randNumb = randomNumber(words.length) - 1;
     return words[randNumb];
 }
 
@@ -100,25 +116,46 @@ function checkAnswer(i) {
 //builds and executes first question
 function question1() {
     var generated = false;
-    
+    shuffle(operators);
     document.getElementById('stageTitle').innerHTML = 'Guess The Word!';
     document.getElementById('questionText').innerHTML = '</p>Enter your guess below!</p>';
-    document.getElementById('answerOptionsTitle').innerHTML = '<p>Solve the math questions to reveal letters:</p>';
+    document.getElementById('answerOptionsTitle').innerHTML = '<p>Wich operation is needed to make this work? (Use +, -, / or x):</p>';
 
     
     while (generated === false) {
         for (i = 0; i < answer.length; i++) {
             var buttonId = "button" + i;
             var questionFieldId = "questionField" + i;
-            var firstNumber = randomNumber(15);
-            var secondNumber = randomNumber(15);
-            var ans = firstNumber + secondNumber;
-            mathAnswers.push(ans);
+            var secondNumber = randomNumber(20);
+            var firstNumber;
+            var ans;   
+            
+            var selectedOperator =randomNumber(operators.length - 1);      //select random operator
+            var answerOperator = operators[selectedOperator].sign;         //this will give you the sign / operator
+            if(answerOperator === previousOperator) {
+                shuffle(operators);
+                selectedOperator = randomNumber(operators.length - 1);      //roll again if its the same as before
+                answerOperator = operators[selectedOperator].sign;
+            }
+
+            //make sure to not get decimal numbers when dividing
+            if (answerOperator === "/") {
+                //if dividing
+                ans = randomNumber(10);
+                firstNumber = ans * secondNumber;
+                } else {
+                  //if not dividing
+                  firstNumber = secondNumber + randomNumber(15);
+                  ans = operators[selectedOperator].method(firstNumber, secondNumber); // calculates the answer based on operator
+                }    
+            
+            mathAnswers.push(answerOperator);
+            previousOperator = answerOperator;
             
             var div = document.createElement('div');
             var newId = 'question' + i;
             div.id = newId;
-            div.innerHTML = '<p>' + firstNumber + ' + ' + secondNumber + ' = <input type="text" name="guess" id=' + questionFieldId + '><button id=' + buttonId + ' onclick="checkAnswer(' + i + ')">Check Answer</button></p>';
+            div.innerHTML = '<p>' + firstNumber + ' <input type="text" name="guess" id=' + questionFieldId + '> ' + secondNumber + ' = ' + ans +' <button id=' + buttonId + ' onclick="checkAnswer(' + i + ')">Check Answer</button></p>';
             document.getElementById('answerOptions').appendChild(div);
             
             /* ENTER TO CHECK ANSWER DOES NOT WORK
@@ -133,11 +170,16 @@ function question1() {
         }
         generated = true;
     }   
+    
+    function shuffle(sourceArray) {
+    for (var n = 0; n < sourceArray.length - 1; n++) {
+        var k = n + Math.floor(Math.random() * (sourceArray.length - n));
+
+        var temp = sourceArray[k];
+        sourceArray[k] = sourceArray[n];
+        sourceArray[n] = temp;
+    }
+}
 }
 
 
-function question2() {
-    document.getElementById('stageTitle').innerHTML = "TODO";
-    document.getElementById('questionText').innerHTML ="TODO";
-    document.getElementById('answerOptions').innerHTML ="TODO";
-}
