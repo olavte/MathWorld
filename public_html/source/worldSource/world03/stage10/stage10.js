@@ -2,7 +2,7 @@
 
 
 var answer;
-
+var currentQuestion = 1;
 mathStageNine();
 //mathStageNineSecond();
 //mathStageNineThird();
@@ -101,7 +101,7 @@ function mathStageNineThird(){
 
 //Lets user know they were correct, 
 function victoryScreen() {
-    
+    currentQuestion++;
     document.getElementById('#stage2answers').innerHTML = "CORRECT!";
     document.getElementById("mathbutton2").disabled = false;
      var option1 = document.getElementById('pineconediv1');
@@ -110,7 +110,9 @@ function victoryScreen() {
         option2.removeChild(option2.lastChild);
         var option3 = document.getElementById('pineconediv3');
         option3.removeChild(option3.lastChild);
-
+ if(currentQuestion === 5){
+     backToWorld();
+ }
 }
 
 //lets user know they pressed wrong
