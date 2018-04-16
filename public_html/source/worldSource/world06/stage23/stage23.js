@@ -102,13 +102,17 @@ function guessWord() {
 
 function checkAnswer(i) {
     var guess = document.getElementById('questionField' + i).value;
+    //if diffrent symbol used
+    if (guess === "*") {
+        guess = "x";
+    }
     
     if (guess.toString() === mathAnswers[i].toString()){
         document.getElementById('question' + i).innerHTML = '<p>Letter Number ' + (i+1) + ' = ' + letterArray[i].toUpperCase() + '</p>';
     } else {
         document.getElementById('answerOptionsTitle').innerHTML = '<p>WRONG, try again!</p>';
         setTimeout(function(){
-            document.getElementById('answerOptionsTitle').innerHTML = '<p>Solve the math questions to reveal letters:</p>';
+            document.getElementById('answerOptionsTitle').innerHTML = '<p>Wich operation is needed to make this work? (Use +, -, / or x):</p>';
         }, 1500);
     }
 } 
