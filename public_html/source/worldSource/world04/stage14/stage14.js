@@ -145,7 +145,7 @@ function draw()
                 middleCtx.rect(mathObject.mathX, mathObject.mathY, mathObject.mathW, mathObject.mathH);
                 middleCtx.fill();
                 middleCtx.fillStyle = "rgba(255, 255, 255, 1)";
-                middleCtx.font = "30px Arial";
+                middleCtx.font = "60px Arial";
                 middleCtx.fillText(mathObject.mathNumber, mathObject.mathX
                     + (mathObject.mathW/2), mathObject.mathY
                     + (mathObject.mathH/2));
@@ -157,15 +157,15 @@ function draw()
 function updateGame() {
     movePlayer();
     
-    if (gameSpeed === 10) {
+    if (gameSpeed === 20) {
         setWinGame();
-    } else if (gameSpeed === 0) {
+    } else if (gameSpeed === 10) {
         setGameOver();
     }
 
     mathObjects.forEach(function(mathObject) {
-        if(checkCollision(player.playerX, player.playerY, player.playerWidth - 16, player.playerHeight - 16,
-               mathObject.mathX, mathObject.mathY, mathObject.mathW, mathObject.mathW)) {
+        if(checkCollision(player.playerX, player.playerY, player.playerWidth - 100, player.playerHeight - 50,
+               mathObject.mathX, mathObject.mathY, mathObject.mathW - 100, mathObject.mathW)) {
             if (mathObject.mathNumber === questionAnswer) {
                gameSpeed++;
                restartGame();
@@ -175,31 +175,10 @@ function updateGame() {
             }
         }
         
-
-        
-        
         mathObject.mathX -= gameSpeed;
-        var colliding = true;
-        while (colliding)
-        {
-            if (mathObject.mathX < -mathObject.mathW) {
-                mathObject.mathX = W + ((Math.random() * (W / 2)));
-                mathObject.mathY = H - 150;
-            }
-            
-            for (var i = 0; i < mathObjects.length; i++){
-                for (var j = 0; j < mathObjects.length; j++){
-                    if (i != j)
-                    {
-                        if (!checkCollision(mathObjects[i].mathX - 100, mathObjects[i].mathY, mathObjects[i].mathW + 100, mathObjects[i].mathH,
-                            mathObjects[j].mathX, mathObjects[j].mathY, mathObjects[j].mathW, mathObjects[j].mathH))
-                        {
-                            colliding = false;
-                        }
-                    }
-                }
-            }
-            
+        if (mathObject.mathX < -500) {
+            mathObject.mathX = W + 500;
+            mathObject.mathY = H - 150;
         }
     });
 }
@@ -216,7 +195,7 @@ function setGameOver() {
 
 function setStartGame() {
     gameState = 1;
-    gameSpeed = 5;
+    gameSpeed = 15;
     document.getElementById('myModal').style.display = "none";
     document.getElementById("gameOverModalContent").style.display = "none";
     document.getElementById("startModalContent").style.display = "none";
@@ -288,16 +267,20 @@ function restartGame() {
     document.getElementById("questionBox").innerHTML 
             = firstNumber + " / " + secondNumber + " = ??     Score: " 
             + gameSpeed;
-
+    newX = W;
     //Math Object
     mathObjects.forEach(function(mathObject) {
-            mathObject.mathX = W + ((Math.random() * W));
+            mathObject.mathX = newX;
             mathObject.mathY = H - 150;
             mathObject.mathW = W / 10;
             mathObject.mathH = H / 10;
             mathObject.mathNumber = Math.round(Math.random() * 20);
+            newX += 750;
     });
-    mathObjects[0].mathNumber = firstNumber / secondNumber;
+    var ansIndex = Math.round((Math.random() * (mathObjects.length)));
+    console.log(ansIndex);
+    console.log(mathObjects.length);
+    mathObjects[ansIndex].mathNumber = firstNumber / secondNumber;
 }
 
 //animation loop, 60 fps
