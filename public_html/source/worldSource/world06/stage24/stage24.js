@@ -28,11 +28,21 @@ iniBackgroundEffects(1);
 var firstNumber = 0;
 var secondNumber = 0;
 var questionAnswer = 0;
+var erlikHP = 100;
+var playerHP = 100;
+
 
 //PlayerVariables
 var player = {
     playerChar: null
 };
+
+var checkBox = {
+    x: W * (38/100),
+    y: H * (27/100),
+    w: W * (11/100),
+    h: H * (16/100),
+}
 
 var userInputX = 0;
 var userInputY = 0;
@@ -136,10 +146,6 @@ function draw()
 
     function drawFront() {
 
-        if(player.playerChar != null) {
-            drawSpriteImage(frontCtx, player.playerChar, userInputX-(spriteWidthTemp/2), userInputY-(spriteHeighTemp/2), spriteWidthTemp, spriteHeighTemp);
-        }
-
         if(player.playerChar != plussChar) {
             drawSpriteImage(frontCtx, plussChar, 10 + 50, spriteStartYTemp, spriteWidthTemp, spriteHeighTemp);
         }
@@ -165,20 +171,95 @@ function draw()
         roundingChar.updateFrame();
         erlikChar.updateFrame();
 
+        frontCtx.fillStyle = "rgba(0, 0, 0, 1)";
+        frontCtx.beginPath();
+        frontCtx.rect(0, 0, W, H * (20/100));
+        frontCtx.fill();
+
+        //Player healthbar
+
+        frontCtx.fillStyle = "rgba(255, 255, 255, 1)";
+        frontCtx.font = "30px Arial";
+        frontCtx.fillText("Your HP: ", W * (5/100), H*(5/100));
+
+        frontCtx.fillStyle = "rgba(255, 0, 0, 1)";
+        frontCtx.beginPath();
+        frontCtx.rect(W*(5/100), H * (8/100), W * (35/100), H * (10/100));
+        frontCtx.fill();
+
+        //Erlik healthbar
+
+        frontCtx.fillStyle = "rgba(255, 255, 255, 1)";
+        frontCtx.font = "30px Arial";
+        frontCtx.fillText("Erlik's HP: ", W * (60/100), H*(5/100));
+
+        frontCtx.fillStyle = "rgba(255, 0, 0, 1)";
+        frontCtx.beginPath();
+        frontCtx.rect(W*(60/100), H * (8/100), W * (35/100), H * (10/100));
+        frontCtx.fill();
 
         if (gameState === 1) {
-
             updateGame();
+            frontCtx.fillStyle = "rgba(255, 255, 255, 1)";
+            frontCtx.beginPath();
+            frontCtx.rect(W * (25/100), H * (25/100), W * (50/100), H * (20/100));
+            frontCtx.fill();
+
+            frontCtx.fillStyle = "rgba(0, 0, 0, 1)";
+            frontCtx.beginPath();
+            frontCtx.rect(W * (26/100), H * (26/100), W * (48/100), H * (18/100));
+            frontCtx.fill();
+
+            //Player current health
+            frontCtx.fillStyle = "rgba(0, 255, 0, 1)";
+            frontCtx.beginPath();
+            frontCtx.rect(W*(5/100), H * (8/100), W * (35/100) * (playerHP/100), H * (10/100));
+            frontCtx.fill();
+
+            // Erliks current health
+            frontCtx.fillStyle = "rgba(0, 255, 0, 1)";
+            frontCtx.beginPath();
+            frontCtx.rect(W*(60/100), H * (8/100), W * (35/100) * (erlikHP/100), H * (10/100));
+            frontCtx.fill();
+
+            frontCtx.fillStyle = "rgba(255, 255, 255, 1)";
+            frontCtx.font = "80px Arial";
+            frontCtx.fillText("2", W * (30/100), H * (37/100));
+
+            frontCtx.fillStyle = "rgba(255, 255, 255, 1)";
+            frontCtx.font = "80px Arial";
+            frontCtx.fillText("5", W * (55/100), H * (37/100));
+
+            frontCtx.fillStyle = "rgba(255, 255, 255, 1)";
+            frontCtx.font = "80px Arial";
+            frontCtx.fillText("= 7", W * (65/100), H * (37/100));
+
+            frontCtx.strokeStyle = "rgba(255, 255, 255, 1)";
+            frontCtx.beginPath();
+            frontCtx.rect(checkBox.x, checkBox.y, checkBox.w, checkBox.h);
+            frontCtx.stroke();
+        }
+
+        if(player.playerChar != null) {
+            drawSpriteImage(frontCtx, player.playerChar, userInputX-(spriteWidthTemp/2), userInputY-(spriteHeighTemp/2), spriteWidthTemp, spriteHeighTemp);
         }
     }
 }
 
 function updateGame() {
 
-    if (gameSpeed === 10) {
+    if (erlikHP <= 0) {
         setWinGame();
-    } else if (gameSpeed === 0) {
+    } else if (playerHP <= 0) {
         setGameOver();
+    }
+
+    if (player.playerChar != null) {
+        if(checkCollision(userInputX, userInputY, 20, 20, checkBox.x + checkBox.w/2, checkBox.y + checkBox.h/2, 20, 20)) {
+            if(player.playerChar === plussChar) {
+                erlikHP--;
+            }
+        }
     }
 }
 
