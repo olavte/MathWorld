@@ -66,8 +66,20 @@ function victoryScreen() {
 
 //lets user know they pressed wrong
 function sadnessScreen() {
+
     var text = "<p>Wrong</p>";
    document.getElementById('questionText').innerHTML = text;
+    setTimeout(function(){
+    var questionToLoad;
+    if(currentQuestion === 1){
+        questionToLoad = question1();
+    }
+    if(currentQuestion === 2){
+        questionToLoad = question2();
+    } else if(currentQuestion === 3) {
+        questionToLoad = question3();
+    }
+    }, 1500);
    
 
 }
