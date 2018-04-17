@@ -4,16 +4,38 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<div>
-    <div id="stage16">      
-        <canvas id="world4StageCanvas"></canvas>
-        <div id ="stageCenter">
-            <h1 id="stageTitle">Find the pairs!</h1>
-            <div id="memory_board"></div>
-            <button onclick="goToNewScreen('source/worldSource/world04/world04.html', 'source/worldSource/world04/world04.js')">Back</button>
+<div id="stage02">
+    <div id="myModal" class="modal">
+        <div id="startModalContent">
+            Erlik is chasing you!
+            <br>
+            Run away from him, but make sure to pick up
+            all the correct numbers along the way!<br> 
+            Erlik will catch you if your score is 10!
+            <button onclick="setStartGame()">Start!</button>
+            <button onclick="goToNewScreen('source/worldSource/world04/world04.html', 'source/worldSource/world04/world04.js')">Exit</button>
+        </div>
+        <div id="gameOverModalContent">
+            <button onclick="setBeforeGame()">Retry</button>
+            <button onclick="goToNewScreen(
+                        'source/worldSource/world04/world04.html',
+                        'source/worldSource/world04/world04.js')">
+                Exit!
+            </button>
+        </div>
+        <div id="winModalContent">
+            WIN!!!
+            <button onclick="goToNewScreen(
+                        'source/worldSource/world04/world04.html',
+                        'source/worldSource/world04/world04.js')">
+                Exit!
+            </button>
         </div>
     </div>
-            
-    </div>
     
+    <div id="questionBox"></div>
+
+    <canvas id="world4Canvas"></canvas>
+    <canvas id="middleCanvas"></canvas>
+    <canvas id="frontCanvas"></canvas>
 </div>
