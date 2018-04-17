@@ -20,7 +20,7 @@ iniBack("world2Canvas");
 var minusCharacter = createAnimatedSprite('assets/characters/minusCharSpr.png', 8400, 300, 600, 300, 14, 2);
 
 //backgroundEffects
-iniBackgroundEffects(1);
+//iniBackgroundEffects(1);
 
 //Lets draw the flakes
 function draw() {
@@ -29,9 +29,9 @@ function draw() {
     minusCharacter.updateFrame();
 
 
-    updateBackgroundEffects(1);
+    //updateBackgroundEffects(1);
     backCtx.drawImage(minusCharacter.image, minusCharacter.srcX, minusCharacter.srcY, minusCharacter.spriteWidth,
-        minusCharacter.spriteHeight, 60, 50, minusCharacter.spriteWidth, minusCharacter.spriteHeight);
+        minusCharacter.spriteHeight, -20, 50, minusCharacter.spriteWidth, minusCharacter.spriteHeight);
 }
 
 //animation loop

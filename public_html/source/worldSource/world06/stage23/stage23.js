@@ -25,21 +25,32 @@ var operators = [{
 ];
 
 //canvas init
-iniBack("world1Canvas");
+iniBack("world6Canvas");
 
-var plussCharacter = createAnimatedSprite('assets/characters/plussCharSpr.png', 1200, 300, 300, 300, 4, 30);
-
+var plussChar = createAnimatedSprite('assets/characters/plussCharSpr.png', 1200, 300, 300, 300, 4, 30);
+var minusChar = createAnimatedSprite('assets/characters/minusCharSpr.png', 8400, 300, 600, 300, 14, 2);
+var multiplicationChar = createAnimatedSprite('assets/characters/MultiplicationCharSpr.png', 1800, 300, 300, 300, 6, 25);
+var divisionChar = createAnimatedSprite('assets/characters/divisionCharSpr.png',6600 , 300, 300, 300, 22, 2);
+//var roundingChar = createAnimatedSprite('assets/characters/roundingChar.png', 1800, 300, 300, 300, 6, 2);
 //snowflake particles
-iniBackgroundEffects(1);
+//iniBackgroundEffects(1);
 
 //Lets draw the flakes
 function draw()
 {
     backCtx.clearRect(0, 0, W, H);
-    plussCharacter.updateFrame();
-    updateBackgroundEffects(1);
-    backCtx.drawImage(plussCharacter.image, plussCharacter.srcX, plussCharacter.srcY, plussCharacter.spriteWidth,
-        plussCharacter.spriteHeight, 160, 150, plussCharacter.spriteWidth, plussCharacter.spriteHeight);
+    drawSpriteImage(backCtx, plussChar, 10, 10, 150, 150);
+    drawSpriteImage(backCtx, minusChar, 10, H-160, 150, 150);
+    drawSpriteImage(backCtx, multiplicationChar, W - 160, 10, 150, 150);
+    drawSpriteImage(backCtx, divisionChar, W - 160, H - 160, 150, 150);
+    //drawSpriteImage(backCtx, roundingChar, 10 + 200, spriteStartYTemp + ((H/8) * 4), 150, 150);
+    
+    
+    plussChar.updateFrame();
+    minusChar.updateFrame();
+    multiplicationChar.updateFrame();
+    divisionChar.updateFrame();
+    //roundingChar.updateFrame();
 }
 
 //animation loop
