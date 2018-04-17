@@ -4,29 +4,57 @@
  * and open the template in the editor.
  */
 currentWorld = 4;
-function goToMenu(x) {
-    x.classList.toggle("change");
+if(currentStage < 13) {
+    document.getElementById("level2").disabled = true;
+}
+if(currentStage < 14) {
+    document.getElementById("level3").disabled = true;
+}
+if(currentStage < 15) {
+    document.getElementById("level4").disabled = true;
+}
+if(currentStage < 16) {
+    document.getElementById("World5Door").disabled = true;
 }
 
+updateCookies();
 
 //canvas init
-iniBack('world1Canvas');
+iniBack('world4Canvas');
 
-var plussCharacter = createAnimatedSprite('assets/characters/plussCharSpr.png', 1200, 300, 300, 300, 4, 30);
+var divisionCharacter = createAnimatedSprite('assets/characters/divisionCharSpr.png', 1200, 300, 300, 300, 22, 1);
+var goldenKey = createAnimatedSprite('assets/goldenKey.png', 9600, 800, 800, 800, 23, 5);
 
 playMusic(norwayMusic);
 
+if(currentStage >= 16 && worldKeys < 4) {
+    playSound('assets/sound/gotKey.mp3');
+}
+
 //snowflake particles
-iniBackgroundEffects(1);
+//iniBackgroundEffects(1);
 
 //Lets draw the flakes
 function draw() {
     backCtx.clearRect(0, 0, W, H);
-    backCtx.drawImage(plussCharacter.image, plussCharacter.srcX, plussCharacter.srcY, plussCharacter.spriteWidth,
-        plussCharacter.spriteHeight, 10, H / 3, W / 5, W / 4);
-    plussCharacter.updateFrame();
-    updateBackgroundEffects(1);
+    backCtx.drawImage(divisionCharacter.image, divisionCharacter.srcX, divisionCharacter.srcY, divisionCharacter.spriteWidth,
+        divisionCharacter.spriteHeight, 10, H / 3, W / 5, W / 4);
+    divisionCharacter.updateFrame();
+    //updateBackgroundEffects(1);
+
+    if(currentStage >= 16 && worldKeys < 4) {
+        if(goldenKey.currentFrame === 22) {
+            worldKeys = 4;
+        } else {
+            drawSpriteImage(backCtx, goldenKey, W/2-(W/4), H/2-(H/3), W/2, H/2);
+            goldenKey.updateFrame();
+        }
+    }
 }
 
 //animation loop
 animationLoop = setInterval(draw, 33);
+
+document.getElementById("currentStageScore").innerHTML = "Level: " + currentStage;
+document.getElementById("currentKeys").innerHTML = "Keys: " + worldKeys;
+document.getElementById("currentCredits").innerHTML = "Credits: " + creditsMoney;

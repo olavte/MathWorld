@@ -58,6 +58,7 @@ function victoryScreen() {
         if(currentStage < 1) {
             currentStage = 1;
         }
+        creditsMoney += 50;
         questionToLoad = backToWorld();
     }
 

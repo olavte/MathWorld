@@ -9,21 +9,21 @@ var letterArray = answer.split("");
 var mathAnswers = [];
 
 //canvas init
-iniBack("world1Canvas")
+iniBack("world4StageCanvas");
 
-var plussCharacter = createAnimatedSprite('assets/characters/plussCharSpr.png', 1200, 300, 300, 300, 4, 30);
+var divisionCharacter = createAnimatedSprite('assets/characters/divisionCharSpr.png', 1200, 300, 300, 300, 22, 1);
 
 //snowflake particles
-iniBackgroundEffects(1);
+//iniBackgroundEffects(1);
 
 //Lets draw the flakes
 function draw()
 {
     backCtx.clearRect(0, 0, W, H);
-    plussCharacter.updateFrame();
-    updateBackgroundEffects(1);
-    backCtx.drawImage(plussCharacter.image, plussCharacter.srcX, plussCharacter.srcY, plussCharacter.spriteWidth,
-        plussCharacter.spriteHeight, 160, 150, plussCharacter.spriteWidth, plussCharacter.spriteHeight);
+    divisionCharacter.updateFrame();
+    //updateBackgroundEffects(1);
+    backCtx.drawImage(divisionCharacter.image, divisionCharacter.srcX, divisionCharacter.srcY, divisionCharacter.spriteWidth,
+        divisionCharacter.spriteHeight, 160, 150, divisionCharacter.spriteWidth, divisionCharacter.spriteHeight);
 }
 
 //animation loop
@@ -41,7 +41,7 @@ function victoryScreen() {
     document.getElementById('questionPicture').innerHTML = "";
     document.getElementById('answerOptions').innerHTML = "";
     setTimeout(function(){
-        goToNewScreen('source/worldSource/world01/world01.html', 'source/worldSource/world01/world01.js');
+        goToNewScreen('source/worldSource/world04/world04.html', 'source/worldSource/world04/world04.js');
     }, 1500);
 }
 
@@ -61,15 +61,22 @@ function loseScreen() {
 //@param opp til nummer upToo
 //@return random nummer
 function randomNumber(upTo) {
-    var randNumb = Math.floor(Math.random() * upTo);
+    var zeroCheck = true;
+    while (zeroCheck) {
+        var randNumb = Math.floor(Math.random() * upTo);
+        
+        if (randNumb !== 0 && randNumb !== 1) {
+            zeroCheck = false;;
+        }
+    }
     return randNumb;
 }
 
 //Selects a random word within the words array and returns it.
 function selectWord() {    
-    var words = ["apple", "ice", "orange", "car", "computer", 
+    var words = ["apple", "ice", "orange", "car", 
                  "game", "math", "school", "juice", "soda", 
-                 "carrot", "purple", "movie", "superhero"];
+                 "carrot", "purple", "movie"];
     var randNumb = randomNumber(words.length);
     return words[randNumb];
 }
@@ -97,28 +104,55 @@ function checkAnswer(i) {
     }
 } 
 
+function countDecimals(number) {
+  var match = (''+number).match(/(?:\.(\d+))?(?:[eE]([+-]?\d+))?$/);
+  if (!match) { return 0; }
+  return Math.max(
+       0,
+       // Number of digits right of decimal point.
+       (match[1] ? match[1].length : 0)
+       // Adjust for scientific notation.
+       - (match[2] ? +match[2] : 0));
+}
+
+function round(number, precision) {
+    var multiplier = Math.pow(10, precision || 0);
+    return Math.round(number * multiplier) / multiplier;
+}
+
 //builds and executes first question
 function question1() {
     var generated = false;
     
     document.getElementById('stageTitle').innerHTML = 'Guess The Word!';
     document.getElementById('questionText').innerHTML = '</p>Enter your guess below!</p>';
-    document.getElementById('answerOptionsTitle').innerHTML = '<p>Solve the math questions to reveal letters:</p>';
+    document.getElementById('answerOptionsTitle').innerHTML = '<p>Solve the math questions to reveal letters!</p><p>If there are decimals in your answer, round down to ONE decimal!</p>';
 
     
     while (generated === false) {
         for (i = 0; i < answer.length; i++) {
+            var decimalCheck = true;
             var buttonId = "button" + i;
             var questionFieldId = "questionField" + i;
-            var firstNumber = randomNumber(15);
-            var secondNumber = randomNumber(15);
-            var ans = firstNumber + secondNumber;
+            
+            var firstNumber, secondNumber, ans;
+        
+            while (decimalCheck) {
+                firstNumber = randomNumber(100);
+                secondNumber = randomNumber(12);
+                ans = firstNumber / secondNumber;
+                
+                if((countDecimals(ans) === 0) && (ans !== 1) && (ans < 13)) {
+                    decimalCheck = false;
+                }
+            }
+            
             mathAnswers.push(ans);
             
             var div = document.createElement('div');
             var newId = 'question' + i;
             div.id = newId;
-            div.innerHTML = '<p>' + firstNumber + ' + ' + secondNumber + ' = <input type="text" name="guess" id=' + questionFieldId + '><button id=' + buttonId + ' onclick="checkAnswer(' + i + ')">Check Answer</button></p>';
+            div.innerHTML = '<p>' + firstNumber + ' / ' + secondNumber + ' = <input type="text" name="guess" id=' + questionFieldId + '><button id=' + buttonId + ' onclick="checkAnswer(' + i + ')">Check Answer</button></p>';
             document.getElementById('answerOptions').appendChild(div);
             
             /* ENTER TO CHECK ANSWER DOES NOT WORK

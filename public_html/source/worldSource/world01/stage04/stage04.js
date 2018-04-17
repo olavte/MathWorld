@@ -15,6 +15,7 @@ iniFront("frontCanvas");
 playMusic(rockMusic);
 var plussCharacter = createAnimatedSprite('assets/characters/plussCharSpr.png', 1200, 300, 300, 300, 4, 30);
 var marshChar = createAnimatedSprite('assets/characters/marshmellowsSheet.png', 512, 128, 128, 128, 4, 15);
+var erlikChar = createAnimatedSprite('assets/characters/ErlikChase.png', 300, 3600, 300, 300, 12, 10);
 
 var gameState = 0;
 setBeforeGame();
@@ -45,7 +46,7 @@ for(var i = 0; i < 4; i++) {
         name:"math" + (i + 1),
         mathX:W + ((Math.random() * (W / 2))),
         mathY:Math.random() * (H - 1) + 1,
-        mathW:W/40,
+        mathW:W/35,
         mathNumber:0});
 }
 
@@ -108,14 +109,14 @@ function mouseUp() {
 
 function movePlayer() {
     if (userInputX < ((player.playerX + ((player.playerWidth) / 2)) - 24) && (player.playerX > 0)) {
-        player.playerX -= 10;
+        player.playerX -= 15;
     } else if (userInputX > ((player.playerX + (player.playerWidth / 2)) + 24) && player.playerX < (W - (player.playerWidth))) {
-        player.playerX += 10;
+        player.playerX += 15;
     }
     if (userInputY < ((player.playerY + ((player.playerHeight) / 2)) - 24) && (player.playerY > 0)) {
-        player.playerY -= 10;
+        player.playerY -= 15;
     } else if (userInputY > ((player.playerY + (player.playerHeight / 2)) + 24) && player.playerY < (H - (player.playerHeight))) {
-        player.playerY += 10;
+        player.playerY += 15;
     }
 }
 
@@ -149,11 +150,6 @@ function draw()
 
             updateGame();
 
-            middleCtx.fillStyle = "rgba(0, 0, 0, 1)";
-            middleCtx.beginPath();
-            middleCtx.rect(hinder.hinderX, hinder.hinderY, hinder.hinderWidth, hinder.hinderHeight);
-            middleCtx.fill();
-
             mathObjects.forEach(function(mathObject) {
                 middleCtx.fillStyle = "rgba(255, 200, 200, 0.6)";
                 middleCtx.beginPath();
@@ -165,6 +161,14 @@ function draw()
                     - (mathObject.mathW/2), mathObject.mathY
                     + (mathObject.mathW/2));
             });
+
+            middleCtx.fillStyle = "rgba(0, 0, 0, 1)";
+            middleCtx.beginPath();
+            middleCtx.rect(hinder.hinderX, hinder.hinderY, hinder.hinderWidth, hinder.hinderHeight);
+            middleCtx.fill();
+
+            drawSpriteImage(middleCtx, erlikChar, hinder.hinderX, hinder.hinderY - hinder.hinderHeight, hinder.hinderWidth, hinder.hinderHeight);
+            erlikChar.updateFrame();
         }
     }
 
@@ -180,7 +184,7 @@ function updateGame() {
 
     if (gameSpeed === 10) {
         setWinGame();
-    } else if (gameSpeed === 0) {
+    } else if (gameSpeed === -5) {
         setGameOver();
     }
 
@@ -189,7 +193,7 @@ function updateGame() {
         setGameOver();
     }
 
-    hinder.hinderX -= gameSpeed + 1;
+    hinder.hinderX -= gameSpeed + 10;
     if (hinder.hinderX < -hinder.hinderWidth) {
         hinder.hinderX = W + ((Math.random() * (W / 2)));
         hinder.hinderY = (Math.random() * (H - 1)) + 1;
@@ -206,7 +210,7 @@ function updateGame() {
                restartGame();
            }
        }
-       mathObject.mathX -= gameSpeed;
+       mathObject.mathX -= (gameSpeed/2) + 5;
         if (mathObject.mathX < -mathObject.mathW) {
             mathObject.mathX = W + ((Math.random() * (W / 2)));
             mathObject.mathY = (Math.random() * (H - 1)) + 1;
@@ -216,6 +220,7 @@ function updateGame() {
 
 function setGameOver() {
     gameState = 0;
+    playSound('assets/sound/lostGame.mp3');
     document.getElementById('myModal').style.display = "block";
     document.getElementById("gameOverModalContent").style.display = "block";
     document.getElementById("startModalContent").style.display = "none";
@@ -225,7 +230,7 @@ function setGameOver() {
 
 function setStartGame() {
     gameState = 1;
-    gameSpeed = 5;
+    gameSpeed = 0;
     document.getElementById('myModal').style.display = "none";
     document.getElementById("gameOverModalContent").style.display = "none";
     document.getElementById("startModalContent").style.display = "none";
@@ -266,7 +271,7 @@ function restartGame() {
             + gameSpeed;
 
     hinder.hinderX = W + ((Math.random() * (W / 2)));
-    hinder.hinderY = 0;
+    hinder.hinderY = Math.random() * H;
     hinder.hinderWidth = W / 10;
     hinder.hinderHeight = H / 8;
 

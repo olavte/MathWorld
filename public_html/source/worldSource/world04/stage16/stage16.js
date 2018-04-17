@@ -5,19 +5,18 @@
 
 //canvas init
 
-iniBack("world1Canvas");
+iniBack("world4Canvas");
 
 iniMiddle("middleCanvas");
 
 iniFront("frontCanvas");
 
 //Music
-playMusic(fightMusic);
-var plussCharacter = createAnimatedSprite('assets/characters/plussCharSpr.png', 1200, 300, 300, 300, 4, 30);
+playMusic(norwayMusic);
+var divisionCharacter = createAnimatedSprite('assets/characters/divisionCharSpr.png', 1200, 300, 300, 300, 22, 1);
 
 var gameState = 0;
 setBeforeGame();
-
 
 iniBackgroundEffects(1);
 
@@ -26,16 +25,7 @@ iniBackgroundEffects(1);
 var firstNumber = 0;
 var secondNumber = 0;
 var questionAnswer = 0;
-var gameSpeed = 5;
-
-//Hinder Object
-var hinder = {
-    hinderX: W + ((Math.random() * (W / 2))),
-    hinderY: 0,
-    hinderWidth: W / 10,
-    hinderHeight: H / 8
-
-};
+var gameSpeed = 7;
 
 //Math Objects
 var mathObjects = [];
@@ -43,7 +33,7 @@ for(var i = 0; i < 4; i++) {
     mathObjects.push({
         name:"math" + (i + 1),
         mathX:W + ((Math.random() * (W / 2))),
-        mathY:Math.random() * (H - 1) + 1,
+        mathY:H - 150,
         mathW:W/40,
         mathNumber:0});
 }
@@ -51,56 +41,86 @@ for(var i = 0; i < 4; i++) {
 //PlayerVariables
 var player = {
     playerX: W / 12,
-    playerY: H / 2,
+    playerY: H - 150,
     playerHeight: H / 8,
     playerWidth: W / 10
 };
 
-var userInputX = 0;
+var isJumping = false;
+var isFalling = false;
+var jumpBoost = 90;
+var speed = 0;
+
 var userInputY = 0;
 
 // Player Controll
 var timer = 0;
+userInputGame = true;
 
-mouseMove = window.addEventListener("mousemove", function (event) {
-    userInputX = event.x;
-    userInputY = (event.y - middleCanvas.offsetTop) * 1.4;
+
+window.addEventListener("mousemove", mouseMove);
+function mouseMove(event) {
     event.preventDefault();
-});
+}
 
-touchMove = window.addEventListener("touchmove", function (event) {
-    userInputX = event.touches[0].clientX;
-    userInputY = (event.touches[0].clientY - middleCanvas.offsetTop) * 1.4;
-}, false);
+window.addEventListener("touchmove", touchMove);
+function touchMove(event) {
+}
 
-touchStart = window.addEventListener("touchstart", function () {
-    if (timer === 0) {
-        timer = setInterval(movePlayer, 20);
-    }
-}, false);
+window.addEventListener("mouseup", mouseUp);
+function mouseUp() {
+}
 
-touchEnd = window.addEventListener("touchend", function () {
+window.addEventListener("touchend", touchEnd);
+function touchEnd() {
     clearInterval(timer);
     timer = 0;
-}, false);
-
-mouseDown = window.addEventListener("mousedown", function () {
-    if (timer === 0) {
-        timer = setInterval(movePlayer, 20);
+}
+window.addEventListener("touchstart", touchStart);
+function touchStart() {
+    if ((!isJumping) && (!isFalling)) {    
+        speed = 100;
+        isJumping = true;
+        isFalling = false;
     }
-}, false);
+}
 
-mouseUp = window.addEventListener("mouseup", function () {
-    clearInterval(timer);
-    timer = 0;
-}, false);
+window.addEventListener("mousedown", mouseDown);
+function mouseDown() {
+    if ((!isJumping) && (!isFalling)) {   
+        speed = jumpBoost;
+        isJumping = true;
+        isFalling = false;
+    }
+}
+
 
 function movePlayer() {
-    if (userInputY < ((player.playerY + ((player.playerHeight) / 2)) - 24) && (player.playerY > 0)) {
-        player.playerY -= 10;
-    } else if (userInputY > ((player.playerY + (player.playerHeight / 2)) + 24) && player.playerY < (H - (player.playerHeight))) {
-        player.playerY += 10;
+    var gravity = 5;
+    
+    if (isJumping || isFalling)
+    {
+        speed -= gravity;
     }
+    
+    
+    if ((isJumping) && (speed > 0))
+    {
+    } else if ((isJumping) && (speed <= 0)){
+        isJumping = false;
+        isFalling = true;
+    }
+    
+    if ((isFalling) && (player.playerY < H - 150)){
+    } else if ((isFalling) && (player.playerY >= H - 150)){
+        player.playerY = H -150;
+        speed = 0;
+        isJumping = false;
+        isFalling = false;
+    }
+    
+    //Update playerY
+    player.playerY -= speed;
 }
 
 
@@ -121,88 +141,70 @@ function draw()
 
     function drawMiddle() {
 
-        middleCtx.fillStyle = "rgba(131, 92, 59, 1)";
+        middleCtx.fillStyle = "rgba(255, 255, 255, 1)";
         middleCtx.beginPath();
         middleCtx.rect(0, 0, W, H);
         middleCtx.fill();
-
-        middleCtx.fillStyle = "rgba(255, 255, 255, 1)";
+        
+        middleCtx.fillStyle = "rgba(0, 0, 0, 1)";
         middleCtx.beginPath();
-        middleCtx.rect(player.playerX, player.playerY, player.playerWidth, player.playerHeight);
+        middleCtx.strokeRect(0, 0, W, H);
         middleCtx.fill();
-        middleCtx.stroke();
+
+        drawSpriteImage(middleCtx, divisionCharacter, player.playerX, player.playerY, player.playerWidth, player.playerHeight);
+        divisionCharacter.updateFrame();
 
         if (gameState === 1) {
 
             updateGame();
 
-            middleCtx.fillStyle = "rgba(0, 0, 0, 1)";
-            middleCtx.beginPath();
-            middleCtx.rect(hinder.hinderX, hinder.hinderY, hinder.hinderWidth, hinder.hinderHeight);
-            middleCtx.fill();
-
             mathObjects.forEach(function(mathObject) {
-                middleCtx.fillStyle = "rgba(255, 200, 200, 0.6)";
-                middleCtx.beginPath();
-                middleCtx.arc(mathObject.mathX, mathObject.mathY, mathObject.mathW, 0, 2 * Math.PI);
-                middleCtx.fill();
                 middleCtx.fillStyle = "rgba(0, 0, 0, 1)";
-                middleCtx.font = "30px Arial";
+                middleCtx.beginPath();
+                middleCtx.rect(mathObject.mathX, mathObject.mathY, mathObject.mathW, mathObject.mathH);
+                middleCtx.fill();
+                middleCtx.fillStyle = "rgba(255, 255, 255, 1)";
+                middleCtx.font = "60px Arial";
                 middleCtx.fillText(mathObject.mathNumber, mathObject.mathX
-                    - (mathObject.mathW/2), mathObject.mathY
-                    + (mathObject.mathW/2));
+                    + (mathObject.mathW/2), mathObject.mathY
+                    + (mathObject.mathH/2));
             });
         }
-    }
-
-    function drawFront() {
-        frontCtx.drawImage(plussCharacter.image, plussCharacter.srcX, plussCharacter.srcY, plussCharacter.spriteWidth,
-                plussCharacter.spriteHeight, 0, 100, W / 4, H / 2);
-        plussCharacter.updateFrame();
-
     }
 }
 
 function updateGame() {
-
-    if (gameSpeed === 10) {
+    movePlayer();
+    
+    if (gameSpeed === 20) {
         setWinGame();
-    } else if (gameSpeed === 0) {
+    } else if (gameSpeed === 10) {
         setGameOver();
-    }
-
-    if(checkCollision(player.playerX, player.playerY, player.playerWidth, player.playerHeight,
-            hinder.hinderX, hinder.hinderY, hinder.hinderWidth, hinder.hinderHeight)) {
-        setGameOver();
-    }
-
-    hinder.hinderX -= gameSpeed + 1;
-    if (hinder.hinderX < -hinder.hinderWidth) {
-        hinder.hinderX = W + ((Math.random() * (W / 2)));
-        hinder.hinderY = (Math.random() * (H - 1)) + 1;
     }
 
     mathObjects.forEach(function(mathObject) {
-       if(checkCollision(player.playerX, player.playerY, player.playerWidth, player.playerHeight,
-               mathObject.mathX, mathObject.mathY, mathObject.mathW, mathObject.mathW)) {
-           if (mathObject.mathNumber === questionAnswer) {
+        if(checkCollision(player.playerX, player.playerY, player.playerWidth - 100, player.playerHeight - 50,
+               mathObject.mathX, mathObject.mathY, mathObject.mathW - 100, mathObject.mathW)) {
+            if (mathObject.mathNumber === questionAnswer) {
                gameSpeed++;
                restartGame();
-           } else {
+            } else {
                gameSpeed--;
                restartGame();
-           }
-       }
-       mathObject.mathX -= gameSpeed;
-        if (mathObject.mathX < -mathObject.mathW) {
-            mathObject.mathX = W + ((Math.random() * (W / 2)));
-            mathObject.mathY = (Math.random() * (H - 1)) + 1;
+            }
+        }
+        
+        mathObject.mathX -= gameSpeed;
+        if (mathObject.mathX < -2000) {
+            mathObject.mathX = W + 500;
+            mathObject.mathY = H - 150;
         }
     });
 }
 
 function setGameOver() {
     gameState = 0;
+    playSound('assets/sound/lostGame.mp3');
     document.getElementById('myModal').style.display = "block";
     document.getElementById("gameOverModalContent").style.display = "block";
     document.getElementById("startModalContent").style.display = "none";
@@ -212,7 +214,7 @@ function setGameOver() {
 
 function setStartGame() {
     gameState = 1;
-    gameSpeed = 5;
+    gameSpeed = 15;
     document.getElementById('myModal').style.display = "none";
     document.getElementById("gameOverModalContent").style.display = "none";
     document.getElementById("startModalContent").style.display = "none";
@@ -231,37 +233,73 @@ function setBeforeGame() {
 
 function setWinGame() {
     gameState = 0;
+    if(currentStage < 4) {
+        currentStage = 4;
+    }
     document.getElementById('myModal').style.display = "block";
     document.getElementById("gameOverModalContent").style.display = "none";
     document.getElementById("startModalContent").style.display = "none";
     document.getElementById("winModalContent").style.display = "block";
 }
 
+
+function randomNumber(upTo) {
+    var zeroCheck = true;
+    while (zeroCheck) {
+        var randNumb = Math.floor(Math.random() * upTo);
+        
+        if (randNumb != 0 && randNumb != 1) {
+            zeroCheck = false;;
+        }
+    }
+    return randNumb;
+}
+
+
+function countDecimals(number) {
+  var match = (''+number).match(/(?:\.(\d+))?(?:[eE]([+-]?\d+))?$/);
+  if (!match) { return 0; }
+  return Math.max(
+       0,
+       // Number of digits right of decimal point.
+       (match[1] ? match[1].length : 0)
+       // Adjust for scientific notation.
+       - (match[2] ? +match[2] : 0));
+}
+
+
 function restartGame() {
     // Game variables
-    //Hinder Object
 
-    firstNumber = Math.round(Math.random() * 10);
-    secondNumber = Math.round(Math.random() * 10);
-    questionAnswer = firstNumber + secondNumber;
+    var decimalCheck = true;
+       
+    while (decimalCheck) {
+        firstNumber = randomNumber(100);
+        secondNumber = randomNumber(12);
+        questionAnswer = firstNumber / secondNumber;
+               
+        if((countDecimals(questionAnswer) === 0) && (questionAnswer != 1) && (questionAnswer < 13)) {
+            decimalCheck = false;
+        }
+    }
 
     document.getElementById("questionBox").innerHTML 
-            = firstNumber + " + " + secondNumber + " = ??     Score: " 
+            = firstNumber + " / " + secondNumber + " = ??     Score: " 
             + gameSpeed;
-
-    hinder.hinderX = W + ((Math.random() * (W / 2)));
-    hinder.hinderY = 0;
-    hinder.hinderWidth = W / 10;
-    hinder.hinderHeight = H / 8;
-
+    newX = W;
     //Math Object
     mathObjects.forEach(function(mathObject) {
-        mathObject.mathX = W + ((Math.random() * (W / 2)));
-        mathObject.mathY = Math.random() * (H - 1) + 1;
-        mathObject.mathW = W / 40;
-        mathObject.mathNumber = Math.round(Math.random() * 20);
+            mathObject.mathX = newX + 1500;
+            mathObject.mathY = H - 150;
+            mathObject.mathW = W / 10;
+            mathObject.mathH = H / 10;
+            mathObject.mathNumber = Math.round(Math.random() * 20);
+            newX += 1000;
     });
-    mathObjects[0].mathNumber = firstNumber + secondNumber;
+    var ansIndex = Math.round((Math.random() * (mathObjects.length - 1)));
+    console.log(ansIndex);
+    console.log(mathObjects.length);
+    mathObjects[ansIndex].mathNumber = firstNumber / secondNumber;
 }
 
 //animation loop, 60 fps

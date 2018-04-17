@@ -2,7 +2,7 @@
 
 
 var answer;
-
+var currentQuestion = 1;
 mathStageNine();
 //mathStageNineSecond();
 //mathStageNineThird();
@@ -62,7 +62,7 @@ function mathStageNineSecond(){
      doNextPoint2();
      doNextPoint3();
  
-    document.getElementById('qanswers').innerHTML = "";
+    document.getElementById('#stage2answers').innerHTML = "";
 
 }
 
@@ -94,15 +94,15 @@ function mathStageNineThird(){
      doNextPoint1();
      doNextPoint2();
      doNextPoint3();
- 
+     creditsMoney +=50;
 
 }
 
 
 //Lets user know they were correct, 
 function victoryScreen() {
-    
-    document.getElementById('qanswers').innerHTML = "CORRECT!";
+    currentQuestion++;
+    document.getElementById('#stage2answers').innerHTML = "CORRECT!";
     document.getElementById("mathbutton2").disabled = false;
      var option1 = document.getElementById('pineconediv1');
         option1.removeChild(option1.lastChild);
@@ -110,13 +110,15 @@ function victoryScreen() {
         option2.removeChild(option2.lastChild);
         var option3 = document.getElementById('pineconediv3');
         option3.removeChild(option3.lastChild);
-
+ if(currentQuestion === 5){
+     backToWorld();
+ }
 }
 
 //lets user know they pressed wrong
 function sadnessScreen() {
 
-    document.getElementById('qanswers').innerHTML = "WRONG!";
+    document.getElementById('#stage2answers').innerHTML = "WRONG!";
     reload();
 }
 
@@ -156,14 +158,18 @@ function shuffle(a) {
  
    }
    //creates an area for the animation of the objects, width and heigth of stage background
-$('#animationArea').width($('#stage10background').width()).height(($('#stage10background').height()/2));
+//$('#animationArea').width($('#stage10background').width()).height(($('#stage10background').height()/2));
 
 
 function doNextPoint1(){
+    
+   $('#animationArea').width($('#stage10background').width());
+   $('#animationArea').height($('#stage10background').height());
+    var animationTop = $("#animationArea")[0].getBoundingClientRect();
     var maxX = $('#animationArea').width() - $('#pineconediv1').width();    
     var newX = rand(0, maxX);    
-    var maxY = $('#animationArea').height() + $('#pineconediv1').height();
-    var newY = rand(0, maxY);
+    var maxY = $('#animationArea').height() - $('#pineconediv1').height();
+    var newY = rand(animationTop.top, maxY);
     var speed  = rand (1000, 3000);
     
     $('#pineconediv1').animate({
@@ -178,14 +184,15 @@ function doNextPoint1(){
     
     
 }
-$('#animationArea').width($('#stage10background').width()).height(($('#stage10background').height()/2));
+//$('#animationArea').width($('#stage10background').width()).height(($('#stage10background').height()/2));
 
 
 function doNextPoint2(){
+    var animationTop = $("#animationArea")[0].getBoundingClientRect();
     var maxX = $('#animationArea').width() - $('#pineconediv2').width();    
     var newX = rand(0, maxX);    
-    var maxY = $('#animationArea').height() + $('#pineconediv2').height();
-    var newY = rand(0, maxY);
+    var maxY = $('#animationArea').height() - $('#pineconediv2').height();
+    var newY = rand(animationTop.top, maxY);
     var speed  = rand (1000, 3000);
     
     $('#pineconediv2').animate({
@@ -195,20 +202,17 @@ function doNextPoint2(){
     }, speed, function(){
         doNextPoint2();    
     });
-    
- 
-    
+
 }
-
-
-$('#animationArea').width($('#stage10background').width()).height(($('#stage10background').height()/2));
+//$('#animationArea').width($('#stage10background').width()).height(($('#stage10background').height()/2));
 
 
 function doNextPoint3(){
+    var animationTop = $("#animationArea")[0].getBoundingClientRect();
     var maxX = $('#animationArea').width() - $('#pineconediv3').width();    
     var newX = rand(0, maxX);    
-    var maxY = $('#animationArea').height() + $('#pineconediv3').height();
-    var newY = rand(0, maxY);
+    var maxY = $('#animationArea').height() - $('#pineconediv3').height();
+    var newY = rand(animationTop.top, maxY);
     var speed  = rand (1000, 3000);
     
     $('#pineconediv3').animate({
@@ -219,11 +223,7 @@ function doNextPoint3(){
         doNextPoint3();    
     });
     
-    
-    
-    
 }
- 
 function rand (min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }    

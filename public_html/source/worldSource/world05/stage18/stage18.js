@@ -12,7 +12,8 @@ iniMiddle("middleCanvas");
 iniFront("frontCanvas");
 
 //Music
-playMusic(crazyMusic);
+playMusic(heartbeatMusic);
+currentMusic.volume = musicVolume * globalVolume * 0.2;
 var roundingChar = createAnimatedSprite('assets/characters/roundingChar.png', 1800, 300, 300, 300, 6, 15);
 
 var gameState = 0;
@@ -193,6 +194,13 @@ function updateGame() {
         setGameOver();
     }
 
+    if(checkCollision(player.playerX - 250, player.playerY - 250, player.playerWidth + 500, player.playerHeight + 500,
+            hinder.hinderX, hinder.hinderY, hinder.hinderWidth, hinder.hinderHeight)) {
+        currentMusic.volume = musicVolume * globalVolume * 1;
+    } else {
+        currentMusic.volume = musicVolume * globalVolume * 0.2;
+    }
+
     if(hinder.hinderX > hinder.hinderGoalX - 100 && hinder.hinderX < hinder.hinderGoalX + 100
         && hinder.hinderY > hinder.hinderGoalY - 100 && hinder.hinderY < hinder.hinderGoalY + 100) {
         hinder.hinderGoalX = Math.random() * W;
@@ -292,6 +300,10 @@ function setBeforeGame() {
 
 function setWinGame() {
     gameState = 0;
+    if(currentStage < 18) {
+        currentStage = 18;
+    }
+    creditsMoney += 50;
     document.getElementById('myModal').style.display = "block";
     document.getElementById("gameOverModalContent").style.display = "none";
     document.getElementById("startModalContent").style.display = "none";
