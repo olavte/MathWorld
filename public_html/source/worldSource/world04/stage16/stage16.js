@@ -14,6 +14,7 @@ iniFront("frontCanvas");
 //Music
 playMusic(norwayMusic);
 var divisionCharacter = createAnimatedSprite('assets/characters/divisionCharSpr.png', 1200, 300, 300, 300, 22, 1);
+var erlikCharacter = createAnimatedSprite('assets/characters/ErlikChase.png', 3600, 300, 300, 300, 12, 2);
 
 var gameState = 0;
 setBeforeGame();
@@ -40,10 +41,18 @@ for(var i = 0; i < 4; i++) {
 
 //PlayerVariables
 var player = {
-    playerX: W / 12,
+    playerX: W - 1000,
+    destination: W - 1000,
     playerY: H - 150,
     playerHeight: H / 8,
     playerWidth: W / 10
+};
+
+var erlik = {
+    erlikX: 0,
+    erlikY: player.playerY - 200,
+    erlikW: W * 0.2,
+    erlikH: W * 0.2
 };
 
 var isJumping = false;
@@ -79,7 +88,7 @@ function touchEnd() {
 window.addEventListener("touchstart", touchStart);
 function touchStart() {
     if ((!isJumping) && (!isFalling)) {    
-        speed = 100;
+        speed = jumpBoost;;
         isJumping = true;
         isFalling = false;
     }
@@ -153,6 +162,9 @@ function draw()
 
         drawSpriteImage(middleCtx, divisionCharacter, player.playerX, player.playerY, player.playerWidth, player.playerHeight);
         divisionCharacter.updateFrame();
+        
+        drawSpriteImage(middleCtx, erlikCharacter, erlik.erlikX, erlik.erlikY, erlik.erlikW, erlik.erlikH);
+        erlikCharacter.updateFrame();
 
         if (gameState === 1) {
 
@@ -187,15 +199,37 @@ function updateGame() {
                mathObject.mathX, mathObject.mathY, mathObject.mathW - 100, mathObject.mathW)) {
             if (mathObject.mathNumber === questionAnswer) {
                gameSpeed++;
+               player.destination = player.playerX + 75;
                restartGame();
             } else {
                gameSpeed--;
+
+               player.destination = player.playerX - 75;
                restartGame();
             }
         }
         
+        if (player.playerX > player.destination)
+        {
+            player.playerX -= 0.5;
+        } else if (player.playerX < player.destination)
+        {
+            player.playerX += 0.5;
+        }
+        
+        if(checkCollision(erlik.erlikX, erlik.erlikY, erlik.erlikW - 100, erlik.erlikH - 50,
+                mathObject.mathX, mathObject.mathY, mathObject.mathW - 100, mathObject.mathW)) {
+                    mathObject.falling = true;
+                }
+        
         mathObject.mathX -= gameSpeed;
+        
+        if (mathObject.falling){
+            mathObject.mathY += 10;
+        }
+        
         if (mathObject.mathX < -2000) {
+            mathObject.falling = false;
             mathObject.mathX = W + 500;
             mathObject.mathY = H - 150;
         }
@@ -233,9 +267,11 @@ function setBeforeGame() {
 
 function setWinGame() {
     gameState = 0;
-    if(currentStage < 4) {
-        currentStage = 4;
-    }
+    if(currentStage < 16) {
+        currentStage = 16;
+    }    
+    creditsMoney += 50;
+    
     document.getElementById('myModal').style.display = "block";
     document.getElementById("gameOverModalContent").style.display = "none";
     document.getElementById("startModalContent").style.display = "none";
@@ -284,8 +320,8 @@ function restartGame() {
     }
 
     document.getElementById("questionBox").innerHTML 
-            = firstNumber + " / " + secondNumber + " = ??     Score: " 
-            + gameSpeed;
+            = firstNumber + " / " + secondNumber + " = ??     Speed: " 
+            + (gameSpeed - 10);
     newX = W;
     //Math Object
     mathObjects.forEach(function(mathObject) {
@@ -293,6 +329,7 @@ function restartGame() {
             mathObject.mathY = H - 150;
             mathObject.mathW = W / 10;
             mathObject.mathH = H / 10;
+            mathObject.falling = false;
             mathObject.mathNumber = Math.round(Math.random() * 20);
             newX += 1000;
     });

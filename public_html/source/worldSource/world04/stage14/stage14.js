@@ -88,6 +88,10 @@ Array.prototype.memory_tile_shuffle = function(){
 }
 
 function victory(){
+    if(currentStage < 14) {
+        currentStage = 14;
+    }    
+    creditsMoney += 50;
     setTimeout(function(){
         setTimeout(function(){
             newBoard();
