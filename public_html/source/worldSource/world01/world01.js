@@ -18,8 +18,7 @@ if(currentStage < 4) {
     document.getElementById("World2Door").disabled = true;
 }
 
-document.getElementById("currentStageScore").innerHTML = ": " + currentStage;
-
+updateCookies();
 
 function goToMenu(x) {
     x.classList.toggle("change");
@@ -30,8 +29,13 @@ function goToMenu(x) {
 iniBack('world1Canvas');
 
 var plussCharacter = createAnimatedSprite('assets/characters/plussCharSpr.png', 1200, 300, 300, 300, 4, 30);
+var goldenKey = createAnimatedSprite('assets/goldenKey.png', 9600, 800, 800, 800, 23, 5);
 if(currentMusic != candyMusic) {
     playMusic(candyMusic);
+}
+
+if(currentStage >= 4 && worldKeys < 1) {
+    playSound('assets/sound/gotKey.mp3');
 }
 
 //snowflake particles
@@ -44,7 +48,20 @@ function draw() {
         plussCharacter.spriteHeight, 10, H / 3, W / 5, W / 4);
     plussCharacter.updateFrame();
     updateBackgroundEffects(1);
+
+    if(currentStage >= 4 && worldKeys < 1) {
+        if(goldenKey.currentFrame === 22) {
+            worldKeys = 1;
+        } else {
+            drawSpriteImage(backCtx, goldenKey, W/2-(W/4), H/2-(H/3), W/2, H/2);
+            goldenKey.updateFrame();
+        }
+    }
 }
 
 //animation loop
 animationLoop = setInterval(draw, 33);
+
+document.getElementById("currentStageScore").innerHTML = "Level: " + currentStage;
+document.getElementById("currentKeys").innerHTML = "Keys: " + worldKeys;
+document.getElementById("currentCredits").innerHTML = "Credits: " + creditsMoney;

@@ -15,6 +15,7 @@ function worldSelectWorld01() {
 // User clicks the paris button, open the paris modal 
 function worldSelectWorld02() {
     exitModal();
+    playMusic(parisMusic);
     document.getElementById('myModal').style.display = "block";
     document.getElementById("selectWorld02ModalContent").style.display = "block";
 }
@@ -51,6 +52,24 @@ function worldSelectWorld06() {
     document.getElementById("selectWorld06ModalContent").style.display = "block";
 }
 
+function miniGame1() {
+    exitModal();
+    document.getElementById('myModal').style.display = "block";
+    document.getElementById("selectWorldMiniGame1ModalContent").style.display = "block";
+}
+
+function miniGame2() {
+    exitModal();
+    document.getElementById('myModal').style.display = "block";
+    document.getElementById("selectWorldMiniGame2ModalContent").style.display = "block";
+}
+
+function miniGame3() {
+    exitModal();
+    document.getElementById('myModal').style.display = "block";
+    document.getElementById("selectWorldMiniGame3ModalContent").style.display = "block";
+}
+
 // When the user clicks on <span> (x), close the modal
 function exitModal() {
     playMusic(startMenuMusic);
@@ -61,6 +80,9 @@ function exitModal() {
     document.getElementById("selectWorld04ModalContent").style.display = "none";
     document.getElementById("selectWorld05ModalContent").style.display = "none";
     document.getElementById("selectWorld06ModalContent").style.display = "none";
+    document.getElementById("selectWorldMiniGame1ModalContent").style.display = "none";
+    document.getElementById("selectWorldMiniGame2ModalContent").style.display = "none";
+    document.getElementById("selectWorldMiniGame3ModalContent").style.display = "none";
 }
 
 //canvas init

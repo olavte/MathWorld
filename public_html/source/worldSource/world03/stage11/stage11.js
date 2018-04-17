@@ -9,7 +9,7 @@ var letterArray = answer.split("");
 var mathAnswers = [];
 
 //canvas init
-iniBack("world3Canvas")
+iniBack("world3Canvas");
 
 var plussCharacter = createAnimatedSprite('assets/characters/plussCharSpr.png', 1200, 300, 300, 300, 4, 30);
 
@@ -40,6 +40,9 @@ function victoryScreen() {
     document.getElementById('questionText').innerHTML = '<p>Correct!</p>';
     document.getElementById('questionPicture').innerHTML = "";
     document.getElementById('answerOptions').innerHTML = "";
+    if(currentStage < 11) {
+        currentStage = 11;
+    }
     setTimeout(function(){
         goToNewScreen('source/worldSource/world03/world03.html', 'source/worldSource/world03/world03.js');
     }, 1500);
@@ -79,6 +82,7 @@ function guessWord() {
     
     if (guess.toLowerCase() === answer) {
         victoryScreen();
+        creditsMoney +=50;
     } else {
         loseScreen();
     } 

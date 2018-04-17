@@ -34,7 +34,7 @@ animationLoop = setInterval(draw, 16);
 
 // variables for questions
 var answer;
-var totalSum;
+var totalGrams;
 
 //run question1
 question1();
@@ -44,7 +44,7 @@ var currentQuestion = 1;
 
 //functions for math and questions below
 function backToWorld() {
-    goToNewScreen('source/worldSource/world01/world01.html', 'source/worldSource/world01/world01.js');
+    goToNewScreen('source/worldSource/world03/world03.html', 'source/worldSource/world03/world03.js');
 }
 
 function victoryScreen() {
@@ -55,6 +55,10 @@ function victoryScreen() {
     } else if(currentQuestion === 3) {
         questionToLoad = question3();
     } else if(currentQuestion === 4) {
+        if(currentStage < 9) {
+            currentStage = 9;
+        }
+        creditsMoney += 50;
         questionToLoad = backToWorld();
     }
 
@@ -93,33 +97,36 @@ function shuffle(a) {
 }
 
 function question1() {
-    question(75);
+    question(7);
 }
 function question2() {
-    question(100);
+    question(8);
 }
 function question3() {
-    question(150);
+    question(9);
 }
 
 //builds and executes first question
 //@param the max size of numbers used
 function question(dificulty) {
-    totalSum = 0; //resets total sum every time question is loaded
-    var firstNumber = randomNumber(dificulty);
-    var secondNumber = randomNumber(dificulty);
-    var thirdNumber = randomNumber(dificulty);
-    answer = firstNumber + secondNumber + thirdNumber;
+    totalGrams = 0; //resets total sum every time question is loaded
+    var firstNumber = randomNumber(dificulty)+1;
+    var secondNumber = randomNumber(dificulty)+1;
+    var thirdNumber = randomNumber(dificulty)+1;
+    answer = firstNumber * secondNumber;
+    firstValue = firstNumber;
     
-    document.getElementById('stageTitle').innerHTML = "Total:" + totalSum;
-    document.getElementById('questionText').innerHTML ="This icecream is " + answer + " grams, wich of these icecream balls must you pick to get the same weight?";
+   
+    document.getElementById('questionText').innerHTML ="This pinecone is " + firstNumber + 
+            
+            " grams, how many of them can you have to reach " + firstNumber * secondNumber + " ?";
    
    
-    document.getElementById('questionPicture').innerHTML = "<img src='assets/world1/world1ice.png' class = '.centered' style = 'height: 200px;'>";
+    document.getElementById('questionPicture').innerHTML = "<img src='assets/world3/pinecone.png' class = '.centered' style = 'height: 100px;'>";
     
     
     
-    var options = [firstNumber, secondNumber, thirdNumber, randomNumber(dificulty - 50), randomNumber(dificulty - 25)];
+    var options = [firstNumber, secondNumber, thirdNumber, randomNumber(dificulty), randomNumber(dificulty)];
     shuffle(options);
     
     //add option text over pictures
@@ -133,11 +140,7 @@ function question(dificulty) {
         thisOption.value = options[i];
     }
     
-    if(totalSum === answer){
-        victoryScreen();
-    } else if(totalSum > answer) {
-        sadnessScreen();
-    }
+   
     
 }
 
@@ -146,18 +149,17 @@ function question(dificulty) {
 
 function clikedPic(clickedId) {
     
-   var value = document.getElementById(clickedId).value;
-   totalSum = totalSum + value;
-   document.getElementById('stageTitle').innerHTML = "Total:" + totalSum;
+   var secondValue = document.getElementById(clickedId).value;
+   totalGrams = firstValue * secondValue;
    
-    if(totalSum === answer){
+    if(totalGrams === answer){
         victoryScreen();
-    } else if(totalSum > answer) {
+    } else if(totalGrams !== answer) {
         sadnessScreen();
     }
 }
 
 function reload() {
-    goToNewScreen('source/worldSource/world01/stage01/stage01.html', 'source/worldSource/world01/stage01/stage01.js');
+    goToNewScreen('source/worldSource/world03/stage09/stage09.html', 'source/worldSource/world03/stage09/stage09.js');
 }
 

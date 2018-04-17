@@ -4,46 +4,57 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<div id="stage02">
-    <div id="myModal" class="modal">
-        <div id="startModalContent">
-            Hey!! The badie is here and is trying to polute the chocolate pool!!
-            <br>
-            We have to gather enough cotton candy to capture him! <br> 
-            You have to take the correct cotton candy, if you take the 
-            wrong one you will lose one point, I will help you taking the correct one. 
-            <p>
-                OH NO!! The badie is coming! He 
-                is trying to target you, evade him as you collect cotton candy.
-            </p>
-            <button onclick="setStartGame()">Start!</button>
-            <button onclick="goToNewScreen(
-                        'source/worldSource/world01/world01.html', 
-                        'source/worldSource/world01/world01.js')">
-                Exit!
-            </button>
-        </div>
-        <div id="gameOverModalContent">
-            <button onclick="setBeforeGame()">Start!</button>
-            <button onclick="goToNewScreen(
-                        'source/worldSource/world01/world01.html', 
-                        'source/worldSource/world01/world01.js')">
-                Exit!
-            </button>
-        </div>
-        <div id="winModalContent">
-            WIN!!!
-            <button onclick="goToNewScreen(
-                        'source/worldSource/world01/world01.html', 
-                        'source/worldSource/world01/world01.js')">
-                Exit!
-            </button>
-        </div>
-    </div>
+<div id="stage12">
+     
     
-    <div id="questionBox"></div>
+    
+    <div id="squirrel" > 
+        <img src="assets/world3/squirrel.png">
+    </div>
 
-    <canvas id="world1Canvas"></canvas>
-    <canvas id="middleCanvas"></canvas>
-    <canvas id="frontCanvas"></canvas>
+
+    <div class="stage10buttons">
+        <button class="backbutton" onclick="backToWorld()" style='height:50px;width:100px' >
+            Back
+        </button>
+   
+        <button class="minigamebutton" onclick="reload()" style='height:50px;width:100px' >
+            Reload
+        </button>
+        
+        <button id="mathbutton2" onclick="nextMath()" style='height:50px;width:100px' disabled="true" >
+            Next 
+        </button>
+    </div> 
+    
+    <h1 id="stageTitle">Squirrely is hungry!!</h1>
+   
+    <div id="question10"></div>
+    <div id="qanswers"></div>
+        <div class="divshuffle" id ="pineconediv4">
+            <img class ="pineconepic" src="assets/world3/pinecone.png">
+        </div>
+    
+
+    
+        <div class="divshuffle" id ="pineconediv5" >
+            <img class ="pineconepic" src="assets/world3/pinecone.png">
+        </div>  
+        
+    
+        <div class="divshuffle" id ="pineconediv6" >
+            <img class ="pineconepic" src="assets/world3/pinecone.png">
+       
+
+  
+    </div>
 </div>
+
+
+
+
+
+
+
+
+<canvas id="world3Canvas"></canvas> 
