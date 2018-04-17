@@ -72,7 +72,8 @@ var player = {
     playerX: W / 2,
     playerY: H - (H/8),
     playerHeight: H / 8,
-    playerWidth: W / 10
+    playerWidth: W / 10,
+    playerDestX: W/2,
 };
 
 var userInputX = 0;
@@ -86,6 +87,18 @@ window.addEventListener("mousemove", mouseMove);
 function mouseMove(event) {
     userInputX = (event.x - middleCanvas.offsetLeft) * 1.4;
     userInputY = (event.y - middleCanvas.offsetTop) * 1.4;
+
+    if(userInputY > (H - player.playerHeight)) {
+        player.playerDestX = userInputX;
+    } else {
+        var playerDistanceX = userInputX - player.playerX - (player.playerWidth/2);;
+        var playerDistanceY = userInputY - player.playerY;
+
+        var rad = Math.atan2(playerDistanceY, playerDistanceX);
+
+        player.angle = rad + (90 * Math.PI/180);
+    }
+
     event.preventDefault();
 }
 
@@ -122,6 +135,15 @@ window.addEventListener("mouseup", mouseUp);
 function mouseUp() {
     clearInterval(timer);
     timer = 0;
+}
+
+function updatePlayerDestX() {
+    var playerDistanceX = userInputX - player.playerX - (player.playerWidth/2);;
+    var playerDistanceY = userInputY - player.playerY;
+
+    var rad = Math.atan2(playerDistanceY, playerDistanceX);
+
+    player.angle = rad + (90 * Math.PI/180);
 }
 
 
@@ -203,7 +225,7 @@ function draw()
             });
 
             for(var i = 0; i <= explosions.length -1; i++) {
-                drawSpriteImage(middleCtx, explosions[i].animation, explosions[i].x, explosions[i].y, 100, 100);
+                drawSpriteImage(middleCtx, explosions[i].animation, explosions[i].x - ((W/20)/2), explosions[i].y - ((W/20)/2), W/15, W/15);
                 explosions[i].animation.updateFrame();
                 if(explosions[i].animation.currentFrame > 30) {
                     explosions.splice(i, 1);
@@ -223,6 +245,8 @@ function draw()
 
 function updateGame() {
 
+    updatePlayerDestX();
+
     if (gameScore >= 50) {
         setWinGame();
     }
@@ -237,6 +261,12 @@ function updateGame() {
         reloadTimer = 0;
     }
 
+    if(player.playerDestX - 10 > player.playerX) {
+        player.playerX += 5;
+    } else if (player.playerDestX + 10 < player.playerX) {
+        player.playerX += -5;
+    }
+
     enemyObjects.forEach(function (enemy) {
 
         enemy.enemyY += 3;
@@ -246,14 +276,14 @@ function updateGame() {
                 if(Math.round(enemy.number) <= enemy.number) {
                     gameScore += 5;
                 } else if (Math.round(enemy.number) > enemy.number) {
-                    gameScore--;
+                    gameScore -= 5;
                 }
                 document.getElementById("questionBox").innerHTML = "skyt de tallene som må rundes opp! Score: " + gameScore;
             } else {
                 if(Math.round(enemy.number) >= enemy.number) {
                     gameScore += 5;
                 } else if (Math.round(enemy.number) < enemy.number) {
-                    gameScore--;
+                    gameScore -= 5;
                 }
                 document.getElementById("questionBox").innerHTML = "skyt de tallene som må rundes ned! Score: " + gameScore;
             }
@@ -308,6 +338,7 @@ function updateGame() {
                        enemy.enemyX = Math.random() * W;
                        enemy.enemyY = -(Math.random() * H + H);
                        enemy.number = Math.round (((Math.random() * 10) + 1) * 10) / 10
+                       gameScore++;
                    } else if (Math.round(enemy.number) < enemy.number) {
                        gameScore--;
                        enemy.enemyX = Math.random() * W;
@@ -320,6 +351,7 @@ function updateGame() {
                        enemy.enemyX = Math.random() * W;
                        enemy.enemyY = -(Math.random() * H + H);
                        enemy.number = Math.round (((Math.random() * 10) + 1) * 10) / 10
+                       gameScore++;
                    } else if (Math.round(enemy.number) > enemy.number) {
                        gameScore--;
                        enemy.enemyX = Math.random() * W;

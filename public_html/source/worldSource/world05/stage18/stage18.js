@@ -15,6 +15,11 @@ iniFront("frontCanvas");
 playMusic(heartbeatMusic);
 currentMusic.volume = musicVolume * globalVolume * 0.2;
 var roundingChar = createAnimatedSprite('assets/characters/roundingChar.png', 1800, 300, 300, 300, 6, 15);
+var playerShip = new Image ();
+playerShip.src = "assets/characters/playerShip.png";
+
+var enemyShip = new Image ();
+enemyShip.src = "assets/characters/playerShip2.png";
 
 var gameState = 0;
 setBeforeGame();
@@ -30,31 +35,36 @@ var currentCorrect = 0;
 
 //Hinder Object
 var hinder = {
+    image: enemyShip,
+    angle: 0,
     hinderX: W + ((Math.random() * (W / 2))),
     hinderY: 0,
-    hinderWidth: W / 10,
-    hinderHeight: H / 8,
+    hinderWidth: W / 2,
+    hinderHeight: H * (2/3),
     hinderGoalX: Math.random() * W,
-    hinderGoalY: Math.random() * H
+    hinderGoalY: Math.random() * H,
+    spd: 3 + (gameScore/6)
 };
 
 //Math Objects
 var mathObjects = [];
-for(var i = 0; i < 12; i++) {
+for(var i = 0; i < 15; i++) {
     mathObjects.push({
         name:"math" + (i + 1),
         mathX:Math.random() * W,
         mathY:Math.random() * H,
-        mathW:W/60,
+        mathW:Math.random() * W / 60 + W/40,
         mathNumber:0});
 }
 
 //PlayerVariables
 var player = {
+    image: playerShip,
+    angle: 0,
     playerX: W / 2,
     playerY: H - (H/8),
-    playerHeight: H / 8,
-    playerWidth: W / 10
+    playerHeight: H / 12,
+    playerWidth: W / 14
 };
 
 var userInputX = 0;
@@ -106,6 +116,24 @@ function mouseUp() {
     timer = 0;
 }
 
+function updatePlayerDestX() {
+    var playerDistanceX = userInputX - player.playerX - (player.playerWidth/2);;
+    var playerDistanceY = userInputY - player.playerY;
+
+    var rad = Math.atan2(playerDistanceY, playerDistanceX);
+
+    player.angle = rad + (90 * Math.PI/180);
+}
+
+function updateEnemyAngle() {
+    var hinderDistanceX = hinder.hinderGoalX - hinder.hinderX - (hinder.hinderWidth/2);
+    var hinderDistanceY = hinder.hinderGoalY - hinder.hinderY;
+
+    var rad = Math.atan2(hinderDistanceY, hinderDistanceX);
+
+    hinder.angle = rad + (90 * Math.PI/180);
+}
+
 function movePlayer() {
     if (userInputX < ((player.playerX + ((player.playerWidth) / 2)) - 24) && (player.playerX > 0)) {
         player.playerX -= 10;
@@ -142,20 +170,21 @@ function draw()
         middleCtx.rect(0, 0, W, H);
         middleCtx.fill();
 
-        middleCtx.fillStyle = "rgba(255, 255, 255, 1)";
-        middleCtx.beginPath();
-        middleCtx.rect(player.playerX, player.playerY, player.playerWidth, player.playerHeight);
-        middleCtx.fill();
-        middleCtx.stroke();
+        middleCtx.save();
+        middleCtx.translate(player.playerX + (player.playerWidth/2), player.playerY + (player.playerHeight/2));
+        middleCtx.rotate(player.angle);
+        middleCtx.drawImage(player.image, -(player.playerWidth/2), -(player.playerHeight/2), player.playerWidth, player.playerHeight);
+        middleCtx.restore();
 
         if (gameState === 1) {
 
             updateGame();
 
-            middleCtx.fillStyle = "rgba(0, 20, 0, 1)";
-            middleCtx.beginPath();
-            middleCtx.rect(hinder.hinderX, hinder.hinderY, hinder.hinderWidth, hinder.hinderHeight);
-            middleCtx.fill();
+            middleCtx.save();
+            middleCtx.translate(hinder.hinderX + (hinder.hinderWidth/2), hinder.hinderY + (hinder.hinderHeight/2));
+            middleCtx.rotate(hinder.angle);
+            middleCtx.drawImage(hinder.image, -(hinder.hinderWidth/2), -(hinder.hinderHeight/2), hinder.hinderWidth, hinder.hinderHeight);
+            middleCtx.restore();
 
             mathObjects.forEach(function(mathObject) {
                 middleCtx.fillStyle = "rgba(255, 200, 200, 0.6)";
@@ -179,6 +208,9 @@ function draw()
 
 function updateGame() {
 
+    updatePlayerDestX();
+    updateEnemyAngle();
+
     if (gameScore >= 25) {
         setWinGame();
     } else if (gameScore < 0) {
@@ -190,7 +222,7 @@ function updateGame() {
     }
 
     if(checkCollision(player.playerX, player.playerY, player.playerWidth, player.playerHeight,
-            hinder.hinderX, hinder.hinderY, hinder.hinderWidth, hinder.hinderHeight)) {
+            hinder.hinderX, hinder.hinderY, hinder.hinderWidth - 10, hinder.hinderHeight - 10)) {
         setGameOver();
     }
 
@@ -205,18 +237,19 @@ function updateGame() {
         && hinder.hinderY > hinder.hinderGoalY - 100 && hinder.hinderY < hinder.hinderGoalY + 100) {
         hinder.hinderGoalX = Math.random() * W;
         hinder.hinderGoalY = Math.random() * H;
+        updateEnemyAngle();
     }
 
     if(hinder.hinderY < hinder.hinderGoalY - 100) {
-        hinder.hinderY += 3 + (gameScore/4);
+        hinder.hinderY += hinder.spd;
     } else if (hinder.hinderY > hinder.hinderGoalY + 100) {
-        hinder.hinderY -= 3 + (gameScore/4);
+        hinder.hinderY -= hinder.spd;
     }
 
     if(hinder.hinderX < hinder.hinderGoalX - 100) {
-        hinder.hinderX += 3 + (gameScore/4);
+        hinder.hinderX += hinder.spd;
     } else if (hinder.hinderX > hinder.hinderGoalX + 100) {
-        hinder.hinderX -= 3 + (gameScore/4);
+        hinder.hinderX -= hinder.spd;
     }
 
     mathObjects.forEach(function(mathObject) {
@@ -322,8 +355,8 @@ function restartGame() {
 
     hinder.hinderX = W + ((Math.random() * (W / 2)));
     hinder.hinderY = 0;
-    hinder.hinderWidth = W / 10;
-    hinder.hinderHeight = H / 8;
+    hinder.hinderWidth = W / 5;
+    hinder.hinderHeight = H / 3;
 
     currentCorrect = 0;
 
@@ -331,7 +364,7 @@ function restartGame() {
     mathObjects.forEach(function(mathObject) {
         mathObject.mathX = Math.random() * (W - 24) + 24;
         mathObject.mathY = Math.random() * (H - 24) + 24;
-        mathObject.mathW = W / 60;
+        mathObject.mathW = Math.random() * W / 60 + W/40;
         mathObject.mathNumber = Math.round (((Math.random() * 10) + 1) * 10) / 10;
     });
 }

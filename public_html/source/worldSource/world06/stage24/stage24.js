@@ -423,6 +423,10 @@ function setBeforeGame() {
 
 function setWinGame() {
     gameState = 2;
+    if(currentStage < 24) {
+        currentStage = 24;
+    }
+    creditsMoney += 50;
     document.getElementById('myModal').style.display = "block";
     document.getElementById("gameOverModalContent").style.display = "none";
     document.getElementById("startModalContent").style.display = "none";
