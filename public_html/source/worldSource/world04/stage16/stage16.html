@@ -11,11 +11,12 @@ and open the template in the editor.
             <br>
             Run away from him, but make sure to pick up
             all the correct numbers along the way!<br> 
-            Erlik will catch you if your score is 10!
+            Erlik will catch you if your speed is 0!
             <button onclick="setStartGame()">Start!</button>
             <button onclick="goToNewScreen('source/worldSource/world04/world04.html', 'source/worldSource/world04/world04.js')">Exit</button>
         </div>
         <div id="gameOverModalContent">
+            Oh no! Erlik caught you!
             <button onclick="setBeforeGame()">Retry</button>
             <button onclick="goToNewScreen(
                         'source/worldSource/world04/world04.html',
@@ -24,7 +25,7 @@ and open the template in the editor.
             </button>
         </div>
         <div id="winModalContent">
-            WIN!!!
+            You escaped!
             <button onclick="goToNewScreen(
                         'source/worldSource/world04/world04.html',
                         'source/worldSource/world04/world04.js')">
