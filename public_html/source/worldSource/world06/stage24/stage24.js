@@ -28,6 +28,12 @@ iniBackgroundEffects(1);
 var firstNumber = 0;
 var secondNumber = 0;
 var questionAnswer = 0;
+var timer = 20;
+var numberOfTries = 0;
+var maxNumberOfTries = 2;
+var animationTimer = 0;
+var damagedObject = 0;
+var currentAnimatedCharInBox = null;
 
 var operators = [{
     sign: "+",
@@ -73,7 +79,6 @@ var userInputX = 0;
 var userInputY = 0;
 
 // Player Controll
-var timer = 0;
 userInputGame = true;
 
 window.addEventListener("mousemove", mouseMove);
@@ -94,17 +99,13 @@ function touchMove(event) {
 window.addEventListener("touchstart", touchStart);
 
 function touchStart() {
-    movePlayer();
-    if (timer === 0) {
-        timer = setInterval(movePlayer, 20);
-    }
+    checkIfClickedOnAnyChars();
 }
 
 window.addEventListener("touchend", touchEnd);
 
 function touchEnd() {
-    clearInterval(timer);
-    timer = 0;
+    player.playerChar = null;
 }
 
 window.addEventListener("mousedown", mouseDown);
@@ -162,7 +163,7 @@ function draw()
     drawFront();
 
     function drawBack() {
-        backCtx.fillStyle = "rgba(30, 30, 30, 1)";
+        backCtx.fillStyle = "rgba(40, 40, 40, 1)";
         backCtx.beginPath();
         backCtx.rect(0, H/3, W, H);
         backCtx.fill();
@@ -187,8 +188,6 @@ function draw()
             drawSpriteImage(frontCtx, roundingChar, 10 + 200, spriteStartYTemp + ((H/8) * 4), spriteWidthTemp, spriteHeighTemp);
         }
 
-        drawSpriteImage(frontCtx, erlikChar, W - ((W / 4)), H / 4, W / 5, W / 4);
-
         plussChar.updateFrame();
         minusChar.updateFrame();
         multiplicationChar.updateFrame();
@@ -204,6 +203,7 @@ function draw()
         //Player healthbar
 
         frontCtx.fillStyle = "rgba(255, 255, 255, 1)";
+        frontCtx.textAlign="start";
         frontCtx.font = "30px Arial";
         frontCtx.fillText("Your HP: ", W * (5/100), H*(5/100));
 
@@ -224,7 +224,7 @@ function draw()
         frontCtx.fill();
 
         if (gameState === 1) {
-            updateGame();
+            if(animationTimer <= 0) {updateGame()};
             frontCtx.fillStyle = "rgba(255, 255, 255, 1)";
             frontCtx.beginPath();
             frontCtx.rect(W * (25/100), H * (25/100), W * (50/100), H * (20/100));
@@ -247,6 +247,12 @@ function draw()
             frontCtx.rect(W*(60/100), H * (8/100), W * (35/100) * (erlikHP/100), H * (10/100));
             frontCtx.fill();
 
+            // Current timer
+            frontCtx.fillStyle = "rgba(255, 255, 255, 1)";
+            frontCtx.font = "80px Arial";
+            frontCtx.textAlign="center";
+            frontCtx.fillText(Math.round(timer), W * (50/100), H * (10/100));
+
             frontCtx.fillStyle = "rgba(255, 255, 255, 1)";
             frontCtx.font = "80px Arial";
             frontCtx.fillText(firstNumber, W * (30/100), H * (37/100));
@@ -268,11 +274,32 @@ function draw()
         if(player.playerChar != null) {
             drawSpriteImage(frontCtx, player.playerChar, userInputX-(spriteWidthTemp/2), userInputY-(spriteHeighTemp/2), spriteWidthTemp, spriteHeighTemp);
         }
+
+        if(animationTimer >= 0) {
+            if(damagedObject === 0) {
+                if(animationTimer % 10 >= 5) {
+                    frontCtx.fillStyle = "rgba(255, 0, 0, 0.8)";
+                    frontCtx.beginPath();
+                    frontCtx.rect(0, 0, W, H);
+                    frontCtx.fill();
+                }
+                drawSpriteImage(frontCtx, erlikChar, W - ((W / 4)), H / 4, W / 5, W / 4);
+            } else if (damagedObject === 1) {
+                if(animationTimer % 10 >= 5) {
+                    drawSpriteImage(frontCtx, erlikChar, W - ((W / 4)), H / 4, W / 5, W / 4);
+                }
+            }
+            animationTimer--;
+            if(currentAnimatedCharInBox != null) {
+                drawSpriteImage(frontCtx, currentAnimatedCharInBox, checkBox.x, checkBox.y, checkBox.w, checkBox.h);
+            }
+        } else {
+            drawSpriteImage(frontCtx, erlikChar, W - ((W / 4)), H / 4, W / 5, W / 4);
+        }
     }
 }
 
 function updateGame() {
-
     if (erlikHP <= 0) {
         setWinGame();
     } else if (playerHP <= 0) {
@@ -283,26 +310,72 @@ function updateGame() {
         if(checkCollision(userInputX, userInputY, 20, 20, checkBox.x + checkBox.w/2, checkBox.y + checkBox.h/2, 20, 20)) {
             if(player.playerChar === plussChar) {
                 if(operators[0].method(firstNumber, secondNumber) === questionAnswer) {
-                    erlikHP--;
+                    damageErlik();
+                    restartGame();
+                } else {
+                    numberOfTries++;
                 }
             } else if (player.playerChar === minusChar) {
                 if(operators[1].method(firstNumber, secondNumber) === questionAnswer) {
-                    erlikHP--;
+                    damageErlik();
+                } else {
+                    numberOfTries++;
                 }
             } else if (player.playerChar === multiplicationChar) {
                 if(operators[2].method(firstNumber, secondNumber) === questionAnswer) {
-                    erlikHP--;
+                    damageErlik();
+                } else {
+                    numberOfTries++;
                 }
             } else if (player.playerChar === divisionChar) {
                 if(operators[3].method(firstNumber, secondNumber) === questionAnswer) {
-                    erlikHP--;
+                    damageErlik()
+                } else {
+                    numberOfTries++;
                 }
             } else if (player.playerChar === roundingChar) {
                 if(operators[4].method(firstNumber, secondNumber) === questionAnswer) {
-                    erlikHP--;
+                    damageErlik();
+                } else {
+                    numberOfTries++;
                 }
             }
         }
+    }
+
+    function damageErlik() {
+        animationTimer = 60;
+        damagedObject = 1;
+        currentAnimatedCharInBox = player.playerChar;
+        if(timer >= 15) {
+            erlikHP -= 5;
+        } else if (timer >= 10) {
+            erlikHP -= 3;
+        } else if (timer >= 5) {
+            erlikHP -= 2;
+        } else {
+            erlikHP -= 1;
+        }
+        restartGame();
+    }
+
+    timer -= 1/60;
+
+    if(timer <= 0) {
+        currentAnimatedCharInBox = null;
+        animationTimer = 60;
+        damagedObject = 0;
+        playerHP -= 5;
+        restartGame();
+    }
+
+    if(numberOfTries >= maxNumberOfTries) {
+        currentAnimatedCharInBox = player.playerChar;
+        animationTimer = 60;
+        damagedObject = 0;
+        playerHP -= 5;
+        numberOfTries = 0;
+        restartGame();
     }
 }
 
@@ -345,10 +418,18 @@ function setWinGame() {
 function restartGame() {
     // Game variables
     //Hinder Object
-
+    player.playerChar = null;
+    timer = 20;
     firstNumber = Math.round(Math.random() * 10);
-    secondNumber = Math.round(Math.random() * 10);
-    questionAnswer = operators[Math.round(Math.random() * 4)].method(firstNumber, secondNumber);
+    secondNumber = Math.round(Math.random() * 9 + 1);
+    var operator = operators[Math.round(Math.random() * 4)];
+    questionAnswer = operator.method(firstNumber, secondNumber);
+    if(operator.gameChar === divisionChar) {
+        secondNumber = Math.round(firstNumber);
+    }
+    while(questionAnswer % 1 != 0) {
+        questionAnswer = operators[Math.round(Math.random() * 4)].method(firstNumber, secondNumber);
+    }
 }
 
 //animation loop, 60 fps
