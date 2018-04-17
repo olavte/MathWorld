@@ -1,34 +1,249 @@
-var memory_array = [];
-var memory_values = [];
-var memory_tile_ids = [];
-var tiles_flipped = 0;
-
+/* 
+ */
+//document.getElementById('myModal').style.display = "block";
+//document.getElementById('stage2StartModalContent').style.display = "block";
 
 //canvas init
-iniBack("world4StageCanvas");
 
+iniBack("world4Canvas");
+
+iniMiddle("middleCanvas");
+
+iniFront("frontCanvas");
+
+//Music
+playMusic(norwayMusic);
 var divisionCharacter = createAnimatedSprite('assets/characters/divisionCharSpr.png', 1200, 300, 300, 300, 22, 1);
 
-//snowflake particles
-//iniBackgroundEffects(1);
+var gameState = 0;
+setBeforeGame();
+
+iniBackgroundEffects(1);
+
+// Game variables
+
+var firstNumber = 0;
+var secondNumber = 0;
+var questionAnswer = 0;
+var gameSpeed = 7;
+
+//Math Objects
+var mathObjects = [];
+for(var i = 0; i < 4; i++) {
+    mathObjects.push({
+        name:"math" + (i + 1),
+        mathX:W + ((Math.random() * (W / 2))),
+        mathY:H - 150,
+        mathW:W/40,
+        mathNumber:0});
+}
+
+//PlayerVariables
+var player = {
+    playerX: W / 12,
+    playerY: H - 150,
+    playerHeight: H / 8,
+    playerWidth: W / 10
+};
+
+var isJumping = false;
+var isFalling = false;
+var jumpBoost = 90;
+var speed = 0;
+
+var userInputY = 0;
+
+// Player Controll
+var timer = 0;
+userInputGame = true;
+
+
+window.addEventListener("mousemove", mouseMove);
+function mouseMove(event) {
+    event.preventDefault();
+}
+
+window.addEventListener("touchmove", touchMove);
+function touchMove(event) {
+}
+
+window.addEventListener("mouseup", mouseUp);
+function mouseUp() {
+}
+
+window.addEventListener("touchend", touchEnd);
+function touchEnd() {
+    clearInterval(timer);
+    timer = 0;
+}
+window.addEventListener("touchstart", touchStart);
+function touchStart() {
+    if ((!isJumping) && (!isFalling)) {    
+        speed = 100;
+        isJumping = true;
+        isFalling = false;
+    }
+}
+
+window.addEventListener("mousedown", mouseDown);
+function mouseDown() {
+    if ((!isJumping) && (!isFalling)) {   
+        speed = jumpBoost;
+        isJumping = true;
+        isFalling = false;
+    }
+}
+
+
+function movePlayer() {
+    var gravity = 5;
+    
+    if (isJumping || isFalling)
+    {
+        speed -= gravity;
+    }
+    
+    
+    if ((isJumping) && (speed > 0))
+    {
+    } else if ((isJumping) && (speed <= 0)){
+        isJumping = false;
+        isFalling = true;
+    }
+    
+    if ((isFalling) && (player.playerY < H - 150)){
+    } else if ((isFalling) && (player.playerY >= H - 150)){
+        player.playerY = H -150;
+        speed = 0;
+        isJumping = false;
+        isFalling = false;
+    }
+    
+    //Update playerY
+    player.playerY -= speed;
+}
+
 
 //Lets draw the flakes
 function draw()
 {
     backCtx.clearRect(0, 0, W, H);
-    divisionCharacter.updateFrame();
-    //updateBackgroundEffects(1);
-    backCtx.drawImage(divisionCharacter.image, divisionCharacter.srcX, divisionCharacter.srcY, divisionCharacter.spriteWidth,
-        divisionCharacter.spriteHeight, 80, 150, divisionCharacter.spriteWidth, divisionCharacter.spriteHeight);
+    middleCtx.clearRect(0, 0, W, H);
+    frontCtx.clearRect(0, 0, W, H);
+
+    drawBack();
+    drawMiddle();
+    drawFront();
+
+    function drawBack() {
+        updateBackgroundEffects(1);
+    }
+
+    function drawMiddle() {
+
+        middleCtx.fillStyle = "rgba(255, 255, 255, 1)";
+        middleCtx.beginPath();
+        middleCtx.rect(0, 0, W, H);
+        middleCtx.fill();
+        
+        middleCtx.fillStyle = "rgba(0, 0, 0, 1)";
+        middleCtx.beginPath();
+        middleCtx.strokeRect(0, 0, W, H);
+        middleCtx.fill();
+
+        drawSpriteImage(middleCtx, divisionCharacter, player.playerX, player.playerY, player.playerWidth, player.playerHeight);
+        divisionCharacter.updateFrame();
+
+        if (gameState === 1) {
+
+            updateGame();
+
+            mathObjects.forEach(function(mathObject) {
+                middleCtx.fillStyle = "rgba(0, 0, 0, 1)";
+                middleCtx.beginPath();
+                middleCtx.rect(mathObject.mathX, mathObject.mathY, mathObject.mathW, mathObject.mathH);
+                middleCtx.fill();
+                middleCtx.fillStyle = "rgba(255, 255, 255, 1)";
+                middleCtx.font = "60px Arial";
+                middleCtx.fillText(mathObject.mathNumber, mathObject.mathX
+                    + (mathObject.mathW/2), mathObject.mathY
+                    + (mathObject.mathH/2));
+            });
+        }
+    }
 }
 
-//animation loop
-animationLoop = setInterval(draw, 33);
+function updateGame() {
+    movePlayer();
+    
+    if (gameSpeed === 20) {
+        setWinGame();
+    } else if (gameSpeed === 10) {
+        setGameOver();
+    }
 
-//få random nummer 
-//@param opp til nummer upToo
-//@return random nummer
-function divRandomNumber(upTo) {
+    mathObjects.forEach(function(mathObject) {
+        if(checkCollision(player.playerX, player.playerY, player.playerWidth - 100, player.playerHeight - 50,
+               mathObject.mathX, mathObject.mathY, mathObject.mathW - 100, mathObject.mathW)) {
+            if (mathObject.mathNumber === questionAnswer) {
+               gameSpeed++;
+               restartGame();
+            } else {
+               gameSpeed--;
+               restartGame();
+            }
+        }
+        
+        mathObject.mathX -= gameSpeed;
+        if (mathObject.mathX < -2000) {
+            mathObject.mathX = W + 500;
+            mathObject.mathY = H - 150;
+        }
+    });
+}
+
+function setGameOver() {
+    gameState = 0;
+    playSound('assets/sound/lostGame.mp3');
+    document.getElementById('myModal').style.display = "block";
+    document.getElementById("gameOverModalContent").style.display = "block";
+    document.getElementById("startModalContent").style.display = "none";
+    document.getElementById("winModalContent").style.display = "none";
+    restartGame();
+}
+
+function setStartGame() {
+    gameState = 1;
+    gameSpeed = 15;
+    document.getElementById('myModal').style.display = "none";
+    document.getElementById("gameOverModalContent").style.display = "none";
+    document.getElementById("startModalContent").style.display = "none";
+    document.getElementById("winModalContent").style.display = "none";
+
+    restartGame();
+}
+
+function setBeforeGame() {
+    gameState = 0;
+    document.getElementById('myModal').style.display = "block";
+    document.getElementById("gameOverModalContent").style.display = "none";
+    document.getElementById("startModalContent").style.display = "block";
+    document.getElementById("winModalContent").style.display = "none";
+}
+
+function setWinGame() {
+    gameState = 0;
+    if(currentStage < 4) {
+        currentStage = 4;
+    }
+    document.getElementById('myModal').style.display = "block";
+    document.getElementById("gameOverModalContent").style.display = "none";
+    document.getElementById("startModalContent").style.display = "none";
+    document.getElementById("winModalContent").style.display = "block";
+}
+
+
+function randomNumber(upTo) {
     var zeroCheck = true;
     while (zeroCheck) {
         var randNumb = Math.floor(Math.random() * upTo);
@@ -53,113 +268,39 @@ function countDecimals(number) {
 }
 
 
+function restartGame() {
+    // Game variables
 
-function fillArray() {
-    console.log("Starting array fill");
-    for (i = 0; i <= 11; i++){
-        var decimalCheck = true;
-        var firstNumber, secondNumber, ans;
-        
-            while (decimalCheck) {
-                firstNumber = divRandomNumber(100);
-                secondNumber = divRandomNumber(12);
-                ans = firstNumber / secondNumber;
-                
-                if((countDecimals(ans) === 0) && (ans != 1) && (ans < 13)) {
-                    decimalCheck = false;
-                }
-            }
-        
-        var question = '' + firstNumber + ' / ' + secondNumber;
-        var ans  = '' + ans;
-        memory_array.push(question, ans);
-        console.log("Array filled.");
+    var decimalCheck = true;
+       
+    while (decimalCheck) {
+        firstNumber = randomNumber(100);
+        secondNumber = randomNumber(12);
+        questionAnswer = firstNumber / secondNumber;
+               
+        if((countDecimals(questionAnswer) === 0) && (questionAnswer != 1) && (questionAnswer < 13)) {
+            decimalCheck = false;
+        }
     }
+
+    document.getElementById("questionBox").innerHTML 
+            = firstNumber + " / " + secondNumber + " = ??     Score: " 
+            + gameSpeed;
+    newX = W;
+    //Math Object
+    mathObjects.forEach(function(mathObject) {
+            mathObject.mathX = newX + 1500;
+            mathObject.mathY = H - 150;
+            mathObject.mathW = W / 10;
+            mathObject.mathH = H / 10;
+            mathObject.mathNumber = Math.round(Math.random() * 20);
+            newX += 1000;
+    });
+    var ansIndex = Math.round((Math.random() * (mathObjects.length - 1)));
+    console.log(ansIndex);
+    console.log(mathObjects.length);
+    mathObjects[ansIndex].mathNumber = firstNumber / secondNumber;
 }
 
-Array.prototype.memory_tile_shuffle = function(){
-    var i = this.length, j, temp;
-    while(--i > 0){
-        j = Math.floor(Math.random() * (i+1));
-        temp = this[j];
-        this[j] = this[i];
-        this[i] = temp;
-    }
-}
-
-function victory(){
-    setTimeout(function(){
-        setTimeout(function(){
-            newBoard();
-        }, 700);
-        goToNewScreen('source/worldSource/world04/world04.html', 'source/worldSource/world04/world04.js');
-    }, 1000);    
-}
-
-function newBoard(){
-    fillArray();
-    tiles_flipped = 0;
-    var output = '';
-    memory_array.memory_tile_shuffle();
-    for(var i = 0; i < memory_array.length; i++){
-        output += '<div id="tile_'+i+'" onclick="memoryFlipTile(this,\''+memory_array[i]+'\')"></div>';
-    }
-    document.getElementById('memory_board').innerHTML = output;
-}
-
-function memoryFlipTile(tile,val){
-    if(tile.innerHTML === "" && memory_values.length < 2){
-        tile.style.background = '#FFF';
-    	tile.innerHTML = val;
-        if(memory_values.length === 0){
-            memory_values.push(val);
-            memory_tile_ids.push(tile.id);
-        } else if(memory_values.length === 1){
-            memory_values.push(val);
-            memory_tile_ids.push(tile.id);
-            
-            //From string to number
-            var value1 = math.eval(memory_values[0]);
-            var value2 = math.eval(memory_values[1]);
-            
-            
-            if((value1 === value2) && 
-              ((memory_values[0].includes("/")) && !(memory_values[1].includes("/")))) {
-            	tiles_flipped += 2;
-		// Clear both arrays
-		memory_values = [];
-                memory_tile_ids = [];
-		// Check to see if the whole board is cleared
-		if(tiles_flipped === memory_array.length){
-                    victory();
-		}
-            } else if((value1 === value2) && 
-              (!(memory_values[0].includes("/")) && (memory_values[1].includes("/")))) {
-            	tiles_flipped += 2;
-		// Clear both arrays
-		memory_values = [];
-                memory_tile_ids = [];
-		// Check to see if the whole board is cleared
-		if(tiles_flipped === memory_array.length){
-                    victory();
-		}
-            }else {
-		function flip2Back(){
-		// Flip the 2 tiles back over
-		var tile_1 = document.getElementById(memory_tile_ids[0]);
-		var tile_2 = document.getElementById(memory_tile_ids[1]);
-		tile_1.style.background = 'greenyellow';
-                tile_1.innerHTML = "";
-		tile_2.style.background = 'greenyellow';
-                tile_2.innerHTML = "";
-		// Clear both arrays
-		memory_values = [];
-                memory_tile_ids = [];
-                }
-		setTimeout(flip2Back, 700);
-            }
-	}
-    }
-}
-
-newBoard();
+//animation loop, 60 fps
+animationLoop = setInterval(draw, 16);
