@@ -5,6 +5,9 @@
  */
 
 currentWorld = 6;
+if(worldProgression < 6) {
+    worldProgression = 6;
+}
 
 updateCookies();
 

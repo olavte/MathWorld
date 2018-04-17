@@ -5,6 +5,10 @@
  */
 
 currentWorld = 5;
+if(worldProgression < 5) {
+    worldProgression = 5;
+}
+
 if(currentStage < 17) {
     document.getElementById("level2").disabled = true;
 }

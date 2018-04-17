@@ -4,6 +4,10 @@
  * and open the template in the editor.
  */
 currentWorld = 2;
+if(worldProgression < 2) {
+    worldProgression = 2;
+}
+
 if(currentStage < 5) {
     document.getElementById("level2").disabled = true;
 }

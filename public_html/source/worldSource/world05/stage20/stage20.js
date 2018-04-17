@@ -14,6 +14,8 @@ iniFront("frontCanvas");
 //Music
 playMusic(fightMusic);
 var roundingChar = createAnimatedSprite('assets/characters/roundingChar.png', 1800, 300, 300, 300, 6, 15);
+var playerShip = new Image ();
+playerShip.src = "assets/characters/playerShip.png";
 
 var gameState = 0;
 setBeforeGame();
@@ -50,6 +52,8 @@ for (var i = 0; i < 4; i++) {
 
 //PlayerVariables
 var player = {
+    playerImage: playerShip,
+    angle: 0,
     playerX: W / 2,
     playerY: H - ((H / 8) * 2),
     playerHeight: H / 8,
@@ -144,15 +148,26 @@ function draw() {
 
         if (player.playerPlacement === 1 && player.playerX < W * (2 / 3)) {
             player.playerX += 10;
+            player.angle = 45*(Math.PI/180)
         } else if (player.playerPlacement === 0 && player.playerX > W / 4) {
             player.playerX -= 10;
+            player.angle = -45*(Math.PI/180)
+        } else {
+            player.angle = 0;
         }
 
-        middleCtx.fillStyle = "rgba(255, 255, 255, 1)";
-        middleCtx.beginPath();
-        middleCtx.rect(player.playerX, player.playerY, player.playerWidth, player.playerHeight);
-        middleCtx.fill();
-        middleCtx.stroke();
+        //middleCtx.fillStyle = "rgba(255, 255, 255, 1)";
+        //middleCtx.beginPath();
+        //middleCtx.drawImage(player.playerImage, player.playerX, player.playerY, player.playerWidth, player.playerHeight);
+        //middleCtx.rect(player.playerX, player.playerY, player.playerWidth, player.playerHeight);
+        //middleCtx.fill();
+        //middleCtx.stroke();
+
+        middleCtx.save();
+        middleCtx.translate(player.playerX + (player.playerWidth/2), player.playerY + (player.playerHeight/2));
+        middleCtx.rotate(player.angle);
+        middleCtx.drawImage(player.playerImage, -(player.playerWidth/2), -(player.playerHeight/2), player.playerWidth, player.playerHeight);
+        middleCtx.restore();
 
         if (gameState === 1) {
 

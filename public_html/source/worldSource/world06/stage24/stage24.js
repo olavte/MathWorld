@@ -28,7 +28,7 @@ iniBackgroundEffects(1);
 var firstNumber = 0;
 var secondNumber = 0;
 var questionAnswer = 0;
-var timer = 20;
+var timer = 60;
 var numberOfTries = 0;
 var maxNumberOfTries = 2;
 var animationTimer = 0;
@@ -223,6 +223,22 @@ function draw()
         frontCtx.rect(W*(60/100), H * (8/100), W * (35/100), H * (10/100));
         frontCtx.fill();
 
+        //Player current health
+        if(playerHP > 0) {
+            frontCtx.fillStyle = "rgba(0, 255, 0, 1)";
+            frontCtx.beginPath();
+            frontCtx.rect(W * (5 / 100), H * (8 / 100), W * (35 / 100) * (playerHP / 100), H * (10 / 100));
+            frontCtx.fill();
+        }
+
+        // Erliks current health
+        if(erlikHP > 0) {
+            frontCtx.fillStyle = "rgba(0, 255, 0, 1)";
+            frontCtx.beginPath();
+            frontCtx.rect(W * (60 / 100), H * (8 / 100), W * (35 / 100) * (erlikHP / 100), H * (10 / 100));
+            frontCtx.fill();
+        }
+
         if (gameState === 1) {
             if(animationTimer <= 0) {updateGame()};
             frontCtx.fillStyle = "rgba(255, 255, 255, 1)";
@@ -233,18 +249,6 @@ function draw()
             frontCtx.fillStyle = "rgba(0, 0, 0, 1)";
             frontCtx.beginPath();
             frontCtx.rect(W * (26/100), H * (26/100), W * (48/100), H * (18/100));
-            frontCtx.fill();
-
-            //Player current health
-            frontCtx.fillStyle = "rgba(0, 255, 0, 1)";
-            frontCtx.beginPath();
-            frontCtx.rect(W*(5/100), H * (8/100), W * (35/100) * (playerHP/100), H * (10/100));
-            frontCtx.fill();
-
-            // Erliks current health
-            frontCtx.fillStyle = "rgba(0, 255, 0, 1)";
-            frontCtx.beginPath();
-            frontCtx.rect(W*(60/100), H * (8/100), W * (35/100) * (erlikHP/100), H * (10/100));
             frontCtx.fill();
 
             // Current timer
@@ -294,7 +298,16 @@ function draw()
                 drawSpriteImage(frontCtx, currentAnimatedCharInBox, checkBox.x, checkBox.y, checkBox.w, checkBox.h);
             }
         } else {
-            drawSpriteImage(frontCtx, erlikChar, W - ((W / 4)), H / 4, W / 5, W / 4);
+            if(gameState === 2) {
+                frontCtx.save();
+                frontCtx.translate(W/2, H/2);
+                frontCtx.rotate(0.3);
+                drawSpriteImage(frontCtx, erlikChar, (W - ((W / 4)))-(W/2), (H / 4)-(H/2), W / 5, W / 4);
+                frontCtx.rotate(-0.3);
+                frontCtx.restore();
+            } else {
+                drawSpriteImage(frontCtx, erlikChar, W - ((W / 4)), H / 4, W / 5, W / 4);
+            }
         }
     }
 }
@@ -347,11 +360,11 @@ function updateGame() {
         animationTimer = 60;
         damagedObject = 1;
         currentAnimatedCharInBox = player.playerChar;
-        if(timer >= 15) {
+        if(timer >= 45) {
+            erlikHP -= 10;
+        } else if (timer >= 30) {
             erlikHP -= 5;
-        } else if (timer >= 10) {
-            erlikHP -= 3;
-        } else if (timer >= 5) {
+        } else if (timer >= 15) {
             erlikHP -= 2;
         } else {
             erlikHP -= 1;
@@ -359,7 +372,7 @@ function updateGame() {
         restartGame();
     }
 
-    timer -= 1/60;
+    timer -= 1/60 + (100 - erlikHP)/550 - (100 - playerHP)/600;
 
     if(timer <= 0) {
         currentAnimatedCharInBox = null;
@@ -390,7 +403,8 @@ function setGameOver() {
 
 function setStartGame() {
     gameState = 1;
-    gameSpeed = 5;
+    playerHP = 100;
+    erlikHP = 100;
     document.getElementById('myModal').style.display = "none";
     document.getElementById("gameOverModalContent").style.display = "none";
     document.getElementById("startModalContent").style.display = "none";
@@ -408,7 +422,7 @@ function setBeforeGame() {
 }
 
 function setWinGame() {
-    gameState = 0;
+    gameState = 2;
     document.getElementById('myModal').style.display = "block";
     document.getElementById("gameOverModalContent").style.display = "none";
     document.getElementById("startModalContent").style.display = "none";
@@ -419,14 +433,11 @@ function restartGame() {
     // Game variables
     //Hinder Object
     player.playerChar = null;
-    timer = 20;
+    timer = 60;
     firstNumber = Math.round(Math.random() * 10);
     secondNumber = Math.round(Math.random() * 9 + 1);
     var operator = operators[Math.round(Math.random() * 4)];
     questionAnswer = operator.method(firstNumber, secondNumber);
-    if(operator.gameChar === divisionChar) {
-        secondNumber = Math.round(firstNumber);
-    }
     while(questionAnswer % 1 != 0) {
         questionAnswer = operators[Math.round(Math.random() * 4)].method(firstNumber, secondNumber);
     }

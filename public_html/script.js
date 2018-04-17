@@ -12,6 +12,7 @@ gameScreen.id = "gameScreen";
 document.body.appendChild(gameScreen);
 
 var currentWorld = 0;
+var worldProgression = 0;
 var currentStage = 0;
 var worldKeys = 0;
 var creditsMoney = 0;
@@ -97,7 +98,7 @@ function fadeIn(element) {
             clearInterval(timer);
         }
         element.style.opacity = op;
-        op += 0.02;
+        op += 0.03;
     }, 10);
 }
 

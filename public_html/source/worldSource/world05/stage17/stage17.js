@@ -14,6 +14,8 @@ iniFront("frontCanvas");
 //Music
 playMusic(rockMusic);
 var roundingChar = createAnimatedSprite('assets/characters/roundingChar.png', 1800, 300, 300, 300, 6, 15);
+var playerShip = new Image ();
+playerShip.src = "assets/characters/playerShip.png";
 
 var gameState = 0;
 setBeforeGame();
@@ -30,13 +32,21 @@ var gameScore = 0;
 var enemyObjects = [];
 for(var i = 0; i < 12; i++) {
     enemyObjects.push({
+        enemyImage: null,
         name:"enemy" + (i + 1),
         enemyX:Math.random() * W,
         enemyY:Math.random() * H,
-        enemyW:W/50,
+        enemyW:W/30,
         number:0,
     });
 }
+
+enemyObjects.forEach(function (enemy) {
+    enemy.enemyImage = new Image ();
+    enemy.enemyImage.src = "assets/characters/playerShip2.png";
+});
+
+var explosions = [];
 
 //Math Objects
 var maxAmmo = 25;
@@ -57,6 +67,8 @@ for(var i = 0; i < maxAmmo; i++) {
 
 //PlayerVariables
 var player = {
+    playerImage: playerShip,
+    angle: 0,
     playerX: W / 2,
     playerY: H - (H/8),
     playerHeight: H / 8,
@@ -116,13 +128,15 @@ function mouseUp() {
 function playerShoot() {
 
     if(currentAmmo > 0) {
-        pObjects[currentAmmo-1].pX = player.playerX;
+        pObjects[currentAmmo-1].pX = player.playerX + (player.playerWidth/2);
         pObjects[currentAmmo-1].pY = player.playerY;
 
         var playerDistanceX = userInputX - pObjects[currentAmmo-1].pX;
         var playerDistanceY = userInputY - pObjects[currentAmmo-1].pY;
 
         var rad = Math.atan2(playerDistanceY, playerDistanceX);
+
+        player.angle = rad + (90 * Math.PI/180);
 
         var sinus = Math.sin(rad);
         var cosinus = Math.cos(rad);
@@ -159,26 +173,26 @@ function draw()
         middleCtx.rect(0, 0, W, H);
         middleCtx.fill();
 
-        middleCtx.fillStyle = "rgba(255, 255, 255, 1)";
-        middleCtx.beginPath();
-        middleCtx.rect(player.playerX, player.playerY, player.playerWidth, player.playerHeight);
-        middleCtx.fill();
-        middleCtx.stroke();
+        middleCtx.save();
+        middleCtx.translate(player.playerX + (player.playerWidth/2), player.playerY + (player.playerHeight/2));
+        middleCtx.rotate(player.angle);
+        middleCtx.drawImage(player.playerImage, -(player.playerWidth/2), -(player.playerHeight/2), player.playerWidth, player.playerHeight);
+        middleCtx.restore();
 
         if (gameState === 1) {
 
             updateGame();
 
             enemyObjects.forEach(function(enemy) {
-                middleCtx.fillStyle = "rgba(0, 200, 0, 1)";
-                middleCtx.beginPath();
-                middleCtx.arc(enemy.enemyX, enemy.enemyY, enemy.enemyW, 0, 2 * Math.PI);
-                middleCtx.fill();
-                middleCtx.fillStyle = "rgba(0, 0, 0, 1)";
+                middleCtx.save();
+                middleCtx.translate(enemy.enemyX + (enemy.enemyW/2), enemy.enemyY) + (enemy.enemyW/2);
+                middleCtx.rotate(Math.PI);
+                middleCtx.drawImage(enemy.enemyImage, -(enemy.enemyW/2), -(enemy.enemyW/2), enemy.enemyW, enemy.enemyW);
+                middleCtx.restore();
+
+                middleCtx.fillStyle = "rgba(255, 255, 255, 1)";
                 middleCtx.font = "30px Arial";
-                middleCtx.fillText(enemy.number, enemy.enemyX
-                    - (enemy.enemyW/2), enemy.enemyY
-                    + (enemy.enemyW/2));
+                middleCtx.fillText(enemy.number, enemy.enemyX - (enemy.enemyW/2), enemy.enemyY + (enemy.enemyW/2));
             });
 
             pObjects.forEach(function(p) {
@@ -187,13 +201,21 @@ function draw()
                 middleCtx.arc(p.pX, p.pY, p.pW, 0, 2 * Math.PI);
                 middleCtx.fill();
             });
+
+            for(var i = 0; i <= explosions.length -1; i++) {
+                drawSpriteImage(middleCtx, explosions[i].animation, explosions[i].x, explosions[i].y, 100, 100);
+                explosions[i].animation.updateFrame();
+                if(explosions[i].animation.currentFrame > 30) {
+                    explosions.splice(i, 1);
+                }
+            }
         }
     }
 
     function drawFront() {
         drawSpriteImage(frontCtx, roundingChar, 0, 100, W/4, H/2);
         roundingChar.updateFrame();
-        frontCtx.fillStyle = "rgba(0, 0, 0, 1)";
+        frontCtx.fillStyle = "rgba(255, 255, 255, 1)";
         frontCtx.font = "30px Arial";
         frontCtx.fillText(currentAmmo, W*(3/4), H*(3/4), W/8);
     }
@@ -273,6 +295,14 @@ function updateGame() {
 
        enemyObjects.forEach(function (enemy) {
            if (checkCollision(p.pX, p.pY, p.pW, p.pW, enemy.enemyX, enemy.enemyY, enemy.enemyW + 100, enemy.enemyW + 100)) {
+               var explosion = {
+                        animation: createAnimatedSprite('assets/effects/expl.png', 2048, 64, 64, 64, 32, 2),
+                        x: null,
+                        y: null,
+               };
+               explosion.x = enemy.enemyX;
+               explosion.y = enemy.enemyY;
+               explosions.push(explosion);
                if(isAnswerFloor) {
                    if(Math.round(enemy.number) > enemy.number) {
                        enemy.enemyX = Math.random() * W;

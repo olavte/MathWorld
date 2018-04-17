@@ -111,6 +111,10 @@ function victoryScreen() {
         var option3 = document.getElementById('pineconediv3');
         option3.removeChild(option3.lastChild);
  if(currentQuestion === 5){
+     if(currentStage < 10) {
+         currentStage = 10;
+     }
+     creditsMoney += 50;
      backToWorld();
  }
 }
