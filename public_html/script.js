@@ -51,6 +51,7 @@ var norwayMusic = new Audio('assets/music/winter.mp3');
 var crazyMusic = new Audio('assets/music/crazy.mp3');
 var heartbeatMusic = new Audio('assets/music/heartbeat.mp3');
 var parisMusic = new Audio('assets/music/parisMusic.mp3');
+var finalBossMusic = new Audio('assets/music/mathWorldFinalBoss.mp3');
 
 var currentMusic = null;
 

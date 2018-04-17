@@ -19,14 +19,11 @@ if(currentStage < 3) {
     document.getElementById("level4").disabled = true;
 }
 if(currentStage < 4) {
-    document.getElementById("World2Door").disabled = true;
+} else {
+
 }
 
 updateCookies();
-
-function goToMenu(x) {
-    x.classList.toggle("change");
-}
 
 
 //canvas init

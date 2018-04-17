@@ -9,7 +9,9 @@ iniBack("world6Canvas");
 iniFront("frontCanvas");
 
 //Music
-playMusic(fightMusic);
+if(currentMusic != finalBossMusic) {
+    playMusic(finalBossMusic);
+}
 var plussChar = createAnimatedSprite('assets/characters/plussCharSpr.png', 1200, 300, 300, 300, 4, 30);
 var minusChar = createAnimatedSprite('assets/characters/minusCharSpr.png', 8400, 300, 600, 300, 14, 2);
 var multiplicationChar = createAnimatedSprite('assets/characters/MultiplicationCharSpr.png', 1800, 300, 300, 300, 6, 30);
@@ -438,9 +440,14 @@ function restartGame() {
     //Hinder Object
     player.playerChar = null;
     timer = 60;
-    firstNumber = Math.round(Math.random() * 10);
-    secondNumber = Math.round(Math.random() * 9 + 1);
     var operator = operators[Math.round(Math.random() * 4)];
+    if(operator.gameChar === roundingChar) {
+        firstNumber = Math.round(Math.random()) / 10 + 1;
+        secondNumber = Math.round(firstNumber);
+    } else {
+        firstNumber = Math.round(Math.random() * 15);
+        secondNumber = Math.round(Math.random() * 14 + 1);
+    }
     questionAnswer = operator.method(firstNumber, secondNumber);
     while(questionAnswer % 1 != 0) {
         questionAnswer = operators[Math.round(Math.random() * 4)].method(firstNumber, secondNumber);

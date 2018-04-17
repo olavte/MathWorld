@@ -47,7 +47,7 @@ function worldSelectWorld05() {
 // User clicks the paris button, open the paris modal
 function worldSelectWorld06() {
     exitModal();
-    playMusic(crazyMusic);
+    playMusic(finalBossMusic);
     document.getElementById('myModal').style.display = "block";
     document.getElementById("selectWorld06ModalContent").style.display = "block";
 }

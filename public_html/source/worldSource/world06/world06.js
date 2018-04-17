@@ -21,7 +21,9 @@ var divisionChar = createAnimatedSprite('assets/characters/divisionCharSpr.png',
 var roundingChar = createAnimatedSprite('assets/characters/roundingChar.png', 1800, 300, 300, 300, 6, 15);
 var erlikChar = createAnimatedSprite('assets/characters/ErlikStanding.png', 300, 5400, 300, 300, 18, 10);
 
-playMusic(crazyMusic);
+if(currentMusic != finalBossMusic) {
+    playMusic(finalBossMusic);
+}
 
 if(currentStage >= 24 && worldKeys < 6) {
     playSound('assets/sound/gotKey.mp3');
@@ -38,7 +40,7 @@ function draw() {
     drawSpriteImage(backCtx, multiplicationChar, 10 + 400, H / 3 - 20, W / 6, W / 5);
     drawSpriteImage(backCtx, divisionChar, 10 + 600, H / 3 - 30, W / 6, W / 5);
     drawSpriteImage(backCtx, roundingChar, 10 + 800, H / 3 - 40, W / 6, W / 5);
-    drawSpriteImage(backCtx, erlikChar, W - (W / 5), H / 3 - 40, W / 5, W / 4);
+    drawSpriteImage(backCtx, erlikChar, W - (W / 3), H - (W  / 2), W / 3, W  / 2);
     plussChar.updateFrame();
     minusChar.updateFrame();
     multiplicationChar.updateFrame();
