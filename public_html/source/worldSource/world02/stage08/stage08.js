@@ -264,6 +264,9 @@ function checkAnswer() {
                 //beat stage
                     drawMiddle();
                     headLine("You are now ready for the next world!", 205);
+                    if(currentStage < 8) {
+                        currentStage = 8;
+                    }
                     setTimeout(function() {backToWorld();}, 2500);
                 }
             }, 1000);

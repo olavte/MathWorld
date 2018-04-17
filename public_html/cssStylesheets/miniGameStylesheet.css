@@ -28,3 +28,14 @@ canvas {
     text-align: center;
 
 }
+
+#bullsEyeGame {
+    display: block;
+    position: absolute;
+    width: 80%;
+    height: 70%;
+    margin-top: 8px;
+    margin-left: 10%;
+    margin-right: 5%;
+    background-color:#222;
+}

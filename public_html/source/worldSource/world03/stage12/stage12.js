@@ -195,9 +195,11 @@ function nextMath() {
         mathStageNineThird();
     }, changeMathDelay);
     }else if(currentQuestion===8){
-        
-        backToWorld();
+        if(currentStage < 12) {
+            currentStage = 12;
+        }
         creditsMoney += 50;
+        backToWorld();
     }
     
     
