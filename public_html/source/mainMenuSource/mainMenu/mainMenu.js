@@ -95,3 +95,13 @@ function draw()
 
 //animation loop
 var animationLoop = setInterval(draw, 33);
+
+window.addEventListener("touchstart", touchStart);
+function touchStart() {
+    playSound('assets/sound/click.mp3');
+}
+
+window.addEventListener("mousedown", mouseDown);
+function mouseDown() {
+    playSound('assets/sound/click.mp3');
+}
