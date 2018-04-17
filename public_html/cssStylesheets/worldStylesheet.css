@@ -87,6 +87,20 @@ input {
     z-index:-1;
 }
 
+#world6Canvas  {
+    box-sizing: border-box;
+    background-image: url("../assets/world6/world6.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    display: block;
+    position: absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:-1;
+}
+
 #world5planet {
     position: fixed;
     width: 40vw;
