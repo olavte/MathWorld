@@ -28,6 +28,31 @@ iniBackgroundEffects(1);
 var firstNumber = 0;
 var secondNumber = 0;
 var questionAnswer = 0;
+
+var operators = [{
+    sign: "+",
+    gameChar: plussChar,
+    method: function(a,b){ return a + b; }
+},{
+    sign: "-",
+    gameChar: minusChar,
+    method: function(a,b){ return a - b; }
+}, {
+    sign: "x",
+    gameChar: multiplicationChar,
+    method: function(a,b){ return a * b; }
+},  {
+    sign: "/",
+    gameChar: divisionChar,
+    method: function(a,b){ return a / b; }
+},  {
+    sign: "round",
+    gameChar: roundingChar,
+    method: function(a,b){ return Math.round(a); }
+}
+];
+
+
 var erlikHP = 100;
 var playerHP = 100;
 
@@ -224,15 +249,15 @@ function draw()
 
             frontCtx.fillStyle = "rgba(255, 255, 255, 1)";
             frontCtx.font = "80px Arial";
-            frontCtx.fillText("2", W * (30/100), H * (37/100));
+            frontCtx.fillText(firstNumber, W * (30/100), H * (37/100));
 
             frontCtx.fillStyle = "rgba(255, 255, 255, 1)";
             frontCtx.font = "80px Arial";
-            frontCtx.fillText("5", W * (55/100), H * (37/100));
+            frontCtx.fillText(secondNumber, W * (55/100), H * (37/100));
 
             frontCtx.fillStyle = "rgba(255, 255, 255, 1)";
             frontCtx.font = "80px Arial";
-            frontCtx.fillText("= 7", W * (65/100), H * (37/100));
+            frontCtx.fillText("= " + questionAnswer, W * (65/100), H * (37/100));
 
             frontCtx.strokeStyle = "rgba(255, 255, 255, 1)";
             frontCtx.beginPath();
@@ -257,7 +282,25 @@ function updateGame() {
     if (player.playerChar != null) {
         if(checkCollision(userInputX, userInputY, 20, 20, checkBox.x + checkBox.w/2, checkBox.y + checkBox.h/2, 20, 20)) {
             if(player.playerChar === plussChar) {
-                erlikHP--;
+                if(operators[0].method(firstNumber, secondNumber) === questionAnswer) {
+                    erlikHP--;
+                }
+            } else if (player.playerChar === minusChar) {
+                if(operators[1].method(firstNumber, secondNumber) === questionAnswer) {
+                    erlikHP--;
+                }
+            } else if (player.playerChar === multiplicationChar) {
+                if(operators[2].method(firstNumber, secondNumber) === questionAnswer) {
+                    erlikHP--;
+                }
+            } else if (player.playerChar === divisionChar) {
+                if(operators[3].method(firstNumber, secondNumber) === questionAnswer) {
+                    erlikHP--;
+                }
+            } else if (player.playerChar === roundingChar) {
+                if(operators[4].method(firstNumber, secondNumber) === questionAnswer) {
+                    erlikHP--;
+                }
             }
         }
     }
@@ -305,7 +348,7 @@ function restartGame() {
 
     firstNumber = Math.round(Math.random() * 10);
     secondNumber = Math.round(Math.random() * 10);
-    questionAnswer = firstNumber + secondNumber;
+    questionAnswer = operators[Math.round(Math.random() * 4)].method(firstNumber, secondNumber);
 }
 
 //animation loop, 60 fps
