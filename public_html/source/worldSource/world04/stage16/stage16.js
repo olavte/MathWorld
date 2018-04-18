@@ -41,8 +41,9 @@ for(var i = 0; i < 4; i++) {
 
 //PlayerVariables
 var player = {
-    playerX: W - 1000,
-    destination: W - 1000,
+    playerDefaultX: W - 1300,
+    playerX: W - 1300,
+    destination: W - 1300,
     playerY: H - 150,
     playerHeight: H / 8,
     playerWidth: W / 10
@@ -253,7 +254,8 @@ function setStartGame() {
     document.getElementById("gameOverModalContent").style.display = "none";
     document.getElementById("startModalContent").style.display = "none";
     document.getElementById("winModalContent").style.display = "none";
-
+    player.playerX = player.playerDefaultX;
+    player.destination = player.playerDefaultX;
     restartGame();
 }
 

@@ -281,6 +281,12 @@ button[disabled] {
     font-size: 50px;
 }
 
+#timer {
+    margin: 0px;
+    text-align: center;
+    font-size: 16px;
+}
+
 #question {
     background-color: white;
     width: 100%;

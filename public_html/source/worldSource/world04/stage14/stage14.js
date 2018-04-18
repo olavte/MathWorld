@@ -2,6 +2,8 @@ var memory_array = [];
 var memory_values = [];
 var memory_tile_ids = [];
 var tiles_flipped = 0;
+var resetTimer = 300;
+var timer = resetTimer;
 
 
 //canvas init
@@ -15,11 +17,21 @@ var divisionCharacter = createAnimatedSprite('assets/characters/divisionCharSpr.
 //Lets draw the flakes
 function draw()
 {
+    updateTimer();
+    if (timer <= 0) {
+        timeout();
+    }
+    document.getElementById("timer").innerHTML = "<h1>Time left: " + Math.round(timer) + "</h1>";
     backCtx.clearRect(0, 0, W, H);
     divisionCharacter.updateFrame();
     //updateBackgroundEffects(1);
     backCtx.drawImage(divisionCharacter.image, divisionCharacter.srcX, divisionCharacter.srcY, divisionCharacter.spriteWidth,
         divisionCharacter.spriteHeight, 80, 150, divisionCharacter.spriteWidth, divisionCharacter.spriteHeight);
+}
+
+function updateTimer()
+{
+    timer -= 1/30;
 }
 
 //animation loop
@@ -98,6 +110,15 @@ function victory(){
         }, 700);
         goToNewScreen('source/worldSource/world04/world04.html', 'source/worldSource/world04/world04.js');
     }, 1000);    
+}
+
+function timeout(){
+    memory_array = [];
+    memory_values = [];
+    memory_tile_ids = [];
+    tiles_flipped = 0;
+    timer = resetTimer;
+    newBoard();
 }
 
 function newBoard(){
