@@ -18,9 +18,9 @@ if(currentStage < 15) {
     document.getElementById("level4").disabled = true;
 }
 if(currentStage < 16) {
-    document.getElementById("World5Door").style.backgroundImage = "url('../public_html/assets/portalClosed.gif')";
+    document.getElementById("World5Door").style.backgroundImage = "url('../assets/portalClosed.gif')";
 } else {
-    document.getElementById("World5Door").style.backgroundImage = "url('../public_html/assets/portalOpen.gif')";
+    document.getElementById("World5Door").style.backgroundImage = "url('../assets/portalOpen.gif')";
     document.getElementById("World5Door").addEventListener("click", function () {
         goToNewScreen('source/worldSource/world05/world05.html', 'source/worldSource/world05/world05.js');
     });

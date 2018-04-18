@@ -19,9 +19,9 @@ if(currentStage < 3) {
     document.getElementById("level4").disabled = true;
 }
 if(currentStage < 4) {
-    document.getElementById("World2Door").style.backgroundImage = "url('../public_html/assets/portalClosed.gif')";
+    document.getElementById("World2Door").style.backgroundImage = "url('../assets/portalClosed.gif')";
 } else {
-    document.getElementById("World2Door").style.backgroundImage = "url('../public_html/assets/portalOpen.gif')";
+    document.getElementById("World2Door").style.backgroundImage = "url('../assets/portalOpen.gif')";
     document.getElementById("World2Door").addEventListener("click", function () {
         goToNewScreen('source/worldSource/world02/world02.html', 'source/worldSource/world02/world02.js');
     });

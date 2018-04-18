@@ -18,9 +18,9 @@ if(currentStage < 11) {
     document.getElementById("level4").disabled = true;
 }
 if(currentStage < 12) {
-    document.getElementById("World4Door").style.backgroundImage = "url('../public_html/assets/portalClosed.gif')";
+    document.getElementById("World4Door").style.backgroundImage = "url('../assets/portalClosed.gif')";
 } else {
-    document.getElementById("World4Door").style.backgroundImage = "url('../public_html/assets/portalOpen.gif')";
+    document.getElementById("World4Door").style.backgroundImage = "url('../assets/portalOpen.gif')";
     document.getElementById("World4Door").addEventListener("click", function () {
         goToNewScreen('source/worldSource/world04/world04.html', 'source/worldSource/world04/world04.js');
     });
