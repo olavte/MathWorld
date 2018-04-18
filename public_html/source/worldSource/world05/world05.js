@@ -19,7 +19,12 @@ if(currentStage < 19) {
     document.getElementById("level4").disabled = true;
 }
 if(currentStage < 20) {
-    document.getElementById("World6Door").disabled = true;
+    document.getElementById("World6Door").style.backgroundImage = "url('../public_html/assets/portalClosed.gif')";
+} else {
+    document.getElementById("World6Door").style.backgroundImage = "url('../public_html/assets/portalOpen.gif')";
+    document.getElementById("World6Door").addEventListener("click", function () {
+        goToNewScreen('source/worldSource/world06/world06.html', 'source/worldSource/world06/world06.js');
+    });
 }
 
 //canvas init
