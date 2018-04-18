@@ -23,7 +23,7 @@ var gameState = 0;
 setBeforeGame();
 
 
-iniBackgroundEffects(1);
+iniBackgroundEffects(6);
 
 // Game variables
 
@@ -165,11 +165,21 @@ function draw()
     drawFront();
 
     function drawBack() {
+        var bgrd=backCtx.createLinearGradient(0,0,0,H);
+        bgrd.addColorStop(0,"rgba(0,0,0, 1)");
+        bgrd.addColorStop(0.75,"rgba(255,0,0, 1)");
+        bgrd.addColorStop(1,"black");
+
+        backCtx.fillStyle = bgrd;
+        backCtx.beginPath();
+        backCtx.rect(0, 0, W, H);
+        backCtx.fill();
+
         backCtx.fillStyle = "rgba(40, 40, 40, 1)";
         backCtx.beginPath();
         backCtx.rect(0, H/3, W, H);
         backCtx.fill();
-        updateBackgroundEffects(1);
+        updateBackgroundEffects(6);
     }
 
     function drawFront() {
@@ -311,6 +321,16 @@ function draw()
                 drawSpriteImage(frontCtx, erlikChar, W - ((W / 4)), H / 4, W / 5, W / 4);
             }
         }
+
+        var grd=frontCtx.createLinearGradient(0,0,0,H);
+        grd.addColorStop(0,"rgba(0,0,0, 0.8)");
+        grd.addColorStop(0.75,"rgba(0,0,0, 0)");
+        grd.addColorStop(1,"black");
+
+        frontCtx.fillStyle = grd;
+        frontCtx.beginPath();
+        frontCtx.rect(0, 0, W, H);
+        frontCtx.fill();
     }
 }
 
@@ -362,11 +382,11 @@ function updateGame() {
         animationTimer = 60;
         damagedObject = 1;
         currentAnimatedCharInBox = player.playerChar;
-        if(timer >= 45) {
-            erlikHP -= 10;
-        } else if (timer >= 30) {
+        if(timer >= 55) {
             erlikHP -= 5;
-        } else if (timer >= 15) {
+        } else if (timer >= 40) {
+            erlikHP -= 3;
+        } else if (timer >= 30) {
             erlikHP -= 2;
         } else {
             erlikHP -= 1;
@@ -374,7 +394,7 @@ function updateGame() {
         restartGame();
     }
 
-    timer -= 1/60 + (100 - erlikHP)/550 - (100 - playerHP)/600;
+    timer -= 1/60 + (100 - erlikHP)/500 - (100 - playerHP)/600;
 
     if(timer <= 0) {
         currentAnimatedCharInBox = null;
@@ -450,7 +470,9 @@ function restartGame() {
     }
     questionAnswer = operator.method(firstNumber, secondNumber);
     while(questionAnswer % 1 != 0) {
-        questionAnswer = operators[Math.round(Math.random() * 4)].method(firstNumber, secondNumber);
+        firstNumber = Math.round(Math.random() * 15);
+        secondNumber = Math.round(Math.random() * 14 + 1);
+        questionAnswer = operators[3].method(firstNumber, secondNumber);
     }
 }
 

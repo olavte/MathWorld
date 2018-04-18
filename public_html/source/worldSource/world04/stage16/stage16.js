@@ -12,7 +12,7 @@ iniMiddle("middleCanvas");
 iniFront("frontCanvas");
 
 //Music
-playMusic(norwayMusic);
+playMusic(fightMusic);
 var divisionCharacter = createAnimatedSprite('assets/characters/divisionCharSpr.png', 1200, 300, 300, 300, 22, 1);
 var erlikCharacter = createAnimatedSprite('assets/characters/ErlikChase.png', 3600, 300, 300, 300, 12, 2);
 

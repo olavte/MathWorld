@@ -30,7 +30,7 @@ if(currentStage >= 24 && worldKeys < 6) {
 }
 
 //snowflake particles
-iniBackgroundEffects(1);
+iniBackgroundEffects(6);
 
 //Lets draw the flakes
 function draw() {
@@ -47,7 +47,7 @@ function draw() {
     divisionChar.updateFrame();
     roundingChar.updateFrame();
     erlikChar.updateFrame();
-    updateBackgroundEffects(1);
+    updateBackgroundEffects(6);
 
     if(currentStage >= 24 && worldKeys < 6) {
         if(goldenKey.currentFrame === 22) {
