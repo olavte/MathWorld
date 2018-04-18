@@ -21,8 +21,8 @@ var divisionChar = createAnimatedSprite('assets/characters/divisionCharSpr.png',
 var roundingChar = createAnimatedSprite('assets/characters/roundingChar.png', 1800, 300, 300, 300, 6, 15);
 var erlikChar = createAnimatedSprite('assets/characters/ErlikStanding.png', 300, 5400, 300, 300, 18, 10);
 
-if(currentMusic != finalBossMusic) {
-    playMusic(finalBossMusic);
+if(currentMusic != world6Music) {
+    playMusic(world6Music);
 }
 
 if(currentStage >= 24 && worldKeys < 6) {

@@ -166,9 +166,15 @@ function draw()
 
     function drawBack() {
         var bgrd=backCtx.createLinearGradient(0,0,0,H);
-        bgrd.addColorStop(0,"rgba(0,0,0, 1)");
-        bgrd.addColorStop(0.75,"rgba(255,0,0, 1)");
-        bgrd.addColorStop(1,"black");
+        if(gameState === 2) {
+            bgrd.addColorStop(0,"rgba(255,255,255, 1)");
+            bgrd.addColorStop(0.75, "rgba(0,0,255, 1)");
+            bgrd.addColorStop(1,"white");
+        } else {
+            bgrd.addColorStop(0,"rgba(0,0,0, 1)");
+            bgrd.addColorStop(0.75, "rgba(255, 0, 0, 1)");
+            bgrd.addColorStop(1,"black");
+        }
 
         backCtx.fillStyle = bgrd;
         backCtx.beginPath();
@@ -179,7 +185,9 @@ function draw()
         backCtx.beginPath();
         backCtx.rect(0, H/3, W, H);
         backCtx.fill();
-        updateBackgroundEffects(6);
+        if(gameState !== 2) {
+            updateBackgroundEffects(6);
+        }
     }
 
     function drawFront() {
@@ -322,15 +330,17 @@ function draw()
             }
         }
 
-        var grd=frontCtx.createLinearGradient(0,0,0,H);
-        grd.addColorStop(0,"rgba(0,0,0, 0.8)");
-        grd.addColorStop(0.75,"rgba(0,0,0, 0)");
-        grd.addColorStop(1,"black");
+        if(gameState !== 2) {
+            var grd=frontCtx.createLinearGradient(0,0,0,H);
+            grd.addColorStop(0,"rgba(0,0,0, 0.8)");
+            grd.addColorStop(0.75,"rgba(0,0,0, 0)");
+            grd.addColorStop(1,"black");
 
-        frontCtx.fillStyle = grd;
-        frontCtx.beginPath();
-        frontCtx.rect(0, 0, W, H);
-        frontCtx.fill();
+            frontCtx.fillStyle = grd;
+            frontCtx.beginPath();
+            frontCtx.rect(0, 0, W, H);
+            frontCtx.fill();
+        }
     }
 }
 
@@ -394,7 +404,7 @@ function updateGame() {
         restartGame();
     }
 
-    timer -= 1/60 + (100 - erlikHP)/500 - (100 - playerHP)/600;
+    timer -= 1/60 + (100 - erlikHP)/450 - (100 - playerHP)/600;
 
     if(timer <= 0) {
         currentAnimatedCharInBox = null;
@@ -449,6 +459,8 @@ function setWinGame() {
         currentStage = 24;
     }
     creditsMoney += 50;
+    playMusic(startMenuMusic);
+    playSound('assets/sound/gotKey.mp3');
     document.getElementById('myModal').style.display = "block";
     document.getElementById("gameOverModalContent").style.display = "none";
     document.getElementById("startModalContent").style.display = "none";
