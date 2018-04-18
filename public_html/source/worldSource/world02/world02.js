@@ -18,8 +18,14 @@ if(currentStage < 7) {
     document.getElementById("level4").disabled = true;
 }
 if(currentStage < 8) {
-    document.getElementById("World3Door").disabled = true;
+    document.getElementById("World3Door").style.backgroundImage = "url('../public_html/assets/portalClosed.gif')";
+} else {
+    document.getElementById("World3Door").style.backgroundImage = "url('../public_html/assets/portalOpen.gif')";
+    document.getElementById("World3Door").addEventListener("click", function () {
+        goToNewScreen('source/worldSource/world03/world03.html', 'source/worldSource/world03/world03.js');
+    });
 }
+
 
 updateCookies();
 
