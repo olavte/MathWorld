@@ -1,168 +1,127 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/* 
- */
- var candyPrice = randomNumber(10) + 1;
- var moneyOnHand = Math.floor(Math.random() * 40) + 15;
+//functions for math and questions below
 
 
-// variables for questions
 var answer;
-var totalSum = 0;
-
-//canvas init
-iniBack("world1Canvas");
-
-playMusic(startMenuMusic);
-
-var plussCharacter = createAnimatedSprite('assets/characters/plussCharSpr.png', 1200, 300, 300, 300, 4, 30);
-
-//backgroundEffects
-iniBackgroundEffects(1);
-
-//Lets draw the flakes
-function draw()
-{
-    backCtx.clearRect(0, 0, W, H);
-
-    plussCharacter.updateFrame();
+var currentQuestion = 1;
+mathStageNine();
+//mathStageNineSecond();
+//mathStageNineThird();
 
 
-    updateBackgroundEffects(1);
-    backCtx.drawImage(plussCharacter.image, plussCharacter.srcX, plussCharacter.srcY, plussCharacter.spriteWidth,
-        plussCharacter.spriteHeight, 160, 150, plussCharacter.spriteWidth, plussCharacter.spriteHeight);
-}
 
-//animation loop
-animationLoop = setInterval(draw, 33);
-
-
-mathTwoFirst();
-//mathTwoSecond();
-//creates a random price for a candy
-//and a random value of money you have on hand
-
-
-//final level in world 1, for special assignement and timer function
-function mathTwoFirst() {
-    var answer = Math.floor(moneyOnHand/candyPrice);
-    var options = [answer, randomNumber(25)+ 1, randomNumber(20)+ 1, randomNumber(20)+ 1];
-    shuffle(options);
-
-    document.getElementById('question04').innerHTML = "If this candy is " + candyPrice + " cents and you have " + moneyOnHand + " cents, how many candies can you buy with the money you have?";
-    var text = "<ul>";
-    for (i = 0; i < options.length; i++) {
-        if (options[i] === answer) {
-            text += "<button onclick='victoryScreen()' style='height:50px;width:100px'>" + options[i] + "</button>"; // rett svar knapp
-        } else {
-            text += "<button onclick='sadnessScreen()' style='height:50px;width:100px'>" + options[i] + "</button>"; // feil svar knapp
-        }
+function mathStageNine(){
+    
+   
+    
+    var ansArray = new Array();
+    var text = "";
+    for(i = 0; i<1; i++){
+        var num1 = randomNumber(5) +2;
+        var num2 = randomNumber(5) +2;
+        var num3 = randomNumber(4)+1;
+        ansArray.push((num1 * num2) / num3);
+       
+        text += "(" + num1 + " x " + num2 + ")"  + "/"+ num3+ " = " + "<br />";
+        
     }
-    document.getElementById('qanswers').innerHTML = text;
+    var answer = Math.floor((num1 * num2) / num3);
+     document.getElementById('question10').innerHTML = "Click the right pinecone for the multiplication below: <br />"+text;
+    
+     document.getElementById('pineconediv1').appendChild(document.createTextNode(answer));
+     document.getElementById('pineconediv2').appendChild(document.createTextNode(randomNumber(15)+30));
+     document.getElementById('pineconediv3').appendChild(document.createTextNode(randomNumber(10)+40));
+     //animations for the objects
+     doNextPoint1();
+     doNextPoint2();
+     doNextPoint3();
+
 }
 
-function mathTwoSecond() {
+function mathStageNineSecond(){
     
+   
     
-   var num1 = randomNumber(10)+1;
-   var num2 = randomNumber(10)+1;
-    var answer = num1 + num2;
-    var options = [answer, randomNumber(15)+1, randomNumber(20)+1, randomNumber(15)+1];
-    shuffle(options);
-
-    document.getElementById('question04').innerHTML = "If this candy is " + num1 + " + " + num2 + "cents, how much does the candy cost?";
-    var text = "<ul>";
-    for (i = 0; i < options.length; i++) {
-        if (options[i] === answer) {
-            text += "<button onclick='victoryScreen2()' style='height:50px;width:100px'>" + options[i] + "</button>"; // rett svar knapp
-        } else {
-            text += "<button onclick='sadnessScreen2()' style='height:50px;width:100px'>" + options[i] + "</button>"; // feil svar knapp
-        }
+    var ansArray = new Array();
+    var text = "";
+    for(i = 0; i<1; i++){
+        var num1 = randomNumber(6) +2;
+        var num2 = randomNumber(6) +3;
+        var num3 = randomNumber(4)+2;
+        ansArray.push(num1 * num2) / num3;
+       
+        text += "(" + num1 + " x " + num2 + ")"  + "/"+ num3+ " = " + "<br />";
+        
     }
-    document.getElementById('qanswers').innerHTML = text;
+    var answer = Math.floor((num1 * num2) / num3);
+     document.getElementById('question10').innerHTML = "Click the right pinecone for the multiplication below: <br />"+text;
+    
+     document.getElementById('pineconediv1').appendChild(document.createTextNode(answer));
+     document.getElementById('pineconediv2').appendChild(document.createTextNode(randomNumber(10)+40));
+     document.getElementById('pineconediv3').appendChild(document.createTextNode(randomNumber(10)+20));
+      //animations for the objects
+     doNextPoint1();
+     doNextPoint2();
+     doNextPoint3();
+ 
+    document.getElementById('#stage2answers').innerHTML = "";
+
 }
 
-function mathTwoThird() {
-    
-    
-   var num1 = randomNumber(10)+1;
-   var num2 = randomNumber(10)+1;
-   var num3 = randomNumber(10)+1;
-    var answer = num1 + num2 + num3;
-    var options = [answer, randomNumber(15)+1, randomNumber(20)+1, randomNumber(15)+1];
-    shuffle(options);
 
-    document.getElementById('question04').innerHTML = "If this candy is " + num1 + " + " + num2 + " + " + num3 + "cents, how much does the candy cost?";
-    var text = "<ul>";
-    for (i = 0; i < options.length; i++) {
-        if (options[i] === answer) {
-            text += "<button onclick='victoryScreen3()' style='height:50px;width:100px'>" + options[i] + "</button>"; // rett svar knapp
-        } else {
-            text += "<button onclick='sadnessScreen3()' style='height:50px;width:100px'>" + options[i] + "</button>"; // feil svar knapp
-        }
+
+function mathStageNineThird(){
+    
+   
+    
+    var ansArray = new Array();
+    var text = "";
+    for(i = 0; i<1; i++){
+        var num1 = randomNumber(5) +1;
+        var num2 = randomNumber(5) +3;
+        var num3 = randomNumber(4) +1;
+        ansArray.push(num1 * num2 / num3);
+       
+        text += "(" + num1 + " x " + num2 + ")"  + "/"+ num3+ " = " + "<br />";
+        
     }
-    document.getElementById('qanswers').innerHTML = text;
-}
-
+    var answer = Math.floor((num1 * num2) / num3);
+     document.getElementById('question10').innerHTML = "Click the right pinecone for the multiplication below: <br />"+text;
     
+     document.getElementById('pineconediv1').appendChild(document.createTextNode(answer));
+     document.getElementById('pineconediv2').appendChild(document.createTextNode(randomNumber(15)+2));
+     document.getElementById('pineconediv3').appendChild(document.createTextNode(randomNumber(10)+2));
+
+     //animations for the objects
+     doNextPoint1();
+     doNextPoint2();
+     doNextPoint3();
+     creditsMoney +=50;
+
+}
 
 
 //Lets user know they were correct, 
 function victoryScreen() {
-
-
-    document.getElementById('qanswers').innerHTML = "CORRECT!";
-    
+    currentQuestion++;
+    document.getElementById('#stage2answers').innerHTML = "CORRECT! Click Next";
     document.getElementById("mathbutton2").disabled = false;
-
+     var option1 = document.getElementById('pineconediv1');
+        option1.removeChild(option1.lastChild);
+        var option2 = document.getElementById('pineconediv2');
+        option2.removeChild(option2.lastChild);
+        var option3 = document.getElementById('pineconediv3');
+        option3.removeChild(option3.lastChild);
+ if(currentQuestion === 5){
+     backToWorld();
+ }
 }
 
 //lets user know they pressed wrong
 function sadnessScreen() {
 
-    document.getElementById('qanswers').innerHTML = "WRONG!";
-document.getElementById('reload').innerHTML = "<button onclick='mathTwoFirst()'>Try Again!</button>";
+    document.getElementById('#stage2answers').innerHTML = "WRONG!";
+    reload();
 }
-
-
-function victoryScreen2(){
-    
-      document.getElementById('qanswers').innerHTML = "CORRECT!";
-    
-    document.getElementById("mathbutton3").disabled = false;
-    
-}
-
-function sadnessScreen2() {
-
-    document.getElementById('qanswers').innerHTML = "WRONG!";
-document.getElementById('reload').innerHTML = "<button onclick='mathTwoSecond()'>Try Again!</button>";
-}
-
-
-function victoryScreen3(){
-    
-      document.getElementById('qanswers').innerHTML = "CORRECT!!" + "<br/>" + "Move on to next stage";
-      document.getElementById("nextstage").disabled = false;
-      document.getElementById("levelFinal").disabled = false;
-
-    
-}
-
-function sadnessScreen3() {
-
-    document.getElementById('qanswers').innerHTML = "WRONG!";
-document.getElementById('reload').innerHTML = "<button onclick='mathTwoThird()'>Try Again!</button>";
-}
-
-
-
-
-
 
 
 //få random nummer 
@@ -185,9 +144,96 @@ function shuffle(a) {
     }
 }
 
-   /* function clikedPic(clickedId) {
+    function clikedPic(clickedId) {
     
-   var value = document.getElementById(clickedId);
-   totalSum = candyPrice + totalSum;
-   document.getElementById('total04').innerHTML = "Money spent: " + totalSum + " cents";
-  } */
+   var correctPic = document.getElementById(clickedId);
+     if (correctPic===document.getElementById("pineconediv1")) {
+    victoryScreen(); // rett svar knapp
+        } 
+        else if(!correctPic !==document.getElementById("pineconediv1")){
+            sadnessScreen();
+        }
+
+   
+   
+ 
+   }
+   //creates an area for the animation of the objects, width and heigth of stage background
+//$('#animationArea').width($('#stage10background').width()).height(($('#stage10background').height()/2));
+
+
+function doNextPoint1(){
+    
+   $('#animationArea').width($('#stage10background').width());
+   $('#animationArea').height($('#stage10background').height());
+    var animationTop = $("#animationArea")[0].getBoundingClientRect();
+    var maxX = $('#animationArea').width() - $('#pineconediv1').width();    
+    var newX = rand(0, maxX);    
+    var maxY = $('#animationArea').height() - $('#pineconediv1').height();
+    var newY = rand(animationTop.top, maxY);
+    var speed  = rand (1000, 600);
+    
+    $('#pineconediv1').animate({
+        'top': newY + 'px',
+        'left': newX + 'px'
+        
+    }, speed, function(){
+        doNextPoint1();    
+    });
+    
+    
+    
+    
+}
+//$('#animationArea').width($('#stage10background').width()).height(($('#stage10background').height()/2));
+
+
+function doNextPoint2(){
+    var animationTop = $("#animationArea")[0].getBoundingClientRect();
+    var maxX = $('#animationArea').width() - $('#pineconediv2').width();    
+    var newX = rand(0, maxX);    
+    var maxY = $('#animationArea').height() - $('#pineconediv2').height();
+    var newY = rand(animationTop.top, maxY);
+    var speed  = rand (1000, 600);
+    
+    $('#pineconediv2').animate({
+        'top': newY + 'px',
+        'left': newX + 'px'
+        
+    }, speed, function(){
+        doNextPoint2();    
+    });
+
+}
+//$('#animationArea').width($('#stage10background').width()).height(($('#stage10background').height()/2));
+
+
+function doNextPoint3(){
+    var animationTop = $("#animationArea")[0].getBoundingClientRect();
+    var maxX = $('#animationArea').width() - $('#pineconediv3').width();    
+    var newX = rand(0, maxX);    
+    var maxY = $('#animationArea').height() - $('#pineconediv3').height();
+    var newY = rand(animationTop.top, maxY);
+    var speed  = rand (1000, 600);
+    
+    $('#pineconediv3').animate({
+        'top': newY + 'px',
+        'left': newX + 'px'
+        
+    }, speed, function(){
+        doNextPoint3();    
+    });
+    
+}
+function rand (min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}    
+
+function reload() {
+    goToNewScreen('source/worldSource/world06/stage22/stage22.html', 'source/worldSource/world06/stage22/stage22.js');
+    
+}
+
+function backToWorld() {
+    goToNewScreen('source/worldSource/world06/world06.html', 'source/worldSource/world06/world06.js');
+    }

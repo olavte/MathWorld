@@ -1,69 +1,45 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<div>
 
-    <div id="stage04">
-
-        <canvas id="world1Canvas"></canvas>
-
-        <div id="stagebackground">
-            <h1 id="stageTitle">Stage 4 - CandyLand!</h1>
-           
-            <div id="total04">
-                
-            </div>
-
-            <div id="question04"></div>
-            
-            
-            <div id ="icediv" onclick="clikedPic(this.id)">
-                               
-
-            <img id="icecream04" src="assets/world1/world1ice.png">
-           </div>
-          
-            <div id="qanswers"></div>
-
-
-            <div id="exitbutton">
-                <button class="backbutton" onclick="goToNewScreen('source/worldSource/world01/world01.html', 'source/worldSource/world01/world01.js')" >
+<div id="stage10">
+    <canvas id="world6Canvas"></canvas>
+    
+    <div class="stage10buttons">
+     <button id="mathbutton2" onclick='mathStageNineSecond()' style='height:50px;width:100px' disabled="true" >
+                Next
+            </button>
+        
+                <button class="backbutton" onclick="backToWorld()" style='height:50px;width:100px' >
                     Back
                 </button>
-            </div>
-            <div id="nextquestion" >
-                <button id="mathbutton2" onclick="mathTwoSecond()" disabled="true" >
-                    Second Question 
+          
+                <button class="minigamebutton" onclick="reload()" style='height:50px;width:100px' >
+                    Reload
                 </button>
+            </div> 
     
+    <div id="stage10background">
+        <h1 id="stageTitle">Click the right pinecone!</h1>
+      
+        
+        <div id="question10"></div>
+        <div id="#stage2answers"></div>
+        <div id="animationArea">  
+            <div id ="pineconediv1" onclick="clikedPic(this.id)">
+                <img class ="pineconepic" src="assets/world3/pinecone.png">
+            </div>
+            <div id ="pineconediv2" onclick="clikedPic(this.id)">
+                <img class ="pineconepic" src="assets/world3/pinecone.png">
+            </div>  
+            <div id ="pineconediv3" onclick="clikedPic(this.id)">
+                <img class ="pineconepic" src="assets/world3/pinecone.png">
             </div>
             
-              <div id="nextquestion" >
-                <button id="mathbutton3" onclick="mathTwoThird()" disabled="true" >
-                    Third Question 
-                </button>
-    
-            </div>
-            
-             <div id="next" >
-                <button id="nextstage" onclick="goToNewScreen('source/worldSource/world01/world01.html', 'source/worldSource/world01/world1.js')" disabled="true" >
-                    Next Stage
-                </button>
-    
-            </div>
-            
-            
-            
-            
-            <div id="reload">
-                                
-            </div>
+             
         </div>
+        
+       
+       
+    </div> 
+        
     </div>
-</div>
-
 
 

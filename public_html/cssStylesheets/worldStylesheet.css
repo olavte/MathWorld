@@ -408,9 +408,9 @@ button[disabled] {
 }
 
 #stagebackground {
-    background: radial-gradient(DarkTurquoise, whitesmoke);
-    border: solid 3px;
-    width: 50%;
+    background:white;
+    
+    width: 60%;
     height: 100%;
     position: absolute;
     text-align: center;
@@ -571,13 +571,14 @@ svg {
 }
 
 #stage10background {
-    background: radial-gradient(#00FF7F, green);
-    border: solid 3px;
+    background:white;
+    
     width: 50%;
     height: 100%;
     position: absolute;
     text-align: center;
     left: 500px;
+    border-radius:5px;
 }
 
 #question10 {
@@ -634,4 +635,7 @@ div#memory_board > div {
 
 #centeredButtons {
     text-align: center;
+}
+#counter{
+    text-align:center;
 }

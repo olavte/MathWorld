@@ -45,7 +45,7 @@ mathStageNine();
 
 var changeMathDelay = 50;
 currentQuestion = 1;
-
+document.getElementById("counter").innerHTML ="Question " + currentQuestion + " of 7";
 
 
 function mathStageNine() {
@@ -157,6 +157,7 @@ function removeChilds() {
 function nextMath() {
      $("#pineconediv4").css({top: 200, left: Math.floor(Math.random() * 1000 - 1), position:'absolute'});
     currentQuestion++;
+    document.getElementById("counter").innerHTML ="Question " + currentQuestion + " of 7";
     if(currentQuestion===2){
         removeChilds();
         setTimeout(function () {
