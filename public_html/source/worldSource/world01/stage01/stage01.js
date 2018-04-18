@@ -36,10 +36,11 @@ animationLoop = setInterval(draw, 16);
 var answer;
 var totalSum;
 
-//run question1
-question1();
+
 //variable to save current question progress
 var currentQuestion = 1;
+//run question1
+question1();
 
 
 //functions for math and questions below
@@ -128,6 +129,7 @@ function question(dificulty) {
     answer = firstNumber + secondNumber + thirdNumber;
     
     document.getElementById('stageTitle').innerHTML = "Total:" + totalSum;
+    document.getElementById('questionText2').innerHTML = "Question: " + currentQuestion + " / 3";
     document.getElementById('questionText').innerHTML ="This icecream is " + answer + " grams, wich of these icecream balls must you pick to get the same weight?";
    
    

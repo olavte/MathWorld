@@ -36,10 +36,11 @@ animationLoop = setInterval(draw, 16);
 var answer;
 var totalGrams;
 
-//run question1
-question1();
 //variable to save current question progress
 var currentQuestion = 1;
+//run question1
+question1();
+
 
 
 //functions for math and questions below
@@ -127,7 +128,7 @@ function question(dificulty) {
     answer = firstNumber * secondNumber;
     firstValue = firstNumber;
     
-   
+    document.getElementById('questionText2').innerHTML = "Question: " + currentQuestion + " / 3";
     document.getElementById('questionText').innerHTML ="This pinecone is " + firstNumber + 
             
             " grams, how many of them can you have to reach " + firstNumber * secondNumber + " ?";

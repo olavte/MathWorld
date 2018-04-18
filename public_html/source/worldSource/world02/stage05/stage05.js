@@ -36,10 +36,11 @@ animationLoop = setInterval(draw, 16);
 var answer;
 var totalSum;
 
-//run question1
-question1();
+
 //variable to save current question progress
 var currentQuestion = 1;
+//run question1
+question1();
 
 
 //functions for math and questions below
@@ -125,8 +126,9 @@ function question(dificulty) {
     answer = firstNumber + secondNumber + thirdNumber;
     totalSum = answer; //resets total sum every time question is loaded
     
-    document.getElementById('stageTitle').innerHTML = "Total left:" + totalSum;
-    document.getElementById('questionText').innerHTML ="This icecream is " + answer + " grams, you can take max 3 bites to eat it all, wich bites can you take, to eat exactly this weight ??";
+    document.getElementById('stageTitle').innerHTML = "Total left: " + totalSum;
+    document.getElementById('questionText2').innerHTML = "Question: " + currentQuestion + " / 3";
+    document.getElementById('questionText').innerHTML = "This icecream is " + answer + " grams, you can take max 3 bites to eat it all, wich bites can you take, to eat exactly this weight ??";
    
    
     document.getElementById('questionPicture').innerHTML = "<img src='assets/world1/world1ice.png' class = '.centered' style = 'height: 200px;'>";
