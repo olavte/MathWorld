@@ -21,7 +21,7 @@ function mathStageNine(){
         var num3 = randomNumber(4)+1;
         ansArray.push((num1 * num2) - num3);
        
-        text += "(" + num1 + " x " + num2 + ")"  + "-"+ num3+ " = " + "<br />";
+        text += "(" + num1 + " x " + num2 + ")"  + " - "+ num3+ " = " + "<br />";
         
     }
     var answer = (num1 * num2) - num3;
@@ -49,7 +49,7 @@ function mathStageNineSecond(){
         var num3 = randomNumber(4)+2;
         ansArray.push(num1 * num2) - num3;
        
-        text += "(" + num1 + " x " + num2 + ")"  + "-"+ num3+ " = " + "<br />";
+        text += "(" + num1 + " x " + num2 + ")"  + " - "+ num3+ " = " + "<br />";
         
     }
     var answer = (num1 * num2) - num3;

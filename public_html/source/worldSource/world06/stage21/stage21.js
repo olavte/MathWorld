@@ -2,7 +2,7 @@
  */
 
 //canvas init
-
+currentQuestion =1;
 var operators = [{
         sign: "+",
         method: function(a,b){ return a + b; }
@@ -121,7 +121,7 @@ var answerOperator;
 //builds and executes first question
 //@param the max size of numbers used
 function question(difficulty) {
-    
+    document.getElementById('questionText2').innerHTML = "Question: " + currentQuestion + " / 3";
     shuffle(operators);
     var firstNumber = randomNumber(difficulty) +1;
     var secondNumber = randomNumber(difficulty) +1;
@@ -143,7 +143,8 @@ function question(difficulty) {
     var ans = operators[selectedOperator].method(firstNumber, secondNumber);
     
      
-    document.getElementById('questionText').innerHTML ="This icecream is " + firstNumber + " ? " + secondNumber + " grams, wich of these operators must you pick to get " + ans + " ?";
+    document.getElementById('questionText').innerHTML ="I forgot how i made this icecream, all i remember is " + firstNumber + " _ " + secondNumber + " and i got an icecream that weighed " + ans + " ?" + "<br />"
+    + "Which operand for " + firstNumber + " _ " + secondNumber + " = " + ans;
    
    
     document.getElementById('questionPicture').innerHTML = "<img src='assets/world1/world1ice.png' class = '.centered' style = 'height: 200px;'>";

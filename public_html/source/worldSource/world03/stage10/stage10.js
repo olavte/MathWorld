@@ -118,7 +118,7 @@ function mathStageNineThird(){
      doNextPoint1();
      doNextPoint2();
      doNextPoint3();
-     creditsMoney +=50;
+     
 
 }
 
