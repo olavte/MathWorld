@@ -19,17 +19,17 @@ function mathStageNine(){
         var num1 = randomNumber(5) +2;
         var num2 = randomNumber(5) +2;
         var num3 = randomNumber(4)+1;
-        ansArray.push((num1 * num2) / num3);
+        ansArray.push((num1 * num2) - num3);
        
-        text += "(" + num1 + " x " + num2 + ")"  + "/"+ num3+ " = " + "<br />";
+        text += "(" + num1 + " x " + num2 + ")"  + "-"+ num3+ " = " + "<br />";
         
     }
-    var answer = Math.floor((num1 * num2) / num3);
-     document.getElementById('question10').innerHTML = "Click the right pinecone for the multiplication below: <br />"+text;
+    var answer = (num1 * num2) - num3;
+     document.getElementById('question10').innerHTML = "Click the right pinecone for the math below: <br />"+text;
     
      document.getElementById('pineconediv1').appendChild(document.createTextNode(answer));
-     document.getElementById('pineconediv2').appendChild(document.createTextNode(randomNumber(15)+30));
-     document.getElementById('pineconediv3').appendChild(document.createTextNode(randomNumber(10)+40));
+     document.getElementById('pineconediv2').appendChild(document.createTextNode(randomNumber(15)+5));
+     document.getElementById('pineconediv3').appendChild(document.createTextNode(randomNumber(10)+5));
      //animations for the objects
      doNextPoint1();
      doNextPoint2();
@@ -47,17 +47,17 @@ function mathStageNineSecond(){
         var num1 = randomNumber(6) +2;
         var num2 = randomNumber(6) +3;
         var num3 = randomNumber(4)+2;
-        ansArray.push(num1 * num2) / num3;
+        ansArray.push(num1 * num2) - num3;
        
-        text += "(" + num1 + " x " + num2 + ")"  + "/"+ num3+ " = " + "<br />";
+        text += "(" + num1 + " x " + num2 + ")"  + "-"+ num3+ " = " + "<br />";
         
     }
-    var answer = Math.floor((num1 * num2) / num3);
-     document.getElementById('question10').innerHTML = "Click the right pinecone for the multiplication below: <br />"+text;
+    var answer = (num1 * num2) - num3;
+     document.getElementById('question10').innerHTML = "Click the right pinecone for the math below: <br />"+text;
     
      document.getElementById('pineconediv1').appendChild(document.createTextNode(answer));
-     document.getElementById('pineconediv2').appendChild(document.createTextNode(randomNumber(10)+40));
-     document.getElementById('pineconediv3').appendChild(document.createTextNode(randomNumber(10)+20));
+     document.getElementById('pineconediv2').appendChild(document.createTextNode(randomNumber(10)+5));
+     document.getElementById('pineconediv3').appendChild(document.createTextNode(randomNumber(10)+5));
       //animations for the objects
      doNextPoint1();
      doNextPoint2();

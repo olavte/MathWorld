@@ -116,7 +116,8 @@ function question3() {
     question(25);
 }
 
-var selectedOperator; 
+var selectedOperator;
+var answerOperator;
 //builds and executes first question
 //@param the max size of numbers used
 function question(difficulty) {
@@ -125,9 +126,20 @@ function question(difficulty) {
     var firstNumber = randomNumber(difficulty) +1;
     var secondNumber = randomNumber(difficulty) +1;
     
+    selectedOperator = randomNumber(operators.length);
+    answerOperator = operators[selectedOperator].sign; 
     
+       if (answerOperator === "/") {
+                //if dividing
+                ans = randomNumber(10);
+                firstNumber = ans * secondNumber;
+                } else {
+                  //if not dividing
+                  firstNumber = secondNumber + randomNumber(15);
+                  ans = operators[selectedOperator].method(firstNumber, secondNumber); // calculates the answer based on operator
+                } 
     
-    selectedOperator = randomNumber(operators.length); 
+     
     var ans = operators[selectedOperator].method(firstNumber, secondNumber);
     
      
@@ -164,7 +176,7 @@ function clikedPic(clickedId) {
     
    var value = document.getElementById(clickedId).value;
    
-   var answerOperator = operators[selectedOperator].sign;  
+   answerOperator = operators[selectedOperator].sign;  
   
     if(value.toString() === answerOperator.toString()){
         victoryScreen();
