@@ -5,7 +5,7 @@
 
 iniBack('world3Canvas');
 
-var plussCharacter = createAnimatedSprite('assets/characters/plussCharSpr.png', 1200, 300, 300, 300, 3, 30);
+var multiplicationCharacter = createAnimatedSprite('assets/characters/MultiplicationCharSpr.png', 1200, 300, 300, 300, 3, 30);
 
 //snowflake particles
 iniBackgroundEffects(1);
@@ -15,12 +15,12 @@ function draw()
 {
     backCtx.clearRect(0, 0, W, H);
 
-    plussCharacter.updateFrame();
+    multiplicationCharacter.updateFrame();
 
 
     updateBackgroundEffects(1);
-    backCtx.drawImage(plussCharacter.image, plussCharacter.srcX, plussCharacter.srcY, plussCharacter.spriteWidth,
-        plussCharacter.spriteHeight, 160, 150, plussCharacter.spriteWidth, plussCharacter.spriteHeight);
+    backCtx.drawImage(multiplicationCharacter.image, multiplicationCharacter.srcX, multiplicationCharacter.srcY, multiplicationCharacter.spriteWidth,
+        multiplicationCharacter.spriteHeight, 160, 150, multiplicationCharacter.spriteWidth, multiplicationCharacter.spriteHeight);
 }
 
 //animation loop

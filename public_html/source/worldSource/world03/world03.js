@@ -31,7 +31,7 @@ updateCookies();
 //canvas init
 iniBack('world3Canvas');
 
-var plussCharacter = createAnimatedSprite('assets/characters/plussCharSpr.png', 1200, 300, 300, 300, 4, 30);
+var multiplicationCharacter = createAnimatedSprite('assets/characters/multiplicationCharSpr.png', 1200, 300, 300, 300, 4, 30);
 var goldenKey = createAnimatedSprite('assets/goldenKey.png', 9600, 800, 800, 800, 23, 5);
 
 playMusic(forestMusic);
@@ -46,9 +46,9 @@ iniBackgroundEffects(3);
 //Lets draw the flakes
 function draw() {
     backCtx.clearRect(0, 0, W, H);
-    backCtx.drawImage(plussCharacter.image, plussCharacter.srcX, plussCharacter.srcY, plussCharacter.spriteWidth,
-        plussCharacter.spriteHeight, 10, H / 3, W / 5, W / 4);
-    plussCharacter.updateFrame();
+    backCtx.drawImage(multiplicationCharacter.image, multiplicationCharacter.srcX, multiplicationCharacter.srcY, multiplicationCharacter.spriteWidth,
+        multiplicationCharacter.spriteHeight, 10, H / 3, W / 5, W / 4);
+    multiplicationCharacter.updateFrame();
     updateBackgroundEffects(3);
 
     if(currentStage >= 12 && worldKeys < 3) {
