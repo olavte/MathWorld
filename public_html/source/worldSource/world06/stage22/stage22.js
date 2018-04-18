@@ -1,5 +1,36 @@
 //functions for math and questions below
 
+iniBack('world6Canvas');
+var plussChar = createAnimatedSprite('assets/characters/plussCharSpr.png', 1200, 300, 300, 300, 4, 30);
+var minusChar = createAnimatedSprite('assets/characters/minusCharSpr.png', 8400, 300, 600, 300, 14, 2);
+var multiplicationChar = createAnimatedSprite('assets/characters/MultiplicationCharSpr.png', 1800, 300, 300, 300, 6, 25);
+var divisionChar = createAnimatedSprite('assets/characters/divisionCharSpr.png',6600 , 300, 300, 300, 22, 2);
+//var roundingChar = createAnimatedSprite('assets/characters/roundingChar.png', 1800, 300, 300, 300, 6, 2);
+//snowflake particles
+//iniBackgroundEffects(1);
+
+//Lets draw the flakes
+function draw()
+{
+    backCtx.clearRect(0, 0, W, H);
+    drawSpriteImage(backCtx, plussChar, 10, 10, 150, 150);
+    drawSpriteImage(backCtx, minusChar, 10, H-160, 150, 150);
+    drawSpriteImage(backCtx, multiplicationChar, W - 160, 10, 150, 150);
+    drawSpriteImage(backCtx, divisionChar, W - 160, H - 160, 150, 150);
+    //drawSpriteImage(backCtx, roundingChar, 10 + 200, spriteStartYTemp + ((H/8) * 4), 150, 150);
+    
+    
+    plussChar.updateFrame();
+    minusChar.updateFrame();
+    multiplicationChar.updateFrame();
+    divisionChar.updateFrame();
+    //roundingChar.updateFrame();
+}
+
+//animation loop
+animationLoop = setInterval(draw, 33);
+
+
 
 var answer;
 var currentQuestion = 1;
@@ -25,7 +56,7 @@ function mathStageNine(){
         
     }
     var answer = (num1 * num2) - num3;
-     document.getElementById('question10').innerHTML = "Click the right pinecone for the math below: <br />"+text;
+     document.getElementById('question10').innerHTML = "Click the correct pencil: <br />"+text;
     
      document.getElementById('pineconediv1').appendChild(document.createTextNode(answer));
      document.getElementById('pineconediv2').appendChild(document.createTextNode(randomNumber(15)+5));
@@ -53,7 +84,7 @@ function mathStageNineSecond(){
         
     }
     var answer = (num1 * num2) - num3;
-     document.getElementById('question10').innerHTML = "Click the right pinecone for the math below: <br />"+text;
+     document.getElementById('question10').innerHTML = "Click the correct pencil: <br />"+text;
     
      document.getElementById('pineconediv1').appendChild(document.createTextNode(answer));
      document.getElementById('pineconediv2').appendChild(document.createTextNode(randomNumber(10)+5));
@@ -171,7 +202,7 @@ function doNextPoint1(){
     var newX = rand(0, maxX);    
     var maxY = $('#animationArea').height() - $('#pineconediv1').height();
     var newY = rand(animationTop.top, maxY);
-    var speed  = rand (1000, 600);
+    var speed  = rand (1000, 1500);
     
     $('#pineconediv1').animate({
         'top': newY + 'px',
@@ -194,7 +225,7 @@ function doNextPoint2(){
     var newX = rand(0, maxX);    
     var maxY = $('#animationArea').height() - $('#pineconediv2').height();
     var newY = rand(animationTop.top, maxY);
-    var speed  = rand (1000, 600);
+    var speed  = rand (1000, 1500);
     
     $('#pineconediv2').animate({
         'top': newY + 'px',
@@ -214,7 +245,7 @@ function doNextPoint3(){
     var newX = rand(0, maxX);    
     var maxY = $('#animationArea').height() - $('#pineconediv3').height();
     var newY = rand(animationTop.top, maxY);
-    var speed  = rand (1000, 600);
+    var speed  = rand (1000, 1500);
     
     $('#pineconediv3').animate({
         'top': newY + 'px',
