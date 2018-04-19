@@ -108,13 +108,13 @@ function shuffle(a) {
 }
 
 function question1() {
-    question(75);
+    question(15);
 }
 function question2() {
-    question(100);
+    question(30);
 }
 function question3() {
-    question(150);
+    question(50);
 }
 
 //builds and executes first question
