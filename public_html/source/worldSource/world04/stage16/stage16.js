@@ -28,33 +28,35 @@ var secondNumber = 0;
 var questionAnswer = 0;
 var gameSpeed = 7;
 
-//Math Objects
-var mathObjects = [];
-for(var i = 0; i < 4; i++) {
-    mathObjects.push({
-        name:"math" + (i + 1),
-        mathX:W + ((Math.random() * (W / 2))),
-        mathY:H - 150,
-        mathW:W/40,
-        mathNumber:0});
-}
+
 
 //PlayerVariables
 var player = {
-    playerDefaultX: W - 1300,
-    playerX: W - 1300,
-    destination: W - 1300,
-    playerY: H - 150,
+    playerDefaultX: W / 2,
+    playerX: W / 2,
+    destination: W / 2,
+    playerY: H - (H / 8),
     playerHeight: H / 8,
     playerWidth: W / 10
 };
 
 var erlik = {
     erlikX: 0,
-    erlikY: player.playerY - 200,
+    erlikY: H - (W * 0.2),
     erlikW: W * 0.2,
     erlikH: W * 0.2
 };
+
+//Math Objects
+var mathObjects = [];
+for(var i = 0; i < 4; i++) {
+    mathObjects.push({
+        name:"math" + (i + 1),
+        mathX:W + ((Math.random() * (W / 2))),
+        mathY:H - player.playerHeight,
+        mathW:W/40,
+        mathNumber:0});
+}
 
 var isJumping = false;
 var isFalling = false;
@@ -121,9 +123,9 @@ function movePlayer() {
         isFalling = true;
     }
     
-    if ((isFalling) && (player.playerY < H - 150)){
-    } else if ((isFalling) && (player.playerY >= H - 150)){
-        player.playerY = H -150;
+    if ((isFalling) && (player.playerY < H - player.playerHeight)){
+    } else if ((isFalling) && (player.playerY >= H - player.playerHeight)){
+        player.playerY = H - player.playerHeight;
         speed = 0;
         isJumping = false;
         isFalling = false;
@@ -232,7 +234,7 @@ function updateGame() {
         if (mathObject.mathX < -2000) {
             mathObject.falling = false;
             mathObject.mathX = W + 500;
-            mathObject.mathY = H - 150;
+            mathObject.mathY = H - player.playerHeight;
         }
     });
 }
@@ -328,7 +330,7 @@ function restartGame() {
     //Math Object
     mathObjects.forEach(function(mathObject) {
             mathObject.mathX = newX + 1500;
-            mathObject.mathY = H - 150;
+            mathObject.mathY = H - player.playerHeight;
             mathObject.mathW = W / 10;
             mathObject.mathH = H / 10;
             mathObject.falling = false;

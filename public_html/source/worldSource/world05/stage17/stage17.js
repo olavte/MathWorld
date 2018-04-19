@@ -70,7 +70,7 @@ var player = {
     playerImage: playerShip,
     angle: 0,
     playerX: W / 2,
-    playerY: H - (H/8),
+    playerY: H - (H/4),
     playerHeight: H / 8,
     playerWidth: W / 10,
     playerDestX: W/2,
@@ -278,18 +278,21 @@ function updateGame() {
                 } else if (Math.round(enemy.number) > enemy.number) {
                     gameScore -= 5;
                 }
-                document.getElementById("questionBox").innerHTML = "skyt de tallene som må rundes opp! Score: " + gameScore;
+                document.getElementById("questionBox").innerHTML = "Shoot the numbers that must be rounded up! Score: " + gameScore;
             } else {
                 if(Math.round(enemy.number) >= enemy.number) {
                     gameScore += 5;
                 } else if (Math.round(enemy.number) < enemy.number) {
                     gameScore -= 5;
                 }
-                document.getElementById("questionBox").innerHTML = "skyt de tallene som må rundes ned! Score: " + gameScore;
+                document.getElementById("questionBox").innerHTML = "Shoot the numbers that must be rounded down! Score: " + gameScore;
             }
             enemy.enemyX = Math.random() * W;
             enemy.enemyY = -(Math.random() * H + H);
             enemy.number = Math.round (((Math.random() * 10) + 1) * 10) / 10;
+            while(enemy.number % 1 === 0) {
+                enemy.number = Math.round (((Math.random() * 10) + 1) * 10) / 10;
+            }
         }
         if(checkCollision(player.playerX, player.playerY, player.playerWidth, player.playerHeight,
                 enemy.enemyX, enemy.enemyY, enemy.enemyW, enemy.enemyW)) {
@@ -302,7 +305,7 @@ function updateGame() {
                 } else if (Math.round(enemy.number) > enemy.number) {
                     setGameOver();
                 }
-                document.getElementById("questionBox").innerHTML = "skyt de tallene som må rundes opp! Score: " + gameScore;
+                document.getElementById("questionBox").innerHTML = "Shoot the numbers that must be rounded up! Score: " + gameScore;
             } else {
                 if(Math.round(enemy.number) >= enemy.number) {
                     gameScore += 5;
@@ -312,7 +315,7 @@ function updateGame() {
                 } else if (Math.round(enemy.number) < enemy.number) {
                     setGameOver();
                 }
-                document.getElementById("questionBox").innerHTML = "skyt de tallene som må rundes ned!.. Score: " + gameScore;
+                document.getElementById("questionBox").innerHTML = "Shoot the numbers that must be rounded down! Score: " + gameScore;
             }
 
         }
@@ -345,7 +348,7 @@ function updateGame() {
                        enemy.enemyY = -(Math.random() * H + H);
                        enemy.number = Math.round (((Math.random() * 10) + 1) * 10) / 10
                    }
-                   document.getElementById("questionBox").innerHTML = "skyt de tallene som må rundes opp! Score: " + gameScore;
+                   document.getElementById("questionBox").innerHTML = "Shoot the numbers that must be rounded up! Score: " + gameScore;
                } else {
                    if(Math.round(enemy.number) < enemy.number) {
                        enemy.enemyX = Math.random() * W;
@@ -358,7 +361,7 @@ function updateGame() {
                        enemy.enemyY = -(Math.random() * H + H);
                        enemy.number = Math.round (((Math.random() * 10) + 1) * 10) / 10
                    }
-                   document.getElementById("questionBox").innerHTML = "skyt de tallene som må rundes ned! Score: " + gameScore;
+                   document.getElementById("questionBox").innerHTML = "Shoot the numbers that must be rounded down! Score: " + gameScore;
                }
            }
        });
@@ -420,15 +423,19 @@ function restartGame() {
     //Hinder Object
 
     if(isAnswerFloor) {
-        document.getElementById("questionBox").innerHTML = "skyt de tallene som må rundes opp! Score: " + gameScore;
+        document.getElementById("questionBox").innerHTML = "Shoot the numbers that must be rounded up! Score: " + gameScore;
     } else {
-        document.getElementById("questionBox").innerHTML = "skyt de tallene som må rundes ned! Score: " + gameScore;
+        document.getElementById("questionBox").innerHTML = "Shoot the numbers that must be rounded down! Score: " + gameScore;
     }
 
     enemyObjects.forEach(function (enemy) {
         enemy.enemyX = Math.random() * W;
         enemy.enemyY = -(Math.random() * H + H);
         enemy.number = Math.round (((Math.random() * 10) + 1) * 10) / 10;
+        while (enemy.number % 1 === 0)
+        {
+            enemy.number = Math.round (((Math.random() * 10) + 1) * 10) / 10;
+        }
     });
 
     //Math Object
