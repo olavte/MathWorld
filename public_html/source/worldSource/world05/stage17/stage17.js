@@ -169,6 +169,8 @@ function playerShoot() {
         pObjects[currentAmmo-1].pSpdY = sinus * speed;
         pObjects[currentAmmo-1].pFired = true;
         currentAmmo--;
+
+        playSound("assets/sound/laser.mp3");
     }
 }
 

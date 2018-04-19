@@ -489,8 +489,8 @@ function updateBackgroundEffects(effect) {
                 //We will add 1 to the cos function to prevent negative values which will lead flakes to move upwards
                 //Every particle has its own density which can be used to make the downward movement different for each flake
                 //Lets make it more random by adding in the radius
-                p.y += Math.cos(backgroundAngle + p.d) + 1 + p.r / 2;
-                p.x += Math.sin(backgroundAngle) * 2 - 2;
+                p.y += Math.cos(backgroundAngle + p.d) + 1 + p.r / 2 + 3;
+                p.x += Math.sin(backgroundAngle) * 2 - 5;
                 //Sending flakes back from the top when it exits
                 //Lets make it a bit more organic and let flakes enter from the left and right also.
                 if (p.x > W + 5 || p.x < -5 || p.y > H) {
