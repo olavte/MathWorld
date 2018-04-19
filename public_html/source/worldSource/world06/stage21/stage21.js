@@ -137,6 +137,8 @@ function question(difficulty) {
     selectedOperator = randomNumber(operators.length);
     answerOperator = operators[selectedOperator].sign; 
     
+    
+    
        if (answerOperator === "/") {
                 //if dividing
                 ans = randomNumber(10);
@@ -152,15 +154,19 @@ function question(difficulty) {
     
      
     document.getElementById('questionText').innerHTML ="I did some math with this pencil: " + firstNumber + " _ " + secondNumber + " and suddenly my pencil weighed " + ans + " grams!" + "<br />"
-    + "Which operand for " + firstNumber + " _ " + secondNumber + " = " + ans;
+    + "Which operand for " + firstNumber + " _ " + secondNumber + " = " + ans +" ?";
    
    
-    document.getElementById('questionPicture').innerHTML = "<img src='assets/world6/pencil.png' class = '.centered' style = 'height: 200px;'>";
+    document.getElementById('questionPicture').innerHTML = "<img src='assets/world6/pencil.png' class = '.centered' style = 'height: 130px;'>";
     
     
     
     var options = ["+","-","x","/"];
-    shuffle(options);
+    
+     shuffle(options);
+    
+    
+    
     
     //add option text over pictures
     for(i = 0; i < options.length; i++) {
@@ -171,12 +177,35 @@ function question(difficulty) {
         }
         thisOption.appendChild(document.createTextNode(options[i]));
         thisOption.value = options[i];
+        
+    
+        var thisPicture = document.getElementById('pic' + i);
+          
+         if(options[i] ==="+"){
+             thisPicture.src="assets/characters/plussChar.png";
+         }if(options[i] ==="-"){
+             thisPicture.src="assets/characters/minusChar.png";
+         }if(options[i] ==="/"){
+             thisPicture.src="assets/characters/divisionChar.png";
+         }if(options[i] ==="x"){
+             thisPicture.src="assets/characters/MultiplicationChar.png";
+        
     }
+    
+     
+         
+         }
+        
+     
+    
+    
+    
+    
    
     
-    
-    
 }
+    
+
 
 //what happends when imagine is clicked
 //@param ID of clicked element
@@ -184,7 +213,7 @@ function question(difficulty) {
 function clikedPic(clickedId) {
     
    var value = document.getElementById(clickedId).value;
-   
+ 
    answerOperator = operators[selectedOperator].sign;  
   
     if(value.toString() === answerOperator.toString()){
