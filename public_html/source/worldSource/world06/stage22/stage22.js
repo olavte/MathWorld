@@ -1,4 +1,12 @@
 //functions for math and questions below
+var operators = [{
+        sign: "+",
+        method: function(a,b,c){ return a * b + c; }
+    },{
+        sign: "-",
+        method: function(a,b,c){ return a * b - c; }
+        }
+];
 
 iniBack('world6Canvas');
 var plussChar = createAnimatedSprite('assets/characters/plussCharSpr.png', 1200, 300, 300, 300, 4, 30);
@@ -30,7 +38,8 @@ function draw()
 //animation loop
 animationLoop = setInterval(draw, 33);
 
-
+var selectedOperator;
+var answerOperator;
 
 var answer;
 var currentQuestion = 1;
@@ -41,26 +50,30 @@ mathStageNine();
 
 
 function mathStageNine(){
+    document.getElementById('questionText2').innerHTML = "Question: " + currentQuestion + " / 5";
     
-   
     
-    var ansArray = new Array();
+   shuffle(operators);
+   selectedOperator = randomNumber(operators.length);
+    answerOperator = operators[selectedOperator].sign; 
+    
+    //var ansArray = new Array();
     var text = "";
     for(i = 0; i<1; i++){
-        var num1 = randomNumber(5) +2;
-        var num2 = randomNumber(5) +2;
-        var num3 = randomNumber(4)+1;
-        ansArray.push((num1 * num2) - num3);
+        var num1 = randomNumber(5) +4;
+        var num2 = randomNumber(5) +4;
+        var num3 = randomNumber(4)+7;
+        //ansArray.push((num1 * num2) - num3);
        
-        text += "(" + num1 + " x " + num2 + ")"  + " - "+ num3+ " = " + "<br />";
+        text += "(" + num1 + " x " + num2 + ")"  + answerOperator + num3+ " = " + "<br />";
         
     }
-    var answer = (num1 * num2) - num3;
-     document.getElementById('question10').innerHTML = "Click the correct pencil: <br />"+text;
-    
+    answer = operators[selectedOperator].method(num1, num2,num3 );
+     document.getElementById('questionText').innerHTML = "Which pencil has written the correct answer for the math below?: <br />"+text;
+    document.getElementById('questionPicture').innerHTML = "<img src='assets/world6/pencil.png' class = '.centered' style = 'height: 130px;'>";
      document.getElementById('pineconediv1').appendChild(document.createTextNode(answer));
-     document.getElementById('pineconediv2').appendChild(document.createTextNode(randomNumber(15)+5));
-     document.getElementById('pineconediv3').appendChild(document.createTextNode(randomNumber(10)+5));
+     document.getElementById('pineconediv2').appendChild(document.createTextNode(randomNumber(6)+30));
+     document.getElementById('pineconediv3').appendChild(document.createTextNode(randomNumber(6)+31));
      //animations for the objects
      doNextPoint1();
      doNextPoint2();
@@ -69,32 +82,38 @@ function mathStageNine(){
 }
 
 function mathStageNineSecond(){
+    document.getElementById("mathbutton2").disabled = true;
+    document.getElementById('questionText2').innerHTML = "Question: " + currentQuestion + " / 5";
     
+    document.getElementById('questionPicture').innerHTML = "<img src='assets/world6/pencil.png' class = '.centered' style = 'height: 130px;'>";
+    shuffle(operators);
+   selectedOperator = randomNumber(operators.length);
+    answerOperator = operators[selectedOperator].sign; 
    
     
     var ansArray = new Array();
     var text = "";
     for(i = 0; i<1; i++){
-        var num1 = randomNumber(6) +2;
-        var num2 = randomNumber(6) +3;
-        var num3 = randomNumber(4)+2;
+        var num1 = randomNumber(5) +4;
+        var num2 = randomNumber(5) +4;
+        var num3 = randomNumber(4)+7;
         ansArray.push(num1 * num2) - num3;
        
-        text += "(" + num1 + " x " + num2 + ")"  + " - "+ num3+ " = " + "<br />";
+        text += "(" + num1 + " x " + num2 + ")"  + answerOperator + num3+ " = " + "<br />";
         
     }
-    var answer = (num1 * num2) - num3;
-     document.getElementById('question10').innerHTML = "Click the correct pencil: <br />"+text;
+    answer = operators[selectedOperator].method(num1, num2,num3 );
+     document.getElementById('questionText').innerHTML = "Which pencil has written the correct answer for the math below?: <br />"+text;
     
      document.getElementById('pineconediv1').appendChild(document.createTextNode(answer));
-     document.getElementById('pineconediv2').appendChild(document.createTextNode(randomNumber(10)+5));
-     document.getElementById('pineconediv3').appendChild(document.createTextNode(randomNumber(10)+5));
+     document.getElementById('pineconediv2').appendChild(document.createTextNode(randomNumber(6)+34));
+     document.getElementById('pineconediv3').appendChild(document.createTextNode(randomNumber(5)+31));
       //animations for the objects
      doNextPoint1();
      doNextPoint2();
      doNextPoint3();
  
-    document.getElementById('#stage2answers').innerHTML = "";
+    document.getElementById('stage2answers').innerHTML = "";
 
 }
 
@@ -116,8 +135,8 @@ function mathStageNineThird(){
         
     }
     var answer = Math.floor((num1 * num2) / num3);
-     document.getElementById('question10').innerHTML = "Click the right pinecone for the multiplication below: <br />"+text;
-    
+     document.getElementById('questionText').innerHTML = "Click the right pinecone for the multiplication below: <br />"+text;
+     
      document.getElementById('pineconediv1').appendChild(document.createTextNode(answer));
      document.getElementById('pineconediv2').appendChild(document.createTextNode(randomNumber(15)+2));
      document.getElementById('pineconediv3').appendChild(document.createTextNode(randomNumber(10)+2));
@@ -134,7 +153,7 @@ function mathStageNineThird(){
 //Lets user know they were correct, 
 function victoryScreen() {
     currentQuestion++;
-    document.getElementById('#stage2answers').innerHTML = "CORRECT! Click Next";
+    document.getElementById('stage2answers').innerHTML = "CORRECT! Click Next";
     document.getElementById("mathbutton2").disabled = false;
      var option1 = document.getElementById('pineconediv1');
         option1.removeChild(option1.lastChild);
@@ -150,7 +169,7 @@ function victoryScreen() {
 //lets user know they pressed wrong
 function sadnessScreen() {
 
-    document.getElementById('#stage2answers').innerHTML = "WRONG!";
+    document.getElementById('stage2answers').innerHTML = "WRONG!";
     reload();
 }
 
@@ -192,16 +211,16 @@ function shuffle(a) {
    //creates an area for the animation of the objects, width and heigth of stage background
 //$('#animationArea').width($('#stage10background').width()).height(($('#stage10background').height()/2));
 
-
+var divisionNum = 3/2;
 function doNextPoint1(){
     
-   $('#animationArea').width($('#stage10background').width());
-   $('#animationArea').height($('#stage10background').height());
-    var animationTop = $("#animationArea")[0].getBoundingClientRect();
-    var maxX = $('#animationArea').width() - $('#pineconediv1').width();    
+   $('#answerOptions').width($('#stageCenter').width());
+   $('#answerOptions').height($('#stageCenter').height()/divisionNum);
+    //var animationTop = $("#answerOptions")[0].getBoundingClientRect();
+    var maxX = $('#answerOptions').width() - $('#pineconediv1').width();    
     var newX = rand(0, maxX);    
-    var maxY = $('#animationArea').height() - $('#pineconediv1').height();
-    var newY = rand(animationTop.top, maxY);
+    var maxY = $('#answerOptions').height() - $('#pineconediv1').height();
+    var newY = rand(0, maxY);
     var speed  = rand (1000, 1500);
     
     $('#pineconediv1').animate({
@@ -220,11 +239,10 @@ function doNextPoint1(){
 
 
 function doNextPoint2(){
-    var animationTop = $("#animationArea")[0].getBoundingClientRect();
-    var maxX = $('#animationArea').width() - $('#pineconediv2').width();    
+     var maxX = $('#answerOptions').width() - $('#pineconediv2').width();    
     var newX = rand(0, maxX);    
-    var maxY = $('#animationArea').height() - $('#pineconediv2').height();
-    var newY = rand(animationTop.top, maxY);
+    var maxY = $('#answerOptions').height() - $('#pineconediv2').height();
+    var newY = rand(0, maxY);
     var speed  = rand (1000, 1500);
     
     $('#pineconediv2').animate({
@@ -234,17 +252,17 @@ function doNextPoint2(){
     }, speed, function(){
         doNextPoint2();    
     });
+    
 
 }
 //$('#animationArea').width($('#stage10background').width()).height(($('#stage10background').height()/2));
 
 
 function doNextPoint3(){
-    var animationTop = $("#animationArea")[0].getBoundingClientRect();
-    var maxX = $('#animationArea').width() - $('#pineconediv3').width();    
+      var maxX = $('#answerOptions').width() - $('#pineconediv3').width();    
     var newX = rand(0, maxX);    
-    var maxY = $('#animationArea').height() - $('#pineconediv3').height();
-    var newY = rand(animationTop.top, maxY);
+    var maxY = $('#answerOptions').height() - $('#pineconediv3').height();
+    var newY = rand(0, maxY);
     var speed  = rand (1000, 1500);
     
     $('#pineconediv3').animate({
@@ -254,6 +272,7 @@ function doNextPoint3(){
     }, speed, function(){
         doNextPoint3();    
     });
+    
     
 }
 function rand (min, max) {

@@ -1,29 +1,24 @@
-
-<div id="stage10">
-    <canvas id="world6Canvas"></canvas>
-    
-    <div class="stage10buttons">
-     <button id="mathbutton2" onclick='mathStageNineSecond()' style='height:50px;width:100px' disabled="true" >
-                Next
-            </button>
-        
-                <button class="backbutton" onclick="backToWorld()" style='height:50px;width:100px' >
-                    Back
-                </button>
-          
-                <button class="minigamebutton" onclick="reload()" style='height:50px;width:100px' >
-                    Reload
-                </button>
-            </div> 
-    
-    <div id="stage10background">
-        <h1 id="stageTitle">Stop throwing your pencils around!</h1>
-      
-        
-        <div id="question10"></div>
-        <div id="#stage2answers"></div>
-        <div id="animationArea">  
-            <div id ="pineconediv1" onclick="clikedPic(this.id)">
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<div>
+    <div id="stage02">      
+         <canvas id="world6Canvas"></canvas>
+         <div id ="stageCenter">
+             <h1 id="stageTitle">Find your pencil!</h1>
+             <div id="question">
+                 <div id="questionText2"></div>
+                 <div id="questionText"></div>
+                 <div id="questionPicture"></div>
+                 <div id="stage2answers"></div>
+             </div>
+             <div id="answerOptions">
+                 
+                 
+                  <div id ="pineconediv1" onclick="clikedPic(this.id)">
                 <img class ="pineconepic" src="assets/world6/pencil.png">
             </div>
             <div id ="pineconediv2" onclick="clikedPic(this.id)">
@@ -32,14 +27,16 @@
             <div id ="pineconediv3" onclick="clikedPic(this.id)">
                 <img class ="pineconepic" src="assets/world6/pencil.png">
             </div>
+                 
+                 <button onclick="backToWorld()">Back</button>
+                 <button onclick="reload()">Reload</button>
+                 <button id="mathbutton2" onclick='mathStageNineSecond()' disabled="true" >
+                Next
+            </button>
+             </div>
+         </div>
             
-             
-        </div>
-        
-       
-       
-    </div> 
-        
     </div>
-
+    
+</div>
 
