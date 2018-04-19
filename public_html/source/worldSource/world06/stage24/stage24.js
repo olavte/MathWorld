@@ -36,6 +36,7 @@ var maxNumberOfTries = 2;
 var animationTimer = 0;
 var damagedObject = 0;
 var currentAnimatedCharInBox = null;
+var doingDamageAnimation = false;
 
 var operators = [{
     sign: "+",
@@ -271,12 +272,6 @@ function draw()
             frontCtx.rect(W * (26/100), H * (26/100), W * (48/100), H * (18/100));
             frontCtx.fill();
 
-            // Current timer
-            frontCtx.fillStyle = "rgba(255, 255, 255, 1)";
-            frontCtx.font = "80px Arial";
-            frontCtx.textAlign="center";
-            frontCtx.fillText(Math.round(timer), W * (50/100), H * (10/100));
-
             frontCtx.fillStyle = "rgba(255, 255, 255, 1)";
             frontCtx.font = "80px Arial";
             frontCtx.fillText(firstNumber, W * (30/100), H * (37/100));
@@ -287,7 +282,7 @@ function draw()
 
             frontCtx.fillStyle = "rgba(255, 255, 255, 1)";
             frontCtx.font = "80px Arial";
-            frontCtx.fillText("= " + questionAnswer, W * (65/100), H * (37/100));
+            frontCtx.fillText("= " + questionAnswer, W * (60/100), H * (37/100));
 
             frontCtx.strokeStyle = "rgba(255, 255, 255, 1)";
             frontCtx.beginPath();
@@ -300,6 +295,7 @@ function draw()
         }
 
         if(animationTimer >= 0) {
+            doingDamageAnimation = true;
             if(damagedObject === 0) {
                 if(animationTimer % 10 >= 5) {
                     frontCtx.fillStyle = "rgba(255, 0, 0, 0.8)";
@@ -350,6 +346,19 @@ function draw()
                 frontCtx.fill();
             }
         }
+
+        // Current timer
+        var timerFontSize = 80;
+        var timerYPos = H * (12/100);
+        if(Math.round(timer) % 10 === 0) {
+            timerFontSize = 120;
+            timerYPos = H * (14/100);
+        }
+
+        frontCtx.fillStyle = "rgba(255, 255, 255, 1)";
+        frontCtx.font = timerFontSize + "px Arial";
+        frontCtx.textAlign="center";
+        frontCtx.fillText(Math.round(timer), W * (50/100), timerYPos);
     }
 }
 
@@ -365,7 +374,6 @@ function updateGame() {
             if(player.playerChar === plussChar) {
                 if(operators[0].method(firstNumber, secondNumber) === questionAnswer) {
                     damageErlik();
-                    restartGame();
                 } else {
                     numberOfTries++;
                 }
@@ -401,26 +409,36 @@ function updateGame() {
         animationTimer = 60;
         damagedObject = 1;
         currentAnimatedCharInBox = player.playerChar;
-        if(timer >= 55) {
-            erlikHP -= 5;
+        player.playerChar = null;
+        if(timer >= 50) {
+            erlikHP -= 6;
         } else if (timer >= 40) {
-            erlikHP -= 3;
+            erlikHP -= 5;
         } else if (timer >= 30) {
+            erlikHP -= 4;
+        } else if (timer >= 20) {
+            erlikHP -= 3;
+        } else if (timer >= 10) {
             erlikHP -= 2;
         } else {
             erlikHP -= 1;
         }
-        restartGame();
+        if(Math.round(timer) % 10 === 0) {
+            erlikHP -= 5;
+        }
     }
 
-    timer -= 1/60 + (100 - erlikHP)/450 - (100 - playerHP)/600;
-
-    if(timer <= 0) {
+    if(timer <= 0 && doingDamageAnimation === false) {
         currentAnimatedCharInBox = null;
         animationTimer = 60;
         damagedObject = 0;
         playerHP -= 5;
-        restartGame();
+        player.playerChar = null;
+    } else {
+        timer -= 1/60;
+        if(erlikHP < 100 && ((100 - erlikHP)/60 - (100 - playerHP)/70) > 0) {
+            timer -= (100 - erlikHP)/120 - (100 - playerHP)/150;
+        }
     }
 
     if(numberOfTries >= maxNumberOfTries) {
@@ -429,6 +447,11 @@ function updateGame() {
         damagedObject = 0;
         playerHP -= 5;
         numberOfTries = 0;
+        player.playerChar = null;
+    }
+
+    if(doingDamageAnimation === true && animationTimer < 0) {
+        doingDamageAnimation = false;
         restartGame();
     }
 }
@@ -483,17 +506,23 @@ function restartGame() {
     timer = 60;
     var operator = operators[Math.round(Math.random() * 4)];
     if(operator.gameChar === roundingChar) {
-        firstNumber = Math.round(Math.random()) / 10 + 1;
+        firstNumber = Math.round(((Math.random() * 10) + 1) * 19) / 10;
         secondNumber = Math.round(firstNumber);
+        questionAnswer = operator.method(firstNumber, secondNumber);
+        while(firstNumber % 1 === 0) {
+            firstNumber = Math.round(((Math.random() * 10) + 1) * 19) / 10;
+            secondNumber = Math.round(firstNumber);
+            questionAnswer = operator.method(firstNumber, secondNumber);
+        }
     } else {
-        firstNumber = Math.round(Math.random() * 15);
-        secondNumber = Math.round(Math.random() * 14 + 1);
-    }
-    questionAnswer = operator.method(firstNumber, secondNumber);
-    while(questionAnswer % 1 != 0) {
-        firstNumber = Math.round(Math.random() * 15);
-        secondNumber = Math.round(Math.random() * 14 + 1);
-        questionAnswer = operators[3].method(firstNumber, secondNumber);
+        firstNumber = Math.round(Math.random() * 20);
+        secondNumber = Math.round(Math.random() * 19 + 1);
+        questionAnswer = operator.method(firstNumber, secondNumber);
+        while(questionAnswer % 1 !== 0) {
+            firstNumber = Math.round(Math.random() * 20);
+            secondNumber = Math.round(Math.random() * 19 + 1);
+            questionAnswer = operators[3].method(firstNumber, secondNumber);
+        }
     }
 }
 

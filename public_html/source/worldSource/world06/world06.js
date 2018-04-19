@@ -61,7 +61,7 @@ function draw() {
     var grd=backCtx.createLinearGradient(0,0,0,H);
     grd.addColorStop(0,"rgba(0,0,0, 0.9)");
     grd.addColorStop(0.5,"rgba(0,0,0, 0.1)");
-    grd.addColorStop(1,"rgba(0,0,0, 0.9)");
+    grd.addColorStop(1,"rgba(20,0,0, 0.9)");
 
     backCtx.fillStyle = grd;
     backCtx.beginPath();
