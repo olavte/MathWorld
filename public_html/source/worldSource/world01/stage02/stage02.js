@@ -31,7 +31,7 @@ function draw() {
 
     updateBackgroundEffects(1);
     backCtx.drawImage(plussCharacter.image, plussCharacter.srcX, plussCharacter.srcY, plussCharacter.spriteWidth,
-        plussCharacter.spriteHeight, 60, 140, plussCharacter.spriteWidth, plussCharacter.spriteHeight);
+        plussCharacter.spriteHeight, 10, 150, W/5, H/5);
 }
 
 //animation loop

@@ -42,14 +42,14 @@ if(currentStage >= 8 && worldKeys < 2) {
 }
 
 //snowflake particles
-iniBackgroundEffects(1);
+//iniBackgroundEffects(1);
 
 //Lets draw the flakes
 function draw() {
     backCtx.clearRect(0, 0, W, H);
     drawSpriteImage(backCtx, minusCharacter, 10, H/3, W/4, W/6);
     minusCharacter.updateFrame();
-    updateBackgroundEffects(1);
+    //updateBackgroundEffects(1);
 
     if(currentStage >= 8 && worldKeys < 2) {
         if(goldenKey.currentFrame === 22) {

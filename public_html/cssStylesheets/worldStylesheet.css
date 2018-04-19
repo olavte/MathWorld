@@ -7,10 +7,7 @@ and open the template in the editor.
     Created on : 27.jan.2018, 15:27:56
     Author     : olavt
 */
-body {
-    font-family: 'Open Sans';
-    font-size: 22px;
-}
+
 
 button {
     font-family: 'Open Sans';
@@ -348,6 +345,7 @@ button[disabled] {
 .worldTopBar li {
     float: left;
     display: block;
+    margin-right: 2vw;
 }
 
 .worldScorePanel {
