@@ -332,7 +332,7 @@ function draw()
 
         if(gameState !== 2) {
             var someRand = Math.random() * 10000;
-            if(someRand > 9998) {
+            if(someRand > 9990) {
                 frontCtx.fillStyle = "white";
                 frontCtx.beginPath();
                 frontCtx.rect(0, 0, W, H);
