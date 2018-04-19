@@ -331,15 +331,24 @@ function draw()
         }
 
         if(gameState !== 2) {
-            var grd=frontCtx.createLinearGradient(0,0,0,H);
-            grd.addColorStop(0,"rgba(0,0,0, 0.8)");
-            grd.addColorStop(0.75,"rgba(0,0,0, 0)");
-            grd.addColorStop(1,"black");
+            var someRand = Math.random() * 10000;
+            if(someRand > 9998) {
+                frontCtx.fillStyle = "white";
+                frontCtx.beginPath();
+                frontCtx.rect(0, 0, W, H);
+                frontCtx.fill();
+                playSound("assets/sound/thunder.mp3");
+            } else {
+                var grd=frontCtx.createLinearGradient(0,0,0,H);
+                grd.addColorStop(0,"rgba(0,0,0, 0.8)");
+                grd.addColorStop(0.75,"rgba(0,0,0, 0)");
+                grd.addColorStop(1,"rgba(0,0,0, 0.8)");
 
-            frontCtx.fillStyle = grd;
-            frontCtx.beginPath();
-            frontCtx.rect(0, 0, W, H);
-            frontCtx.fill();
+                frontCtx.fillStyle = grd;
+                frontCtx.beginPath();
+                frontCtx.rect(0, 0, W, H);
+                frontCtx.fill();
+            }
         }
     }
 }

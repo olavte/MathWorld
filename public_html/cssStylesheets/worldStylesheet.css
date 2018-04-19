@@ -125,14 +125,6 @@ input {
     z-index:-1;
 }
 
-#world5planet {
-    position: fixed;
-    width: 40vw;
-    bottom: -10vw;
-    right: -10vh;
-    z-index: -1;
-}
-
 /* WORLD 6 */
 
 #world6Canvas {
