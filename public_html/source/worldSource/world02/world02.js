@@ -56,7 +56,7 @@ if(currentStage >= 8 && worldKeys < 2) {
 }
 
 //snowflake particles
-iniBackgroundEffects(1);
+//iniBackgroundEffects(1);
 
 var userInputX = 0;
 var userInputY = 0;

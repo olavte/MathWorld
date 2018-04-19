@@ -46,11 +46,15 @@ mathTwoFirst();
 
 //final level in world 1, for special assignement and timer function
 function mathTwoFirst() {
-    var answer = Math.floor(moneyOnHand / candyPrice);
-    var options = [answer, randomNumber(25) + 1, randomNumber(20) + 1, randomNumber(20) + 1];
+
+
+    var num1 = randomNumber(10) + 1;
+    var num2 = randomNumber(10) + 1;
+    var answer = num1 + num2;
+    var options = [answer, randomNumber(15) + 1, randomNumber(20) + 1, randomNumber(15) + 1];
     shuffle(options);
 
-    document.getElementById('question04').innerHTML = "If this candy is " + candyPrice + " cents and you have " + moneyOnHand + " cents, how many candies can you buy with the money you have?";
+    document.getElementById('question04').innerHTML = "If this candy is " + num1 + " + " + num2 + " cents, how much does the candy cost?";
     var text = "<ul>";
     for (i = 0; i < options.length; i++) {
         if (options[i] === answer) {
@@ -62,16 +66,18 @@ function mathTwoFirst() {
     document.getElementById('stage2answers').innerHTML = text;
 }
 
+
 function mathTwoSecond() {
 
-
+    
     var num1 = randomNumber(10) + 1;
     var num2 = randomNumber(10) + 1;
-    var answer = num1 + num2;
+    var num3 = randomNumber(10) + 1;
+    var answer = num1 + num2 + num3;
     var options = [answer, randomNumber(15) + 1, randomNumber(20) + 1, randomNumber(15) + 1];
     shuffle(options);
 
-    document.getElementById('question04').innerHTML = "If this candy is " + num1 + " + " + num2 + "cents, how much does the candy cost?";
+    document.getElementById('question04').innerHTML = "If this candy is " + num1 + " + " + num2 + " + " + num3 +" cents, how much does the candy cost?";
     var text = "<ul>";
     for (i = 0; i < options.length; i++) {
         if (options[i] === answer) {
@@ -89,11 +95,12 @@ function mathTwoThird() {
     var num1 = randomNumber(10) + 1;
     var num2 = randomNumber(10) + 1;
     var num3 = randomNumber(10) + 1;
-    var answer = num1 + num2 + num3;
+    var num4 = randomNumber(10) + 1;
+    var answer = num1 + num2 + num3 + num4;
     var options = [answer, randomNumber(15) + 1, randomNumber(20) + 1, randomNumber(15) + 1];
     shuffle(options);
 
-    document.getElementById('question04').innerHTML = "If this candy is " + num1 + " + " + num2 + " + " + num3 + "cents, how much does the candy cost?";
+    document.getElementById('question04').innerHTML = "If this candy is " + num1 + " + " + num2 + " + " + num3 + " + " + num4 + " cents, how much does the candy cost?";
     var text = "<ul>";
     for (i = 0; i < options.length; i++) {
         if (options[i] === answer) {

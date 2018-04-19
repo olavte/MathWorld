@@ -70,7 +70,7 @@ function mathTwoSecond() {
     var options = [answer, randomNumber(15) + 1, randomNumber(20) + 1, randomNumber(15) + 1];
     shuffle(options);
 
-    document.getElementById('question04').innerHTML = "If this candy is " + num1 + " - " + num2 + "cents, how much does the candy cost?";
+    document.getElementById('question04').innerHTML = "If this candy is " + num1 + " - " + num2 + " cents, how much does the candy cost?";
     var text = "<ul>";
     for (i = 0; i < options.length; i++) {
         if (options[i] === answer) {
