@@ -32,9 +32,9 @@ var gameSpeed = 7;
 
 //PlayerVariables
 var player = {
-    playerDefaultX: W / 2,
-    playerX: W / 2,
-    destination: W / 2,
+    playerDefaultX: W / 3,
+    playerX: W / 3,
+    destination: W / 3,
     playerY: H - (H / 8),
     playerHeight: H / 8,
     playerWidth: W / 10
@@ -145,7 +145,6 @@ function draw()
 
     drawBack();
     drawMiddle();
-    drawFront();
 
     function drawBack() {
         updateBackgroundEffects(1);

@@ -16,6 +16,7 @@ var worldProgression = 0;
 var currentStage = 0;
 var worldKeys = 0;
 var creditsMoney = 0;
+var beatGame = false;
 
 var cookies = [];
 cookies = document.cookie.split("; ");
@@ -83,6 +84,10 @@ function playMusic(music) {
             this.play();
         }
     }, false);
+}
+
+function stopMusic() {
+    currentMusic.pause();
 }
 
 //Controllers

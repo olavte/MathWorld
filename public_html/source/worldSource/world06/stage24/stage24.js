@@ -459,12 +459,26 @@ function setWinGame() {
         currentStage = 24;
     }
     creditsMoney += 50;
-    playMusic(startMenuMusic);
+    stopMusic();
     playSound('assets/sound/gotKey.mp3');
-    document.getElementById('myModal').style.display = "block";
+    /*document.getElementById('myModal').style.display = "block";
     document.getElementById("gameOverModalContent").style.display = "none";
     document.getElementById("startModalContent").style.display = "none";
-    document.getElementById("winModalContent").style.display = "block";
+    document.getElementById("winModalContent").style.display = "block";*/
+    if (beatGame)
+    {
+        setTimeout(function(){
+            goToNewScreen('source/worldSource/world06/world06.html', 'source/worldSource/world06/world06.js');     
+        }, 6000);
+
+    } else
+    {
+        beatGame = true;
+        setTimeout(function(){
+            goToNewScreen('source/worldSource/credits/credits.html', 'source/worldSource/credits/credits.js');  
+        }, 6000);
+
+    }
 }
 
 function restartGame() {
