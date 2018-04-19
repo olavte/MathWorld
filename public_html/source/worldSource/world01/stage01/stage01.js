@@ -20,7 +20,7 @@ function draw()
 
     updateBackgroundEffects(1);
     backCtx.drawImage(plussCharacter.image, plussCharacter.srcX, plussCharacter.srcY, plussCharacter.spriteWidth,
-        plussCharacter.spriteHeight, 160, 150, plussCharacter.spriteWidth, plussCharacter.spriteHeight);
+        plussCharacter.spriteHeight, 10, 150, W/5, H/5);
 }
 
 //animation loop
@@ -130,10 +130,10 @@ function question(dificulty) {
     
     document.getElementById('stageTitle').innerHTML = "Total:" + totalSum;
     document.getElementById('questionText2').innerHTML = "Question: " + currentQuestion + " / 3";
-    document.getElementById('questionText').innerHTML ="This icecream is " + answer + " grams, wich of these icecream balls must you pick to get the same weight?";
+    document.getElementById('questionText').innerHTML ="This icecream is " + answer + " grams, wich of these icecream scoops must you pick to get the same weight?";
    
    
-    document.getElementById('questionPicture').innerHTML = "<img src='assets/world1/world1ice.png' class = '.centered' style = 'height: 200px;'>";
+    document.getElementById('questionPicture').innerHTML = "<img src='assets/world1/world1ice.png' class = '.centered' style = 'height: 150px;'>";
     
     
     

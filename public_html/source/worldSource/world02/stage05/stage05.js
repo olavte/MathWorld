@@ -20,7 +20,7 @@ function draw()
 
     updateBackgroundEffects(1);
     backCtx.drawImage(minusCharacter.image, minusCharacter.srcX, minusCharacter.srcY, minusCharacter.spriteWidth,
-        minusCharacter.spriteHeight, 60, 50, minusCharacter.spriteWidth, minusCharacter.spriteHeight);
+        minusCharacter.spriteHeight, 10, 100, W/5, H/5);
 }
 
 //animation loop
@@ -131,7 +131,7 @@ function question(dificulty) {
     document.getElementById('questionText').innerHTML = "This icecream is " + answer + " grams, you can take max 3 bites to eat it all, wich bites can you take, to eat exactly this weight ??";
    
    
-    document.getElementById('questionPicture').innerHTML = "<img src='assets/world1/world1ice.png' class = '.centered' style = 'height: 200px;'>";
+    document.getElementById('questionPicture').innerHTML = "<img src='assets/world1/world1ice.png' class = '.centered' style = 'height: 150px;'>";
     
     
     
