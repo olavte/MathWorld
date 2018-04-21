@@ -4,9 +4,19 @@
  * and open the template in the editor.
  */
 
-currentWorld = 6;
-if(worldProgression < 6) {
-    worldProgression = 6;
+currentWorld = 5;
+if(worldProgression < 5) {
+    worldProgression = 5;
+}
+
+if(currentStage < 17) {
+    document.getElementById("level2").disabled = true;
+}
+if(currentStage < 18) {
+    document.getElementById("level3").disabled = true;
+}
+if(currentStage < 19) {
+    document.getElementById("level4").disabled = true;
 }
 
 updateCookies();
