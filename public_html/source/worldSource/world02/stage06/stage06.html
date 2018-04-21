@@ -10,28 +10,31 @@ and open the template in the editor.
 
         <canvas id="world2Canvas"></canvas>
 
-        <div id="stagebackground">
+        <div id="stageCenter">
             <h1 id="stageTitle">Stage 6 - Paris!</h1>
            
             <div id="total04">
                 
             </div>
-
+            <div id="question">
             <div id="question04"></div>
             
             
             <div id ="icediv" onclick="clikedPic(this.id)">
-                            
+            </div>                   
 
-            <img id="icecream04" src="assets/world1/world1ice.png">
+            <img id="icecream04" src="assets/world1/world1ice.png" style = "height: 200px;">
            </div>
           
-            <div id="stage2answers"></div>   
+
+
             <div id="exitbutton">
-                <button class="backbutton" onclick="backToWorld()" >
+                <button class="backbutton" onclick="goToNewScreen('source/worldSource/world02/world02.html', 'source/worldSource/world02/world02.js')" >
                     Back
                 </button>
             </div>
+            <div id="answerOptions">
+            <div id="stage2answers"></div>
             <div id="nextquestion" >
                 <button id="mathbutton2" onclick="mathTwoSecond()" disabled="true" >
                     Second Question 
@@ -47,12 +50,12 @@ and open the template in the editor.
             </div>
             
              <div id="next" >
-                <button id="nextstage" onclick="backToWorld()" disabled="true" >
+                <button id="nextstage" onclick="goToNewScreen('source/worldSource/world02/world02.html', 'source/worldSource/world02/world02.js')" disabled="true" >
                     Next Stage
                 </button>
     
             </div>
-            
+            </div>
             
             
             

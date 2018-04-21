@@ -20,7 +20,7 @@ function draw()
 
     updateBackgroundEffects(1);
     backCtx.drawImage(plussCharacter.image, plussCharacter.srcX, plussCharacter.srcY, plussCharacter.spriteWidth,
-        plussCharacter.spriteHeight, 160, 150, plussCharacter.spriteWidth, plussCharacter.spriteHeight);
+        plussCharacter.spriteHeight, 10, 150, W/5, H/5);
 }
 
 //animation loop
@@ -36,10 +36,11 @@ animationLoop = setInterval(draw, 16);
 var answer;
 var totalSum;
 
-//run question1
-question1();
+
 //variable to save current question progress
 var currentQuestion = 1;
+//run question1
+question1();
 
 
 //functions for math and questions below
@@ -66,8 +67,20 @@ function victoryScreen() {
 
 //lets user know they pressed wrong
 function sadnessScreen() {
+
     var text = "<p>Wrong</p>";
    document.getElementById('questionText').innerHTML = text;
+    setTimeout(function(){
+    var questionToLoad;
+    if(currentQuestion === 1){
+        questionToLoad = question1();
+    }
+    if(currentQuestion === 2){
+        questionToLoad = question2();
+    } else if(currentQuestion === 3) {
+        questionToLoad = question3();
+    }
+    }, 1500);
    
 
 }
@@ -116,10 +129,11 @@ function question(dificulty) {
     answer = firstNumber + secondNumber + thirdNumber;
     
     document.getElementById('stageTitle').innerHTML = "Total:" + totalSum;
-    document.getElementById('questionText').innerHTML ="This icecream is " + answer + " grams, wich of these icecream balls must you pick to get the same weight?";
+    document.getElementById('questionText2').innerHTML = "Question: " + currentQuestion + " / 3";
+    document.getElementById('questionText').innerHTML ="This icecream is " + answer + " grams, wich of these icecream scoops must you pick to get the same weight?";
    
    
-    document.getElementById('questionPicture').innerHTML = "<img src='assets/world1/world1ice.png' class = '.centered' style = 'height: 200px;'>";
+    document.getElementById('questionPicture').innerHTML = "<img src='assets/world1/world1ice.png' class = '.centered' style = 'height: 150px;'>";
     
     
     

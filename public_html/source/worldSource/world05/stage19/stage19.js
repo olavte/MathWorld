@@ -95,7 +95,7 @@ function question1() {
     
     document.getElementById('stageTitle').innerHTML = 'Guess The Word!';
     document.getElementById('questionText').innerHTML = '</p>Enter your guess below!</p>';
-    document.getElementById('answerOptionsTitle').innerHTML = '<p>Solve the math questions to reveal letters:</p>';
+    document.getElementById('answerOptionsTitle').innerHTML = '<p>Round the numbers to reveal letters:</p>';
 
     
     while (generated === false) {

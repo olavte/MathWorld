@@ -20,7 +20,7 @@ function draw()
 
     updateBackgroundEffects(1);
     backCtx.drawImage(minusCharacter.image, minusCharacter.srcX, minusCharacter.srcY, minusCharacter.spriteWidth,
-        minusCharacter.spriteHeight, 60, 50, minusCharacter.spriteWidth, minusCharacter.spriteHeight);
+        minusCharacter.spriteHeight, 10, 100, W/5, H/5);
 }
 
 //animation loop
@@ -36,10 +36,11 @@ animationLoop = setInterval(draw, 16);
 var answer;
 var totalSum;
 
-//run question1
-question1();
+
 //variable to save current question progress
 var currentQuestion = 1;
+//run question1
+question1();
 
 
 //functions for math and questions below
@@ -67,7 +68,17 @@ function victoryScreen() {
 function sadnessScreen() {
     var text = "<p>Wrong</p>";
    document.getElementById('questionText').innerHTML = text;
-   document.getElementById('answerOptions').innerHTML = "";
+    setTimeout(function(){
+    var questionToLoad;
+    if(currentQuestion === 1){
+        questionToLoad = question1();
+    }
+    if(currentQuestion === 2){
+        questionToLoad = question2();
+    } else if(currentQuestion === 3) {
+        questionToLoad = question3();
+    }
+    }, 1500);
    
 
 }
@@ -97,13 +108,13 @@ function shuffle(a) {
 }
 
 function question1() {
-    question(75);
+    question(15);
 }
 function question2() {
-    question(100);
+    question(30);
 }
 function question3() {
-    question(150);
+    question(50);
 }
 
 //builds and executes first question
@@ -115,11 +126,12 @@ function question(dificulty) {
     answer = firstNumber + secondNumber + thirdNumber;
     totalSum = answer; //resets total sum every time question is loaded
     
-    document.getElementById('stageTitle').innerHTML = "Total left:" + totalSum;
-    document.getElementById('questionText').innerHTML ="This icecream is " + answer + " grams, you can take max 3 bites to eat it all, wich bites can you take, to eat exactly this weight ??";
+    document.getElementById('stageTitle').innerHTML = "Total left: " + totalSum;
+    document.getElementById('questionText2').innerHTML = "Question: " + currentQuestion + " / 3";
+    document.getElementById('questionText').innerHTML = "This icecream is " + answer + " grams, you can take max 3 bites to eat it all, wich bites can you take, to eat exactly this weight ??";
    
    
-    document.getElementById('questionPicture').innerHTML = "<img src='assets/world1/world1ice.png' class = '.centered' style = 'height: 200px;'>";
+    document.getElementById('questionPicture').innerHTML = "<img src='assets/world1/world1ice.png' class = '.centered' style = 'height: 150px;'>";
     
     
     

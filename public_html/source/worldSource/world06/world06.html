@@ -8,7 +8,8 @@
             <li class="worldTitle">
                 CandyLand
             </li>
-            <li style="float:right"><div class="menuButton" onclick="goToMenu(this)">
+            <li style="float:right">
+                <div class="menuButton" onclick="goToNewScreen('source/mainMenuSource/mainMenu/mainMenu.html','source/mainMenuSource/mainMenu/mainMenu.js')">
                     <div class="bar1"></div>
                     <div class="bar2"></div>
                     <div class="bar3"></div>
@@ -18,15 +19,15 @@
 
     <canvas id="world6Canvas"></canvas>
     <div id="mathwrapper">
-        <button class="mathbutton" id="level1"
-                onclick="goToNewScreen('source/worldSource/world01/stage01/stage01.html', 'source/worldSource/world01/stage01/stage01.js')">1</button>
+       <button class="mathbutton" id="level1"
+                onclick="goToNewScreen('source/worldSource/world06/stage21/stage21.html', 'source/worldSource/world06/stage21/stage21.js')">1</button>
         <button class="mathbutton" id="level2"
-                onclick="goToNewScreen('source/worldSource/world01/stage02/stage02.html', 'source/worldSource/world01/stage02/stage02.js')">2</button>
+                onclick="goToNewScreen('source/worldSource/world06/stage22/stage22.html', 'source/worldSource/world06/stage22/stage22.js')">2</button>
         <button class="mathbutton" id="level3"
                 onclick="goToNewScreen('source/worldSource/world06/stage23/stage23.html', 'source/worldSource/world06/stage23/stage23.js')">3</button>
-        <button class="mathbutton" id="levelFinal" 
+        <button class="mathbutton" id="level4"
                 onclick="goToNewScreen('source/worldSource/world06/stage24/stage24.html', 'source/worldSource/world06/stage24/stage24.js')">4</button>
     </div>
-    <button id="World5BackDoor" class="worldBackDoor" onclick="goToNewScreen('source/worldSource/world05/world05.html',
-    'source/worldSource/world05/world05.js')"> DOOR </button>
+    <div id="World5BackDoor" class="worldBackDoor" onclick="goToNewScreen('source/worldSource/world05/world05.html',
+    'source/worldSource/world05/world05.js')"></div>
 </div>

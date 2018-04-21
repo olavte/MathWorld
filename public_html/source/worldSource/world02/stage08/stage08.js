@@ -48,7 +48,7 @@ function drawMiddle() {
         middleCtx.fillStyle = "white";
         middleCtx.fillRect(0, 0, W, H);
         
-        headLine("Add the numbers in the right order", 50);
+        headLine("Add the numbers in the right order");
         
         //minus and equal signs
         middleCtx.fillStyle = "black";
@@ -254,7 +254,7 @@ function checkAnswer() {
 
         if(playerSolution === playerAnswer) {
             drawMiddle();
-            headLine("Correct!", 120);
+            headLine("Correct!");
             setTimeout(function () {
                 if(currentOptions < beatStage) {
                 //progress if not beat
@@ -263,7 +263,7 @@ function checkAnswer() {
                 } else {
                 //beat stage
                     drawMiddle();
-                    headLine("You are now ready for the next world!", 205);
+                    headLine("You are now ready for the next world!");
                     if(currentStage < 8) {
                         currentStage = 8;
                     }
@@ -272,16 +272,15 @@ function checkAnswer() {
             }, 1000);
         } else {
             drawMiddle();
-            headLine("Hmm no, this will give you " + playerSolution + " not " + playerAnswer, 120);
+            headLine("Hmm no, this will give you " + playerSolution + " not " + playerAnswer);
+            setTimeout(function() {headLine("Add the numbers in the right order");}, 1500);
         }
    
 }
 
-function headLine(text, height) {
+function headLine(text) {
 
-    middleCtx.fillStyle = "black";
-    middleCtx.font="50px Arial";
-    middleCtx.fillText(text, W/2, height);
+    document.getElementById('stageTitle').innerHTML = text;
     
 }
 

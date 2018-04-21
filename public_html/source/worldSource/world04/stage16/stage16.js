@@ -12,8 +12,9 @@ iniMiddle("middleCanvas");
 iniFront("frontCanvas");
 
 //Music
-playMusic(norwayMusic);
+playMusic(fightMusic);
 var divisionCharacter = createAnimatedSprite('assets/characters/divisionCharSpr.png', 1200, 300, 300, 300, 22, 1);
+var erlikCharacter = createAnimatedSprite('assets/characters/ErlikChase.png', 3600, 300, 300, 300, 12, 2);
 
 var gameState = 0;
 setBeforeGame();
@@ -27,24 +28,35 @@ var secondNumber = 0;
 var questionAnswer = 0;
 var gameSpeed = 7;
 
+
+
+//PlayerVariables
+var player = {
+    playerDefaultX: W / 3,
+    playerX: W / 3,
+    destination: W / 3,
+    playerY: H - (H / 8),
+    playerHeight: H / 8,
+    playerWidth: W / 10
+};
+
+var erlik = {
+    erlikX: 0,
+    erlikY: H - (W * 0.2),
+    erlikW: W * 0.2,
+    erlikH: W * 0.2
+};
+
 //Math Objects
 var mathObjects = [];
 for(var i = 0; i < 4; i++) {
     mathObjects.push({
         name:"math" + (i + 1),
         mathX:W + ((Math.random() * (W / 2))),
-        mathY:H - 150,
+        mathY:H - player.playerHeight,
         mathW:W/40,
         mathNumber:0});
 }
-
-//PlayerVariables
-var player = {
-    playerX: W / 12,
-    playerY: H - 150,
-    playerHeight: H / 8,
-    playerWidth: W / 10
-};
 
 var isJumping = false;
 var isFalling = false;
@@ -79,7 +91,7 @@ function touchEnd() {
 window.addEventListener("touchstart", touchStart);
 function touchStart() {
     if ((!isJumping) && (!isFalling)) {    
-        speed = 100;
+        speed = jumpBoost;;
         isJumping = true;
         isFalling = false;
     }
@@ -111,9 +123,9 @@ function movePlayer() {
         isFalling = true;
     }
     
-    if ((isFalling) && (player.playerY < H - 150)){
-    } else if ((isFalling) && (player.playerY >= H - 150)){
-        player.playerY = H -150;
+    if ((isFalling) && (player.playerY < H - player.playerHeight)){
+    } else if ((isFalling) && (player.playerY >= H - player.playerHeight)){
+        player.playerY = H - player.playerHeight;
         speed = 0;
         isJumping = false;
         isFalling = false;
@@ -133,7 +145,6 @@ function draw()
 
     drawBack();
     drawMiddle();
-    drawFront();
 
     function drawBack() {
         updateBackgroundEffects(1);
@@ -153,6 +164,9 @@ function draw()
 
         drawSpriteImage(middleCtx, divisionCharacter, player.playerX, player.playerY, player.playerWidth, player.playerHeight);
         divisionCharacter.updateFrame();
+        
+        drawSpriteImage(middleCtx, erlikCharacter, erlik.erlikX, erlik.erlikY, erlik.erlikW, erlik.erlikH);
+        erlikCharacter.updateFrame();
 
         if (gameState === 1) {
 
@@ -187,17 +201,39 @@ function updateGame() {
                mathObject.mathX, mathObject.mathY, mathObject.mathW - 100, mathObject.mathW)) {
             if (mathObject.mathNumber === questionAnswer) {
                gameSpeed++;
+               player.destination = player.playerX + 75;
                restartGame();
             } else {
                gameSpeed--;
+
+               player.destination = player.playerX - 75;
                restartGame();
             }
         }
         
+        if (player.playerX > player.destination)
+        {
+            player.playerX -= 0.5;
+        } else if (player.playerX < player.destination)
+        {
+            player.playerX += 0.5;
+        }
+        
+        if(checkCollision(erlik.erlikX, erlik.erlikY, erlik.erlikW - 100, erlik.erlikH - 50,
+                mathObject.mathX, mathObject.mathY, mathObject.mathW - 100, mathObject.mathW)) {
+                    mathObject.falling = true;
+                }
+        
         mathObject.mathX -= gameSpeed;
+        
+        if (mathObject.falling){
+            mathObject.mathY += 10;
+        }
+        
         if (mathObject.mathX < -2000) {
+            mathObject.falling = false;
             mathObject.mathX = W + 500;
-            mathObject.mathY = H - 150;
+            mathObject.mathY = H - player.playerHeight;
         }
     });
 }
@@ -219,7 +255,8 @@ function setStartGame() {
     document.getElementById("gameOverModalContent").style.display = "none";
     document.getElementById("startModalContent").style.display = "none";
     document.getElementById("winModalContent").style.display = "none";
-
+    player.playerX = player.playerDefaultX;
+    player.destination = player.playerDefaultX;
     restartGame();
 }
 
@@ -233,9 +270,11 @@ function setBeforeGame() {
 
 function setWinGame() {
     gameState = 0;
-    if(currentStage < 4) {
-        currentStage = 4;
-    }
+    if(currentStage < 16) {
+        currentStage = 16;
+    }    
+    creditsMoney += 50;
+    
     document.getElementById('myModal').style.display = "block";
     document.getElementById("gameOverModalContent").style.display = "none";
     document.getElementById("startModalContent").style.display = "none";
@@ -284,15 +323,16 @@ function restartGame() {
     }
 
     document.getElementById("questionBox").innerHTML 
-            = firstNumber + " / " + secondNumber + " = ??     Score: " 
-            + gameSpeed;
+            = firstNumber + " / " + secondNumber + " = ??     Speed: " 
+            + (gameSpeed - 10);
     newX = W;
     //Math Object
     mathObjects.forEach(function(mathObject) {
             mathObject.mathX = newX + 1500;
-            mathObject.mathY = H - 150;
+            mathObject.mathY = H - player.playerHeight;
             mathObject.mathW = W / 10;
             mathObject.mathH = H / 10;
+            mathObject.falling = false;
             mathObject.mathNumber = Math.round(Math.random() * 20);
             newX += 1000;
     });

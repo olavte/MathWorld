@@ -20,7 +20,7 @@ iniBack("world2Canvas");
 var minusCharacter = createAnimatedSprite('assets/characters/minusCharSpr.png', 8400, 300, 600, 300, 14, 2);
 
 //backgroundEffects
-iniBackgroundEffects(1);
+//iniBackgroundEffects(1);
 
 //Lets draw the flakes
 function draw() {
@@ -29,9 +29,9 @@ function draw() {
     minusCharacter.updateFrame();
 
 
-    updateBackgroundEffects(1);
+    //updateBackgroundEffects(1);
     backCtx.drawImage(minusCharacter.image, minusCharacter.srcX, minusCharacter.srcY, minusCharacter.spriteWidth,
-        minusCharacter.spriteHeight, 60, 50, minusCharacter.spriteWidth, minusCharacter.spriteHeight);
+        minusCharacter.spriteHeight, 10, 100, W/5, H/5);
 }
 
 //animation loop
@@ -70,7 +70,7 @@ function mathTwoSecond() {
     var options = [answer, randomNumber(15) + 1, randomNumber(20) + 1, randomNumber(15) + 1];
     shuffle(options);
 
-    document.getElementById('question04').innerHTML = "If this candy is " + num1 + " - " + num2 + "cents, how much does the candy cost?";
+    document.getElementById('question04').innerHTML = "If this candy is " + num1 + " - " + num2 + " cents, how much does the candy cost?";
     var text = "<ul>";
     for (i = 0; i < options.length; i++) {
         if (options[i] === answer) {

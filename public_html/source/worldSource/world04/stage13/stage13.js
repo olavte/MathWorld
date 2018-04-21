@@ -39,10 +39,11 @@ var guesses = [];
 var answer;
 var totalSum = "";
 
-//run question1
-question1();
+
 //variable to save current question progress
 var currentQuestion = 1;
+//run question1
+question1();
 
 
 //functions for math and questions below
@@ -171,7 +172,7 @@ function question(difficulty) {
     
     document.getElementById('stageTitle').innerHTML = "Your guess: " + firstGuess + " / " + secondGuess + " = " + totalSum;
     document.getElementById('questionText').innerHTML ="This icecream is " + answer + " grams. Pick two numbers so that the quotient becomes " + answer + ".";
-   
+    document.getElementById('questionText2').innerHTML = "Question: " + currentQuestion + " / 3  ";
    
     document.getElementById('questionPicture').innerHTML = "<img src='assets/world1/world1ice.png' class = '.centered' style = 'height: 200px;'>";
     

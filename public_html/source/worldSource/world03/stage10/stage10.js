@@ -1,3 +1,27 @@
+iniBack('world3Canvas');
+
+var multiplicationCharacter = createAnimatedSprite('assets/characters/MultiplicationCharSpr.png', 1200, 300, 300, 300, 3, 30);
+
+//snowflake particles
+iniBackgroundEffects(1);
+
+//Lets draw the flakes
+function draw()
+{
+    backCtx.clearRect(0, 0, W, H);
+
+    multiplicationCharacter.updateFrame();
+
+
+    updateBackgroundEffects(1);
+    backCtx.drawImage(multiplicationCharacter.image, multiplicationCharacter.srcX, multiplicationCharacter.srcY, multiplicationCharacter.spriteWidth,
+        multiplicationCharacter.spriteHeight, 160, 150, multiplicationCharacter.spriteWidth, multiplicationCharacter.spriteHeight);
+}
+
+//animation loop
+animationLoop = setInterval(draw, 16);
+
+
 //functions for math and questions below
 
 
@@ -94,7 +118,7 @@ function mathStageNineThird(){
      doNextPoint1();
      doNextPoint2();
      doNextPoint3();
-     creditsMoney +=50;
+     
 
 }
 
@@ -111,6 +135,10 @@ function victoryScreen() {
         var option3 = document.getElementById('pineconediv3');
         option3.removeChild(option3.lastChild);
  if(currentQuestion === 5){
+     if(currentStage < 10) {
+         currentStage = 10;
+     }
+     creditsMoney += 50;
      backToWorld();
  }
 }

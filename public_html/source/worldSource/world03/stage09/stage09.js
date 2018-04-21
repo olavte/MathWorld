@@ -5,7 +5,7 @@
 
 iniBack('world3Canvas');
 
-var plussCharacter = createAnimatedSprite('assets/characters/plussCharSpr.png', 1200, 300, 300, 300, 3, 30);
+var multiplicationCharacter = createAnimatedSprite('assets/characters/MultiplicationCharSpr.png', 1200, 300, 300, 300, 3, 30);
 
 //snowflake particles
 iniBackgroundEffects(1);
@@ -15,12 +15,12 @@ function draw()
 {
     backCtx.clearRect(0, 0, W, H);
 
-    plussCharacter.updateFrame();
+    multiplicationCharacter.updateFrame();
 
 
     updateBackgroundEffects(1);
-    backCtx.drawImage(plussCharacter.image, plussCharacter.srcX, plussCharacter.srcY, plussCharacter.spriteWidth,
-        plussCharacter.spriteHeight, 160, 150, plussCharacter.spriteWidth, plussCharacter.spriteHeight);
+    backCtx.drawImage(multiplicationCharacter.image, multiplicationCharacter.srcX, multiplicationCharacter.srcY, multiplicationCharacter.spriteWidth,
+        multiplicationCharacter.spriteHeight, 160, 150, multiplicationCharacter.spriteWidth, multiplicationCharacter.spriteHeight);
 }
 
 //animation loop
@@ -36,10 +36,11 @@ animationLoop = setInterval(draw, 16);
 var answer;
 var totalGrams;
 
-//run question1
-question1();
 //variable to save current question progress
 var currentQuestion = 1;
+//run question1
+question1();
+
 
 
 //functions for math and questions below
@@ -68,6 +69,17 @@ function victoryScreen() {
 function sadnessScreen() {
     var text = "<p>Wrong</p>";
    document.getElementById('questionText').innerHTML = text;
+       setTimeout(function(){
+    var questionToLoad;
+    if(currentQuestion === 1){
+        questionToLoad = question1();
+    }
+    if(currentQuestion === 2){
+        questionToLoad = question2();
+    } else if(currentQuestion === 3) {
+        questionToLoad = question3();
+    }
+    }, 1500);
    
 
 }
@@ -116,7 +128,7 @@ function question(dificulty) {
     answer = firstNumber * secondNumber;
     firstValue = firstNumber;
     
-   
+    document.getElementById('questionText2').innerHTML = "Question: " + currentQuestion + " / 3";
     document.getElementById('questionText').innerHTML ="This pinecone is " + firstNumber + 
             
             " grams, how many of them can you have to reach " + firstNumber * secondNumber + " ?";

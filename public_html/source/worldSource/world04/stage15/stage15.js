@@ -40,6 +40,10 @@ function victoryScreen() {
     document.getElementById('questionText').innerHTML = '<p>Correct!</p>';
     document.getElementById('questionPicture').innerHTML = "";
     document.getElementById('answerOptions').innerHTML = "";
+    if(currentStage < 15) {
+        currentStage = 15;
+    }    
+    creditsMoney += 50;
     setTimeout(function(){
         goToNewScreen('source/worldSource/world04/world04.html', 'source/worldSource/world04/world04.js');
     }, 1500);
@@ -126,7 +130,7 @@ function question1() {
     
     document.getElementById('stageTitle').innerHTML = 'Guess The Word!';
     document.getElementById('questionText').innerHTML = '</p>Enter your guess below!</p>';
-    document.getElementById('answerOptionsTitle').innerHTML = '<p>Solve the math questions to reveal letters!</p><p>If there are decimals in your answer, round down to ONE decimal!</p>';
+    document.getElementById('answerOptionsTitle').innerHTML = '<p>Solve the math questions to reveal letters!</p>';
 
     
     while (generated === false) {

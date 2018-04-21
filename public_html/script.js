@@ -12,9 +12,11 @@ gameScreen.id = "gameScreen";
 document.body.appendChild(gameScreen);
 
 var currentWorld = 0;
+var worldProgression = 0;
 var currentStage = 0;
 var worldKeys = 0;
 var creditsMoney = 0;
+var beatGame = false;
 
 var cookies = [];
 cookies = document.cookie.split("; ");
@@ -50,6 +52,8 @@ var norwayMusic = new Audio('assets/music/winter.mp3');
 var crazyMusic = new Audio('assets/music/crazy.mp3');
 var heartbeatMusic = new Audio('assets/music/heartbeat.mp3');
 var parisMusic = new Audio('assets/music/parisMusic.mp3');
+var finalBossMusic = new Audio('assets/music/mathWorldFinalBoss.mp3');
+var world6Music = new Audio('assets/music/mathWorld6.mp3');
 
 var currentMusic = null;
 
@@ -82,6 +86,10 @@ function playMusic(music) {
     }, false);
 }
 
+function stopMusic() {
+    currentMusic.pause();
+}
+
 //Controllers
 var mouseUp = 0;
 var mouseMove = 0;
@@ -97,7 +105,7 @@ function fadeIn(element) {
             clearInterval(timer);
         }
         element.style.opacity = op;
-        op += 0.02;
+        op += 0.03;
     }, 10);
 }
 
@@ -310,6 +318,20 @@ function iniBackgroundEffects(effect) {
                 });
             }
             break;
+
+        case 6:
+            //snowflake particles
+            mp = 50; //max particles
+            particles = [];
+            for (var i = 0; i < mp; i++) {
+                particles.push({
+                    x: Math.random() * W, //x-coordinate
+                    y: Math.random() * H, //y-coordinate
+                    r: Math.random() * 4 + 1, //radius
+                    d: Math.random() * mp //density
+                });
+            }
+            break;
     }
 }
 
@@ -447,6 +469,46 @@ function updateBackgroundEffects(effect) {
                 backCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2, true);
             }
             backCtx.fill();
+            break;
+
+        case 6:
+
+            backCtx.fillStyle = "rgba(200, 0, 0, 0.8)";
+            backCtx.beginPath();
+            for (var i = 0; i < mp; i++) {
+                var p = particles[i];
+                backCtx.moveTo(p.x, p.y);
+                backCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2, true);
+            }
+            backCtx.fill();
+
+            backgroundAngle += 0.01;
+            for (var i = 0; i < mp; i++) {
+                var p = particles[i];
+                //Updating X and Y coordinates
+                //We will add 1 to the cos function to prevent negative values which will lead flakes to move upwards
+                //Every particle has its own density which can be used to make the downward movement different for each flake
+                //Lets make it more random by adding in the radius
+                p.y += Math.cos(backgroundAngle + p.d) + 1 + p.r / 2 + 3;
+                p.x += Math.sin(backgroundAngle) * 2 - 5;
+                //Sending flakes back from the top when it exits
+                //Lets make it a bit more organic and let flakes enter from the left and right also.
+                if (p.x > W + 5 || p.x < -5 || p.y > H) {
+                    if (i % 3 > 0) //66.67% of the flakes
+                    {
+                        particles[i] = {x: Math.random() * W, y: -10, r: p.r, d: p.d};
+                    } else {
+                        //If the flake is exitting from the right
+                        if (Math.sin(backgroundAngle) > 0) {
+                            //Enter from the left
+                            particles[i] = {x: -5, y: Math.random() * H, r: p.r, d: p.d};
+                        } else {
+                            //Enter from the right
+                            particles[i] = {x: W + 5, y: Math.random() * H, r: p.r, d: p.d};
+                        }
+                    }
+                }
+            }
             break;
     }
 }

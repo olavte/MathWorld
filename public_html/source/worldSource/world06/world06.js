@@ -4,7 +4,20 @@
  * and open the template in the editor.
  */
 
-currentWorld = 6;
+currentWorld = 5;
+if(worldProgression < 5) {
+    worldProgression = 5;
+}
+
+if(currentStage < 17) {
+    document.getElementById("level2").disabled = true;
+}
+if(currentStage < 18) {
+    document.getElementById("level3").disabled = true;
+}
+if(currentStage < 19) {
+    document.getElementById("level4").disabled = true;
+}
 
 updateCookies();
 
@@ -18,14 +31,16 @@ var divisionChar = createAnimatedSprite('assets/characters/divisionCharSpr.png',
 var roundingChar = createAnimatedSprite('assets/characters/roundingChar.png', 1800, 300, 300, 300, 6, 15);
 var erlikChar = createAnimatedSprite('assets/characters/ErlikStanding.png', 300, 5400, 300, 300, 18, 10);
 
-playMusic(crazyMusic);
+if(currentMusic != world6Music) {
+    playMusic(world6Music);
+}
 
 if(currentStage >= 24 && worldKeys < 6) {
     playSound('assets/sound/gotKey.mp3');
 }
 
 //snowflake particles
-iniBackgroundEffects(1);
+iniBackgroundEffects(6);
 
 //Lets draw the flakes
 function draw() {
@@ -35,14 +50,14 @@ function draw() {
     drawSpriteImage(backCtx, multiplicationChar, 10 + 400, H / 3 - 20, W / 6, W / 5);
     drawSpriteImage(backCtx, divisionChar, 10 + 600, H / 3 - 30, W / 6, W / 5);
     drawSpriteImage(backCtx, roundingChar, 10 + 800, H / 3 - 40, W / 6, W / 5);
-    drawSpriteImage(backCtx, erlikChar, W - (W / 5), H / 3 - 40, W / 5, W / 4);
+    drawSpriteImage(backCtx, erlikChar, W - (W / 3), H - (W  / 2), W / 3, W  / 2);
     plussChar.updateFrame();
     minusChar.updateFrame();
     multiplicationChar.updateFrame();
     divisionChar.updateFrame();
     roundingChar.updateFrame();
     erlikChar.updateFrame();
-    updateBackgroundEffects(1);
+    updateBackgroundEffects(6);
 
     if(currentStage >= 24 && worldKeys < 6) {
         if(goldenKey.currentFrame === 22) {
@@ -52,6 +67,16 @@ function draw() {
             goldenKey.updateFrame();
         }
     }
+
+    var grd=backCtx.createLinearGradient(0,0,0,H);
+    grd.addColorStop(0,"rgba(0,0,0, 0.9)");
+    grd.addColorStop(0.5,"rgba(0,0,0, 0.1)");
+    grd.addColorStop(1,"rgba(20,0,0, 0.9)");
+
+    backCtx.fillStyle = grd;
+    backCtx.beginPath();
+    backCtx.rect(0, 0, W, H);
+    backCtx.fill();
 }
 
 //animation loop
