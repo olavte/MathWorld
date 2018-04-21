@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 
+document.getElementById("selectWorld2Button").style.backgroundImage = "";
+
+
 // User clicks the candyland button, open the candyland modal 
 function worldSelectWorld01() {
     exitModal();

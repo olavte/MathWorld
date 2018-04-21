@@ -7,7 +7,8 @@
 if(currentStage === 0) {
     document.getElementById("mainMenuStartButton").innerHTML = "New Game";
     document.getElementById("mainMenuStartButton").addEventListener('click', function (ev) {
-        goToNewScreen('source/worldSource/world01/world01.html', 'source/worldSource/world01/world01.js')
+        goToNewScreen('source/cutsceneSource/startingScene/startingScene.html',
+            'source/cutsceneSource/startingScene/startingScene.js');
     });
 } else {
     document.getElementById("mainMenuStartButton").innerHTML = "Continue";

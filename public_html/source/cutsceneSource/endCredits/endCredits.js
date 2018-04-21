@@ -1,4 +1,4 @@
-/* 
+/*
  */
 //document.getElementById('myModal').style.display = "block";
 //document.getElementById('stage2StartModalContent').style.display = "block";
@@ -45,7 +45,7 @@ for(var i = 0; i < creditsText.length; i++) {
         mathY:initialY,
         mathW:W/40,
         mathNumber:creditsText[i]});
-    
+
     initialY += separation;
 }
 
@@ -72,28 +72,28 @@ function draw()
 
     function drawMiddle() {
 
-        middleCtx.fillStyle = "rgba(0, 0, 0, 1)";
-        middleCtx.beginPath();
-        middleCtx.rect(0, 0, W, H);
-        middleCtx.fill();
-        
-        middleCtx.fillStyle = "rgba(0, 0, 0, 1)";
-        middleCtx.beginPath();
-        middleCtx.strokeRect(0, 0, W, H);
-        middleCtx.fill();updateGame();
+        frontCtx.fillStyle = "rgba(0, 0, 0, 1)";
+        frontCtx.beginPath();
+        frontCtx.rect(0, 0, W, H);
+        frontCtx.fill();
 
-            mathObjects.forEach(function(mathObject) {
-                middleCtx.fillStyle = "rgba(0, 0, 0, 1)";
-                middleCtx.beginPath();
-                middleCtx.rect(mathObject.mathX, mathObject.mathY, mathObject.mathW, mathObject.mathH);
-                middleCtx.fill();
-                middleCtx.fillStyle = "rgba(255, 255, 255, 1)";
-                middleCtx.font = "64px chalkboard";
-                middleCtx.fillText(mathObject.mathNumber, mathObject.mathX
-                    - (mathObject.mathW * 2.5), mathObject.mathY
-                    - (mathObject.mathH * 2.5));
-            });
-        }
+        frontCtx.fillStyle = "rgba(0, 0, 0, 1)";
+        frontCtx.beginPath();
+        frontCtx.strokeRect(0, 0, W, H);
+        frontCtx.fill();updateGame();
+
+        mathObjects.forEach(function(mathObject) {
+            frontCtx.fillStyle = "rgba(0, 0, 0, 1)";
+            frontCtx.beginPath();
+            frontCtx.rect(mathObject.mathX, mathObject.mathY, mathObject.mathW, mathObject.mathH);
+            frontCtx.fill();
+            frontCtx.fillStyle = "rgba(255, 255, 255, 1)";
+            frontCtx.font = "64px chalkboard";
+            frontCtx.fillText(mathObject.mathNumber, mathObject.mathX
+                - (mathObject.mathW * 2.5), mathObject.mathY
+                - (mathObject.mathH * 2.5));
+        });
+    }
 }
 
 function updateGame() {
@@ -101,10 +101,10 @@ function updateGame() {
     mathObjects.forEach(function(mathObject) {
         mathObject.mathY -= scrollSpeed;
     });
-    
+
     var lastIndex = mathObjects.length - 1;
     var lastText = mathObjects[lastIndex];
-    
+
     if (lastText.mathY <= -50)
     {
         goToNewScreen('source/mainMenuSource/mainMenu/mainMenu.html', 'source/mainMenuSource/mainMenu/mainMenu.js')
@@ -121,14 +121,14 @@ function setStartCredits() {
     var i = 0;
     //Math Object
     mathObjects.forEach(function(mathObject) {
-            mathObject.mathX = W / 2;
-            mathObject.mathY = newY;
-            mathObject.mathW = W / 10;
-            mathObject.mathH = H / 10;
-            mathObject.falling = false;
-            mathObject.mathNumber = creditsText[i];
-            newY += separation;
-            i++;
+        mathObject.mathX = W / 2;
+        mathObject.mathY = newY;
+        mathObject.mathW = W / 10;
+        mathObject.mathH = H / 10;
+        mathObject.falling = false;
+        mathObject.mathNumber = creditsText[i];
+        newY += separation;
+        i++;
     });
 }
 
