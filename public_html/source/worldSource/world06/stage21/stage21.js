@@ -78,6 +78,10 @@ function victoryScreen() {
     } else if(currentQuestion === 3) {
         questionToLoad = question3();
     } else if(currentQuestion === 4) {
+        if(currentStage < 21) {
+            currentStage = 21;
+        }
+        creditsMoney += 50;
         questionToLoad = backToWorld();
     }
 

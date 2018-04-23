@@ -9,13 +9,13 @@ if(worldProgression < 5) {
     worldProgression = 5;
 }
 
-if(currentStage < 17) {
+if(currentStage < 21) {
     document.getElementById("level2").disabled = true;
 }
-if(currentStage < 18) {
+if(currentStage < 22) {
     document.getElementById("level3").disabled = true;
 }
-if(currentStage < 19) {
+if(currentStage < 23) {
     document.getElementById("level4").disabled = true;
 }
 

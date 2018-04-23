@@ -164,6 +164,8 @@ input {
     color: white;
     background-color: rgba(20, 20, 20, 0.9);
     border: none;
+    box-sizing: border-box;
+    background-size: 100% 100%;
 }
 
 .selectWorldButton:hover {
@@ -195,43 +197,6 @@ input {
 
 .selectWorldModal p {
     margin-right: 10%;
-}
-
-#selectWorld1Button {
-    background: url("../assets/world1/world1photo.png") no-repeat;
-    box-sizing: border-box;
-    background-size: 100% 100%;
-}
-
-#selectWorld2Button {
-    background: url("../assets/world2/world2.png") no-repeat;
-    box-sizing: border-box;
-    background-size: 100% 100%;
-}
-
-#selectWorld3Button{
-    background: url("../assets/world3/world03.png") no-repeat;
-    box-sizing: border-box;
-    background-size: 100% 100%;
-
-}
-
-#selectWorld4Button {
-    background: url("../assets/world4/world4.png") no-repeat;
-    box-sizing: border-box;
-    background-size: 100% 100%;
-}
-
-#selectWorld5Button {
-    background: url("../assets/world5/world5.png") no-repeat;
-    box-sizing: border-box;
-    background-size: 100% 100%;
-}
-
-#selectWorld6Button {
-    background: url("../assets/world6/world6.png") no-repeat;
-    box-sizing: border-box;
-    background-size: 100% 100%;
 }
 
 #back-button {

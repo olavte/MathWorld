@@ -64,13 +64,6 @@ function mainMenuSettings() {
     document.getElementById("creditsModalContent").style.display = "none";
 }
 
-// User clicks the credits button, open the credits modal 
-function mainMenuCredits() {
-    document.getElementById('myModal').style.display = "block";
-    document.getElementById("settingsModalContent").style.display = "none";
-    document.getElementById("creditsModalContent").style.display = "block";
-}
-
 // User clicks on <span> (x), close the modal
 function exitModal() {
     document.getElementById('myModal').style.display = "none";

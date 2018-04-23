@@ -12,7 +12,9 @@ iniMiddle("middleCanvas");
 iniFront("frontCanvas");
 
 //Music
-playMusic(startMenuMusic);
+if(currentMusic != startMenuMusic) {
+    playMusic(startMenuMusic);
+}
 iniBackgroundEffects(1);
 
 // Game variables
@@ -25,15 +27,15 @@ var creditsText = [];
 creditsText.push("Thank you for playing!");
 creditsText.push("");
 creditsText.push("Developers:");
-creditsText.push("Knut Johan Selnes");
-creditsText.push("Olav Telseth");
-creditsText.push("Eivind Michael Myklebust");
+creditsText.push("Knut  Johan  Selnes");
+creditsText.push("Olav  Telseth");
+creditsText.push("Eivind  Michael  Myklebust");
 creditsText.push("Einar Weltan");
 creditsText.push("");
 creditsText.push("Concept:");
-creditsText.push("Viana Vafamehr");
-creditsText.push("Imma Ulheim");
-creditsText.push("Darta Strazdina");
+creditsText.push("Viana  Vafamehr");
+creditsText.push("Imma  Ulheim");
+creditsText.push("Darta  Strazdina");
 
 
 //Math Objects
@@ -72,25 +74,14 @@ function draw()
 
     function drawMiddle() {
 
-        frontCtx.fillStyle = "rgba(0, 0, 0, 1)";
-        frontCtx.beginPath();
-        frontCtx.rect(0, 0, W, H);
-        frontCtx.fill();
 
-        frontCtx.fillStyle = "rgba(0, 0, 0, 1)";
-        frontCtx.beginPath();
-        frontCtx.strokeRect(0, 0, W, H);
-        frontCtx.fill();updateGame();
+        updateGame();
 
         mathObjects.forEach(function(mathObject) {
-            frontCtx.fillStyle = "rgba(0, 0, 0, 1)";
-            frontCtx.beginPath();
-            frontCtx.rect(mathObject.mathX, mathObject.mathY, mathObject.mathW, mathObject.mathH);
-            frontCtx.fill();
+            frontCtx.textAlign = "center";
             frontCtx.fillStyle = "rgba(255, 255, 255, 1)";
-            frontCtx.font = "64px chalkboard";
-            frontCtx.fillText(mathObject.mathNumber, mathObject.mathX
-                - (mathObject.mathW * 2.5), mathObject.mathY
+            frontCtx.font = "56px chalkboard";
+            frontCtx.fillText(mathObject.mathNumber, mathObject.mathX, mathObject.mathY
                 - (mathObject.mathH * 2.5));
         });
     }

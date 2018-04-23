@@ -67,6 +67,10 @@ function victoryScreen() {
     document.getElementById('questionText').innerHTML = '<p>Correct!</p>';
     document.getElementById('questionPicture').innerHTML = "";
     document.getElementById('answerOptions').innerHTML = "";
+    if(currentStage < 23) {
+        currentStage = 23;
+    }
+    creditsMoney += 50;
     setTimeout(function(){
         goToNewScreen('source/worldSource/world06/world06.html', 'source/worldSource/world06/world06.js');
     }, 1500);
