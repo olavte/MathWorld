@@ -34,6 +34,26 @@ for(var i = 0; i < cookies.length; i++) {
     }
 }
 
+function updateCookies() {
+    document.cookie= "currentWorld=" + currentWorld + ";";
+    document.cookie= "currentStage=" + currentStage + ";";
+    document.cookie= "worldKeys=" + worldKeys + ";";
+    document.cookie= "creditsMoney=" + creditsMoney + ";";
+}
+
+function resetAllCookies() {
+    document.cookie= "currentWorld=" + 0 + ";";
+    document.cookie= "currentStage=" + 0 + ";";
+    document.cookie= "worldKeys=" + 0 + ";";
+    document.cookie= "creditsMoney=" + 0 + ";";
+    currentWorld = 0;
+    worldProgression = 0;
+    currentStage = 0;
+    worldKeys = 0;
+    creditsMoney = 0;
+    beatGame = false;
+}
+
 var animationLoop = null;
 
 // Music and sounds
@@ -132,13 +152,6 @@ function goToNewScreen(html, js) {
     };
     xhttp.open("GET", html, true);
     xhttp.send();
-}
-
-function updateCookies() {
-    document.cookie= "currentWorld=" + currentWorld + ";";
-    document.cookie= "currentStage=" + currentStage + ";";
-    document.cookie= "worldKeys=" + worldKeys + ";";
-    document.cookie= "creditsMoney=" + creditsMoney + ";";
 }
 
 function addExtraScript(js) {

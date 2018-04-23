@@ -145,7 +145,6 @@ function mathStageNineThird(){
      doNextPoint1();
      doNextPoint2();
      doNextPoint3();
-     creditsMoney +=50;
 
 }
 
@@ -162,6 +161,10 @@ function victoryScreen() {
         var option3 = document.getElementById('pineconediv3');
         option3.removeChild(option3.lastChild);
  if(currentQuestion === 5){
+     if(currentStage < 22) {
+         currentStage = 22;
+     }
+     creditsMoney += 50;
      backToWorld();
  }
 }

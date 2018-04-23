@@ -507,7 +507,7 @@ function setWinGame() {
     {
         beatGame = true;
         setTimeout(function(){
-            goToNewScreen('source/worldSource/credits/credits.html', 'source/worldSource/credits/credits.js');  
+            goToNewScreen('source/cutsceneSource/endCredits/endCredits.html', 'source/cutsceneSource/endCredits/endCredits.js');
         }, 6000);
 
     }

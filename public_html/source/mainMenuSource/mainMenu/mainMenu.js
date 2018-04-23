@@ -7,7 +7,8 @@
 if(currentStage === 0) {
     document.getElementById("mainMenuStartButton").innerHTML = "New Game";
     document.getElementById("mainMenuStartButton").addEventListener('click', function (ev) {
-        goToNewScreen('source/worldSource/world01/world01.html', 'source/worldSource/world01/world01.js')
+        goToNewScreen('source/cutsceneSource/startingScene/startingScene.html',
+            'source/cutsceneSource/startingScene/startingScene.js');
     });
 } else {
     document.getElementById("mainMenuStartButton").innerHTML = "Continue";
@@ -61,13 +62,6 @@ function mainMenuSettings() {
     document.getElementById('myModal').style.display = "block";
     document.getElementById("settingsModalContent").style.display = "block";
     document.getElementById("creditsModalContent").style.display = "none";
-}
-
-// User clicks the credits button, open the credits modal 
-function mainMenuCredits() {
-    document.getElementById('myModal').style.display = "block";
-    document.getElementById("settingsModalContent").style.display = "none";
-    document.getElementById("creditsModalContent").style.display = "block";
 }
 
 // User clicks on <span> (x), close the modal

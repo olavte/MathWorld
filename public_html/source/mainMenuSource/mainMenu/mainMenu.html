@@ -30,26 +30,8 @@ and open the template in the editor.
                    onmousedown="volumeBarClickedDown(changeVolumeOnSound)" 
                    onmouseup="volumeBarClickedUp()">
         </div>
-    </div>
-    
-    <!-- Modal for Credits! -->
-    
-    <div id="creditsModalContent">
-        <span class="closeModal" onclick="exitModal()">&times;</span>
-        <h1>Credits!</h1>
-        <h2>Laget av: </h2>
-        <p>
-            Viana Vafamehr<br>
-            Imma Ulheim<br>
-            Darta Strazdina<br>
-        </p>
-        <h2>Utviklet av: </h2>
-        <p>
-            Olav Telseth<br>
-            Einar Weltan<br>
-            Knut Johan<br>
-            Eivind Michael Myklebust<br>
-        </p>
+
+        <button onclick="resetAllCookies()">Reset all progress</button>
     </div>
 </div>
 
@@ -68,7 +50,7 @@ and open the template in the editor.
         <a onclick="mainMenuSettings()">
             Options
         </a>
-        <a onclick="mainMenuCredits()">
+        <a onclick="goToNewScreen('source/cutsceneSource/endCredits/endCredits.html', 'source/cutsceneSource/endCredits/endCredits.js')">
             Credits
         </a>
     </div>
