@@ -19,7 +19,7 @@ var timerForAlpha = 0;
 
 var startingSceneText = [
     {
-        text: "There  was  once  a  math  teacher",
+        text: "Once  there  was  a  math  teacher",
         x: W/2,
         y: H/2
     },
@@ -29,7 +29,7 @@ var startingSceneText = [
         y: H * (40/100)
     },
     {
-        text: "So  he  tried  to  find  another  way",
+        text: "He  tried  to  find  another  way",
         x: W/2,
         y: H/2
     },
@@ -44,12 +44,12 @@ var startingSceneText = [
         y: H/2
     },
     {
-        text: "He  casted  a  spell",
+        text: "He  cast  the  spell",
         x: W/2,
         y: H/2
     },
     {
-        text: "and  turned  everyone  to..",
+        text: "and  turned  everyone  into..",
         x: W/2,
         y: H/2
     },
@@ -59,12 +59,12 @@ var startingSceneText = [
         y: H/2
     },
     {
-        text: "And  casted  them  away  in  a  portal",
+        text: "And  cast  them  away  in  a  portal",
         x: W/2,
         y: H/2
     },
     {
-        text: "Here  your  story  begins",
+        text: "Here  your  story  begins...",
         x: W/2,
         y: H/2
     }
