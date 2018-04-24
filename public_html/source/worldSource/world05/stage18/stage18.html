@@ -7,34 +7,35 @@ and open the template in the editor.
 <div id="stage02">
     <div id="myModal" class="modal">
         <div id="startModalContent">
-            Ser ut som at der er en romvesen på jakt etter oss!
+            An alien is chasing you!
             <br>
-            Du må samle inn nok magi slik vi kan dra herifra<br>
-            Her skal du ta alle megisirklene som skal rundes ned.
+            You need to collect enough magic to get out of here.<br>
+            Grab all the magic circles that needs to be rounded DOWN!
             <p>
-                Lykke til!!
+                Good Luck!
             </p>
-            <button onclick="setStartGame()">Start!</button>
+            <button onclick="setStartGame()">Start</button>
             <button onclick="goToNewScreen(
                         'source/worldSource/world05/world05.html',
                         'source/worldSource/world05/world05.js')">
-                Exit!
+                Exit
             </button>
         </div>
         <div id="gameOverModalContent">
-            <button onclick="setBeforeGame()">Start!</button>
+            You lost!
+            <button onclick="setBeforeGame()">Restart</button>
             <button onclick="goToNewScreen(
                         'source/worldSource/world05/world05.html',
                         'source/worldSource/world05/world05.js')">
-                Exit!
+                Exit
             </button>
         </div>
         <div id="winModalContent">
-            WIN!!!
+            WIN!
             <button onclick="goToNewScreen(
                         'source/worldSource/world05/world05.html',
                         'source/worldSource/world05/world05.js')">
-                Exit!
+                Exit
             </button>
         </div>
     </div>

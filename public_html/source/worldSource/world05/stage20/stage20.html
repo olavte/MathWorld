@@ -7,35 +7,36 @@ and open the template in the editor.
 <div id="stage02">
     <div id="myModal" class="modal">
         <div id="startModalContent">
-            Hey!! We have to get back to earth and you must drive the spaceship!!
+            We have to get back to earth and you must drive the spaceship!
             <br>
-            OH, NO!! There is a metoritefield in the way!! <br>
+            OH, NO! There is a metorite field in the way! <br>
             I will help you calculate where the meteorite will go. I will say the calculation,
             but after a while I wont be able to give the answer.
             <p>
-                Good luck!!
+                Good luck!
             </p>
-            <button onclick="setStartGame()">Start!</button>
+            <button onclick="setStartGame()">Start</button>
             <button onclick="goToNewScreen(
                         'source/worldSource/world05/world05.html',
                         'source/worldSource/world05/world05.js')">
-                Exit!
+                Exit
             </button>
         </div>
         <div id="gameOverModalContent">
-            <button onclick="setBeforeGame()">Retry</button>
+            You lost!
+            <button onclick="setBeforeGame()">Restart</button>
             <button onclick="goToNewScreen(
                         'source/worldSource/world05/world05.html',
                         'source/worldSource/world05/world05.js')">
-                Exit!
+                Exit
             </button>
         </div>
         <div id="winModalContent">
-            WIN!!!
+            WIN!
             <button onclick="goToNewScreen(
                         'source/worldSource/world05/world05.html',
                         'source/worldSource/world05/world05.js')">
-                Exit!
+                Exit
             </button>
         </div>
     </div>

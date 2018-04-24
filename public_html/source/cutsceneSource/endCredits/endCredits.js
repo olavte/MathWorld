@@ -80,9 +80,9 @@ function draw()
         mathObjects.forEach(function(mathObject) {
             frontCtx.textAlign = "center";
             frontCtx.fillStyle = "rgba(255, 255, 255, 1)";
-            frontCtx.font = "56px chalkboard";
+            frontCtx.font = "48px chalkboard";
             frontCtx.fillText(mathObject.mathNumber, mathObject.mathX, mathObject.mathY
-                - (mathObject.mathH * 2.5));
+                - (mathObject.mathH));
         });
     }
 }

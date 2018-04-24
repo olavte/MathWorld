@@ -262,18 +262,18 @@ function updateGame() {
                    mathObject.mathX = 99999;
                    currentCorrect++;
                    if(isAnswerFloor) {
-                       document.getElementById("questionBox").innerHTML = "floor!.. Score: " + gameScore;
+                       document.getElementById("questionBox").innerHTML = "Round DOWN! Score: " + gameScore;
                    } else {
-                       document.getElementById("questionBox").innerHTML = "roof!.. Score: " + gameScore;
+                       document.getElementById("questionBox").innerHTML = "Round UP! Score: " + gameScore;
                    }
                } else {
                    gameScore--;
                    currentCorrect++;
                    mathObject.mathX = 99999;
                    if(isAnswerFloor) {
-                       document.getElementById("questionBox").innerHTML = "floor!.. Score: " + gameScore;
+                       document.getElementById("questionBox").innerHTML = "Round DOWN! Score: " + gameScore;
                    } else {
-                       document.getElementById("questionBox").innerHTML = "roof!.. Score: " + gameScore;
+                       document.getElementById("questionBox").innerHTML = "Round UP! Score: " + gameScore;
                    }
                }
            } else {
@@ -283,18 +283,18 @@ function updateGame() {
                    mathObject.mathX = 99999;
                    currentCorrect++;
                    if(isAnswerFloor) {
-                       document.getElementById("questionBox").innerHTML = "floor!.. Score: " + gameScore;
+                       document.getElementById("questionBox").innerHTML = "Round DOWN! Score: " + gameScore;
                    } else {
-                       document.getElementById("questionBox").innerHTML = "roof!.. Score: " + gameScore;
+                       document.getElementById("questionBox").innerHTML = "Round UP! Score: " + gameScore;
                    }
                } else {
                    gameScore--;
                    currentCorrect++;
                    mathObject.mathX = 99999;
                    if(isAnswerFloor) {
-                       document.getElementById("questionBox").innerHTML = "floor!.. Score: " + gameScore;
+                       document.getElementById("questionBox").innerHTML = "Round DOWN! Score: " + gameScore;
                    } else {
-                       document.getElementById("questionBox").innerHTML = "roof!.. Score: " + gameScore;
+                       document.getElementById("questionBox").innerHTML = "Round UP! Score: " + gameScore;
                    }
                }
            }
@@ -348,9 +348,9 @@ function restartGame() {
     //Hinder Object
 
     if(isAnswerFloor) {
-        document.getElementById("questionBox").innerHTML = "floor!.. Score: " + gameScore;
+        document.getElementById("questionBox").innerHTML = "Round DOWN! Score: " + gameScore;
     } else {
-        document.getElementById("questionBox").innerHTML = "roof!.. Score: " + gameScore;
+        document.getElementById("questionBox").innerHTML = "Round UP! Score: " + gameScore;
     }
 
     hinder.hinderX = W + ((Math.random() * (W / 2)));
