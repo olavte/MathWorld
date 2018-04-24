@@ -90,6 +90,7 @@ function touchMove(event) {
 window.addEventListener("touchstart", touchStart);
 function touchStart() {
     movePlayer();
+    clearInterval(timer);
     if (timer === 0) {
         timer = setInterval(movePlayer, 20);
     }
